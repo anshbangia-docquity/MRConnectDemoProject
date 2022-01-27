@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="DoctorProfileViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5e-Ku-m0i">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="448-za-1AQ">
+                                        <rect key="frame" x="180" y="66.5" width="54.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="448-za-1AQ" firstAttribute="centerX" secondItem="o5e-Ku-m0i" secondAttribute="centerX" id="1IA-c3-BWd"/>
+                                    <constraint firstAttribute="bottom" secondItem="448-za-1AQ" secondAttribute="bottom" constant="7" id="dgy-sx-tmt"/>
+                                    <constraint firstAttribute="height" constant="100" id="wUg-3h-6Sz"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cR3-gj-xHS">
+                                <rect key="frame" x="132" y="106.5" width="150" height="147.5"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="8R6-zU-2va"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="QLy-Gq-XfX"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="Ue1-n1-BwV"/>
+                                    <constraint firstAttribute="width" constant="150" id="eVV-Y4-QJ4"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2s-Bp-wb9" userLabel="Name">
+                                <rect key="frame" x="180" y="355" width="54" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1c2-QP-UaB" userLabel="Username">
+                                <rect key="frame" x="180" y="457" width="54" height="27"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogI-A0-fVT">
+                                <rect key="frame" x="152" y="709" width="110" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="LOG OUT">
+                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="20"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="logOutPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="SqM-JP-G4d"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="cR3-gj-xHS" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="1QO-EE-TfE"/>
+                            <constraint firstItem="E2s-Bp-wb9" firstAttribute="top" secondItem="cR3-gj-xHS" secondAttribute="bottom" constant="100" id="C9r-an-jE3"/>
+                            <constraint firstAttribute="trailing" secondItem="o5e-Ku-m0i" secondAttribute="trailing" id="EGj-2a-rh2"/>
+                            <constraint firstItem="o5e-Ku-m0i" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="MxK-eq-3tS"/>
+                            <constraint firstItem="ogI-A0-fVT" firstAttribute="top" secondItem="1c2-QP-UaB" secondAttribute="bottom" constant="225" id="NZl-WO-KHj"/>
+                            <constraint firstItem="ogI-A0-fVT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Nu1-9m-OcI"/>
+                            <constraint firstItem="1c2-QP-UaB" firstAttribute="top" secondItem="E2s-Bp-wb9" secondAttribute="bottom" constant="75" id="RsE-43-EFK"/>
+                            <constraint firstItem="o5e-Ku-m0i" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="UGQ-nb-eVa"/>
+                            <constraint firstItem="1c2-QP-UaB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="UGR-yR-heH"/>
+                            <constraint firstItem="cR3-gj-xHS" firstAttribute="top" secondItem="o5e-Ku-m0i" secondAttribute="bottom" constant="5" id="fXR-y6-Nfv"/>
+                            <constraint firstItem="E2s-Bp-wb9" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="iNh-xI-7UC"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" id="6ea-Rd-ydk">
+                        <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="E2s-Bp-wb9" id="OuS-tn-Y8t"/>
+                        <outlet property="titleLabel" destination="448-za-1AQ" id="Dwh-Cb-Pr2"/>
+                        <outlet property="usernameLabel" destination="1c2-QP-UaB" id="fV8-41-g6r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34.782608695652179" y="65.625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
