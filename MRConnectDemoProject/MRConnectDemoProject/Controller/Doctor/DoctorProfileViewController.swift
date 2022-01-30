@@ -15,13 +15,14 @@ class DoctorProfileViewController: UIViewController {
     
     let userDefault = UserDefaultManager.shared.defaults
     let user = Logic.user
+    let speciality = Logic.fetchSpec(with: (Logic.user?.speciality)!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleLabel.text = tabBarItem.title
         nameLabel.text = "Name: \(user?.name ?? "")"
-        usernameLabel.text = "Username: \(user?.email ?? "")"
+        usernameLabel.text = "Speciality: \(speciality)"
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {

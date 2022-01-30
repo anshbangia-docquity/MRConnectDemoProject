@@ -20,8 +20,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var specialityField: UITextField!
     
     var specialityPicker = UIPickerView()
+    var specialities: [String] = []
     
-    //var logic = Logic()
     let userDefault = UserDefaultManager.shared.defaults
     var type = UserType.MRUser
     
@@ -33,6 +33,9 @@ class SignUpViewController: UIViewController {
         specialityPicker.backgroundColor = .white
         
         specialityField.inputView = specialityPicker
+        
+        specialities = Logic.fillSecialities()
+        specialities.append("Other...")
     }
     
     @IBAction func userTypePressed(_ sender: UIButton) {
@@ -76,6 +79,7 @@ class SignUpViewController: UIViewController {
             
             if specialityField.text == "Other..." {
                 showAlert(title: "Specialization missing.", subtitle: "Please enter your specialization.")
+                return
             }
         }
 
@@ -104,7 +108,8 @@ class SignUpViewController: UIViewController {
         if type == .MRUser {
             result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
         } else {
-            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: specialityField.text!)
+            let specId = Logic.fetchSpecId(of: specialityField.text!)
+            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: specId)
         }
         if result == false {
             showAlert(title: "Sign Up unsuccessful.", subtitle: "Try a different email.")
@@ -128,24 +133,24 @@ class SignUpViewController: UIViewController {
 }
 
 extension SignUpViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Logic.specialities.count
+        return specialities.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Logic.specialities[row]
+        return specialities[row]
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        specialityField.text = Logic.specialities[row]
+        specialityField.text = specialities[row]
         specialityField.resignFirstResponder()
     }
-    
+
 }
 
 

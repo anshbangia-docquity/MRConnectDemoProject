@@ -11,10 +11,28 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let context = PersistentStorage.shared.context
+    let userDefault = UserDefaultManager.shared.defaults
+    let specialities = ["Cardiologist", "Dermatologist", "Gynecologist", "Neurologist", "Oncologist", "Pediatrician", "Physician", "Psychiatrist", "Radiologist", "Surgeon"]
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //UITabBar.appearance().barTintColor = .black
+        
+        if userDefault.value(forKey: "numOfSpec") == nil {
+            for i in 0..<(specialities.count) {
+                let newSpeciality = Speciality(context: context)
+                newSpeciality.id = Int16(i)
+                newSpeciality.name = specialities[i]
+                do {
+                    try context.save()
+                } catch {
+                }
+            }
+            userDefault.setValue(specialities.count, forKey: "numOfSpec")
+        }
+        
+        if userDefault.value(forKey: "numOfMed") == nil {
+            userDefault.setValue(0, forKey: "numOfMed")
+        }
         
         return true
     }

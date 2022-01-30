@@ -24,20 +24,11 @@ class LogInViewController: UIViewController {
             let _ = Logic.logIn(email: email, password: password)
             
             if Logic.user?.type == .MRUser {
-                //            let vc = storyboard?.instantiateViewController(identifier: "mrHomeScreen") as! MRHomeViewController
-                //            //vc.user = logic.user
-                //            present(vc, animated: true)
                 performSegue(withIdentifier: "logInMR", sender: self)
             } else {
                 performSegue(withIdentifier: "logInDoctor", sender: self)            }
         }
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "logInDoctor" {
-//            let vc = segue.destination as! DoctorHomeViewController
-//        }
-//    }
 
     @IBAction func logInTapped(_ sender: Any) {
         if emailField.text == "" {

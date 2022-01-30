@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 25/01/22.
+//  Created by Ansh Bangia on 30/01/22.
 //
 //
 
@@ -18,12 +18,12 @@ extension User {
 
     @NSManaged public var contact: String?
     @NSManaged public var email: String?
+    @NSManaged public var license: String?
+    @NSManaged public var mrnumber: String?
     @NSManaged public var name: String?
     @NSManaged public var password: String?
+    @NSManaged public var speciality: Int16
     @NSManaged public var type: UserType
-    @NSManaged public var mrnumber: String?
-    @NSManaged public var speciality: String?
-    @NSManaged public var license: String?
 
 }
 
