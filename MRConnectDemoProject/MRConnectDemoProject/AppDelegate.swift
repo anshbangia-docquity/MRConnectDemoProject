@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let specialities = ["Cardiologist", "Dermatologist", "Gynecologist", "Neurologist", "Oncologist", "Pediatrician", "Physician", "Psychiatrist", "Radiologist", "Surgeon"]
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         if userDefault.value(forKey: "numOfSpec") == nil {
             for i in 0..<(specialities.count) {

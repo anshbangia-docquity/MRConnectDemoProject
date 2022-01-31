@@ -44,6 +44,7 @@
 		01AD579E27A196D600EB47DF /* DoctorProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */; };
 		01AD57A427A1B11200EB47DF /* MRProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD57A327A1B11200EB47DF /* MRProfile.storyboard */; };
 		01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */; };
+		F1B7B7D280F8B2797D177767 /* Pods_MRConnectDemoProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,9 @@
 		01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DoctorProfile.storyboard; sourceTree = "<group>"; };
 		01AD57A327A1B11200EB47DF /* MRProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRProfile.storyboard; sourceTree = "<group>"; };
 		01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRProfileViewController.swift; sourceTree = "<group>"; };
+		36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.release.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.release.xcconfig"; sourceTree = "<group>"; };
+		60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.debug.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.debug.xcconfig"; sourceTree = "<group>"; };
+		80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MRConnectDemoProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1B7B7D280F8B2797D177767 /* Pods_MRConnectDemoProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +109,8 @@
 			children = (
 				0110A88B279E97100023AD4C /* MRConnectDemoProject */,
 				0110A88A279E97100023AD4C /* Products */,
+				124935881EC2D1A9CD0BB59C /* Pods */,
+				0F83BBA7B3960D28754D1CE1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +223,24 @@
 			path = Doctor;
 			sourceTree = "<group>";
 		};
+		0F83BBA7B3960D28754D1CE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		124935881EC2D1A9CD0BB59C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */,
+				36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,9 +248,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0110A8A0279E97150023AD4C /* Build configuration list for PBXNativeTarget "MRConnectDemoProject" */;
 			buildPhases = (
+				37FEAA57837F9751AB525727 /* [CP] Check Pods Manifest.lock */,
 				0110A885279E97100023AD4C /* Sources */,
 				0110A886279E97100023AD4C /* Frameworks */,
 				0110A887279E97100023AD4C /* Resources */,
+				B061E8BFFA1D5B4A9698E894 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -289,6 +316,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		37FEAA57837F9751AB525727 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MRConnectDemoProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B061E8BFFA1D5B4A9698E894 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0110A885279E97100023AD4C /* Sources */ = {
@@ -464,6 +533,7 @@
 		};
 		0110A8A1279E97150023AD4C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -491,6 +561,7 @@
 		};
 		0110A8A2279E97150023AD4C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
