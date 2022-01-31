@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="962" y="-90"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Home View Controller-->
         <scene sceneID="6CM-Ga-xLP">
             <objects>
-                <tabBarController storyboardIdentifier="mrHomeScreen" modalPresentationStyle="fullScreen" id="Rfi-Zg-k5E" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mrHomeScreen" modalPresentationStyle="fullScreen" id="Rfi-Zg-k5E" customClass="MRHomeViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YiO-kD-cD3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -14,7 +14,7 @@ class DoctorMeetingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = tabBarItem.title
+        titleLabel.text = MyStrings.meetings
     }
 
 }

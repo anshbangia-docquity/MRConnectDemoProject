@@ -11,10 +11,15 @@ class MRMeetingsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = "Your \(tabBarItem.title ?? "")"
+        titleLabel.text = MyStrings.meetings
     }
 
 }

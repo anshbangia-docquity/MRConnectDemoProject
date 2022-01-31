@@ -20,7 +20,7 @@ class MRMedicinesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        titleLabel.text = "Your \(tabBarItem.title ?? "")"
+        titleLabel.text = MyStrings.medicines
     }
     
     @IBAction func createPressed(_ sender: UIButton) {

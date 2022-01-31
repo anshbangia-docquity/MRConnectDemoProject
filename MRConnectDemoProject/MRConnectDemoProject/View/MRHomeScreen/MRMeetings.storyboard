@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Meetings-->
+        <!--Meetings View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="MRMeetingsViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -61,7 +61,7 @@
                             <constraint firstItem="Mcz-sc-hrQ" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="cbf-Af-UCc"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Meetings" id="kBg-vG-ShQ">
+                    <tabBarItem key="tabBarItem" title="" id="kBg-vG-ShQ">
                         <imageReference key="image" image="person.3.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

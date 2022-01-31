@@ -14,32 +14,51 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var compositionField: UITextField!
     @IBOutlet weak var priceField: UITextField!
     @IBOutlet weak var formSelector: UISegmentedControl!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var formLabel: UILabel!
+    @IBOutlet weak var createButton: UIButton!
     
     var form = "Capsule"
     var handler: (() -> Void)?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        titleLabel.text = "Create Medicine".localize()
+        nameField.placeholder = "medicine name".localize()
+        companyField.placeholder = MyStrings.company
+        compositionField.placeholder = MyStrings.composition
+        priceField.placeholder = MyStrings.price
+        formLabel.text = MyStrings.form
+        formSelector.setTitle(MyStrings.capsule, forSegmentAt: 0)
+        formSelector.setTitle(MyStrings.tablet, forSegmentAt: 1)
+        formSelector.setTitle(MyStrings.syrup, forSegmentAt: 2)
+        formSelector.setTitle(MyStrings.injection, forSegmentAt: 3)
+        createButton.setTitle("Create".localize(), for: .normal)
+    }
+    
     @IBAction func createPressed(_ sender: UIButton) {
         if nameField.text == "" {
-            showAlert(emptyField: "Medicine Name")
+            showAlert(emptyField: nameField.placeholder!)
             return
         }
         if companyField.text == "" {
-            showAlert(emptyField: "Company")
+            showAlert(emptyField: companyField.placeholder!)
             return
         }
         if compositionField.text == "" {
-            showAlert(emptyField: "Composition")
+            showAlert(emptyField: compositionField.placeholder!)
             return
         }
         if priceField.text == "" {
-            showAlert(emptyField: "Price")
+            showAlert(emptyField: priceField.placeholder!)
             return
         }
         
         let result = Logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: companyField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
         
         if result == false {
-            showAlert(title: "Medicine was not created successfully.", subtitle: "Please try again.")
+            showAlert(title: "Medicine was not created successfully.".localize(), subtitle: "Please try again.".localize())
             return
         }
         
