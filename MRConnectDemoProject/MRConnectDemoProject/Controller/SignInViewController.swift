@@ -17,16 +17,14 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var mrButton: UIButton!
     @IBOutlet weak var doctorButton: UIButton!
     @IBOutlet weak var numberField: UITextField!
-    @IBOutlet weak var specialityField: UITextField!
+    @IBOutlet weak var specialityButton: UIButton!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var userTypeLabel: UILabel!
     @IBOutlet weak var signupButton: UIButton!
-    
-    var specialityPicker = UIPickerView()
-    var specialities: [String] = []
-    
+        
     let userDefault = UserDefaultManager.shared.defaults
     var type = UserType.MRUser
+    var chosenSpec: Int16 = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,21 +35,12 @@ class SignUpViewController: UIViewController {
         doctorButton.setTitle(MyStrings.doctor, for: .normal)
         nameField.placeholder = MyStrings.name
         contactField.placeholder = MyStrings.contact
-        specialityField.placeholder = MyStrings.specialization
+        specialityButton.setTitle(MyStrings.specialization, for: .normal)
         emailField.placeholder = MyStrings.email
         passField.placeholder = MyStrings.password
         confirmPassField.placeholder = MyStrings.confirmPass
         signupButton.setTitle(MyStrings.signup, for: .normal)
         numberField.placeholder = MyStrings.licenseNumber
-        
-        specialityPicker.dataSource = self
-        specialityPicker.delegate = self
-        specialityPicker.backgroundColor = .white
-        
-        specialityField.inputView = specialityPicker
-        
-        specialities = Logic.fillSecialities()
-        specialities.append("Other...".localize())
     }
     
     @IBAction func userTypePressed(_ sender: UIButton) {
@@ -63,11 +52,11 @@ class SignUpViewController: UIViewController {
         case MyStrings.mr:
             type = .MRUser
             numberField.placeholder = MyStrings.licenseNumber
-            specialityField.isHidden = true
+            specialityButton.isHidden = true
         default:
             type = .Doctor
             numberField.placeholder = MyStrings.mrNumber
-            specialityField.isHidden = false
+            specialityButton.isHidden = false
         }
     }
     
@@ -88,12 +77,7 @@ class SignUpViewController: UIViewController {
         }
         
         if type == .Doctor {
-            if specialityField.text == "" {
-                showAlert(emptyField: MyStrings.specialization)
-                return
-            }
-            
-            if specialityField.text == "Other...".localize() {
+            if chosenSpec == -1 {
                 showAlert(emptyField: MyStrings.specialization)
                 return
             }
@@ -124,8 +108,7 @@ class SignUpViewController: UIViewController {
         if type == .MRUser {
             result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
         } else {
-            let specId = Logic.fetchSpecId(of: specialityField.text!)
-            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: specId)
+            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: chosenSpec)
         }
         if result == false {
             showAlert(title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
@@ -148,26 +131,26 @@ class SignUpViewController: UIViewController {
     
 }
 
-extension SignUpViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return specialities.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return specialities[row]
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        specialityField.text = specialities[row]
-        specialityField.resignFirstResponder()
-    }
-
-}
+//extension SignUpViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return specialities.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return specialities[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        specialityField.text = specialities[row]
+//        specialityField.resignFirstResponder()
+//    }
+//
+//}
 
 
 

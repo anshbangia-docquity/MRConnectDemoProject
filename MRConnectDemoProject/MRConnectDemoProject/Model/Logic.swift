@@ -14,6 +14,18 @@ struct Logic {
     static let userDefault = UserDefaultManager.shared.defaults
     static var user: User? = nil
     static let medForm: [Int16:String] = [0:MyStrings.capsule, 1:MyStrings.tablet, 2:MyStrings.syrup, 3:MyStrings.injection]
+    static let specialities: [Int16:String] = [
+        0:MyStrings.cardiologist,
+        1:MyStrings.dermatologist,
+        2:MyStrings.gynecologist,
+        3:MyStrings.neurologist,
+        4:MyStrings.oncologist,
+        5:MyStrings.pediatrician,
+        6:MyStrings.physician,
+        7:MyStrings.psychiatrist,
+        8:MyStrings.radiologist,
+        9:MyStrings.surgeon
+    ]
     
     static func logIn(email: String, password: String) -> Bool {
         let resultUser = fetchUser(email: email)
@@ -123,51 +135,51 @@ struct Logic {
         return result
     }
     
-    static func fetchSpecId(of speciality: String) -> Int16 {
-        var result: [Speciality] = []
-        do {
-            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-            let pred = NSPredicate(format: "name == %@", speciality)
-            request.predicate = pred
-            
-            result = try context.fetch(request)
-        } catch {}
-        
-        if result.count == 0 {
-            var num = userDefault.value(forKey: "numOfSpec") as! Int16
-            let newSpec = Speciality(context: context)
-            newSpec.id = num
-            newSpec.name = speciality
-            do {
-                try context.save()
-            } catch {
-            }
-            
-            num += Int16(1)
-            userDefault.setValue(num, forKey: "numOfSpec")
-            
-            return newSpec.id
-        } else {
-            return result[0].id
-        }
-    }
+//    static func fetchSpecId(of speciality: String) -> Int16 {
+//        var result: [Speciality] = []
+//        do {
+//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
+//            let pred = NSPredicate(format: "name == %@", speciality)
+//            request.predicate = pred
+//
+//            result = try context.fetch(request)
+//        } catch {}
+//
+//        if result.count == 0 {
+//            var num = userDefault.value(forKey: "numOfSpec") as! Int16
+//            let newSpec = Speciality(context: context)
+//            newSpec.id = num
+//            newSpec.name = speciality
+//            do {
+//                try context.save()
+//            } catch {
+//            }
+//
+//            num += Int16(1)
+//            userDefault.setValue(num, forKey: "numOfSpec")
+//
+//            return newSpec.id
+//        } else {
+//            return result[0].id
+//        }
+//    }
     
-    static func fillSecialities() -> [String] {
-        var result: [Speciality] = []
-        do {
-            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-            let sort = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors = [sort]
-            
-            result = try context.fetch(request)
-        } catch {}
-        
-        var str: [String] = []
-        for i in result {
-            str.append("\(i.name!)")
-        }
-        return str
-    }
+//    static func fillSecialities() -> [String] {
+//        var result: [Speciality] = []
+//        do {
+//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
+//            let sort = NSSortDescriptor(key: "name", ascending: true)
+//            request.sortDescriptors = [sort]
+//
+//            result = try context.fetch(request)
+//        } catch {}
+//
+//        var str: [String] = []
+//        for i in result {
+//            str.append("\(i.name!)")
+//        }
+//        return str
+//    }
     
     static func fetchMedicines() -> [Medicine] {
         var result: [Medicine] = []
@@ -184,18 +196,18 @@ struct Logic {
         return result
     }
     
-    static func fetchSpec(with id: Int16) -> String {
-        var result: [Speciality] = []
-        do {
-            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-            let pred = NSPredicate(format: "id == %d", id)
-            request.predicate = pred
-            
-            result = try context.fetch(request)
-        } catch {}
-        
-        return result[0].name!
-    }
+//    static func fetchSpec(with id: Int16) -> String {
+//        var result: [Speciality] = []
+//        do {
+//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
+//            let pred = NSPredicate(format: "id == %d", id)
+//            request.predicate = pred
+//
+//            result = try context.fetch(request)
+//        } catch {}
+//
+//        return result[0].name!
+//    }
     
 }
 

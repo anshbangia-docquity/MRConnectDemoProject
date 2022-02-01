@@ -9,10 +9,6 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Speciality" representedClassName=".Speciality" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-    </entity>
     <entity name="User" representedClassName=".User" syncable="YES">
         <attribute name="contact" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
@@ -25,7 +21,6 @@
     </entity>
     <elements>
         <element name="Medicine" positionX="-45" positionY="63" width="128" height="134"/>
-        <element name="Speciality" positionX="-63" positionY="45" width="128" height="59"/>
         <element name="User" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

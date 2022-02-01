@@ -45,5 +45,14 @@
 "The |#X#| field cannot be empty." = "Le champ |#X#| ne peut pas être vide.";
 "Please fill your |#X#|." = "Veuillez remplir votre |#X#|.";
 "Company: |#X#|" = "Entreprise: |#X#|";
-
+"Cardiologist" = "Cardiologue";
+"Dermatologist" = "Dermatologue";
+"Gynecologist" = "Gynécologue";
+"Neurologist" = "Neurologue";
+"Oncologist" = "Oncologiste";
+"Pediatrician" = "Pédiatre";
+"Physician" = "Médecin";
+"Psychiatrist" = "Psychiatre";
+"Radiologist" = "Radiologue";
+"Surgeon" = "Chirurgien";
 
