@@ -18,23 +18,24 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var formLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
     
-    var form = "Capsule"
+    var form: Int16 = 0
     var handler: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = "Create Medicine".localize()
-        nameField.placeholder = "medicine name".localize()
+        titleLabel.text = MyStrings.createMed
+        nameField.placeholder = MyStrings.medName
         companyField.placeholder = MyStrings.company
         compositionField.placeholder = MyStrings.composition
         priceField.placeholder = MyStrings.price
         formLabel.text = MyStrings.form
-        formSelector.setTitle(MyStrings.capsule, forSegmentAt: 0)
-        formSelector.setTitle(MyStrings.tablet, forSegmentAt: 1)
-        formSelector.setTitle(MyStrings.syrup, forSegmentAt: 2)
-        formSelector.setTitle(MyStrings.injection, forSegmentAt: 3)
-        createButton.setTitle("Create".localize(), for: .normal)
+        
+        for i in 0...3 {
+            formSelector.setTitle(Logic.medForm[Int16(i)], forSegmentAt: i)
+        }
+        
+        createButton.setTitle(MyStrings.create, for: .normal)
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
@@ -58,7 +59,7 @@ class MRCreateMedicineViewController: UIViewController {
         let result = Logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: companyField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
         
         if result == false {
-            showAlert(title: "Medicine was not created successfully.".localize(), subtitle: "Please try again.".localize())
+            showAlert(title: MyStrings.medCreateUnsuccess, subtitle: MyStrings.tryAgain)
             return
         }
         
@@ -67,13 +68,12 @@ class MRCreateMedicineViewController: UIViewController {
     }
     
     @IBAction func formTapped(_ sender: UISegmentedControl) {
-        form = sender.titleForSegment(at: sender.selectedSegmentIndex)!
+        form = Int16(sender.selectedSegmentIndex)
     }
     
     func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: "The \(emptyField) field cannot be empty.", subtitle: "Please fill your \(emptyField)."), animated: true, completion: nil)
+        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
-    
     func showAlert(title: String, subtitle: String) {
         self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
     }

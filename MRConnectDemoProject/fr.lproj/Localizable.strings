@@ -42,4 +42,8 @@
 "Medicine was not created successfully." = "La médecine n'a pas été créée avec succès.";
 "Please try again." = "Veuillez réessayer.";
 "Done" = "Fait";
+"The |#X#| field cannot be empty." = "Le champ |#X#| ne peut pas être vide.";
+"Please fill your |#X#|." = "Veuillez remplir votre |#X#|.";
+"Company: |#X#|" = "Entreprise: |#X#|";
+
 
