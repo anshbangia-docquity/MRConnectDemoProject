@@ -69,5 +69,7 @@ struct MyStrings {
     static let psychiatrist = "Psychiatrist".localize()
     static let radiologist = "Radiologist".localize()
     static let surgeon = "Surgeon".localize()
+    static let done = "Done".localize()
+    static let chooseSpec = "Choose your Specialization".localize()
     
 }

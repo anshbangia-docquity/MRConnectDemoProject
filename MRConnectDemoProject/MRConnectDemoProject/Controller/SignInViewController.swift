@@ -24,16 +24,17 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
         
     let userDefault = UserDefaultManager.shared.defaults
     var type = UserType.MRUser
-    var chosenSpec: Int16 = -1
     
     lazy var specPicker = SpecPicker()
     
     func doneTapped(_ specPicker: SpecPicker) {
-        print("Hello")
         specPicker.boardManager?.dismissBulletin()
+        specialityButton.setTitleColor(.black, for: .normal)
+        specialityButton.setTitle(Logic.specialities[Logic.seletedSpec], for: .normal)
     }
     
     @IBAction func specButtonPressed(_ sender: UIButton) {
+        Logic.seletedSpec = 0
         specPicker.boardManager?.showBulletin(above: self)
     }
     
@@ -91,7 +92,7 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
         }
         
         if type == .Doctor {
-            if chosenSpec == -1 {
+            if Logic.seletedSpec == -1 {
                 showAlert(emptyField: MyStrings.specialization)
                 return
             }
@@ -122,7 +123,7 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
         if type == .MRUser {
             result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
         } else {
-            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: chosenSpec)
+            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: Logic.seletedSpec)
         }
         if result == false {
             showAlert(title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)

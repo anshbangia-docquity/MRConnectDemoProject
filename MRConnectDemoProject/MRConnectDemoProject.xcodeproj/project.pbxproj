@@ -180,9 +180,9 @@
 			children = (
 				0110A8B3279E998A0023AD4C /* LogInViewController.swift */,
 				0110A8E3279ED6110023AD4C /* SignInViewController.swift */,
+				0105AD9727A92E8400607DCF /* SpecPicker.swift */,
 				01AD578827A1167600EB47DF /* MR */,
 				01AD578E27A1206500EB47DF /* Doctor */,
-				0105AD9727A92E8400607DCF /* SpecPicker.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

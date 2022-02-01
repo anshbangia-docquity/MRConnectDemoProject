@@ -22,7 +22,7 @@ class DoctorProfileViewController: UIViewController {
         
         titleLabel.text = MyStrings.profile
         nameLabel.text = "Name: \(user?.name ?? "")"
-        usernameLabel.text = "Speciality: NA"
+        usernameLabel.text = "Speciality: \(Logic.specialities[user!.speciality] ?? "NA")"
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {

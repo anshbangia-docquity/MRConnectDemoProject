@@ -26,6 +26,7 @@ struct Logic {
         8:MyStrings.radiologist,
         9:MyStrings.surgeon
     ]
+    static var seletedSpec: Int16 = -1
     
     static func logIn(email: String, password: String) -> Bool {
         let resultUser = fetchUser(email: email)

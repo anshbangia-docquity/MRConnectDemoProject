@@ -30,6 +30,10 @@ import BLTNBoard
         return Logic.specialities[Int16(row)]
     }
     
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        Logic.seletedSpec = Int16(row)
+    }
+    
 }
 
 protocol SpecPickerDelegate {
@@ -42,9 +46,9 @@ class SpecPicker {
     var delegate: SpecPickerDelegate?
     
     func define() {
-        let item = PickerViewBLTNItem(title: "Specialization")
-        item.actionButtonTitle = "Done"
-        item.descriptionText = "Choose your Specialization"
+        let item = PickerViewBLTNItem(title: MyStrings.specialization)
+        item.actionButtonTitle = MyStrings.done
+        item.descriptionText = MyStrings.chooseSpec
         item.appearance.actionButtonColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
         item.appearance.actionButtonTitleColor = .black
         item.appearance.titleFontSize = 25

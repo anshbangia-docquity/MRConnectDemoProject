@@ -46,7 +46,7 @@ extension MRDoctorsViewController: UITableViewDataSource {
         let doctor = doctors[indexPath.row]
         //let spec = Logic.fetchSpec(with: doctor.speciality)
         cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = "NA"
+        cell.specLabel.text = Logic.specialities[doctor.speciality]
         
         return cell
     }
