@@ -2,7 +2,7 @@
 //  Medicine+CoreDataProperties.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 30/01/22.
+//  Created by Ansh Bangia on 01/02/22.
 //
 //
 
@@ -19,7 +19,7 @@ extension Medicine {
     @NSManaged public var company: String?
     @NSManaged public var composition: String?
     @NSManaged public var creator: String?
-    @NSManaged public var form: String?
+    @NSManaged public var form: Int16
     @NSManaged public var id: Int16
     @NSManaged public var name: String?
     @NSManaged public var price: Float

@@ -31,9 +31,8 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navItem.title = "Sign Up".localize()
-        userTypeLabel.text = "User Type".localize()
-        //userTypeLabel.numberOfLines = 2
+        navItem.title = MyStrings.signup
+        userTypeLabel.text = MyStrings.usertype
         mrButton.setTitle(MyStrings.mr, for: .normal)
         doctorButton.setTitle(MyStrings.doctor, for: .normal)
         nameField.placeholder = MyStrings.name
@@ -41,9 +40,9 @@ class SignUpViewController: UIViewController {
         specialityField.placeholder = MyStrings.specialization
         emailField.placeholder = MyStrings.email
         passField.placeholder = MyStrings.password
-        confirmPassField.placeholder = "confirm password".localize()
-        signupButton.setTitle("Sign Up".localize(), for: .normal)
-        numberField.placeholder = "license number".localize()
+        confirmPassField.placeholder = MyStrings.confirmPass
+        signupButton.setTitle(MyStrings.signup, for: .normal)
+        numberField.placeholder = MyStrings.licenseNumber
         
         specialityPicker.dataSource = self
         specialityPicker.delegate = self
@@ -61,13 +60,13 @@ class SignUpViewController: UIViewController {
         
         sender.isSelected = true
         switch sender.currentTitle {
-        case "MR".localize():
+        case MyStrings.mr:
             type = .MRUser
-            numberField.placeholder = "license number".localize()
+            numberField.placeholder = MyStrings.licenseNumber
             specialityField.isHidden = true
         default:
             type = .Doctor
-            numberField.placeholder = "MR number".localize()
+            numberField.placeholder = MyStrings.mrNumber
             specialityField.isHidden = false
         }
     }
@@ -95,7 +94,7 @@ class SignUpViewController: UIViewController {
             }
             
             if specialityField.text == "Other...".localize() {
-                showAlert(title: "Specialization missing.".localize(), subtitle: "Please enter your specialization.".localize())
+                showAlert(emptyField: MyStrings.specialization)
                 return
             }
         }
@@ -108,16 +107,16 @@ class SignUpViewController: UIViewController {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         if emailPred.evaluate(with: emailField.text) == false {
-            showAlert(title: "Invalid Email.".localize(), subtitle: "Please enter a valid email address.".localize())
+            showAlert(title: MyStrings.invalidEmail, subtitle: MyStrings.enterValidEmail)
             return
         }
         
         if passField.text!.count < 6 {
-            showAlert(title: "Password needs to be atleast 6 characters long.".localize(), subtitle: "Enter atleast 6 characters.".localize())
+            showAlert(title: MyStrings.passNeeds6Char, subtitle: MyStrings.enter6Char)
             return
         }
         if confirmPassField.text != passField.text {
-            showAlert(title: "Confirmed Password does not match.".localize(), subtitle: "Re-eneter confirmed password.".localize())
+            showAlert(title: MyStrings.confirmPassNotMatch, subtitle: MyStrings.reenterConfirmPass)
             return
         }
     
@@ -129,7 +128,7 @@ class SignUpViewController: UIViewController {
             result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: specId)
         }
         if result == false {
-            showAlert(title: "Sign Up unsuccessful.".localize(), subtitle: "Try a different email.".localize())
+            showAlert(title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
             return
         }
         
@@ -144,7 +143,7 @@ class SignUpViewController: UIViewController {
     }
     
     func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: "The \(emptyField) field cannot be empty.", subtitle: "Please fill your \(emptyField)."), animated: true, completion: nil)
+        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
     
 }

@@ -21,8 +21,8 @@ class LogInViewController: UIViewController {
         
         emailField.placeholder = MyStrings.email
         passwordField.placeholder = MyStrings.password
-        loginButton.setTitle("LOG IN".localize(), for: .normal)
-        signupButton.setTitle("New User? SIGN UP".localize(), for: .normal)
+        loginButton.setTitle(MyStrings.loginUpperCase, for: .normal)
+        signupButton.setTitle(MyStrings.newUserSignUp, for: .normal)
         
         
         let gradientLayer = setGradientBackground()
@@ -51,7 +51,7 @@ class LogInViewController: UIViewController {
         
         let result = Logic.logIn(email: emailField.text!, password: passwordField.text!)
         if result == false {
-            showAlert(title: "Invalid Email or Password.".localize(), subtitle: "Please check your credentials.".localize())
+            showAlert(title: MyStrings.invalidEmailOrPass, subtitle: MyStrings.checkCredentials)
             return
         }
         
@@ -69,7 +69,7 @@ class LogInViewController: UIViewController {
     }
     
     func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: "The \(emptyField) field cannot be empty.", subtitle: "Please fill your \(emptyField)."), animated: true, completion: nil)
+        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
     
 }

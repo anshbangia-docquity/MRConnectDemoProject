@@ -2,7 +2,7 @@
 //  User+CoreDataClass.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 30/01/22.
+//  Created by Ansh Bangia on 01/02/22.
 //
 //
 

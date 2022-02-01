@@ -4,7 +4,7 @@
         <attribute name="company" optional="YES" attributeType="String"/>
         <attribute name="composition" optional="YES" attributeType="String"/>
         <attribute name="creator" optional="YES" attributeType="String"/>
-        <attribute name="form" attributeType="String"/>
+        <attribute name="form" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>

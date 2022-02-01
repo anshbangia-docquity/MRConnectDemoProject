@@ -62,7 +62,7 @@ extension MRMedicinesViewController: UITableViewDataSource {
         
         let medicine = medicines[indexPath.row]
         cell.medicineNameLabel.text = "\(medicine.name!)"
-        cell.companyLabel.text = "Company: \(medicine.company!)"
+        cell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
         
         return cell
     }

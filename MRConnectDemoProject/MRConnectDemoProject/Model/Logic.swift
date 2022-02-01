@@ -13,6 +13,7 @@ struct Logic {
     static let context = PersistentStorage.shared.context
     static let userDefault = UserDefaultManager.shared.defaults
     static var user: User? = nil
+    static let medForm: [Int16:String] = [0:MyStrings.capsule, 1:MyStrings.tablet, 2:MyStrings.syrup, 3:MyStrings.injection]
     
     static func logIn(email: String, password: String) -> Bool {
         let resultUser = fetchUser(email: email)
@@ -70,7 +71,7 @@ struct Logic {
         return true
     }
     
-    static func createMedicine(name: String, company: String, composition: String, price: Float, form: String) -> Bool {
+    static func createMedicine(name: String, company: String, composition: String, price: Float, form: Int16) -> Bool {
         let newMed = Medicine(context: context)
         newMed.name = name
         newMed.company = company
