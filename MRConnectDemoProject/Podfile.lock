@@ -1,16 +1,20 @@
 PODS:
+  - BulletinBoard (5.0.0)
   - IQKeyboardManagerSwift (6.5.9)
 
 DEPENDENCIES:
+  - BulletinBoard
   - IQKeyboardManagerSwift
 
 SPEC REPOS:
   trunk:
+    - BulletinBoard
     - IQKeyboardManagerSwift
 
 SPEC CHECKSUMS:
+  BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
 
-PODFILE CHECKSUM: 1d167610cbbcdfdf51e0d202118d422c67c1d98d
+PODFILE CHECKSUM: ba40e5ce1ce579816636ff9f7c4dd4b38ac5fd50
 
 COCOAPODS: 1.11.2

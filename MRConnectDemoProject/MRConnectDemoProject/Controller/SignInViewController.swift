@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, SpecPickerDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var contactField: UITextField!
@@ -26,8 +26,22 @@ class SignUpViewController: UIViewController {
     var type = UserType.MRUser
     var chosenSpec: Int16 = -1
     
+    lazy var specPicker = SpecPicker()
+    
+    func doneTapped(_ specPicker: SpecPicker) {
+        print("Hello")
+        specPicker.boardManager?.dismissBulletin()
+    }
+    
+    @IBAction func specButtonPressed(_ sender: UIButton) {
+        specPicker.boardManager?.showBulletin(above: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        specPicker.define()
+        specPicker.delegate = self
         
         navItem.title = MyStrings.signup
         userTypeLabel.text = MyStrings.usertype

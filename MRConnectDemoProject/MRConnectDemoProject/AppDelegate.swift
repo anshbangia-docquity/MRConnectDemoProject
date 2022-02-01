@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import BLTNBoard
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

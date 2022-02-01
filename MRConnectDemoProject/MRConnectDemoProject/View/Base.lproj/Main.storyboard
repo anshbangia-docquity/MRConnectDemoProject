@@ -245,6 +245,9 @@
                                                     <color key="baseForegroundColor" systemColor="systemGray3Color"/>
                                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="specButtonPressed:" destination="piq-BF-LfW" eventType="touchUpInside" id="CLI-nX-w8W"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H7l-za-nIV">
                                                 <rect key="frame" x="0.0" y="284" width="250" height="34"/>
