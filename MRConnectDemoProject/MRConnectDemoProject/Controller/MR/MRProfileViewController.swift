@@ -19,7 +19,7 @@ class MRProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = "Your \(tabBarItem.title ?? "")"
+        titleLabel.text = MyStrings.profile
         nameLabel.text = "Name: \(user?.name ?? "")"
         usernameLabel.text = "Username: \(user?.email ?? "")"
     }

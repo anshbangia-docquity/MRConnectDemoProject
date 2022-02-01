@@ -256,9 +256,12 @@
                     <connections>
                         <outlet property="companyField" destination="JNN-03-4G9" id="Im1-4a-8FX"/>
                         <outlet property="compositionField" destination="El9-d3-wD1" id="bAZ-y5-EjW"/>
+                        <outlet property="createButton" destination="75i-EZ-JFO" id="q1y-WB-GeJ"/>
+                        <outlet property="formLabel" destination="WNy-WF-c3B" id="HEJ-tT-G1S"/>
                         <outlet property="formSelector" destination="mca-gt-8c3" id="TLi-PN-sM4"/>
                         <outlet property="nameField" destination="46a-Ke-g5Y" id="2B4-Ht-f32"/>
                         <outlet property="priceField" destination="HPK-KC-Yf7" id="YyB-mh-tpn"/>
+                        <outlet property="titleLabel" destination="qhY-wh-PSc" id="dOg-hQ-kK1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xu2-tV-C6Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

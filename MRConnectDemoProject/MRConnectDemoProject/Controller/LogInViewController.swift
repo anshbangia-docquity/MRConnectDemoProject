@@ -11,11 +11,20 @@ class LogInViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signupButton: UIButton!
+    
     let userDefault = UserDefaultManager.shared.defaults
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        emailField.placeholder = MyStrings.email
+        passwordField.placeholder = MyStrings.password
+        loginButton.setTitle("LOG IN".localize(), for: .normal)
+        signupButton.setTitle("New User? SIGN UP".localize(), for: .normal)
+        
+        
         let gradientLayer = setGradientBackground()
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at:0)
@@ -32,17 +41,17 @@ class LogInViewController: UIViewController {
 
     @IBAction func logInTapped(_ sender: Any) {
         if emailField.text == "" {
-            showAlert(emptyField: "Email")
+            showAlert(emptyField: MyStrings.email)
             return
         }
         if passwordField.text == "" {
-            showAlert(emptyField: "Password")
+            showAlert(emptyField: MyStrings.password)
             return
         }
         
         let result = Logic.logIn(email: emailField.text!, password: passwordField.text!)
         if result == false {
-            showAlert(title: "Invalid Email or Password.", subtitle: "Please check your credentials.")
+            showAlert(title: "Invalid Email or Password.".localize(), subtitle: "Please check your credentials.".localize())
             return
         }
         

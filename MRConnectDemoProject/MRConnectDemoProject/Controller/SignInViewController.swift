@@ -18,6 +18,9 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var doctorButton: UIButton!
     @IBOutlet weak var numberField: UITextField!
     @IBOutlet weak var specialityField: UITextField!
+    @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var userTypeLabel: UILabel!
+    @IBOutlet weak var signupButton: UIButton!
     
     var specialityPicker = UIPickerView()
     var specialities: [String] = []
@@ -28,6 +31,20 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navItem.title = "Sign Up".localize()
+        userTypeLabel.text = "User Type".localize()
+        //userTypeLabel.numberOfLines = 2
+        mrButton.setTitle(MyStrings.mr, for: .normal)
+        doctorButton.setTitle(MyStrings.doctor, for: .normal)
+        nameField.placeholder = MyStrings.name
+        contactField.placeholder = MyStrings.contact
+        specialityField.placeholder = MyStrings.specialization
+        emailField.placeholder = MyStrings.email
+        passField.placeholder = MyStrings.password
+        confirmPassField.placeholder = "confirm password".localize()
+        signupButton.setTitle("Sign Up".localize(), for: .normal)
+        numberField.placeholder = "license number".localize()
+        
         specialityPicker.dataSource = self
         specialityPicker.delegate = self
         specialityPicker.backgroundColor = .white
@@ -35,7 +52,7 @@ class SignUpViewController: UIViewController {
         specialityField.inputView = specialityPicker
         
         specialities = Logic.fillSecialities()
-        specialities.append("Other...")
+        specialities.append("Other...".localize())
     }
     
     @IBAction func userTypePressed(_ sender: UIButton) {
@@ -44,25 +61,25 @@ class SignUpViewController: UIViewController {
         
         sender.isSelected = true
         switch sender.currentTitle {
-        case "MR":
+        case "MR".localize():
             type = .MRUser
-            numberField.placeholder = "license number"
+            numberField.placeholder = "license number".localize()
             specialityField.isHidden = true
         default:
             type = .Doctor
-            numberField.placeholder = "MR number"
+            numberField.placeholder = "MR number".localize()
             specialityField.isHidden = false
         }
     }
     
     @IBAction func signUpTapped(_ sender: Any) {
         if nameField.text == "" {
-            showAlert(emptyField: "Name")
+            showAlert(emptyField: MyStrings.name)
             return
         }
         
         if contactField.text == "" {
-            showAlert(emptyField: "Contact")
+            showAlert(emptyField: MyStrings.contact)
             return
         }
         
@@ -73,34 +90,34 @@ class SignUpViewController: UIViewController {
         
         if type == .Doctor {
             if specialityField.text == "" {
-                showAlert(emptyField: "Specialization")
+                showAlert(emptyField: MyStrings.specialization)
                 return
             }
             
-            if specialityField.text == "Other..." {
-                showAlert(title: "Specialization missing.", subtitle: "Please enter your specialization.")
+            if specialityField.text == "Other...".localize() {
+                showAlert(title: "Specialization missing.".localize(), subtitle: "Please enter your specialization.".localize())
                 return
             }
         }
 
         if emailField.text == "" {
-            showAlert(emptyField: "Email")
+            showAlert(emptyField: MyStrings.email)
             return
         }
                         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         if emailPred.evaluate(with: emailField.text) == false {
-            showAlert(title: "Invalid Email.", subtitle: "Please enter a valid email address.")
+            showAlert(title: "Invalid Email.".localize(), subtitle: "Please enter a valid email address.".localize())
             return
         }
         
         if passField.text!.count < 6 {
-            showAlert(title: "Password needs to be atleast 6 characters long.", subtitle: "Enter atleast 6 characters.")
+            showAlert(title: "Password needs to be atleast 6 characters long.".localize(), subtitle: "Enter atleast 6 characters.".localize())
             return
         }
         if confirmPassField.text != passField.text {
-            showAlert(title: "Confirmed Password does not match.", subtitle: "Re-eneter confirmed password.")
+            showAlert(title: "Confirmed Password does not match.".localize(), subtitle: "Re-eneter confirmed password.".localize())
             return
         }
     
@@ -112,7 +129,7 @@ class SignUpViewController: UIViewController {
             result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: specId)
         }
         if result == false {
-            showAlert(title: "Sign Up unsuccessful.", subtitle: "Try a different email.")
+            showAlert(title: "Sign Up unsuccessful.".localize(), subtitle: "Try a different email.".localize())
             return
         }
         

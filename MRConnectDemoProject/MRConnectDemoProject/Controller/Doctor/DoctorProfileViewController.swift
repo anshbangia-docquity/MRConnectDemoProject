@@ -20,7 +20,7 @@ class DoctorProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = tabBarItem.title
+        titleLabel.text = MyStrings.profile
         nameLabel.text = "Name: \(user?.name ?? "")"
         usernameLabel.text = "Speciality: \(speciality)"
     }

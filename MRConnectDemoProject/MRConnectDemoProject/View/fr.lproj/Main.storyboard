@@ -142,9 +142,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emailField" destination="qhP-aq-ikf" id="4pB-AE-c7I"/>
-                        <outlet property="loginButton" destination="dSo-vs-Lue" id="iQE-sK-s9b"/>
                         <outlet property="passwordField" destination="2qu-a7-yrd" id="Car-fI-zHo"/>
-                        <outlet property="signupButton" destination="7nH-64-QQv" id="TXh-JE-htN"/>
                         <segue destination="qUR-Sd-ZtR" kind="presentation" identifier="logInMR" id="wjX-Ij-6M5"/>
                         <segue destination="sBO-ih-i0T" kind="presentation" identifier="logInDoctor" id="GC3-ce-cLo"/>
                     </connections>
@@ -177,7 +175,7 @@
                                                                 <rect key="frame" x="0.0" y="2" width="93.333333333333329" height="37.666666666666671"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Type" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="khn-AV-mzo">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Type" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khn-AV-mzo">
                                                                 <rect key="frame" x="0.0" y="41" width="93.333333333333329" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19" id="Hse-RO-ANr"/>
@@ -302,12 +300,9 @@
                         <outlet property="emailField" destination="H7l-za-nIV" id="iyY-Qe-5sb"/>
                         <outlet property="mrButton" destination="wWl-ZM-GiK" id="arG-QO-eW2"/>
                         <outlet property="nameField" destination="hQC-cz-EZy" id="jJb-tC-qwV"/>
-                        <outlet property="navItem" destination="7Lb-KO-0vq" id="PN5-xd-TMj"/>
                         <outlet property="numberField" destination="9wd-of-zLq" id="QXQ-dy-PRz"/>
                         <outlet property="passField" destination="4y0-ii-EqB" id="nDG-ht-Tan"/>
-                        <outlet property="signupButton" destination="P7o-rv-yKW" id="dIG-Ux-sga"/>
                         <outlet property="specialityField" destination="pDv-jc-CyE" id="lY5-xv-biF"/>
-                        <outlet property="userTypeLabel" destination="khn-AV-mzo" id="luJ-sH-Pxu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nwt-gW-MvL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

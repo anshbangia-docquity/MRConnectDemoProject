@@ -21,6 +21,10 @@
 		0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */; };
 		0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8BB279E9A800023AD4C /* Gradient.swift */; };
 		0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8E3279ED6110023AD4C /* SignInViewController.swift */; };
+		011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 011C9C5F27A8062C00B02D02 /* Localizable.strings */; };
+		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
+		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
+		011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */; };
 		01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */; };
 		01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */; };
 		017729B427A678A800543D89 /* Medicine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017729AE27A678A800543D89 /* Medicine+CoreDataClass.swift */; };
@@ -51,7 +55,6 @@
 		0110A889279E97100023AD4C /* MRConnectDemoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MRConnectDemoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0110A88C279E97100023AD4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0110A88E279E97100023AD4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0110A893279E97100023AD4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0110A896279E97100023AD4C /* MRConnectDemoProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MRConnectDemoProject.xcdatamodel; sourceTree = "<group>"; };
 		0110A898279E97150023AD4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0110A89B279E97150023AD4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,6 +67,13 @@
 		0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		0110A8BB279E9A800023AD4C /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		0110A8E3279ED6110023AD4C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		011C9C5E27A8062C00B02D02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		011C9C6027A8063000B02D02 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		011C9C6127A806B300B02D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		011C9C6227A80C9500B02D02 /* MyStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrings.swift; sourceTree = "<group>"; };
+		011C9C6427A8133F00B02D02 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		011C9C6527A847A100B02D02 /* MRHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRHomeViewController.swift; sourceTree = "<group>"; };
+		011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
 		01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsTableViewCell.swift; sourceTree = "<group>"; };
 		01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewController.swift; sourceTree = "<group>"; };
 		017729AE27A678A800543D89 /* Medicine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -125,6 +135,7 @@
 		0110A88B279E97100023AD4C /* MRConnectDemoProject */ = {
 			isa = PBXGroup;
 			children = (
+				011C9C5F27A8062C00B02D02 /* Localizable.strings */,
 				0110A88C279E97100023AD4C /* AppDelegate.swift */,
 				0110A88E279E97100023AD4C /* SceneDelegate.swift */,
 				0110A895279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld */,
@@ -152,6 +163,7 @@
 				0110A8B7279E9A330023AD4C /* Alert.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
 				0110A8BB279E9A800023AD4C /* Gradient.swift */,
+				011C9C6227A80C9500B02D02 /* MyStrings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +205,7 @@
 		01AD578827A1167600EB47DF /* MR */ = {
 			isa = PBXGroup;
 			children = (
+				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
 				01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */,
 				01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */,
 				01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */,
@@ -217,6 +230,7 @@
 		01AD578E27A1206500EB47DF /* Doctor */ = {
 			isa = PBXGroup;
 			children = (
+				011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */,
 				01AD578F27A120B300EB47DF /* DoctorMeetingsViewController.swift */,
 				01AD579B27A196A200EB47DF /* DoctorProfileViewController.swift */,
 			);
@@ -237,7 +251,6 @@
 				60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */,
 				36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -285,6 +298,8 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
 			);
 			mainGroup = 0110A880279E97100023AD4C;
 			productRefGroup = 0110A88A279E97100023AD4C /* Products */;
@@ -302,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01AD579427A1251A00EB47DF /* MRDoctors.storyboard in Resources */,
+				011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */,
 				0110A89C279E97150023AD4C /* LaunchScreen.storyboard in Resources */,
 				01AD578D27A11F8700EB47DF /* DoctorMeetings.storyboard in Resources */,
 				01AD579227A121FA00EB47DF /* DoctorHomeScreen.storyboard in Resources */,
@@ -376,6 +392,8 @@
 				01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */,
 				0110A8B2279E988D0023AD4C /* UserType.swift in Sources */,
 				01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */,
+				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
+				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
@@ -384,6 +402,7 @@
 				01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */,
 				017729B727A678A800543D89 /* Speciality+CoreDataProperties.swift in Sources */,
 				017729B527A678A800543D89 /* Medicine+CoreDataProperties.swift in Sources */,
+				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,
@@ -399,7 +418,7 @@
 		0110A892279E97100023AD4C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0110A893279E97100023AD4C /* Base */,
+				011C9C6127A806B300B02D02 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -412,6 +431,16 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		011C9C5F27A8062C00B02D02 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				011C9C5E27A8062C00B02D02 /* en */,
+				011C9C6027A8063000B02D02 /* fr */,
+				011C9C6427A8133F00B02D02 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -419,6 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -480,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
