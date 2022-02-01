@@ -8,12 +8,28 @@
 import UIKit
 import BLTNBoard
 
-@objc public class PickerViewBLTNItem: BLTNPageItem {
+@objc public class PickerViewBLTNItem: BLTNPageItem, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     public lazy var picker = UIPickerView()
     
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
+        picker.delegate = self
+        picker.dataSource = self
         return [picker]
     }
+    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Logic.specialities.count
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Logic.specialities[Int16(row)]
+    }
+    
 }
 
 protocol SpecPickerDelegate {
