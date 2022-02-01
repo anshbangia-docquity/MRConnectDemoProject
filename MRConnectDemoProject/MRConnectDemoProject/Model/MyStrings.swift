@@ -59,5 +59,17 @@ struct MyStrings {
     static let create = "Create".localize()
     static let medCreateUnsuccess = "Medicine was not created successfully.".localize()
     static let tryAgain = "Please try again.".localize()
+    static let cardiologist = "Cardiologist".localize()
+    static let dermatologist = "Dermatologist".localize()
+    static let gynecologist = "Gynecologist".localize()
+    static let neurologist = "Neurologist".localize()
+    static let oncologist = "Oncologist".localize()
+    static let pediatrician = "Pediatrician".localize()
+    static let physician = "Physician".localize()
+    static let psychiatrist = "Psychiatrist".localize()
+    static let radiologist = "Radiologist".localize()
+    static let surgeon = "Surgeon".localize()
+    static let done = "Done".localize()
+    static let chooseSpec = "Choose your Specialization".localize()
     
 }

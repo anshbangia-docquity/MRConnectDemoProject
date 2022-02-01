@@ -2,5 +2,6 @@ target 'MRConnectDemoProject' do
   use_frameworks!
 
 pod 'IQKeyboardManagerSwift'
+pod 'BulletinBoard'
 
 end

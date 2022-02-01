@@ -165,20 +165,20 @@
                                 <rect key="frame" x="0.0" y="174" width="428" height="752"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="DWs-ge-Hvn">
-                                        <rect key="frame" x="89" y="25" width="250" height="543.33333333333337"/>
+                                        <rect key="frame" x="89" y="25" width="250" height="525.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pzT-oE-HqZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="250" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="42"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tfP-WN-v3i">
-                                                        <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="60"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="42"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="k6i-2S-jFK">
-                                                                <rect key="frame" x="0.0" y="2" width="93.333333333333329" height="37.666666666666671"/>
+                                                                <rect key="frame" x="0.0" y="1.9999999999999982" width="93.333333333333329" height="19.666666666666664"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Type" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="khn-AV-mzo">
-                                                                <rect key="frame" x="0.0" y="41" width="93.333333333333329" height="19"/>
+                                                                <rect key="frame" x="0.0" y="23" width="93.333333333333329" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19" id="Hse-RO-ANr"/>
                                                                 </constraints>
@@ -189,7 +189,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWl-ZM-GiK">
-                                                        <rect key="frame" x="103.33333333333334" y="0.0" width="44.333333333333343" height="60"/>
+                                                        <rect key="frame" x="103.33333333333334" y="0.0" width="44.333333333333343" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                                         <color key="tintColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="MR">
@@ -200,7 +200,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTU-Vc-054">
-                                                        <rect key="frame" x="157.66666666666666" y="0.0" width="92.333333333333343" height="60"/>
+                                                        <rect key="frame" x="157.66666666666666" y="0.0" width="92.333333333333343" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                                         <color key="tintColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Doctor">
@@ -216,7 +216,7 @@
                                                 </constraints>
                                             </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQC-cz-EZy">
-                                                <rect key="frame" x="0.0" y="95" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="77" width="250" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="Dfw-Ky-UC4"/>
                                                 </constraints>
@@ -224,7 +224,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="contact" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IVU-VF-rNw">
-                                                <rect key="frame" x="0.0" y="164" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="146" width="250" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="ogy-Qr-ICG"/>
                                                 </constraints>
@@ -232,34 +232,40 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="license number" textAlignment="natural" minimumFontSize="17" id="9wd-of-zLq" userLabel="Number Field">
-                                                <rect key="frame" x="0.0" y="233" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="215" width="250" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                             </textField>
-                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="specialization" textAlignment="natural" minimumFontSize="17" id="pDv-jc-CyE" userLabel="Speciality Field">
-                                                <rect key="frame" x="0.0" y="284.66666666666669" width="250" height="0.0"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                                            </textField>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N82-gl-vht">
+                                                <rect key="frame" x="0.0" y="266.66666666666669" width="250" height="0.0"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="specialities">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                                    <color key="baseForegroundColor" systemColor="systemGray3Color"/>
+                                                    <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="specButtonPressed:" destination="piq-BF-LfW" eventType="touchUpInside" id="CLI-nX-w8W"/>
+                                                </connections>
+                                            </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H7l-za-nIV">
-                                                <rect key="frame" x="0.0" y="302" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="284" width="250" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4y0-ii-EqB">
-                                                <rect key="frame" x="0.0" y="371" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="353" width="250" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zra-sr-dXu">
-                                                <rect key="frame" x="0.0" y="440" width="250" height="34"/>
+                                                <rect key="frame" x="0.0" y="422" width="250" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P7o-rv-yKW">
-                                                <rect key="frame" x="0.0" y="508.99999999999994" width="250" height="34.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="491" width="250" height="34.333333333333371"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Sign Up">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -306,7 +312,7 @@
                         <outlet property="numberField" destination="9wd-of-zLq" id="QXQ-dy-PRz"/>
                         <outlet property="passField" destination="4y0-ii-EqB" id="nDG-ht-Tan"/>
                         <outlet property="signupButton" destination="P7o-rv-yKW" id="dIG-Ux-sga"/>
-                        <outlet property="specialityField" destination="pDv-jc-CyE" id="lY5-xv-biF"/>
+                        <outlet property="specialityButton" destination="N82-gl-vht" id="Ohf-7g-Rhs"/>
                         <outlet property="userTypeLabel" destination="khn-AV-mzo" id="luJ-sH-Pxu"/>
                     </connections>
                 </viewController>
@@ -318,6 +324,9 @@
     <resources>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="unnamed" width="85.333335876464844" height="85.333335876464844"/>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

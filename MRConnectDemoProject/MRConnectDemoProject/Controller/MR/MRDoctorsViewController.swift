@@ -44,9 +44,9 @@ extension MRDoctorsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        let spec = Logic.fetchSpec(with: doctor.speciality)
+        //let spec = Logic.fetchSpec(with: doctor.speciality)
         cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = spec
+        cell.specLabel.text = Logic.specialities[doctor.speciality]
         
         return cell
     }

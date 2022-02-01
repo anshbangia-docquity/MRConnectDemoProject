@@ -45,3 +45,14 @@
 "The |#X#| field cannot be empty." = "Das |#X#|-Feld darf nicht leer sein.";
 "Please fill your |#X#|." = "Bitte füllen Sie Ihr |#X#| aus.";
 "Company: |#X#|" = "Begleitung: |#X#|";
+"Cardiologist" = "Kardiologe";
+"Dermatologist" = "Dermatologe";
+"Gynecologist" = "Gynäkologe";
+"Neurologist" = "Neurologe";
+"Oncologist" = "Onkologe";
+"Pediatrician" = "Kinderarzt";
+"Physician" = "Arzt";
+"Psychiatrist" = "Psychiater";
+"Radiologist" = "Radiologe";
+"Surgeon" = "Chirurg";
+"Choose your Specialization" = "Wählen Sie Ihre Spezialisierung";
