@@ -53,7 +53,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gWw-2o-Uq1">
-                                <rect key="frame" x="0.0" y="100" width="414" height="713"/>
+                                <rect key="frame" x="0.0" y="155" width="414" height="658"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="Wbx-zU-ksJ" customClass="MRMedicinesTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
@@ -115,16 +115,54 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgY-LG-BY6">
+                                <rect key="frame" x="0.0" y="100" width="414" height="55"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f63-4H-3DC">
+                                        <rect key="frame" x="369" y="13.5" width="30" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="r3c-ug-ZMw"/>
+                                            <constraint firstAttribute="height" constant="29.5" id="v62-KX-Nny"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
+                                        <connections>
+                                            <action selector="searchPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="z0e-1A-2Ry"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ci6-If-O03">
+                                        <rect key="frame" x="10" y="5" width="354" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="JW3-J3-IwF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="search"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="f63-4H-3DC" firstAttribute="centerY" secondItem="jgY-LG-BY6" secondAttribute="centerY" id="01l-Pg-ea3"/>
+                                    <constraint firstItem="f63-4H-3DC" firstAttribute="leading" secondItem="Ci6-If-O03" secondAttribute="trailing" constant="5" id="56P-RT-Gy5"/>
+                                    <constraint firstItem="Ci6-If-O03" firstAttribute="leading" secondItem="jgY-LG-BY6" secondAttribute="leading" constant="10" id="B2M-6G-v1k"/>
+                                    <constraint firstAttribute="trailing" secondItem="f63-4H-3DC" secondAttribute="trailing" constant="15" id="G3a-P1-dKA"/>
+                                    <constraint firstAttribute="height" constant="55" id="Us6-ck-d5I"/>
+                                    <constraint firstItem="Ci6-If-O03" firstAttribute="centerY" secondItem="jgY-LG-BY6" secondAttribute="centerY" id="gMP-zU-Z33"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="gWw-2o-Uq1" firstAttribute="top" secondItem="i7T-Y9-2jQ" secondAttribute="bottom" id="Cne-cg-xQr"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jgY-LG-BY6" secondAttribute="trailing" id="9Ls-kD-dap"/>
                             <constraint firstItem="gWw-2o-Uq1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Gh2-dG-Gr2"/>
+                            <constraint firstItem="gWw-2o-Uq1" firstAttribute="top" secondItem="jgY-LG-BY6" secondAttribute="bottom" id="JYF-xf-cLc"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="gWw-2o-Uq1" secondAttribute="bottom" id="LIx-f7-DiH"/>
                             <constraint firstItem="i7T-Y9-2jQ" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="P8c-PE-00k"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="gWw-2o-Uq1" secondAttribute="trailing" id="QNf-Dc-v2V"/>
                             <constraint firstAttribute="trailing" secondItem="i7T-Y9-2jQ" secondAttribute="trailing" id="UKo-J9-5v1"/>
+                            <constraint firstItem="jgY-LG-BY6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="b2u-g9-9PW"/>
+                            <constraint firstItem="jgY-LG-BY6" firstAttribute="top" secondItem="i7T-Y9-2jQ" secondAttribute="bottom" id="tPd-Pr-ZUw"/>
                             <constraint firstItem="i7T-Y9-2jQ" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="vxc-WO-qJl"/>
                         </constraints>
                     </view>
@@ -133,6 +171,7 @@
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="searchField" destination="Ci6-If-O03" id="0Ta-3L-dHb"/>
                         <outlet property="tableView" destination="gWw-2o-Uq1" id="eIM-7D-W2n"/>
                         <outlet property="titleLabel" destination="Fie-5i-aoU" id="Tfz-T0-18d"/>
                         <segue destination="Kyg-DQ-fKq" kind="presentation" identifier="goToCreate" id="YZM-IU-wa9"/>
@@ -271,6 +310,13 @@
     </scenes>
     <resources>
         <image name="cross.case.fill" catalog="system" width="128" height="100"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

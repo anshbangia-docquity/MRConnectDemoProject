@@ -136,57 +136,25 @@ struct Logic {
         return result
     }
     
-//    static func fetchSpecId(of speciality: String) -> Int16 {
-//        var result: [Speciality] = []
-//        do {
-//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-//            let pred = NSPredicate(format: "name == %@", speciality)
-//            request.predicate = pred
-//
-//            result = try context.fetch(request)
-//        } catch {}
-//
-//        if result.count == 0 {
-//            var num = userDefault.value(forKey: "numOfSpec") as! Int16
-//            let newSpec = Speciality(context: context)
-//            newSpec.id = num
-//            newSpec.name = speciality
-//            do {
-//                try context.save()
-//            } catch {
-//            }
-//
-//            num += Int16(1)
-//            userDefault.setValue(num, forKey: "numOfSpec")
-//
-//            return newSpec.id
-//        } else {
-//            return result[0].id
-//        }
-//    }
-    
-//    static func fillSecialities() -> [String] {
-//        var result: [Speciality] = []
-//        do {
-//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-//            let sort = NSSortDescriptor(key: "name", ascending: true)
-//            request.sortDescriptors = [sort]
-//
-//            result = try context.fetch(request)
-//        } catch {}
-//
-//        var str: [String] = []
-//        for i in result {
-//            str.append("\(i.name!)")
-//        }
-//        return str
-//    }
+    static func fetchUser(of type: UserType, contains name: String) -> [User] {
+        var result: [User] = []
+        do {
+            let request = User.fetchRequest() as NSFetchRequest<User>
+            let pred = NSPredicate(format: "type == %d && name CONTAINS[c] %@", type.rawValue, name)
+            request.predicate = pred
+            
+            result = try context.fetch(request)
+        } catch {
+        }
+        
+        return result
+    }
     
     static func fetchMedicines() -> [Medicine] {
         var result: [Medicine] = []
         do {
             let request = Medicine.fetchRequest() as NSFetchRequest<Medicine>
-            var sort = NSSortDescriptor(key: "company", ascending: true)
+            var sort = NSSortDescriptor(key: "company", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))
             request.sortDescriptors = [sort]
             sort = NSSortDescriptor(key: "name", ascending: true)
             request.sortDescriptors?.append(sort)
@@ -197,18 +165,22 @@ struct Logic {
         return result
     }
     
-//    static func fetchSpec(with id: Int16) -> String {
-//        var result: [Speciality] = []
-//        do {
-//            let request = Speciality.fetchRequest() as NSFetchRequest<Speciality>
-//            let pred = NSPredicate(format: "id == %d", id)
-//            request.predicate = pred
-//
-//            result = try context.fetch(request)
-//        } catch {}
-//
-//        return result[0].name!
-//    }
+    static func fetchMedicines(contains name: String) -> [Medicine] {
+        var result: [Medicine] = []
+        do {
+            let request = Medicine.fetchRequest() as NSFetchRequest<Medicine>
+            let pred = NSPredicate(format: "name CONTAINS[c] %@ || company CONTAINS[c] %@", name, name)
+            request.predicate = pred
+            var sort = NSSortDescriptor(key: "company", ascending: true)
+            request.sortDescriptors = [sort]
+            sort = NSSortDescriptor(key: "name", ascending: true)
+            request.sortDescriptors?.append(sort)
+            
+            result = try context.fetch(request)
+        } catch {}
+        
+        return result
+    }
     
 }
 

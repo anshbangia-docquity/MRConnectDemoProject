@@ -7,10 +7,11 @@
 
 import UIKit
 
-class MRMedicinesViewController: UIViewController {
+class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchField: UITextField!
     
     var medicines = Logic.fetchMedicines()
     
@@ -19,11 +20,34 @@ class MRMedicinesViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchField.delegate = self
 
         titleLabel.text = MyStrings.medicines
     }
     
+    @IBAction func searchPressed(_ sender: UIButton) {
+        searchField.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if searchField.text == "" {
+            medicines = Logic.fetchMedicines()
+        } else {
+            medicines = Logic.fetchMedicines(contains: textField.text!)
+        }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     @IBAction func createPressed(_ sender: UIButton) {
+        searchField.text = ""
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
