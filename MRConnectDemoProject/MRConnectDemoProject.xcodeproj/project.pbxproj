@@ -30,6 +30,11 @@
 		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
 		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
 		011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */; };
+		013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A843D27AA4DC1002AC97C /* FirstViewController.swift */; };
+		013A844027AA4E13002AC97C /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013A843F27AA4E13002AC97C /* LoginSignup.storyboard */; };
+		013A844427AA7A56002AC97C /* Specialities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844327AA7A56002AC97C /* Specialities.swift */; };
+		013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844527AA7BDC002AC97C /* MedicineForms.swift */; };
+		013A844827AA803B002AC97C /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844727AA803B002AC97C /* CurrentUser.swift */; };
 		01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */; };
 		01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */; };
 		017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */; };
@@ -79,6 +84,11 @@
 		011C9C6427A8133F00B02D02 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6527A847A100B02D02 /* MRHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRHomeViewController.swift; sourceTree = "<group>"; };
 		011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
+		013A843D27AA4DC1002AC97C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		013A843F27AA4E13002AC97C /* LoginSignup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
+		013A844327AA7A56002AC97C /* Specialities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specialities.swift; sourceTree = "<group>"; };
+		013A844527AA7BDC002AC97C /* MedicineForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineForms.swift; sourceTree = "<group>"; };
+		013A844727AA803B002AC97C /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsTableViewCell.swift; sourceTree = "<group>"; };
 		01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewController.swift; sourceTree = "<group>"; };
 		017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesTableViewCell.swift; sourceTree = "<group>"; };
@@ -135,7 +145,6 @@
 		0110A88B279E97100023AD4C /* MRConnectDemoProject */ = {
 			isa = PBXGroup;
 			children = (
-				1891533727AA331800A9495D /* CoreData */,
 				011C9C5F27A8062C00B02D02 /* Localizable.strings */,
 				0110A88C279E97100023AD4C /* AppDelegate.swift */,
 				0110A88E279E97100023AD4C /* SceneDelegate.swift */,
@@ -156,13 +165,16 @@
 				0105AD8C27A8FBE100607DCF /* User+CoreDataProperties.swift */,
 				0105AD8D27A8FBE100607DCF /* Medicine+CoreDataClass.swift */,
 				0105AD8E27A8FBE100607DCF /* Medicine+CoreDataProperties.swift */,
+				1891533727AA331800A9495D /* CoreData */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
 				0110A8B1279E988D0023AD4C /* UserType.swift */,
-				0110A8B5279E99D90023AD4C /* PersistentStorage.swift */,
 				0110A8B7279E9A330023AD4C /* Alert.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
 				0110A8BB279E9A800023AD4C /* Gradient.swift */,
 				011C9C6227A80C9500B02D02 /* MyStrings.swift */,
+				013A844327AA7A56002AC97C /* Specialities.swift */,
+				013A844527AA7BDC002AC97C /* MedicineForms.swift */,
+				013A844727AA803B002AC97C /* CurrentUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				0110A892279E97100023AD4C /* Main.storyboard */,
+				013A843F27AA4E13002AC97C /* LoginSignup.storyboard */,
 				0110A89A279E97150023AD4C /* LaunchScreen.storyboard */,
 				01AD578327A101C800EB47DF /* MRHomeScreen */,
 				01AD578B27A11F2C00EB47DF /* DoctorHomeScreen */,
@@ -181,6 +194,7 @@
 		0110A8AE279E98460023AD4C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				013A843D27AA4DC1002AC97C /* FirstViewController.swift */,
 				0110A8B3279E998A0023AD4C /* LogInViewController.swift */,
 				0110A8E3279ED6110023AD4C /* SignInViewController.swift */,
 				0105AD9727A92E8400607DCF /* SpecPicker.swift */,
@@ -258,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				1891533827AA332F00A9495D /* CoreDataHandler.swift */,
+				0110A8B5279E99D90023AD4C /* PersistentStorage.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -330,6 +345,7 @@
 				01AD578D27A11F8700EB47DF /* DoctorMeetings.storyboard in Resources */,
 				01AD579227A121FA00EB47DF /* DoctorHomeScreen.storyboard in Resources */,
 				0110A899279E97150023AD4C /* Assets.xcassets in Resources */,
+				013A844027AA4E13002AC97C /* LoginSignup.storyboard in Resources */,
 				01AD578727A1104800EB47DF /* MRMeetings.storyboard in Resources */,
 				01AD578527A101E200EB47DF /* MRHomeScreen.storyboard in Resources */,
 				01AD57A427A1B11200EB47DF /* MRProfile.storyboard in Resources */,
@@ -401,14 +417,18 @@
 				01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */,
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
+				013A844827AA803B002AC97C /* CurrentUser.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
+				013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
 				0105AD9427A8FBE100607DCF /* Medicine+CoreDataProperties.swift in Sources */,
+				013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */,
 				0105AD9127A8FBE100607DCF /* User+CoreDataClass.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
 				0105AD9327A8FBE100607DCF /* Medicine+CoreDataClass.swift in Sources */,
+				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
 				01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */,

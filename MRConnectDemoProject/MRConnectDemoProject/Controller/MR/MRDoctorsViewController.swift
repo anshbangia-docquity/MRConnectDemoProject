@@ -13,16 +13,20 @@ class MRDoctorsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
     
-    var doctors = Logic.fetchUser(of: UserType.Doctor)
+    let coreDataHandler = CoreDataHandler()
+    var doctors: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        doctors = coreDataHandler.fetchUser(of: .Doctor)
         
         tableView.delegate = self
         tableView.dataSource = self
         searchField.delegate = self
 
         titleLabel.text = MyStrings.doctors
+        searchField.placeholder = MyStrings.search
         
     }
     
@@ -37,19 +41,17 @@ class MRDoctorsViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchField.text == "" {
-            doctors = Logic.fetchUser(of: UserType.Doctor)
+            doctors = coreDataHandler.fetchUser(of: UserType.Doctor)
         } else {
-            doctors = Logic.fetchUser(of: .Doctor, contains: searchField.text!)
+            doctors = coreDataHandler.fetchUser(of: .Doctor, contains: searchField.text!)
         }
 
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        tableView.reloadData()
     }
     
 }
 
-extension MRDoctorsViewController: UITableViewDataSource {
+extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -67,13 +69,11 @@ extension MRDoctorsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        //let spec = Logic.fetchSpec(with: doctor.speciality)
         cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = Logic.specialities[doctor.speciality]
+        cell.specLabel.text = Specialities.specialities[doctor.speciality]
         
         return cell
     }
     
 }
 
-extension MRDoctorsViewController: UITableViewDelegate {}

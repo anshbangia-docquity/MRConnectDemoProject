@@ -71,5 +71,6 @@ struct MyStrings {
     static let surgeon = "Surgeon".localize()
     static let done = "Done".localize()
     static let chooseSpec = "Choose your Specialization".localize()
+    static let search = "Search".localize()
     
 }
