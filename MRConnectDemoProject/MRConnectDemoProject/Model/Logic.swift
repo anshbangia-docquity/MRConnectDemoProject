@@ -29,7 +29,7 @@ struct Logic {
     static var seletedSpec: Int16 = -1
     
     static func logIn(email: String, password: String) -> Bool {
-        let resultUser = fetchUser(email: email)
+        let resultUser = CoreDataHandler().fetchUser(email: email)
         let result = logInUser(resultUser, password: password)
         return result
     }
@@ -49,7 +49,7 @@ struct Logic {
     
     static func signUp(name: String, contact: String, email: String, password: String, type: UserType, license: String = "", mrnumber: String = "", speciality: Int16 = -1) -> Bool {
         
-        let resultUser = fetchUser(email: email)
+        let resultUser = CoreDataHandler().fetchUser(email: email)
         
         let result = signUpUser(resultUser, name: name, contact: contact, email: email, password: password, type: type, license: license, mrnumber: mrnumber, speciality: speciality)
         return result
@@ -107,81 +107,6 @@ struct Logic {
         
         return true
     }
-    
-    static func fetchUser(email: String) -> [User] {
-        var result: [User] = []
-        do {
-            let request = User.fetchRequest() as NSFetchRequest<User>
-            let pred = NSPredicate(format: "email == %@", email)
-            request.predicate = pred
-            
-            result = try context.fetch(request)
-        } catch {
-        }
-
-        return result
-    }
-    
-    static func fetchUser(of type: UserType) -> [User] {
-        var result: [User] = []
-        do {
-            let request = User.fetchRequest() as NSFetchRequest<User>
-            let pred = NSPredicate(format: "type == %d", type.rawValue)
-            request.predicate = pred
-            
-            result = try context.fetch(request)
-        } catch {
-        }
-        
-        return result
-    }
-    
-    static func fetchUser(of type: UserType, contains name: String) -> [User] {
-        var result: [User] = []
-        do {
-            let request = User.fetchRequest() as NSFetchRequest<User>
-            let pred = NSPredicate(format: "type == %d && name CONTAINS[c] %@", type.rawValue, name)
-            request.predicate = pred
-            
-            result = try context.fetch(request)
-        } catch {
-        }
-        
-        return result
-    }
-    
-    static func fetchMedicines() -> [Medicine] {
-        var result: [Medicine] = []
-        do {
-            let request = Medicine.fetchRequest() as NSFetchRequest<Medicine>
-            var sort = NSSortDescriptor(key: "company", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))
-            request.sortDescriptors = [sort]
-            sort = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors?.append(sort)
-            
-            result = try context.fetch(request)
-        } catch {}
-        
-        return result
-    }
-    
-    static func fetchMedicines(contains name: String) -> [Medicine] {
-        var result: [Medicine] = []
-        do {
-            let request = Medicine.fetchRequest() as NSFetchRequest<Medicine>
-            let pred = NSPredicate(format: "name CONTAINS[c] %@ || company CONTAINS[c] %@", name, name)
-            request.predicate = pred
-            var sort = NSSortDescriptor(key: "company", ascending: true)
-            request.sortDescriptors = [sort]
-            sort = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors?.append(sort)
-            
-            result = try context.fetch(request)
-        } catch {}
-        
-        return result
-    }
-    
 }
 
 

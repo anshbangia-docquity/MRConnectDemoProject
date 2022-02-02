@@ -47,6 +47,7 @@
 		01AD579E27A196D600EB47DF /* DoctorProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */; };
 		01AD57A427A1B11200EB47DF /* MRProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD57A327A1B11200EB47DF /* MRProfile.storyboard */; };
 		01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */; };
+		1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891533827AA332F00A9495D /* CoreDataHandler.swift */; };
 		F1B7B7D280F8B2797D177767 /* Pods_MRConnectDemoProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DoctorProfile.storyboard; sourceTree = "<group>"; };
 		01AD57A327A1B11200EB47DF /* MRProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRProfile.storyboard; sourceTree = "<group>"; };
 		01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRProfileViewController.swift; sourceTree = "<group>"; };
+		1891533827AA332F00A9495D /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.release.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.release.xcconfig"; sourceTree = "<group>"; };
 		60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.debug.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.debug.xcconfig"; sourceTree = "<group>"; };
 		80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MRConnectDemoProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,7 @@
 		0110A88B279E97100023AD4C /* MRConnectDemoProject */ = {
 			isa = PBXGroup;
 			children = (
+				1891533727AA331800A9495D /* CoreData */,
 				011C9C5F27A8062C00B02D02 /* Localizable.strings */,
 				0110A88C279E97100023AD4C /* AppDelegate.swift */,
 				0110A88E279E97100023AD4C /* SceneDelegate.swift */,
@@ -249,6 +252,14 @@
 				36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1891533727AA331800A9495D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1891533827AA332F00A9495D /* CoreDataHandler.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +401,7 @@
 				01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */,
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
+				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
