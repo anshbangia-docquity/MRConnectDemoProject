@@ -7,23 +7,46 @@
 
 import UIKit
 
-class MRDoctorsViewController: UIViewController {
+class MRDoctorsViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchField: UITextField!
     
-    let doctors = Logic.fetchUser(of: UserType.Doctor)
+    var doctors = Logic.fetchUser(of: UserType.Doctor)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchField.delegate = self
 
         titleLabel.text = MyStrings.doctors
         
     }
+    
+    @IBAction func searchButtonTapped(_ sender: UIButton) {
+        searchField.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if searchField.text == "" {
+            doctors = Logic.fetchUser(of: UserType.Doctor)
+        } else {
+            doctors = Logic.fetchUser(of: .Doctor, contains: searchField.text!)
+        }
 
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
 }
 
 extension MRDoctorsViewController: UITableViewDataSource {
