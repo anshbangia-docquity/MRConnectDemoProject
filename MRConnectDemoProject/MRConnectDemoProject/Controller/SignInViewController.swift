@@ -67,6 +67,7 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
     }
     
     @IBAction func specButtonPressed(_ sender: UIButton) {
+        view.endEditing(true)
         specPicker.boardManager?.showBulletin(above: self)
     }
     
