@@ -10,8 +10,6 @@ import UIKit
 class DoctorProfileViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
     
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
@@ -20,8 +18,8 @@ class DoctorProfileViewController: UIViewController {
         super.viewDidLoad()
         
         titleLabel.text = MyStrings.profile
-        nameLabel.text = "Name: \(user!.name)"
-        usernameLabel.text = "Speciality: \(Specialities.specialities[user!.speciality]!)"
+        //nameLabel.text = "Name: \(user!.name)"
+        //usernameLabel.text = "Speciality: \(Specialities.specialities[user!.speciality]!)"
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
