@@ -207,7 +207,7 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HPK-KC-Yf7">
-                                <rect key="frame" x="69.5" y="347" width="275" height="34"/>
+                                <rect key="frame" x="69.5" y="252" width="275" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="kIB-AM-6P4"/>
                                 </constraints>
@@ -215,7 +215,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="company" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JNN-03-4G9">
-                                <rect key="frame" x="69.5" y="239" width="275" height="34"/>
+                                <rect key="frame" x="69.5" y="144" width="275" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="txH-Lo-ENA"/>
                                 </constraints>
@@ -223,7 +223,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="medicine name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46a-Ke-g5Y">
-                                <rect key="frame" x="69.5" y="185" width="275" height="34"/>
+                                <rect key="frame" x="69.5" y="90" width="275" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="bX9-RG-t1s"/>
                                 </constraints>
@@ -231,7 +231,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="composition" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="El9-d3-wD1">
-                                <rect key="frame" x="69.5" y="293" width="275" height="34"/>
+                                <rect key="frame" x="69.5" y="198" width="275" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="HOx-G2-IL9"/>
                                 </constraints>
@@ -239,13 +239,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Form:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-WF-c3B">
-                                <rect key="frame" x="69.5" y="401" width="44.5" height="21"/>
+                                <rect key="frame" x="69.5" y="306" width="44.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mca-gt-8c3">
-                                <rect key="frame" x="61.5" y="432" width="292" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mca-gt-8c3">
+                                <rect key="frame" x="61.5" y="337" width="291" height="32"/>
                                 <segments>
                                     <segment title="Capsule"/>
                                     <segment title="Tablet"/>
@@ -258,7 +258,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75i-EZ-JFO">
-                                <rect key="frame" x="169.5" y="613" width="75" height="34.5"/>
+                                <rect key="frame" x="169.5" y="468" width="75" height="34.5"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Create">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
@@ -279,12 +279,12 @@
                             <constraint firstItem="HPK-KC-Yf7" firstAttribute="centerX" secondItem="JE0-eo-6Xt" secondAttribute="centerX" id="7VX-Im-5r6"/>
                             <constraint firstItem="El9-d3-wD1" firstAttribute="top" secondItem="JNN-03-4G9" secondAttribute="bottom" constant="20" id="8S7-F1-9q2"/>
                             <constraint firstItem="W1f-fV-8xA" firstAttribute="leading" secondItem="JE0-eo-6Xt" secondAttribute="leading" id="95V-kh-Zpq"/>
-                            <constraint firstItem="46a-Ke-g5Y" firstAttribute="top" secondItem="W1f-fV-8xA" secondAttribute="bottom" constant="135" id="C9F-xx-nvD"/>
+                            <constraint firstItem="46a-Ke-g5Y" firstAttribute="top" secondItem="W1f-fV-8xA" secondAttribute="bottom" constant="40" id="C9F-xx-nvD"/>
                             <constraint firstItem="WNy-WF-c3B" firstAttribute="leading" secondItem="HPK-KC-Yf7" secondAttribute="leading" id="Fci-A1-3a0"/>
                             <constraint firstAttribute="trailing" secondItem="W1f-fV-8xA" secondAttribute="trailing" id="IfP-TY-8dY"/>
                             <constraint firstItem="mca-gt-8c3" firstAttribute="top" secondItem="WNy-WF-c3B" secondAttribute="bottom" constant="10" id="Ojs-Sc-X03"/>
                             <constraint firstItem="mca-gt-8c3" firstAttribute="centerX" secondItem="JE0-eo-6Xt" secondAttribute="centerX" id="bOr-na-yKH"/>
-                            <constraint firstItem="75i-EZ-JFO" firstAttribute="top" secondItem="mca-gt-8c3" secondAttribute="bottom" constant="150" id="qiu-tM-lgE"/>
+                            <constraint firstItem="75i-EZ-JFO" firstAttribute="top" secondItem="mca-gt-8c3" secondAttribute="bottom" constant="100" id="qiu-tM-lgE"/>
                             <constraint firstItem="46a-Ke-g5Y" firstAttribute="centerX" secondItem="JE0-eo-6Xt" secondAttribute="centerX" id="rLz-xc-JN9"/>
                             <constraint firstItem="WNy-WF-c3B" firstAttribute="top" secondItem="HPK-KC-Yf7" secondAttribute="bottom" constant="20" id="rXn-Cl-2AS"/>
                             <constraint firstItem="75i-EZ-JFO" firstAttribute="centerX" secondItem="JE0-eo-6Xt" secondAttribute="centerX" id="wD2-nR-q26"/>
