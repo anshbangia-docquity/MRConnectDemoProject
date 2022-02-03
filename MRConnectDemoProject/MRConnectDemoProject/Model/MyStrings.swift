@@ -72,5 +72,9 @@ struct MyStrings {
     static let done = "Done".localize()
     static let chooseSpec = "Choose your Specialization".localize()
     static let search = "Search".localize()
+    static let add = "Add".localize()
+    static let edit = "Edit".localize()
+    static let imageNotChosen = "Image was not chosen.".localize()
+    static let errorImage = "An error occured while choosing image.".localize()
     
 }

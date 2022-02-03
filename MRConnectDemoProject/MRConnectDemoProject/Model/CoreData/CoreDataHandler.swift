@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 struct CoreDataHandler {
     
@@ -139,6 +140,24 @@ struct CoreDataHandler {
             return false
         }
         
+        return true
+    }
+    
+    func fetchProfileImage(_ email: String) -> Data? {
+        let user = fetchUser(email: email)[0]
+        
+        return user.profileImage
+    }
+    
+    func saveProfileImage(_ email: String, image: UIImage) -> Bool {
+        let user = fetchUser(email: email)[0]
+        
+        user.profileImage = image.jpegData(compressionQuality: 1) as Data?
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
         return true
     }
     

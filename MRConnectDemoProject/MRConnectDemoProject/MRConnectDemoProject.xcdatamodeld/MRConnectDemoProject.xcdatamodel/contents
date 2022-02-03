@@ -16,11 +16,12 @@
         <attribute name="mrnumber" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
         <attribute name="speciality" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="Medicine" positionX="-45" positionY="63" width="128" height="134"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

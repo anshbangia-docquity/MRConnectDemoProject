@@ -57,4 +57,8 @@
 "Surgeon" = "Chirurgien";
 "Choose your Specialization" = "Choisissez votre spécialisation";
 "Search" = "Chercher";
+"Add" = "Ajouter";
+"Edit" = "Éditer";
+"Image was not chosen." = "L'image n'a pas été choisie.";
+"An error occured while choosing image." = "Une erreur s'est produite lors du choix de l'image.";
 

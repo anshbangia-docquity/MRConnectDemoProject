@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 class CurrentUser {
     
     let userDefault = UserDefaultManager.shared.defaults
+    let coreDataHandler = CoreDataHandler()
     
     var contact: String {
         return userDefault.value(forKey: "userContact") as! String
@@ -35,6 +37,14 @@ class CurrentUser {
     var type: UserType {
         let num = userDefault.value(forKey: "userType") as! Int16
         return UserType(rawValue: num)!
+    }
+    var profileImage: UIImage? {
+        let img = coreDataHandler.fetchProfileImage(self.email)
+        if img == nil {
+            return nil
+        }
+        
+        return UIImage(data: img!)
     }
     
 }
