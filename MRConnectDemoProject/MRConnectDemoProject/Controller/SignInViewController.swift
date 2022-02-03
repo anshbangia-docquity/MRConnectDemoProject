@@ -23,20 +23,11 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
     @IBOutlet weak var signupButton: UIButton!
         
     let userDefault = UserDefaultManager.shared.defaults
+    var logic = Logic()
     var type = UserType.MRUser
+    var selectedSpec: Int16 = -1
     
     lazy var specPicker = SpecPicker()
-    
-    func doneTapped(_ specPicker: SpecPicker) {
-        specPicker.boardManager?.dismissBulletin()
-        specialityButton.setTitleColor(.black, for: .normal)
-        specialityButton.setTitle(Logic.specialities[Logic.seletedSpec], for: .normal)
-    }
-    
-    @IBAction func specButtonPressed(_ sender: UIButton) {
-        Logic.seletedSpec = 0
-        specPicker.boardManager?.showBulletin(above: self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,30 +66,38 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
         }
     }
     
+    @IBAction func specButtonPressed(_ sender: UIButton) {
+        specPicker.boardManager?.showBulletin(above: self)
+    }
+    
+    func doneTapped(_ specPicker: SpecPicker, id: Int16, name: String) {
+        specPicker.boardManager?.dismissBulletin()
+        
+        selectedSpec = id
+        specialityButton.setTitleColor(.black, for: .normal)
+        specialityButton.setTitle(name, for: .normal)
+    }
+    
     @IBAction func signUpTapped(_ sender: Any) {
-        if nameField.text == "" {
+        if nameField.text!.isEmpty {
             showAlert(emptyField: MyStrings.name)
             return
         }
-        
-        if contactField.text == "" {
+        if contactField.text!.isEmpty {
             showAlert(emptyField: MyStrings.contact)
             return
         }
-        
-        if numberField.text == "" {
+        if numberField.text!.isEmpty {
             showAlert(emptyField: numberField.placeholder!)
             return
         }
-        
         if type == .Doctor {
-            if Logic.seletedSpec == -1 {
+            if selectedSpec == -1 {
                 showAlert(emptyField: MyStrings.specialization)
                 return
             }
         }
-
-        if emailField.text == "" {
+        if emailField.text!.isEmpty {
             showAlert(emptyField: MyStrings.email)
             return
         }
@@ -121,9 +120,9 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
     
         let result: Bool
         if type == .MRUser {
-            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
+            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
         } else {
-            result = Logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: Logic.seletedSpec)
+            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: selectedSpec)
         }
         if result == false {
             showAlert(title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)

@@ -13,16 +13,20 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
     
-    var medicines = Logic.fetchMedicines()
+    let coreDataHandler = CoreDataHandler()
+    var medicines: [Medicine] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        medicines = coreDataHandler.fetchMedicines()
         
         tableView.delegate = self
         tableView.dataSource = self
         searchField.delegate = self
 
         titleLabel.text = MyStrings.medicines
+        searchField.placeholder = MyStrings.search
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -36,14 +40,12 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchField.text == "" {
-            medicines = Logic.fetchMedicines()
+            medicines = coreDataHandler.fetchMedicines()
         } else {
-            medicines = Logic.fetchMedicines(contains: textField.text!)
+            medicines = coreDataHandler.fetchMedicines(contains: textField.text!)
         }
 
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        tableView.reloadData()
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
@@ -52,10 +54,8 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
     }
     
     func handler() {
-        medicines = Logic.fetchMedicines()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        medicines = coreDataHandler.fetchMedicines()
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,7 +67,7 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension MRMedicinesViewController: UITableViewDataSource {
+extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -93,4 +93,3 @@ extension MRMedicinesViewController: UITableViewDataSource {
     
 }
 
-extension MRMedicinesViewController: UITableViewDelegate {}
