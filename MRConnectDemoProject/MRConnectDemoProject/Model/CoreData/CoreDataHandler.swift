@@ -72,6 +72,18 @@ struct CoreDataHandler {
         return result
     }
     
+    func updateName(_ user: User, newName: String) -> Bool {
+        user.name = newName
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
     func fetchUser(of type: UserType, contains name: String) -> [User] {
         var result: [User] = []
         do {

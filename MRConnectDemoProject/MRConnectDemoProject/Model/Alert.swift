@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import BLTNBoard
 
 struct Alert {
     
@@ -16,5 +17,14 @@ struct Alert {
         alert.addAction(submitButton)
         return alert
     }
+    
+//    static func showAlert(title: String, subtitle: String, boardManager: BLTNItemManager, viewController: UIViewController) -> UIAlertController {
+//        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+//        let submitButton = UIAlertAction(title: "Okay", style: .default) { _ in
+//            boardManager.showBulletin(above: viewController)
+//        }
+//        alert.addAction(submitButton)
+//        return alert
+//    }
 
 }

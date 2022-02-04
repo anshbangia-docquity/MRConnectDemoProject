@@ -75,6 +75,11 @@ struct MyStrings {
     static let add = "Add".localize()
     static let edit = "Edit".localize()
     static let imageNotChosen = "Image was not chosen.".localize()
-    static let errorImage = "An error occured while choosing image.".localize()
+    static let errorImage = "An error occurred while choosing image.".localize()
+    static let changeName = "Change Name".localize()
+    static let editName = "Edit your name".localize()
+    static let newName = "new name".localize()
+    static let nameNotUpdated = "Name was not updated.".localize()
+    static let errorNameChange = "An error occurred while updating name.".localize()
     
 }

@@ -60,5 +60,10 @@
 "Add" = "Ajouter";
 "Edit" = "Éditer";
 "Image was not chosen." = "L'image n'a pas été choisie.";
-"An error occured while choosing image." = "Une erreur s'est produite lors du choix de l'image.";
+"An error occurred while choosing image." = "Une erreur s'est produite lors du choix de l'image.";
+"Change Name" = "Changer de nom";
+"Edit your name" = "Modifier votre nom";
+"new name" = "nouveau nom";
+"Name was not updated." = "Le nom n'a pas été mis à jour.";
+"An error occurred while updating name." = "Une erreur s'est produite lors de la mise à jour du nom.";
 

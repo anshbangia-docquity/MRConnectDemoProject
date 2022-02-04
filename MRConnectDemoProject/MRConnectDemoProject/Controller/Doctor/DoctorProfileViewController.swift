@@ -6,21 +6,30 @@
 //
 
 import UIKit
+import BLTNBoard
 
-class DoctorProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class DoctorProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeNameDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var addImageButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
     let coreDataHandler = CoreDataHandler()
+    let changeNameController = ChangeNameController()
+    let logic = Logic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        
+        //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+        
+        changeNameController.delegate = self
+        changeNameController.define()
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -36,7 +45,28 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         }
         
         titleLabel.text = MyStrings.profile
+        nameLabel.text = user?.name
+        emailLabel.text = user?.email
         
+    }
+    
+    @IBAction func changeNameTapped(_ sender: UIButton) {
+        changeNameController.boardManager?.showBulletin(above: self)
+    }
+    
+    func doneTapped(_ changeNameController: ChangeNameController, newName: String) {
+        changeNameController.boardManager?.dismissBulletin()
+        if newName.isEmpty {
+            showAlert(emptyField: MyStrings.newName)
+            return
+        }
+        let result = logic.updateName(email: user!.email, newName: newName)
+        if result == false {
+            showAlert(title: MyStrings.imageNotChosen, subtitle: MyStrings.errorNameChange)
+            return
+        }
+        userDefault.setValue(newName, forKey: "userName")
+        nameLabel.text = user?.name
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
@@ -68,7 +98,7 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         userDefault.removeObject(forKey: "userLicense")
         userDefault.removeObject(forKey: "userEmail")
         userDefault.removeObject(forKey: "userContact")
-        
+
         userDefault.setValue(true, forKey: "authenticate")
         
         user = nil
@@ -79,5 +109,15 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     func showAlert(title: String, subtitle: String) {
         self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
     }
+    
+    func showAlert(emptyField: String) {
+        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
+    }
+    
+//    func showAlert(emptyField: String, boardManager: BLTNItemManager) {
+//        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true) {
+//            boardManager.showBulletin(above: self)
+//        }
+//    }
     
 }
