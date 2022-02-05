@@ -84,6 +84,18 @@ struct CoreDataHandler {
         return true
     }
     
+    func updatePassword(_ user: User, newPass: String) -> Bool {
+        user.password = newPass
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
     func fetchUser(of type: UserType, contains name: String) -> [User] {
         var result: [User] = []
         do {

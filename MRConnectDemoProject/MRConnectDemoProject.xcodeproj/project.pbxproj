@@ -41,6 +41,8 @@
 		018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */; };
 		018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */; };
 		018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */; };
+		018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */; };
+		018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */; };
 		01AD578527A101E200EB47DF /* MRHomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */; };
 		01AD578727A1104800EB47DF /* MRMeetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578627A1104800EB47DF /* MRMeetings.storyboard */; };
 		01AD578A27A116C400EB47DF /* MRMeetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */; };
@@ -98,6 +100,8 @@
 		018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinItems.swift; sourceTree = "<group>"; };
 		018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecPickerItem.swift; sourceTree = "<group>"; };
 		018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameItem.swift; sourceTree = "<group>"; };
+		018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordItem.swift; sourceTree = "<group>"; };
+		018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPasswordItem.swift; sourceTree = "<group>"; };
 		01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRHomeScreen.storyboard; sourceTree = "<group>"; };
 		01AD578627A1104800EB47DF /* MRMeetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMeetings.storyboard; sourceTree = "<group>"; };
 		01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMeetingsViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 				0105AD9727A92E8400607DCF /* BulletinBoard.swift */,
 				018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */,
 				018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */,
+				018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */,
+				018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */,
 			);
 			path = Bulletin;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 			files = (
 				0110A8B8279E9A330023AD4C /* Alert.swift in Sources */,
 				01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */,
+				018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */,
 				0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */,
 				0110A8B0279E98620023AD4C /* Logic.swift in Sources */,
 				018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */,
@@ -457,6 +464,7 @@
 				0110A88F279E97100023AD4C /* SceneDelegate.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
 				01AD579027A120B300EB47DF /* DoctorMeetingsViewController.swift in Sources */,
+				018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

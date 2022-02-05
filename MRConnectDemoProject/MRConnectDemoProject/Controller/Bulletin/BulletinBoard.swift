@@ -12,11 +12,13 @@ enum BulletinTypes {
     
     case SpeckPicker
     case ChangeName
+    case CheckPassword
+    case ChangePassword
     
 }
 
 protocol BulletinBoardDelegate {
-    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any)
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes)
 }
 
 class BulletinBoard {
@@ -27,15 +29,19 @@ class BulletinBoard {
     func define(of type: BulletinTypes) {
         let bulletinItem = BulletinItems()
         
-        var item: BLTNPageItem
+        var item: BLTNPageItem?
         switch type {
         case .SpeckPicker:
             item = bulletinItem.makeSpeckPickerItem(delegate!, board: self)
         case .ChangeName:
             item = bulletinItem.makeChangeNameItem(delegate!, board: self)
+        case .CheckPassword:
+            item = bulletinItem.makeCheckPasswordItem(delegate!, board: self)
+        default:
+            break
         }
         
-        boardManager = BLTNItemManager(rootItem: item)
+        boardManager = BLTNItemManager(rootItem: item!)
         boardManager!.cardCornerRadius = 18
     }
 

@@ -15,12 +15,15 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var changeNameButton: UIButton!
+    @IBOutlet weak var changePassButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
     
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
     let coreDataHandler = CoreDataHandler()
-    let changeName = BulletinBoard()
+    let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
     override func viewDidLoad() {
@@ -28,8 +31,7 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         
-        changeName.delegate = self
-        changeName.define(of: .ChangeName)
+        bulletinBoard.delegate = self
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -47,23 +49,64 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         titleLabel.text = MyStrings.profile
         nameLabel.text = user?.name
         emailLabel.text = user?.email
+        changeNameButton.setTitle(MyStrings.changeName, for: .normal)
+        changePassButton.setTitle(MyStrings.changePassword, for: .normal)
+        logOutButton.setTitle(MyStrings.logOut, for: .normal)
         
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
-        changeName.boardManager?.showBulletin(above: self)
+        bulletinBoard.define(of: .ChangeName)
+        bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
-    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any) {
-        let newName = selection as! String
-        changeName.boardManager?.dismissBulletin()
+    @IBAction func changePassTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .CheckPassword)
+        bulletinBoard.boardManager?.showBulletin(above: self)
+    }
+    
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
+        bulletinBoard.boardManager?.dismissBulletin()
+        
+        switch type {
+        case .ChangeName:
+            nameChanged(newName: selection as! String)
+        case .ChangePassword:
+            passwordChanged(newPass: selection as! String)
+        default:
+            break
+        }
+    }
+    
+    func nameChanged(newName: String) {
         let result = logic.updateName(email: user!.email, newName: newName)
         if result == false {
-            showAlert(title: MyStrings.imageNotChosen, subtitle: MyStrings.errorNameChange)
+            showAlert(title: MyStrings.nameNotUpdated, subtitle: MyStrings.errorNameChange)
             return
         }
         userDefault.setValue(newName, forKey: "userName")
         nameLabel.text = user?.name
+    }
+    
+    func passwordChanged(newPass: String) {
+        var result = true
+        var pass = user?.password
+        let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
+        
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
+            result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
+            pass = newPass
+        }))
+
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
+
+        present(confirmAlert, animated: true) {
+            if result {
+                self.userDefault.setValue(pass, forKey: "userPassword")
+            } else {
+                self.showAlert(title: MyStrings.passNotUpdated, subtitle: MyStrings.errorPassChange)
+            }
+        }
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
@@ -110,11 +153,5 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     func showAlert(emptyField: String) {
         self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
-    
-//    func showAlert(emptyField: String, boardManager: BLTNItemManager) {
-//        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true) {
-//            boardManager.showBulletin(above: self)
-//        }
-//    }
     
 }

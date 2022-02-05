@@ -115,6 +115,9 @@
                                                                         <state key="normal" title="Change Password">
                                                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="changePassTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3vu-7M-Zx7"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="934-7X-4XF">
                                                                         <rect key="frame" x="324" y="14" width="25" height="21.5"/>
@@ -265,7 +268,10 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addImageButton" destination="9fn-RB-SkG" id="9fm-ws-bQX"/>
+                        <outlet property="changeNameButton" destination="y2v-Si-kK8" id="TLj-lk-WzC"/>
+                        <outlet property="changePassButton" destination="HA5-iP-aHe" id="Igq-iR-6ye"/>
                         <outlet property="emailLabel" destination="bUz-Xm-081" id="c4e-Tx-EEi"/>
+                        <outlet property="logOutButton" destination="X9L-Rq-CHz" id="XNN-fs-Gis"/>
                         <outlet property="nameLabel" destination="1MC-kX-mj2" id="ig5-t8-MVn"/>
                         <outlet property="profileImageView" destination="SKf-ai-fvX" id="T0e-NI-RRZ"/>
                         <outlet property="titleLabel" destination="448-za-1AQ" id="Dwh-Cb-Pr2"/>

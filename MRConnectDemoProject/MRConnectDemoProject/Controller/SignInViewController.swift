@@ -71,7 +71,7 @@ class SignUpViewController: UIViewController, BulletinBoardDelegate {
         specPicker.boardManager?.showBulletin(above: self)
     }
     
-    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any) {
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         specPicker.boardManager?.dismissBulletin()
         
         selectedSpec = selection as! Int16

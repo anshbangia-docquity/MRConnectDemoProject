@@ -66,3 +66,16 @@
 "new name" = "neuer Name";
 "Name was not updated." = "Name wurde nicht aktualisiert.";
 "An error occurred while updating name." = "Beim Aktualisieren des Namens ist ein Fehler aufgetreten.";
+"new password" = "Neues Passwort";
+"confirm new password" = "bestätige neues Passwort";
+"Change Password" = "Kennwort ändern";
+"Enter new password" = "Neues Passwort eingeben";
+"Are you sure you want to change password?" = "Sind Sie sicher, dass Sie das Passwort ändern möchten?";
+"Confirm" = "Bestätigen Sie";
+"Cancel" = "Abbrechen";
+"Password was not updated." = "Passwort wurde nicht aktualisiert.";
+"An error occurred while updating password." = "Beim Aktualisieren des Passworts ist ein Fehler aufgetreten.";
+"Invalid Password" = "Ungültiges Passwort";
+"Proceed" = "Vorgehen";
+"Enter old password" = "Altes Passwort eingeben";
+"Log Out" = "Ausloggen";

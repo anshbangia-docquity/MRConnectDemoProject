@@ -23,6 +23,11 @@ struct Logic {
         return coreDataHandler.updateName(user, newName: newName)
     }
     
+    func updatePassword(email: String, newPass: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updatePassword(user, newPass: newPass)
+    }
+    
     func logInUser(_ resultUser: [User], password: String) -> Bool {
         if resultUser.count == 0 {
             return false

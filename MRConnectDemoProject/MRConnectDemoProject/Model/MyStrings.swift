@@ -81,5 +81,18 @@ struct MyStrings {
     static let newName = "new name".localize()
     static let nameNotUpdated = "Name was not updated.".localize()
     static let errorNameChange = "An error occurred while updating name.".localize()
+    static let newPassword = "new password".localize()
+    static let confirmNewPass = "confirm new password".localize()
+    static let changePassword = "Change Password".localize()
+    static let enterNewPass = "Enter new password".localize()
+    static let askChangePass = "Are you sure you want to change password?".localize()
+    static let confirm = "Confirm".localize()
+    static let cancel = "Cancel".localize()
+    static let passNotUpdated = "Password was not updated.".localize()
+    static let errorPassChange = "An error occurred while updating password.".localize()
+    static let invalidPassword = "Invalid Password".localize()
+    static let proceed = "Proceed".localize()
+    static let enterOldPass = "Enter old password".localize()
+    static let logOut = "Log Out".localize()
     
 }
