@@ -8,7 +8,7 @@
 import UIKit
 import BLTNBoard
 
-class DoctorProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChangeNameDelegate {
+class DoctorProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BulletinBoardDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -20,7 +20,7 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
     let coreDataHandler = CoreDataHandler()
-    let changeNameController = ChangeNameController()
+    let changeName = BulletinBoard()
     let logic = Logic()
     
     override func viewDidLoad() {
@@ -28,8 +28,8 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         
-        changeNameController.delegate = self
-        changeNameController.define()
+        changeName.delegate = self
+        changeName.define(of: .ChangeName)
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -51,15 +51,12 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
-        changeNameController.boardManager?.showBulletin(above: self)
+        changeName.boardManager?.showBulletin(above: self)
     }
     
-    func doneTapped(_ changeNameController: ChangeNameController, newName: String) {
-        changeNameController.boardManager?.dismissBulletin()
-        if newName.isEmpty {
-            showAlert(emptyField: MyStrings.newName)
-            return
-        }
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any) {
+        let newName = selection as! String
+        changeName.boardManager?.dismissBulletin()
         let result = logic.updateName(email: user!.email, newName: newName)
         if result == false {
             showAlert(title: MyStrings.imageNotChosen, subtitle: MyStrings.errorNameChange)
