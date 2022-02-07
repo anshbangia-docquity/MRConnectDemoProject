@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, SpecPickerDelegate {
+class SignUpViewController: UIViewController, BulletinBoardDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var contactField: UITextField!
@@ -27,13 +27,13 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
     var type = UserType.MRUser
     var selectedSpec: Int16 = -1
     
-    lazy var specPicker = SpecPicker()
+    lazy var specPicker = BulletinBoard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        specPicker.define()
         specPicker.delegate = self
+        specPicker.define(of: .SpeckPicker)
         
         navItem.title = MyStrings.signup
         userTypeLabel.text = MyStrings.usertype
@@ -71,10 +71,11 @@ class SignUpViewController: UIViewController, SpecPickerDelegate {
         specPicker.boardManager?.showBulletin(above: self)
     }
     
-    func doneTapped(_ specPicker: SpecPicker, id: Int16, name: String) {
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         specPicker.boardManager?.dismissBulletin()
         
-        selectedSpec = id
+        selectedSpec = selection as! Int16
+        let name = Specialities.specialities[selectedSpec]
         specialityButton.setTitleColor(.black, for: .normal)
         specialityButton.setTitle(name, for: .normal)
     }

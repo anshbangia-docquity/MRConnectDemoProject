@@ -13,3 +13,13 @@ class UserDefaultManager {
     let defaults = UserDefaults(suiteName: "com.data.saved")!
     
 }
+
+//extension UserDefaults {
+//    func clear() {
+//        guard let domainName = Bundle.main.bundleIdentifier else {
+//            return
+//        }
+//        removePersistentDomain(forName: domainName)
+//        synchronize()
+//    }
+//}

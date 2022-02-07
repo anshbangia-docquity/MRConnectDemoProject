@@ -57,4 +57,25 @@
 "Surgeon" = "Chirurgien";
 "Choose your Specialization" = "Choisissez votre spécialisation";
 "Search" = "Chercher";
-
+"Add" = "Ajouter";
+"Edit" = "Éditer";
+"Image was not chosen." = "L'image n'a pas été choisie.";
+"An error occurred while choosing image." = "Une erreur s'est produite lors du choix de l'image.";
+"Change Name" = "Changer de nom";
+"Edit your name" = "Modifier votre nom";
+"new name" = "nouveau nom";
+"Name was not updated." = "Le nom n'a pas été mis à jour.";
+"An error occurred while updating name." = "Une erreur s'est produite lors de la mise à jour du nom.";
+"new password" = "nouveau mot de passe";
+"confirm new password" = "confirmer le nouveau mot de passe";
+"Change Password" = "Changer le mot de passe";
+"Enter new password" = "Entrez un nouveau mot de passe";
+"Are you sure you want to change password?" = "Voulez-vous vraiment changer de mot de passe ?";
+"Confirm" = "Confirmer";
+"Cancel" = "Annuler";
+"Password was not updated." = "Le mot de passe n'a pas été mis à jour.";
+"An error occurred while updating password." = "Une erreur s'est produite lors de la mise à jour du mot de passe.";
+"Invalid Password" = "Mot de passe incorrect";
+"Proceed" = "Procéder";
+"Enter old password" = "Entrez l'ancien mot de passe";
+"Log Out" = "Se déconnecter";

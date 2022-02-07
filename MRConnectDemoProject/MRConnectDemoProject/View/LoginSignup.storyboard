@@ -257,12 +257,14 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="a43-K3-hzX" secondAttribute="bottom" id="TMi-Nh-u4b"/>
+                                    <constraint firstItem="a43-K3-hzX" firstAttribute="height" secondItem="az8-ZJ-chu" secondAttribute="height" id="DWK-9R-e0D"/>
+                                    <constraint firstAttribute="bottom" secondItem="a43-K3-hzX" secondAttribute="bottom" id="FPy-Lt-6it"/>
                                     <constraint firstItem="a43-K3-hzX" firstAttribute="width" secondItem="az8-ZJ-chu" secondAttribute="width" id="Xfu-f0-zDO"/>
+                                    <constraint firstItem="a43-K3-hzX" firstAttribute="top" secondItem="az8-ZJ-chu" secondAttribute="top" id="Ydj-ON-dMp"/>
                                     <constraint firstItem="a43-K3-hzX" firstAttribute="leading" secondItem="az8-ZJ-chu" secondAttribute="leading" id="a4b-9N-2y8"/>
-                                    <constraint firstItem="a43-K3-hzX" firstAttribute="top" secondItem="az8-ZJ-chu" secondAttribute="top" id="fKE-2b-p7h"/>
+                                    <constraint firstItem="a43-K3-hzX" firstAttribute="leading" secondItem="az8-ZJ-chu" secondAttribute="leading" id="aCf-Zg-XMT"/>
                                     <constraint firstAttribute="trailing" secondItem="a43-K3-hzX" secondAttribute="trailing" id="haJ-i3-4GL"/>
-                                    <constraint firstItem="a43-K3-hzX" firstAttribute="height" secondItem="az8-ZJ-chu" secondAttribute="height" id="k8K-da-19h"/>
+                                    <constraint firstAttribute="trailing" secondItem="a43-K3-hzX" secondAttribute="trailing" id="sHb-D5-rH0"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -272,7 +274,7 @@
                             <constraint firstItem="az8-ZJ-chu" firstAttribute="leading" secondItem="OMf-WE-bGz" secondAttribute="leading" id="GNr-oA-Ous"/>
                             <constraint firstAttribute="trailing" secondItem="az8-ZJ-chu" secondAttribute="trailing" id="IQ3-c0-teH"/>
                             <constraint firstAttribute="bottom" secondItem="az8-ZJ-chu" secondAttribute="bottom" id="MV8-Al-tBy"/>
-                            <constraint firstItem="az8-ZJ-chu" firstAttribute="top" secondItem="eE1-xY-5gg" secondAttribute="top" id="pjd-Us-6j6"/>
+                            <constraint firstItem="az8-ZJ-chu" firstAttribute="top" secondItem="eE1-xY-5gg" secondAttribute="top" id="aQ1-Mx-Fdc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" prompt=" " id="bFz-Z5-uvQ">
