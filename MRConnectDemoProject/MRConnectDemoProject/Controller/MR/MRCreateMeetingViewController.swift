@@ -15,6 +15,13 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleDescLabel: UILabel!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var dateTimeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var timePicker: UIDatePicker!
+    
+    let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +35,10 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate {
         descTextView.delegate = self
         descTextView.text = MyStrings.meetingDescription
         descTextView.textColor = UIColor.systemGray3
+        
+        dateTimeLabel.text = MyStrings.dateAndTime
+        dateLabel.text = MyStrings.date
+        timeLabel.text = MyStrings.time
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -49,13 +60,21 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func createTapped(_ sender: UIButton) {
-        if titleField.text == nil || titleField.text!.isEmpty {
-            showAlert(emptyField: MyStrings.meetingTitle)
-            return
-        }
+//        if titleField.text == nil || titleField.text!.isEmpty {
+//            showAlert(emptyField: MyStrings.meetingTitle)
+//            return
+//        }
         
         
-        print("Create Tapped")
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let dateStr = dateFormatter.string(from: datePicker.date)
+        dateFormatter.dateFormat = "HH:mm"
+        let timeStr = dateFormatter.string(from: timePicker.date)
+        let dateTimeStr = dateStr + " " + timeStr
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+        let _ = dateFormatter.date(from: dateTimeStr)
+        
         dismiss(animated: true, completion: nil)
     }
     

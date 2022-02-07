@@ -98,5 +98,8 @@ struct MyStrings {
     static let titleAndDesc = "Title and Description".localize()
     static let meetingTitle = "Meeting title".localize()
     static let meetingDescription = "Meeting description".localize()
+    static let dateAndTime = "Date and Time".localize()
+    static let date = "Date".localize()
+    static let time = "Time".localize()
     
 }

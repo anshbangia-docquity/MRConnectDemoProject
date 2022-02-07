@@ -165,20 +165,20 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJM-7p-38K">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="711"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zVS-bp-vup" userLabel="Main Stack">
-                                                <rect key="frame" x="20" y="40" width="374" height="184"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="zVS-bp-vup" userLabel="Main Stack">
+                                                <rect key="frame" x="20" y="40" width="374" height="336"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4O-wA-f2c" userLabel="Title Desc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="184"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="194"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="HPZ-6l-y1h">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="184"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="194"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwB-JR-UDO" userLabel="Heading">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title and Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ous-dA-Erk">
-                                                                                <rect key="frame" x="15" y="10" width="164.5" height="20.5"/>
+                                                                                <rect key="frame" x="15" y="15" width="164.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                                                 <color key="textColor" systemColor="systemGrayColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -188,11 +188,11 @@
                                                                         <constraints>
                                                                             <constraint firstItem="Ous-dA-Erk" firstAttribute="leading" secondItem="nwB-JR-UDO" secondAttribute="leading" constant="15" id="5ot-BG-Mod"/>
                                                                             <constraint firstItem="Ous-dA-Erk" firstAttribute="centerY" secondItem="nwB-JR-UDO" secondAttribute="centerY" id="67y-rV-05o"/>
-                                                                            <constraint firstAttribute="height" constant="40" id="jwO-4t-3x4"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="jwO-4t-3x4"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3d-Qj-xFE" userLabel="Title">
-                                                                        <rect key="frame" x="0.0" y="42" width="374" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="52" width="374" height="40"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Meeting Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3L2-Ha-eFM">
                                                                                 <rect key="frame" x="9.5" y="9.5" width="355" height="21"/>
@@ -209,7 +209,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tE-Sa-t1E" userLabel="Desc">
-                                                                        <rect key="frame" x="0.0" y="84" width="374" height="100"/>
+                                                                        <rect key="frame" x="0.0" y="94" width="374" height="100"/>
                                                                         <subviews>
                                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x4S-m5-7Bh">
                                                                                 <rect key="frame" x="5.5" y="0.0" width="363" height="80"/>
@@ -240,6 +240,88 @@
                                                             <constraint firstItem="HPZ-6l-y1h" firstAttribute="top" secondItem="R4O-wA-f2c" secondAttribute="top" id="C2K-yp-BKV"/>
                                                             <constraint firstAttribute="trailing" secondItem="HPZ-6l-y1h" secondAttribute="trailing" id="bvt-49-Poq"/>
                                                             <constraint firstItem="HPZ-6l-y1h" firstAttribute="leading" secondItem="R4O-wA-f2c" secondAttribute="leading" id="ngn-nX-13F"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="25"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nts-3j-83g" userLabel="Date Time">
+                                                        <rect key="frame" x="0.0" y="224" width="374" height="112"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="X2z-zH-aaj">
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="112"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVn-LL-MZe" userLabel="Heading">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date and Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZx-dK-hXp">
+                                                                                <rect key="frame" x="15" y="15" width="114.5" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                                <color key="textColor" systemColor="systemGrayColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="bZx-dK-hXp" firstAttribute="leading" secondItem="hVn-LL-MZe" secondAttribute="leading" constant="15" id="gfL-gM-dgD"/>
+                                                                            <constraint firstItem="bZx-dK-hXp" firstAttribute="centerY" secondItem="hVn-LL-MZe" secondAttribute="centerY" id="m2a-yV-aHt"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="nI5-HA-J76"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FY-2r-Ug9" userLabel="Date Time">
+                                                                        <rect key="frame" x="0.0" y="52" width="374" height="60"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TCs-QP-D4D">
+                                                                                <rect key="frame" x="10" y="20" width="36" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="Dfk-33-aFU">
+                                                                                <rect key="frame" x="20" y="15" width="150" height="31"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="150" id="Jer-M3-yxB"/>
+                                                                                </constraints>
+                                                                            </datePicker>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27J-hS-2iJ">
+                                                                                <rect key="frame" x="195" y="20" width="38" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="0TJ-64-NSc">
+                                                                                <rect key="frame" x="233" y="14.5" width="100" height="31"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="100" id="sUC-FV-sgG"/>
+                                                                                </constraints>
+                                                                            </datePicker>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="27J-hS-2iJ" firstAttribute="leading" secondItem="Dfk-33-aFU" secondAttribute="trailing" constant="25" id="Lhu-ul-fOb"/>
+                                                                            <constraint firstItem="TCs-QP-D4D" firstAttribute="centerY" secondItem="5FY-2r-Ug9" secondAttribute="centerY" id="M3C-j7-Kra"/>
+                                                                            <constraint firstItem="Dfk-33-aFU" firstAttribute="leading" secondItem="TCs-QP-D4D" secondAttribute="leading" constant="10" id="Pjf-Si-sGS"/>
+                                                                            <constraint firstItem="0TJ-64-NSc" firstAttribute="centerY" secondItem="5FY-2r-Ug9" secondAttribute="centerY" id="SD0-Gi-mtA"/>
+                                                                            <constraint firstItem="27J-hS-2iJ" firstAttribute="centerY" secondItem="5FY-2r-Ug9" secondAttribute="centerY" id="Vkx-Ry-V9g"/>
+                                                                            <constraint firstItem="Dfk-33-aFU" firstAttribute="centerY" secondItem="5FY-2r-Ug9" secondAttribute="centerY" id="gve-3F-78f"/>
+                                                                            <constraint firstItem="0TJ-64-NSc" firstAttribute="leading" secondItem="27J-hS-2iJ" secondAttribute="trailing" id="lpn-6u-6Yc"/>
+                                                                            <constraint firstAttribute="height" constant="60" id="q6a-2U-cBY"/>
+                                                                            <constraint firstItem="TCs-QP-D4D" firstAttribute="leading" secondItem="5FY-2r-Ug9" secondAttribute="leading" constant="10" id="qek-aJ-4Hs"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="X2z-zH-aaj" secondAttribute="trailing" id="Aok-Mm-aZJ"/>
+                                                            <constraint firstItem="X2z-zH-aaj" firstAttribute="leading" secondItem="nts-3j-83g" secondAttribute="leading" id="VJb-Rn-dIu"/>
+                                                            <constraint firstAttribute="bottom" secondItem="X2z-zH-aaj" secondAttribute="bottom" id="fC4-e0-yu9"/>
+                                                            <constraint firstItem="X2z-zH-aaj" firstAttribute="top" secondItem="nts-3j-83g" secondAttribute="top" id="rfX-pf-yjk"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -287,7 +369,12 @@
                     <connections>
                         <outlet property="cancelButton" destination="c5x-oe-LIF" id="SRO-JU-xZV"/>
                         <outlet property="createButton" destination="0iH-PN-qi5" id="9ky-UH-mr7"/>
+                        <outlet property="dateLabel" destination="TCs-QP-D4D" id="Orz-RK-JUb"/>
+                        <outlet property="datePicker" destination="Dfk-33-aFU" id="KZn-af-O2W"/>
+                        <outlet property="dateTimeLabel" destination="bZx-dK-hXp" id="Bkw-mw-LG9"/>
                         <outlet property="descTextView" destination="x4S-m5-7Bh" id="wDo-yR-u3C"/>
+                        <outlet property="timeLabel" destination="27J-hS-2iJ" id="voE-wz-cBV"/>
+                        <outlet property="timePicker" destination="0TJ-64-NSc" id="9XG-ky-E1r"/>
                         <outlet property="titleDescLabel" destination="Ous-dA-Erk" id="pme-Gy-cwh"/>
                         <outlet property="titleField" destination="3L2-Ha-eFM" id="Am7-ds-1n8"/>
                         <outlet property="titleLabel" destination="egW-5t-T6o" id="TPd-nc-NVC"/>
