@@ -147,6 +147,9 @@
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="baseBackgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="createTapped:" destination="oXv-93-KFS" eventType="touchUpInside" id="gOe-C1-mPY"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -283,6 +286,7 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="c5x-oe-LIF" id="SRO-JU-xZV"/>
+                        <outlet property="createButton" destination="0iH-PN-qi5" id="9ky-UH-mr7"/>
                         <outlet property="titleLabel" destination="egW-5t-T6o" id="TPd-nc-NVC"/>
                     </connections>
                 </viewController>
