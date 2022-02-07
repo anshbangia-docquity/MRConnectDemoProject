@@ -11,15 +11,13 @@ class MRMeetingsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleLabel.text = MyStrings.meetings
     }
 
+    @IBAction func createTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToCreate", sender: self)
+    }
 }

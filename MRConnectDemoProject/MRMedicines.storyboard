@@ -26,28 +26,10 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNM-Or-aO4">
-                                        <rect key="frame" x="364" y="68" width="42" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="42" id="pGn-qf-EeQ"/>
-                                            <constraint firstAttribute="height" constant="25" id="yTu-pu-BSa"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="+" cornerStyle="small" titleAlignment="center">
-                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle2"/>
-                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="createPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eFf-7W-cnL"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="VNM-Or-aO4" secondAttribute="bottom" constant="7" id="4m6-aj-R2W"/>
                                     <constraint firstAttribute="bottom" secondItem="Fie-5i-aoU" secondAttribute="bottom" constant="7" id="VEp-Oy-gcV"/>
-                                    <constraint firstAttribute="trailing" secondItem="VNM-Or-aO4" secondAttribute="trailing" constant="8" id="Vpo-4r-fgA"/>
                                     <constraint firstAttribute="height" constant="100" id="f3k-E9-jh3"/>
                                     <constraint firstItem="Fie-5i-aoU" firstAttribute="centerX" secondItem="i7T-Y9-2jQ" secondAttribute="centerX" id="iN6-yD-QFS"/>
                                 </constraints>
@@ -150,10 +132,34 @@
                                     <constraint firstItem="Ci6-If-O03" firstAttribute="centerY" secondItem="jgY-LG-BY6" secondAttribute="centerY" id="gMP-zU-Z33"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jd-n2-ljE" userLabel="Create Button">
+                                <rect key="frame" x="344" y="743" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6BZ-aw-NhV"/>
+                                    <constraint firstAttribute="height" constant="50" id="jEg-rt-6j2"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="plus" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="medium"/>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                    <color key="baseBackgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="v9p-oa-yqx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="0Jd-n2-ljE" secondAttribute="bottom" constant="20" id="5gz-5G-ruP"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0Jd-n2-ljE" secondAttribute="trailing" constant="20" id="7GY-pq-bDP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jgY-LG-BY6" secondAttribute="trailing" id="9Ls-kD-dap"/>
                             <constraint firstItem="gWw-2o-Uq1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Gh2-dG-Gr2"/>
                             <constraint firstItem="gWw-2o-Uq1" firstAttribute="top" secondItem="jgY-LG-BY6" secondAttribute="bottom" id="JYF-xf-cLc"/>
@@ -198,12 +204,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98F-rU-RJz">
+                                        <rect key="frame" x="337.5" y="15.5" width="76.5" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Cancel">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="cancelTapped:" destination="Kyg-DQ-fKq" eventType="touchUpInside" id="HCR-kj-Ngn"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="qhY-wh-PSc" secondAttribute="bottom" constant="7" id="H13-26-Z8b"/>
                                     <constraint firstAttribute="height" constant="50" id="M8v-aE-Jyh"/>
                                     <constraint firstItem="qhY-wh-PSc" firstAttribute="centerX" secondItem="W1f-fV-8xA" secondAttribute="centerX" id="dBa-gn-Ehj"/>
+                                    <constraint firstAttribute="bottom" secondItem="98F-rU-RJz" secondAttribute="bottom" id="ifB-hX-nzn"/>
+                                    <constraint firstAttribute="trailing" secondItem="98F-rU-RJz" secondAttribute="trailing" id="ssT-oe-KlL"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HPK-KC-Yf7">
@@ -293,6 +312,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="98F-rU-RJz" id="R4R-6M-rFy"/>
                         <outlet property="companyField" destination="JNN-03-4G9" id="Im1-4a-8FX"/>
                         <outlet property="compositionField" destination="El9-d3-wD1" id="bAZ-y5-EjW"/>
                         <outlet property="createButton" destination="75i-EZ-JFO" id="q1y-WB-GeJ"/>
@@ -311,6 +331,7 @@
     <resources>
         <image name="cross.case.fill" catalog="system" width="128" height="100"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

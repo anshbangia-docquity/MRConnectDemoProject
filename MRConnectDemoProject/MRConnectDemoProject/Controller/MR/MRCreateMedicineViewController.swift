@@ -17,6 +17,7 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var formLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var form: Int16 = 0
     var handler: (() -> Void)?
@@ -37,6 +38,11 @@ class MRCreateMedicineViewController: UIViewController {
         }
         
         createButton.setTitle(MyStrings.create, for: .normal)
+        cancelButton.setTitle(MyStrings.cancel, for: .normal)
+    }
+    
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func formTapped(_ sender: UISegmentedControl) {
