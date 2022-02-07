@@ -95,5 +95,8 @@ struct MyStrings {
     static let enterOldPass = "Enter old password".localize()
     static let logOut = "Log Out".localize()
     static let createMeeting = "Create Meeting".localize()
+    static let titleAndDesc = "Title and Description".localize()
+    static let meetingTitle = "Meeting title".localize()
+    static let meetingDescription = "Meeting description".localize()
     
 }
