@@ -59,18 +59,10 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         }
         
         doctorCollection.reloadData()
-        let n = selectedDoctors.count
-        if n == 0 {
-            doctorCollectionHeight.constant = CGFloat(0)
-        } else if n < 6 {
-            doctorCollectionHeight.constant = CGFloat(50)
-        } else if n % 6 == 0 {
-            doctorCollectionHeight.constant = CGFloat((n / 6) * 50)
-        } else {
-            doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
-        }
         
         medicineCollection.reloadData()
+        
+        doctorCollectionHeight.constant = 0
         medicineCollectionHeight.constant = 0
     }
     
@@ -295,19 +287,15 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             
             doctorSet.insert(doctors[indexPath.row].email!)
             
-            selectedDoctors.append(doctors[indexPath.row])
+            if selectedDoctors.count == 0 {
+                doctorCollectionHeight.constant = 60
+            }
+            
+            selectedDoctors.insert(doctors[indexPath.row], at: 0)
             tableView.deselectRow(at: indexPath, animated: true)
             
-            doctorCollection.reloadData()
-            let n = selectedDoctors.count
-            if n == 0 {
-                doctorCollectionHeight.constant = CGFloat(0)
-            } else if n < 6 {
-                doctorCollectionHeight.constant = CGFloat(50)
-            } else if n % 6 == 0 {
-                doctorCollectionHeight.constant = CGFloat((n / 6) * 50)
-            } else {
-                doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
+            DispatchQueue.main.async {
+                self.doctorCollection.reloadData()
             }
         } else {
             if medicineSet.contains(medicines[indexPath.row].id) {
@@ -316,11 +304,16 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             
             medicineSet.insert(medicines[indexPath.row].id)
             
-            selectedMedicines.append(medicines[indexPath.row])
+            if selectedMedicines.count == 0 {
+                medicineCollectionHeight.constant = 40
+            }
+            
+            selectedMedicines.insert(medicines[indexPath.row], at: 0)
             tableView.deselectRow(at: indexPath, animated: true)
             
-            medicineCollection.reloadData()
-            medicineCollectionHeight.constant = 100
+            DispatchQueue.main.async {
+                self.medicineCollection.reloadData()
+            }
         }
     }
     
@@ -371,24 +364,23 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
     func removeDoctor(_ index: Int) {
         doctorSet.remove(selectedDoctors[index].email!)
         selectedDoctors.remove(at: index)
-        doctorCollection.reloadData()
-        let n = selectedDoctors.count
-        if n == 0 {
-            doctorCollectionHeight.constant = CGFloat(0)
-        } else if n < 6 {
-            doctorCollectionHeight.constant = CGFloat(50)
-        } else if n % 6 == 0 {
-            doctorCollectionHeight.constant = CGFloat((n / 6) * 50)
-        } else {
-            doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
+        
+        if selectedDoctors.count == 0 {
+            doctorCollectionHeight.constant = 0
         }
+        
+        doctorCollection.reloadData()
     }
     
     func removeMed(_ index: Int) {
         medicineSet.remove(selectedMedicines[index].id)
         selectedMedicines.remove(at: index)
+        
+        if selectedMedicines.count == 0 {
+            medicineCollectionHeight.constant = 0
+        }
+        
         medicineCollection.reloadData()
-        medicineCollectionHeight.constant = 100
     }
     
 }
