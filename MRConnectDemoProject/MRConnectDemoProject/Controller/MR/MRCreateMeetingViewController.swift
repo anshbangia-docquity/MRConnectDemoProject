@@ -26,19 +26,35 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
     @IBOutlet weak var doctorCollection: UICollectionView!
     @IBOutlet weak var doctorCollectionHeight: NSLayoutConstraint!
     @IBOutlet weak var selectDoctorsLabel: UILabel!
+    @IBOutlet weak var medicineCollection: UICollectionView!
+    @IBOutlet weak var medicineTableView: UITableView!
+    @IBOutlet weak var medicineSearchField: UITextField!
+    @IBOutlet weak var medicineTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var medicineCollectionHeight: NSLayoutConstraint!
+    @IBOutlet weak var selectMedicinesLabel: UILabel!
     
     let coreDataHandler = CoreDataHandler()
     var doctors: [User] = []
+    var medicines: [Medicine] = []
     let dateFormatter = DateFormatter()
     var selectedDoctors: [User] = []
+    var selectedMedicines: [Medicine] = []
+    var doctorSet = Set<String>()
+    var medicineSet = Set<Int16>()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         doctorTableView.reloadData()
         doctorTableViewHeight.constant = doctorTableView.contentSize.height
-        if doctorTableViewHeight.constant > 250 {
-            doctorTableViewHeight.constant = 250
+        if doctorTableViewHeight.constant > 175 {
+            doctorTableViewHeight.constant = 175
+        }
+        
+        medicineTableView.reloadData()
+        medicineTableViewHeight.constant = medicineTableView.contentSize.height
+        if medicineTableViewHeight.constant > 150 {
+            medicineTableViewHeight.constant = 150
         }
         
         doctorCollection.reloadData()
@@ -52,6 +68,9 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         } else {
             doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
         }
+        
+        medicineCollection.reloadData()
+        medicineCollectionHeight.constant = 0
     }
     
     override func viewDidLoad() {
@@ -61,6 +80,11 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         doctorTableView.delegate = self
         doctorTableView.dataSource = self
         doctorSearchField.delegate = self
+        
+        medicines = coreDataHandler.fetchMedicines()
+        medicineTableView.delegate = self
+        medicineTableView.dataSource = self
+        medicineSearchField.delegate = self
         
         titleLabel.text = MyStrings.createMeeting
         cancelButton.setTitle(MyStrings.cancel, for: .normal)
@@ -78,9 +102,13 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         
         doctorCollection.delegate = self
         doctorCollection.dataSource = self
+        medicineCollection.delegate = self
+        medicineCollection.dataSource = self
         
         selectDoctorsLabel.text = MyStrings.selectDoctors
+        selectMedicinesLabel.text = MyStrings.selectMedicines
         doctorSearchField.placeholder = MyStrings.search
+        medicineSearchField.placeholder = MyStrings.search
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -102,13 +130,12 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         doctorSearchField.endEditing(true)
     }
     
+    @IBAction func medicineSearchTapped(_ sender: UIButton) {
+        medicineSearchField.endEditing(true)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == doctorSearchField {
-            textField.endEditing(true)
-            return true
-        } else {
-            return false
-        }
+        textField.endEditing(true)
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -121,8 +148,22 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
 
             doctorTableView.reloadData()
             doctorTableViewHeight.constant = doctorTableView.contentSize.height
-            if doctorTableViewHeight.constant > 250 {
-                doctorTableViewHeight.constant = 250
+            if doctorTableViewHeight.constant > 175 {
+                doctorTableViewHeight.constant = 175
+            }
+        }
+        
+        if textField == medicineSearchField {
+            if medicineSearchField.text == "" {
+                medicines = coreDataHandler.fetchMedicines()
+            } else {
+                medicines = coreDataHandler.fetchMedicines(contains: medicineSearchField.text!)
+            }
+
+            medicineTableView.reloadData()
+            medicineTableViewHeight.constant = medicineTableView.contentSize.height
+            if medicineTableViewHeight.constant > 150 {
+                medicineTableViewHeight.constant = 150
             }
         }
     }
@@ -137,6 +178,16 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
             return
         }
         
+        if selectedDoctors.count == 0 {
+            showAlert(noSelection: MyStrings.doctor)
+            return
+        }
+        
+        if selectedMedicines.count == 0 {
+            showAlert(noSelection: MyStrings.medicine)
+            return
+        }
+        
         
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateStr = dateFormatter.string(from: datePicker.date)
@@ -145,7 +196,21 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         let dateTimeStr = dateStr + " " + timeStr
 
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
-        let _ = dateFormatter.date(from: dateTimeStr)
+        let date = dateFormatter.date(from: dateTimeStr)!
+        
+        var descText: String? = descTextView.text
+        if descText == "" {
+            descText = nil
+        }
+        
+        let result = coreDataHandler.createMeeting(title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+        
+        if result == false {
+            showAlert(notCreated: MyStrings.meeting)
+            return
+        }
+        
+        print(":)")
         
         dismiss(animated: true, completion: nil)
         
@@ -153,6 +218,18 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
     
     func showAlert(emptyField: String) {
         self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
+    }
+    
+    func showAlert(title: String, subtitle: String) {
+        self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
+    }
+    
+    func showAlert(noSelection: String) {
+        self.present(Alert.showAlert(title: MyStrings.noSelectionAlertTitle.replacingOccurrences(of: "|#X#|", with: noSelection), subtitle: MyStrings.noSelectionAlertSubtitle.replacingOccurrences(of: "|#X#|", with: noSelection)), animated: true, completion: nil)
+    }
+    
+    func showAlert(notCreated: String) {
+        self.present(Alert.showAlert(title: MyStrings.createUnsuccess.replacingOccurrences(of: "|#X#|", with: notCreated), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
     
 }
@@ -164,41 +241,85 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return doctors.count
+        if tableView == doctorTableView {
+            return doctors.count
+        } else {
+            return medicines.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if tableView == doctorTableView {
+            return 80
+        } else {
+            return 50
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
+        var cell = UITableViewCell()
         
-        let doctor = doctors[indexPath.row]
-        cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = Specialities.specialities[doctor.speciality]
-        
-        if let img = doctor.profileImage {
-            cell.profileImage.image = UIImage(data: img)
+        if tableView == doctorTableView {
+            let myCell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
+            
+            let doctor = doctors[indexPath.row]
+            myCell.nameLabel.text = "Dr. \(doctor.name!)"
+            myCell.specLabel.text = Specialities.specialities[doctor.speciality]
+            
+            if let img = doctor.profileImage {
+                myCell.profileImage.image = UIImage(data: img)
+            } else {
+                myCell.profileImage.image = UIImage(systemName: "person.circle")
+            }
+            
+            cell = myCell
+        } else {
+            let myCell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
+            
+            let medicine = medicines[indexPath.row]
+            myCell.medicineNameLabel.text = "\(medicine.name!)"
+            myCell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
+            
+            cell = myCell
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedDoctors.append(doctors[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        doctorCollection.reloadData()
-        let n = selectedDoctors.count
-        if n == 0 {
-            doctorCollectionHeight.constant = CGFloat(0)
-        } else if n < 6 {
-            doctorCollectionHeight.constant = CGFloat(50)
-        } else if n % 6 == 0 {
-            doctorCollectionHeight.constant = CGFloat((n / 6) * 50)
+        if tableView == doctorTableView {
+            if doctorSet.contains(doctors[indexPath.row].email!) {
+                return
+            }
+            
+            doctorSet.insert(doctors[indexPath.row].email!)
+            
+            selectedDoctors.append(doctors[indexPath.row])
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            doctorCollection.reloadData()
+            let n = selectedDoctors.count
+            if n == 0 {
+                doctorCollectionHeight.constant = CGFloat(0)
+            } else if n < 6 {
+                doctorCollectionHeight.constant = CGFloat(50)
+            } else if n % 6 == 0 {
+                doctorCollectionHeight.constant = CGFloat((n / 6) * 50)
+            } else {
+                doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
+            }
         } else {
-            doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
+            if medicineSet.contains(medicines[indexPath.row].id) {
+                return
+            }
+            
+            medicineSet.insert(medicines[indexPath.row].id)
+            
+            selectedMedicines.append(medicines[indexPath.row])
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            medicineCollection.reloadData()
+            medicineCollectionHeight.constant = 100
         }
     }
     
@@ -211,27 +332,43 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedDoctors.count
+        if collectionView == doctorCollection {
+            return selectedDoctors.count
+        } else {
+            return selectedMedicines.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "doctorCollectionCell", for: indexPath) as? DoctorCollectionViewCell {
-            let doctor = selectedDoctors[indexPath.item]
-            if let img = doctor.profileImage {
-                myCell.profileImage.image = UIImage(data: img)
-            } else {
-                myCell.profileImage.image = UIImage(systemName: "person.circle")
+        
+        if collectionView == doctorCollection {
+            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCollectionViewCell.id, for: indexPath) as? DoctorCollectionViewCell {
+                let doctor = selectedDoctors[indexPath.item]
+                if let img = doctor.profileImage {
+                    myCell.profileImage.image = UIImage(data: img)
+                } else {
+                    myCell.profileImage.image = UIImage(systemName: "person.circle")
+                }
+                myCell.index = indexPath.item
+                myCell.removeDoctor = removeDoctor
+                cell = myCell
             }
-            myCell.index = indexPath.item
-            myCell.removeDoctor = removeDoctor
-            cell = myCell
+        } else {
+            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MedicineCollectionViewCell.id, for: indexPath) as? MedicineCollectionViewCell {
+                myCell.medicineName.text = selectedMedicines[indexPath.row].name
+                myCell.index = indexPath.item
+                myCell.removeMed = removeMed
+                cell = myCell
+            }
         }
 
         return cell
+            
     }
     
     func removeDoctor(_ index: Int) {
+        doctorSet.remove(selectedDoctors[index].email!)
         selectedDoctors.remove(at: index)
         doctorCollection.reloadData()
         let n = selectedDoctors.count
@@ -244,6 +381,28 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         } else {
             doctorCollectionHeight.constant = CGFloat(((n / 6) * 50) + 20)
         }
+    }
+    
+    func removeMed(_ index: Int) {
+        medicineSet.remove(selectedMedicines[index].id)
+        selectedMedicines.remove(at: index)
+        medicineCollection.reloadData()
+        medicineCollectionHeight.constant = 100
+    }
+    
+}
+
+extension MRCreateMeetingViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == medicineCollection {
+            let label = UILabel(frame: CGRect.zero)
+            label.text = selectedMedicines[indexPath.item].name
+            label.sizeToFit()
+            let width = label.frame.width + 42
+            return CGSize(width: width, height: 30)
+        }
+        return CGSize(width: 60, height: 50)
     }
     
 }

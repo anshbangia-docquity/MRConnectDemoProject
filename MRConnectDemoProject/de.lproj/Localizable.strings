@@ -39,7 +39,7 @@
 "Syrup" = "Sirup";
 "Injection" = "Injektion";
 "Create" = "Erstellen";
-"Medicine was not created successfully." = "Medizin wurde nicht erfolgreich erstellt.";
+"|#X#| was not created successfully." = "|#X#| wurde nicht erfolgreich erstellt.";
 "Please try again." = "Bitte versuche es erneut.";
 "Done" = "Fertig";
 "The |#X#| field cannot be empty." = "Das |#X#|-Feld darf nicht leer sein.";
@@ -87,3 +87,8 @@
 "Date" = "Datum";
 "Time" = "Zeit";
 "Select Doctors" = "Wählen Sie Ärzte aus";
+"Select Medicines" = "Wählen Sie Medikamente";
+"No |#X#| was selected." = "Es wurde kein |#X#| ausgewählt.";
+"Please select atleast one |#X#|." = "Bitte wählen Sie mindestens ein |#X#| aus.";
+"Meeting" = "Termin";
+"Medicine" = "Medizin";

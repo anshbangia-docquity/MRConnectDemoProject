@@ -57,7 +57,7 @@ struct MyStrings {
     static let createMed = "Create Medicine".localize()
     static let medName = "medicine name".localize()
     static let create = "Create".localize()
-    static let medCreateUnsuccess = "Medicine was not created successfully.".localize()
+    static let createUnsuccess = "|#X#| was not created successfully.".localize()
     static let tryAgain = "Please try again.".localize()
     static let cardiologist = "Cardiologist".localize()
     static let dermatologist = "Dermatologist".localize()
@@ -102,5 +102,10 @@ struct MyStrings {
     static let date = "Date".localize()
     static let time = "Time".localize()
     static let selectDoctors = "Select Doctors".localize()
+    static let selectMedicines = "Select Medicines".localize()
+    static let noSelectionAlertTitle = "No |#X#| was selected.".localize()
+    static let noSelectionAlertSubtitle = "Please select atleast one |#X#|.".localize()
+    static let meeting = "Meeting".localize()
+    static let medicine = "Medicine".localize()
     
 }

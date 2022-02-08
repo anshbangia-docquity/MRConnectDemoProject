@@ -70,7 +70,7 @@ class MRCreateMedicineViewController: UIViewController {
         let result = coreDataHandler.createMedicine(name: nameField.text!, company: companyField.text!, composition: companyField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
         
         if result == false {
-            showAlert(title: MyStrings.medCreateUnsuccess, subtitle: MyStrings.tryAgain)
+            showAlert(notCreated: MyStrings.medicine)
             return
         }
         
@@ -84,6 +84,10 @@ class MRCreateMedicineViewController: UIViewController {
     
     func showAlert(title: String, subtitle: String) {
         self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
+    }
+    
+    func showAlert(notCreated: String) {
+        self.present(Alert.showAlert(title: MyStrings.createUnsuccess.replacingOccurrences(of: "|#X#|", with: notCreated), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
     
 }

@@ -144,6 +144,7 @@ class SignUpViewController: UIViewController, BulletinBoardDelegate {
     func showAlert(emptyField: String) {
         self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
+
     
 }
 

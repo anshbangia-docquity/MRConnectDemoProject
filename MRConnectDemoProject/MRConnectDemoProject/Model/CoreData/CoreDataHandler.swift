@@ -127,6 +127,17 @@ struct CoreDataHandler {
         return result
     }
     
+    func fetchMeetings() -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        return result
+    }
+    
     func fetchMedicines(contains name: String) -> [Medicine] {
         var result: [Medicine] = []
         do {
@@ -157,6 +168,29 @@ struct CoreDataHandler {
         
         let email = userDefault.value(forKey: "userEmail") as? String
         newMed.creator = email!
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func createMeeting(title: String, desc: String? = nil, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        let newMeet = Meeting(context: context)
+        newMeet.title = title
+        newMeet.desc = desc
+        newMeet.date = date
+        newMeet.doctors = doctors
+        newMeet.medicines = medicines
+        
+        let num = Int16(fetchMeetings().count)
+        newMeet.id = num
+        
+        let email = userDefault.value(forKey: "userEmail") as! String
+        newMeet.creator = email
         
         do {
             try context.save()

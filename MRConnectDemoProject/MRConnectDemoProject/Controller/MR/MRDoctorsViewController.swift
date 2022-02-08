@@ -74,6 +74,8 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         
         if let img = doctor.profileImage {
             cell.profileImage.image = UIImage(data: img)
+        } else {
+            cell.profileImage.image = UIImage(systemName: "person.circle")
         }
         
         
