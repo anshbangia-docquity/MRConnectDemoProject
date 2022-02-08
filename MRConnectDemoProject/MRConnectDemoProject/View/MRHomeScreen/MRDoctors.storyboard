@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="155" width="414" height="658"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="75" id="Oxq-12-qh8" customClass="MRDoctorsTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="doctorTableCell" rowHeight="75" id="Oxq-12-qh8" customClass="MRDoctorsTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oxq-12-qh8" id="oLV-Je-85e">
@@ -48,34 +48,50 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4P-ke-WGU">
                                                     <rect key="frame" x="0.0" y="5" width="414" height="70"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kz-6r-ued">
-                                                            <rect key="frame" x="10" y="0.0" width="200" height="70"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="200" id="EXW-9P-wqI"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-Ka-KSX">
-                                                            <rect key="frame" x="234" y="0.0" width="170" height="70"/>
+                                                            <rect key="frame" x="254" y="0.0" width="150" height="70"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="170" id="AS1-uk-hUT"/>
+                                                                <constraint firstAttribute="width" constant="150" id="AS1-uk-hUT"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6wy-hO-3xb">
+                                                            <rect key="frame" x="5" y="10" width="50" height="49.5"/>
+                                                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="50" id="hdc-kS-3E8"/>
+                                                                <constraint firstAttribute="width" constant="50" id="l6S-pI-FUf"/>
+                                                            </constraints>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="25"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kz-6r-ued">
+                                                            <rect key="frame" x="65" y="0.0" width="150" height="70"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="150" id="EXW-9P-wqI"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="6wy-hO-3xb" firstAttribute="leading" secondItem="k4P-ke-WGU" secondAttribute="leading" constant="5" id="1ZA-9H-PJr"/>
                                                         <constraint firstItem="Egr-Ka-KSX" firstAttribute="centerY" secondItem="k4P-ke-WGU" secondAttribute="centerY" id="5fY-iF-f4e"/>
                                                         <constraint firstAttribute="height" constant="70" id="Blb-1W-Kcs"/>
                                                         <constraint firstItem="Egr-Ka-KSX" firstAttribute="top" secondItem="k4P-ke-WGU" secondAttribute="top" id="Cwi-la-5NS"/>
                                                         <constraint firstItem="6Kz-6r-ued" firstAttribute="centerY" secondItem="k4P-ke-WGU" secondAttribute="centerY" id="RrF-NR-7my"/>
                                                         <constraint firstAttribute="trailing" secondItem="Egr-Ka-KSX" secondAttribute="trailing" constant="10" id="Wpy-88-Ghp"/>
-                                                        <constraint firstItem="6Kz-6r-ued" firstAttribute="leading" secondItem="k4P-ke-WGU" secondAttribute="leading" constant="10" id="fBu-Uu-kvn"/>
+                                                        <constraint firstItem="6Kz-6r-ued" firstAttribute="leading" secondItem="6wy-hO-3xb" secondAttribute="trailing" constant="10" id="fBu-Uu-kvn"/>
                                                         <constraint firstAttribute="bottom" secondItem="Egr-Ka-KSX" secondAttribute="bottom" id="gWb-JW-Wfh"/>
+                                                        <constraint firstItem="6wy-hO-3xb" firstAttribute="centerY" secondItem="k4P-ke-WGU" secondAttribute="centerY" id="gay-Ps-Idt"/>
                                                         <constraint firstAttribute="bottom" secondItem="6Kz-6r-ued" secondAttribute="bottom" id="ho6-md-jir"/>
                                                         <constraint firstItem="6Kz-6r-ued" firstAttribute="top" secondItem="k4P-ke-WGU" secondAttribute="top" id="sGf-Aq-ChW"/>
                                                     </constraints>
@@ -92,6 +108,7 @@
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="6Kz-6r-ued" id="4qO-9j-9Ly"/>
+                                            <outlet property="profileImage" destination="6wy-hO-3xb" id="v1F-ra-c5V"/>
                                             <outlet property="specLabel" destination="Egr-Ka-KSX" id="NXm-5X-cAM"/>
                                         </connections>
                                     </tableViewCell>
@@ -165,6 +182,7 @@
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="stethoscope" catalog="system" width="128" height="96"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

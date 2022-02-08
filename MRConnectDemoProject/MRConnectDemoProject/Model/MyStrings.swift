@@ -101,5 +101,6 @@ struct MyStrings {
     static let dateAndTime = "Date and Time".localize()
     static let date = "Date".localize()
     static let time = "Time".localize()
+    static let selectDoctors = "Select Doctors".localize()
     
 }
