@@ -107,5 +107,6 @@ struct MyStrings {
     static let noSelectionAlertSubtitle = "Please select atleast one |#X#|.".localize()
     static let meeting = "Meeting".localize()
     static let medicine = "Medicine".localize()
+    static let withLabel = "with: |#X#|".localize()
     
 }

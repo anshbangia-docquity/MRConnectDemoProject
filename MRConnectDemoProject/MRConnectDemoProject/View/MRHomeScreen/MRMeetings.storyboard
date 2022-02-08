@@ -39,13 +39,61 @@
                                 <rect key="frame" x="0.0" y="105" width="414" height="708"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Ggo-78-N7J">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meetingTableCell" rowHeight="65" id="Ggo-78-N7J" customClass="MRMeetingsTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ggo-78-N7J" id="zGt-7G-whg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBm-pJ-fLU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZX6-ku-tR3">
+                                                            <rect key="frame" x="25" y="21" width="47.5" height="23"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugI-c7-gL9">
+                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="65"/>
+                                                            <color key="backgroundColor" red="0.49019607840000001" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="5" id="HZw-hQ-jTr"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRW-RJ-iOh">
+                                                            <rect key="frame" x="347" y="22" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="CRW-RJ-iOh" secondAttribute="trailing" constant="25" id="1cJ-cm-bH4"/>
+                                                        <constraint firstItem="ZX6-ku-tR3" firstAttribute="centerY" secondItem="LBm-pJ-fLU" secondAttribute="centerY" id="4Vk-OO-Jvh"/>
+                                                        <constraint firstItem="CRW-RJ-iOh" firstAttribute="centerY" secondItem="LBm-pJ-fLU" secondAttribute="centerY" id="ANm-hN-f9h"/>
+                                                        <constraint firstAttribute="height" constant="65" id="KH5-zv-6pX"/>
+                                                        <constraint firstItem="ZX6-ku-tR3" firstAttribute="leading" secondItem="ugI-c7-gL9" secondAttribute="trailing" constant="20" id="YKb-vt-am2"/>
+                                                        <constraint firstItem="ugI-c7-gL9" firstAttribute="top" secondItem="LBm-pJ-fLU" secondAttribute="top" id="aV0-zp-6F4"/>
+                                                        <constraint firstItem="ugI-c7-gL9" firstAttribute="leading" secondItem="LBm-pJ-fLU" secondAttribute="leading" id="dO4-TQ-yx7"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ugI-c7-gL9" secondAttribute="bottom" id="rkS-r4-FvW"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="LBm-pJ-fLU" secondAttribute="trailing" id="ULl-4w-fLJ"/>
+                                                <constraint firstItem="LBm-pJ-fLU" firstAttribute="top" secondItem="zGt-7G-whg" secondAttribute="top" id="Wm5-jm-MVo"/>
+                                                <constraint firstItem="LBm-pJ-fLU" firstAttribute="leading" secondItem="zGt-7G-whg" secondAttribute="leading" id="ko9-9z-Crk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="timeLabel" destination="CRW-RJ-iOh" id="uAe-W9-eAl"/>
+                                            <outlet property="titleLabel" destination="ZX6-ku-tR3" id="HDC-Nh-DJy"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -91,6 +139,7 @@
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="meetingTableView" destination="yJx-bG-Gbo" id="5dG-U7-MJr"/>
                         <outlet property="titleLabel" destination="yoP-sZ-h4i" id="8B3-J1-l0P"/>
                         <segue destination="oXv-93-KFS" kind="presentation" identifier="goToCreate" id="Nk5-lw-3u4"/>
                     </connections>

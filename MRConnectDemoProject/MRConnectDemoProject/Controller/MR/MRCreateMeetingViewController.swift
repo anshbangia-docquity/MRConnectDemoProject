@@ -41,6 +41,7 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
     var selectedMedicines: [Medicine] = []
     var doctorSet = Set<String>()
     var medicineSet = Set<Int16>()
+    var handler: (() -> Void)?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -210,8 +211,8 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
             return
         }
         
-        print(":)")
-        
+
+        handler!()
         dismiss(animated: true, completion: nil)
         
     }

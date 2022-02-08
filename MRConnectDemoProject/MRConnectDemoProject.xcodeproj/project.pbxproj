@@ -43,6 +43,7 @@
 		01841AC127B267AA00E4F3B1 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABB27B267AA00E4F3B1 /* User+CoreDataProperties.swift */; };
 		01841AC227B267AA00E4F3B1 /* Medicine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABC27B267AA00E4F3B1 /* Medicine+CoreDataClass.swift */; };
 		01841AC327B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABD27B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift */; };
+		01841AC727B2857500E4F3B1 /* MRMeetingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841AC627B2857500E4F3B1 /* MRMeetingsTableViewCell.swift */; };
 		018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */; };
 		018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */; };
 		018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */; };
@@ -107,6 +108,7 @@
 		01841ABB27B267AA00E4F3B1 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		01841ABC27B267AA00E4F3B1 /* Medicine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		01841ABD27B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		01841AC627B2857500E4F3B1 /* MRMeetingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMeetingsTableViewCell.swift; sourceTree = "<group>"; };
 		018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinItems.swift; sourceTree = "<group>"; };
 		018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecPickerItem.swift; sourceTree = "<group>"; };
 		018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameItem.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */,
 				0153A7E727B163FB000B98A6 /* DoctorCollectionViewCell.swift */,
 				01841AB627B2367A00E4F3B1 /* MedicineCollectionViewCell.swift */,
+				01841AC627B2857500E4F3B1 /* MRMeetingsTableViewCell.swift */,
 			);
 			path = MR;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */,
 				01841AB727B2367A00E4F3B1 /* MedicineCollectionViewCell.swift in Sources */,
 				0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */,
+				01841AC727B2857500E4F3B1 /* MRMeetingsTableViewCell.swift in Sources */,
 				0110A8B0279E98620023AD4C /* Logic.swift in Sources */,
 				018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */,
 				0105AD9827A92E8400607DCF /* BulletinBoard.swift in Sources */,

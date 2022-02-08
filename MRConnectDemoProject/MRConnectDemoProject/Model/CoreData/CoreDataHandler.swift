@@ -28,6 +28,41 @@ struct CoreDataHandler {
         return result
     }
     
+    func fetchMeetings(of creator: String) -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            let pred = NSPredicate(format: "creator == %@", creator)
+            request.predicate = pred
+            let sort = NSSortDescriptor(key: "date", ascending: true)
+            request.sortDescriptors = [sort]
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        return result
+    }
+    
+    func fetchMeetings(doctor: String) -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            let sort = NSSortDescriptor(key: "date", ascending: true)
+            request.sortDescriptors = [sort]
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        var meetings: [Meeting] = []
+        for meeting in result {
+            if meeting.doctors!.contains(doctor) {
+                meetings.append(meeting)
+            }
+        }
+        
+        return meetings
+    }
+    
     func signUpUser(_ resultUser: [User], name: String, contact: String, email: String, password: String, type: UserType, license: String, mrnumber: String, speciality: Int16) -> Bool {
         if resultUser.count != 0 {
             return false
