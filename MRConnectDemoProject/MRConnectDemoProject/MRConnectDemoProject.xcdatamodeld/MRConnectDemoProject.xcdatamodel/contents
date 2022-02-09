@@ -31,7 +31,7 @@
     </entity>
     <elements>
         <element name="Medicine" positionX="-45" positionY="63" width="128" height="134"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="164"/>
         <element name="Meeting" positionX="-54" positionY="72" width="128" height="134"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

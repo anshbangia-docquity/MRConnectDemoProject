@@ -37,18 +37,18 @@
 		01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */; };
 		017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */; };
 		01841AB727B2367A00E4F3B1 /* MedicineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841AB627B2367A00E4F3B1 /* MedicineCollectionViewCell.swift */; };
-		01841ABE27B267AA00E4F3B1 /* Meeting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841AB827B267AA00E4F3B1 /* Meeting+CoreDataClass.swift */; };
-		01841ABF27B267AA00E4F3B1 /* Meeting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841AB927B267AA00E4F3B1 /* Meeting+CoreDataProperties.swift */; };
-		01841AC027B267AA00E4F3B1 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABA27B267AA00E4F3B1 /* User+CoreDataClass.swift */; };
-		01841AC127B267AA00E4F3B1 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABB27B267AA00E4F3B1 /* User+CoreDataProperties.swift */; };
-		01841AC227B267AA00E4F3B1 /* Medicine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABC27B267AA00E4F3B1 /* Medicine+CoreDataClass.swift */; };
-		01841AC327B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841ABD27B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift */; };
 		01841AC727B2857500E4F3B1 /* MRMeetingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01841AC627B2857500E4F3B1 /* MRMeetingsTableViewCell.swift */; };
 		018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */; };
 		018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */; };
 		018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */; };
 		018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */; };
 		018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */; };
+		01A1E12E27B377ED0094E374 /* Meeting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12827B377ED0094E374 /* Meeting+CoreDataClass.swift */; };
+		01A1E12F27B377ED0094E374 /* Meeting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12927B377ED0094E374 /* Meeting+CoreDataProperties.swift */; };
+		01A1E13027B377ED0094E374 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12A27B377ED0094E374 /* User+CoreDataClass.swift */; };
+		01A1E13127B377ED0094E374 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12B27B377ED0094E374 /* User+CoreDataProperties.swift */; };
+		01A1E13227B377ED0094E374 /* Medicine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12C27B377ED0094E374 /* Medicine+CoreDataClass.swift */; };
+		01A1E13327B377ED0094E374 /* Medicine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */; };
 		01AD578527A101E200EB47DF /* MRHomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */; };
 		01AD578727A1104800EB47DF /* MRMeetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578627A1104800EB47DF /* MRMeetings.storyboard */; };
 		01AD578A27A116C400EB47DF /* MRMeetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */; };
@@ -102,18 +102,18 @@
 		01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewController.swift; sourceTree = "<group>"; };
 		017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesTableViewCell.swift; sourceTree = "<group>"; };
 		01841AB627B2367A00E4F3B1 /* MedicineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineCollectionViewCell.swift; sourceTree = "<group>"; };
-		01841AB827B267AA00E4F3B1 /* Meeting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		01841AB927B267AA00E4F3B1 /* Meeting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		01841ABA27B267AA00E4F3B1 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		01841ABB27B267AA00E4F3B1 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		01841ABC27B267AA00E4F3B1 /* Medicine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		01841ABD27B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		01841AC627B2857500E4F3B1 /* MRMeetingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMeetingsTableViewCell.swift; sourceTree = "<group>"; };
 		018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinItems.swift; sourceTree = "<group>"; };
 		018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecPickerItem.swift; sourceTree = "<group>"; };
 		018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameItem.swift; sourceTree = "<group>"; };
 		018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordItem.swift; sourceTree = "<group>"; };
 		018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPasswordItem.swift; sourceTree = "<group>"; };
+		01A1E12827B377ED0094E374 /* Meeting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E12927B377ED0094E374 /* Meeting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E12A27B377ED0094E374 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E12B27B377ED0094E374 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E12C27B377ED0094E374 /* Medicine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRHomeScreen.storyboard; sourceTree = "<group>"; };
 		01AD578627A1104800EB47DF /* MRMeetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMeetings.storyboard; sourceTree = "<group>"; };
 		01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMeetingsViewController.swift; sourceTree = "<group>"; };
@@ -183,12 +183,7 @@
 		0110A8AC279E981B0023AD4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				01841AB827B267AA00E4F3B1 /* Meeting+CoreDataClass.swift */,
-				01841AB927B267AA00E4F3B1 /* Meeting+CoreDataProperties.swift */,
-				01841ABA27B267AA00E4F3B1 /* User+CoreDataClass.swift */,
-				01841ABB27B267AA00E4F3B1 /* User+CoreDataProperties.swift */,
-				01841ABC27B267AA00E4F3B1 /* Medicine+CoreDataClass.swift */,
-				01841ABD27B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift */,
+				01A1E12727B377CB0094E374 /* CoreData Model */,
 				1891533727AA331800A9495D /* CoreData */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
 				0110A8B1279E988D0023AD4C /* UserType.swift */,
@@ -239,6 +234,19 @@
 				018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */,
 			);
 			path = Bulletin;
+			sourceTree = "<group>";
+		};
+		01A1E12727B377CB0094E374 /* CoreData Model */ = {
+			isa = PBXGroup;
+			children = (
+				01A1E12827B377ED0094E374 /* Meeting+CoreDataClass.swift */,
+				01A1E12927B377ED0094E374 /* Meeting+CoreDataProperties.swift */,
+				01A1E12A27B377ED0094E374 /* User+CoreDataClass.swift */,
+				01A1E12B27B377ED0094E374 /* User+CoreDataProperties.swift */,
+				01A1E12C27B377ED0094E374 /* Medicine+CoreDataClass.swift */,
+				01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */,
+			);
+			path = "CoreData Model";
 			sourceTree = "<group>";
 		};
 		01AD578327A101C800EB47DF /* MRHomeScreen */ = {
@@ -447,7 +455,6 @@
 			files = (
 				0110A8B8279E9A330023AD4C /* Alert.swift in Sources */,
 				01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */,
-				01841AC127B267AA00E4F3B1 /* User+CoreDataProperties.swift in Sources */,
 				018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */,
 				01841AB727B2367A00E4F3B1 /* MedicineCollectionViewCell.swift in Sources */,
 				0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */,
@@ -461,9 +468,8 @@
 				0110A8B2279E988D0023AD4C /* UserType.swift in Sources */,
 				01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */,
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
-				01841AC227B267AA00E4F3B1 /* Medicine+CoreDataClass.swift in Sources */,
-				01841AC027B267AA00E4F3B1 /* User+CoreDataClass.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
+				01A1E12E27B377ED0094E374 /* Meeting+CoreDataClass.swift in Sources */,
 				013A844827AA803B002AC97C /* CurrentUser.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
@@ -471,23 +477,25 @@
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
 				018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */,
+				01A1E13227B377ED0094E374 /* Medicine+CoreDataClass.swift in Sources */,
 				013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */,
-				01841ABE27B267AA00E4F3B1 /* Meeting+CoreDataClass.swift in Sources */,
 				0153A7E627B0EF98000B98A6 /* MRCreateMeetingViewController.swift in Sources */,
+				01A1E13327B377ED0094E374 /* Medicine+CoreDataProperties.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
 				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
+				01A1E13027B377ED0094E374 /* User+CoreDataClass.swift in Sources */,
 				0153A7E827B163FB000B98A6 /* DoctorCollectionViewCell.swift in Sources */,
 				01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
-				01841AC327B267AA00E4F3B1 /* Medicine+CoreDataProperties.swift in Sources */,
 				0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,
 				018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */,
 				0110A88F279E97100023AD4C /* SceneDelegate.swift in Sources */,
-				01841ABF27B267AA00E4F3B1 /* Meeting+CoreDataProperties.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
+				01A1E13127B377ED0094E374 /* User+CoreDataProperties.swift in Sources */,
 				01AD579027A120B300EB47DF /* DoctorMeetingsViewController.swift in Sources */,
+				01A1E12F27B377ED0094E374 /* Meeting+CoreDataProperties.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
