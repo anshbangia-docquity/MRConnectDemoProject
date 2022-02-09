@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--MRMeetings-->
+        <!--Meetings-->
         <scene sceneID="uu5-9B-wtX">
             <objects>
-                <viewControllerPlaceholder storyboardName="MRMeetings" id="gwe-8M-21u" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Meetings" id="gwe-8M-21u" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="QoL-sk-hN4"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lBt-dt-Wg7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -1,15 +1,15 @@
 //
-//  MedicineCollectionViewCell.swift
+//  MRMedicinesCollectionViewCell.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 08/02/22.
+//  Created by Ansh Bangia on 09/02/22.
 //
 
 import UIKit
 
-class MedicineCollectionViewCell: UICollectionViewCell {
+class MRMedicinesCollectionViewCell: UICollectionViewCell {
     
-    static let id = "medicineCollectionCell"
+    static let id = "medicinesCollectionCell"
     
     var removeMed: ((Int) -> Void)?
     var index: Int?

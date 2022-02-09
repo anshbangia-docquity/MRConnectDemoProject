@@ -13,7 +13,7 @@ class MRDoctorsTableViewCell: UITableViewCell {
     @IBOutlet weak var specLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     
-    static let id = "doctorTableCell"
+    static let id = "doctorsTableCell"
     
 //    override func awakeFromNib() {
 //        super.awakeFromNib()

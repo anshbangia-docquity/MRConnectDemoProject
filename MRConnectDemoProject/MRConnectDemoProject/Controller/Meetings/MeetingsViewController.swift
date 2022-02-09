@@ -1,45 +1,38 @@
 //
-//  MRMeetingsViewController.swift
+//  MeetingsViewController.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 26/01/22.
+//  Created by Ansh Bangia on 09/02/22.
 //
 
 import UIKit
 
-class MRMeetingsViewController: UIViewController {
+class MeetingsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var meetingTableView: UITableView!
+    @IBOutlet weak var createButton: UIButton!
     
-    let logic = Logic()
+    var logic = Logic()
     var meetingDates: [String: [Meeting]] = [:]
     var dates: [String] = []
     var user = CurrentUser()
-    let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let meetings = logic.fetchMeetings(of: user.email)
-        process(meetings: meetings)
+        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         
         meetingTableView.delegate = self
         meetingTableView.dataSource = self
         
         titleLabel.text = MyStrings.meetings
-    }
-    
-    func process(meetings: [Meeting]) {
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        for meeting in meetings {
-            let dateStr = dateFormatter.string(from: meeting.date!)
-            if meetingDates[dateStr] == nil
-            {
-                meetingDates[dateStr] = []
-                dates.append(dateStr)
-            }
-            meetingDates[dateStr]?.append(meeting)
+        
+        if user.type == .MRUser {
+            createButton.isHidden = false
+        } else {
+            createButton.isHidden = true
         }
     }
 
@@ -49,7 +42,7 @@ class MRMeetingsViewController: UIViewController {
     
     func handler() {
         let meetings = logic.fetchMeetings(of: user.email)
-        process(meetings: meetings)
+        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         meetingTableView.reloadData()
     }
     
@@ -61,7 +54,7 @@ class MRMeetingsViewController: UIViewController {
     }
 }
 
-extension MRMeetingsViewController: UITableViewDelegate, UITableViewDataSource {
+extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         dates.count
@@ -76,18 +69,25 @@ extension MRMeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 75
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MRMeetingsTableViewCell.id, for: indexPath) as! MRMeetingsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MeetingsTableViewCell.id, for: indexPath) as! MeetingsTableViewCell
         
         let meetings = meetingDates[dates[indexPath.section]]!
         let meeting = meetings[indexPath.row]
-        dateFormatter.dateFormat = "h:mm a"
-        let time = dateFormatter.string(from: meeting.date!)
+        logic.dateFormatter.dateFormat = "h:mm a"
+        let time = logic.dateFormatter.string(from: meeting.date!)
         cell.titleLabel.text = meeting.title
         cell.timeLabel.text = time
+        
+        if user.type == .MRUser {
+            cell.withLabel.text = MyStrings.withLabel.replacingOccurrences(of: "|#X#|", with: ("\(meeting.doctors!.count) " + MyStrings.doctors))
+        } else {
+            let creator = logic.getUser(with: meeting.creator!)
+            cell.withLabel.text = MyStrings.withLabel.replacingOccurrences(of: "|#X#|", with: creator.name!)
+        }
         
         return cell
     }

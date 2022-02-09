@@ -68,7 +68,7 @@ extension CoreDataHandler {
         return user.profileImage
     }
     
-    //MARK: Create User
+    //MARK: - Create User
     func signUpUser(name: String, contact: String, email: String, password: String, type: UserType, license: String, mrnumber: String, speciality: Int16) -> Bool {
         let newUser = User(context: context)
         newUser.name = name
@@ -93,7 +93,7 @@ extension CoreDataHandler {
         return true
     }
     
-    //MARK: Update User
+    //MARK: - Update User
     func updateName(_ user: User, newName: String) -> Bool {
         user.name = newName
         
@@ -167,7 +167,20 @@ extension CoreDataHandler {
         return result
     }
     
-    //MARK: Create Medicine
+    func fetchMedicine(id: Int16) -> Medicine {
+        var result: [Medicine] = []
+        do {
+            let request = Medicine.fetchRequest() as NSFetchRequest<Medicine>
+            let pred = NSPredicate(format: "id == %d", id)
+            request.predicate = pred
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+
+        return result[0]
+    }
+    
+    //MARK: - Create Medicine
     func createMedicine(name: String, company: String, composition: String, price: Float, form: Int16) -> Bool {
         let newMed = Medicine(context: context)
         newMed.name = name
@@ -224,8 +237,8 @@ extension CoreDataHandler {
         return result
     }
     
-    //MARK: Create Meeting
-    func createMeeting(title: String, desc: String? = nil, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+    //MARK: - Create Meeting
+    func createMeeting(title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
         let newMeet = Meeting(context: context)
         newMeet.title = title
         newMeet.desc = desc
@@ -239,6 +252,23 @@ extension CoreDataHandler {
         let email = CurrentUser().email
         newMeet.creator = email
         
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    //MARK: - Update Meeting
+    func editMeeting(meeting: Meeting, title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        meeting.title = title
+        meeting.desc = desc
+        meeting.date = date
+        meeting.doctors = doctors
+        meeting.medicines = medicines
+
         do {
             try context.save()
         } catch {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
+class MRCreateMeetingViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
@@ -32,92 +32,87 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
     @IBOutlet weak var medicineTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var medicineCollectionHeight: NSLayoutConstraint!
     @IBOutlet weak var selectMedicinesLabel: UILabel!
-    
-    let coreDataHandler = CoreDataHandler()
+
+    var logic = Logic()
     var doctors: [User] = []
     var medicines: [Medicine] = []
-    let dateFormatter = DateFormatter()
     var selectedDoctors: [User] = []
     var selectedMedicines: [Medicine] = []
     var doctorSet = Set<String>()
     var medicineSet = Set<Int16>()
     var handler: (() -> Void)?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        doctorTableView.reloadData()
-        doctorTableViewHeight.constant = doctorTableView.contentSize.height
-        if doctorTableViewHeight.constant > 175 {
-            doctorTableViewHeight.constant = 175
-        }
-        
-        medicineTableView.reloadData()
-        medicineTableViewHeight.constant = medicineTableView.contentSize.height
-        if medicineTableViewHeight.constant > 150 {
-            medicineTableViewHeight.constant = 150
-        }
-        
-        doctorCollection.reloadData()
-        
-        medicineCollection.reloadData()
-        
-        doctorCollectionHeight.constant = 0
-        medicineCollectionHeight.constant = 0
-    }
+    var edit = false
+    var myMeeting: Meeting?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doctors = coreDataHandler.fetchUser(of: .Doctor)
-        doctorTableView.delegate = self
-        doctorTableView.dataSource = self
-        doctorSearchField.delegate = self
-        
-        medicines = coreDataHandler.fetchMedicines()
-        medicineTableView.delegate = self
-        medicineTableView.dataSource = self
-        medicineSearchField.delegate = self
-        
-        titleLabel.text = MyStrings.createMeeting
         cancelButton.setTitle(MyStrings.cancel, for: .normal)
-        createButton.setTitle(MyStrings.create.uppercased(), for: .normal)
+        
         titleDescLabel.text = MyStrings.titleAndDesc
         titleField.placeholder = MyStrings.meetingTitle
-        
         descTextView.delegate = self
-        descTextView.text = MyStrings.meetingDescription
-        descTextView.textColor = UIColor.systemGray3
         
         dateTimeLabel.text = MyStrings.dateAndTime
         dateLabel.text = MyStrings.date
         timeLabel.text = MyStrings.time
         
+        selectDoctorsLabel.text = MyStrings.selectDoctors
         doctorCollection.delegate = self
         doctorCollection.dataSource = self
+        doctorSearchField.placeholder = MyStrings.search
+        doctorSearchField.delegate = self
+        doctors = logic.getDoctors()
+        doctorTableView.delegate = self
+        doctorTableView.dataSource = self
+        
+        selectMedicinesLabel.text = MyStrings.selectMedicines
         medicineCollection.delegate = self
         medicineCollection.dataSource = self
-        
-        selectDoctorsLabel.text = MyStrings.selectDoctors
-        selectMedicinesLabel.text = MyStrings.selectMedicines
-        doctorSearchField.placeholder = MyStrings.search
         medicineSearchField.placeholder = MyStrings.search
-    }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor != UIColor.black {
-            textView.text = nil
-            textView.textColor = UIColor.black
+        medicineSearchField.delegate = self
+        medicines = logic.getMedicines()
+        medicineTableView.delegate = self
+        medicineTableView.dataSource = self
+        
+        if edit {
+            titleLabel.text = MyStrings.editMeeting
+            createButton.setTitle(MyStrings.done.uppercased(), for: .normal)
+            
+            titleField.text = myMeeting!.title
+            descTextView.text = myMeeting!.desc
+            
+            datePicker.date = myMeeting!.date!
+            timePicker.date = myMeeting!.date!
+            
+            doctorSet = myMeeting!.doctors!
+            selectedDoctors = logic.getUsers(with: doctorSet)
+            
+            medicineSet = myMeeting!.medicines!
+            selectedMedicines = logic.getMedicines(with: medicineSet)
+        } else {
+            titleLabel.text = MyStrings.createMeeting
+            createButton.setTitle(MyStrings.create.uppercased(), for: .normal)
+            
+            descTextView.text = MyStrings.meetingDescription
+            descTextView.textColor = UIColor.systemGray3
         }
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = MyStrings.meetingDescription
-            textView.textColor = UIColor.lightGray
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reloadDoctorTable()
+        reloadMedicineTable()
+        
+        reloadDoctorCollection()
+        reloadMedicineCollection()
     }
     
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func doctorSearchTapped(_ sender: UIButton) {
         doctorSearchField.endEditing(true)
@@ -127,106 +122,52 @@ class MRCreateMeetingViewController: UIViewController, UITextViewDelegate, UITex
         medicineSearchField.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField == doctorSearchField {
-            if doctorSearchField.text == "" {
-                doctors = coreDataHandler.fetchUser(of: UserType.Doctor)
-            } else {
-                doctors = coreDataHandler.fetchUser(of: .Doctor, contains: doctorSearchField.text!)
-            }
-
-            doctorTableView.reloadData()
-            doctorTableViewHeight.constant = doctorTableView.contentSize.height
-            if doctorTableViewHeight.constant > 175 {
-                doctorTableViewHeight.constant = 175
-            }
-        }
-        
-        if textField == medicineSearchField {
-            if medicineSearchField.text == "" {
-                medicines = coreDataHandler.fetchMedicines()
-            } else {
-                medicines = coreDataHandler.fetchMedicines(contains: medicineSearchField.text!)
-            }
-
-            medicineTableView.reloadData()
-            medicineTableViewHeight.constant = medicineTableView.contentSize.height
-            if medicineTableViewHeight.constant > 150 {
-                medicineTableViewHeight.constant = 150
-            }
-        }
-    }
-    
-    @IBAction func cancelTapped(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func createTapped(_ sender: UIButton) {
         if titleField.text == nil || titleField.text!.isEmpty {
-            showAlert(emptyField: MyStrings.meetingTitle)
+            Alert.showAlert(on: self, emptyField: MyStrings.meetingTitle)
             return
         }
         
         if selectedDoctors.count == 0 {
-            showAlert(noSelection: MyStrings.doctor)
+            Alert.showAlert(on: self, noSelection: MyStrings.doctor)
             return
         }
         
         if selectedMedicines.count == 0 {
-            showAlert(noSelection: MyStrings.medicine)
+            Alert.showAlert(on: self, noSelection: MyStrings.medicine)
             return
         }
-        
-        
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let dateStr = dateFormatter.string(from: datePicker.date)
-        dateFormatter.dateFormat = "HH:mm"
-        let timeStr = dateFormatter.string(from: timePicker.date)
-        let dateTimeStr = dateStr + " " + timeStr
-
-        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
-        let date = dateFormatter.date(from: dateTimeStr)!
         
         var descText: String? = descTextView.text
         if descText == "" {
             descText = nil
         }
         
-        let result = coreDataHandler.createMeeting(title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+        let date = logic.combineDateTime(date: datePicker.date, time: timePicker.date)
         
-        if result == false {
-            showAlert(notCreated: MyStrings.meeting)
-            return
+        if edit {
+            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+            
+            if result == false {
+                Alert.showAlert(on: self, notUpdated: MyStrings.meeting)
+                return
+            }
+        } else {
+            let result = logic.createMeeting(title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+            
+            if result == false {
+                Alert.showAlert(on: self, notCreated: MyStrings.meeting)
+                return
+            }
         }
         
-
         handler!()
         dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
-    }
-    
-    func showAlert(title: String, subtitle: String) {
-        self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
-    }
-    
-    func showAlert(noSelection: String) {
-        self.present(Alert.showAlert(title: MyStrings.noSelectionAlertTitle.replacingOccurrences(of: "|#X#|", with: noSelection), subtitle: MyStrings.noSelectionAlertSubtitle.replacingOccurrences(of: "|#X#|", with: noSelection)), animated: true, completion: nil)
-    }
-    
-    func showAlert(notCreated: String) {
-        self.present(Alert.showAlert(title: MyStrings.createUnsuccess.replacingOccurrences(of: "|#X#|", with: notCreated), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
     
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -280,22 +221,18 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if tableView == doctorTableView {
             if doctorSet.contains(doctors[indexPath.row].email!) {
                 return
             }
             
             doctorSet.insert(doctors[indexPath.row].email!)
-            
-            if selectedDoctors.count == 0 {
-                doctorCollectionHeight.constant = 60
-            }
-            
             selectedDoctors.insert(doctors[indexPath.row], at: 0)
-            tableView.deselectRow(at: indexPath, animated: true)
             
             DispatchQueue.main.async {
-                self.doctorCollection.reloadData()
+                self.reloadDoctorCollection()
             }
         } else {
             if medicineSet.contains(medicines[indexPath.row].id) {
@@ -303,23 +240,18 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             }
             
             medicineSet.insert(medicines[indexPath.row].id)
-            
-            if selectedMedicines.count == 0 {
-                medicineCollectionHeight.constant = 40
-            }
-            
             selectedMedicines.insert(medicines[indexPath.row], at: 0)
-            tableView.deselectRow(at: indexPath, animated: true)
             
             DispatchQueue.main.async {
-                self.medicineCollection.reloadData()
+                self.reloadMedicineCollection()
             }
         }
     }
     
 }
 
-extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -337,7 +269,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         var cell = UICollectionViewCell()
         
         if collectionView == doctorCollection {
-            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCollectionViewCell.id, for: indexPath) as? DoctorCollectionViewCell {
+            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRDoctorsCollectionViewCell.id, for: indexPath) as? MRDoctorsCollectionViewCell {
                 let doctor = selectedDoctors[indexPath.item]
                 if let img = doctor.profileImage {
                     myCell.profileImage.image = UIImage(data: img)
@@ -349,7 +281,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
                 cell = myCell
             }
         } else {
-            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MedicineCollectionViewCell.id, for: indexPath) as? MedicineCollectionViewCell {
+            if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRMedicinesCollectionViewCell.id, for: indexPath) as? MRMedicinesCollectionViewCell {
                 myCell.medicineName.text = selectedMedicines[indexPath.row].name
                 myCell.index = indexPath.item
                 myCell.removeMed = removeMed
@@ -358,34 +290,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         }
 
         return cell
-            
     }
-    
-    func removeDoctor(_ index: Int) {
-        doctorSet.remove(selectedDoctors[index].email!)
-        selectedDoctors.remove(at: index)
-        
-        if selectedDoctors.count == 0 {
-            doctorCollectionHeight.constant = 0
-        }
-        
-        doctorCollection.reloadData()
-    }
-    
-    func removeMed(_ index: Int) {
-        medicineSet.remove(selectedMedicines[index].id)
-        selectedMedicines.remove(at: index)
-        
-        if selectedMedicines.count == 0 {
-            medicineCollectionHeight.constant = 0
-        }
-        
-        medicineCollection.reloadData()
-    }
-    
-}
-
-extension MRCreateMeetingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == medicineCollection {
@@ -397,5 +302,108 @@ extension MRCreateMeetingViewController: UICollectionViewDelegateFlowLayout {
         }
         return CGSize(width: 60, height: 50)
     }
+
+    
+    func removeDoctor(_ index: Int) {
+        doctorSet.remove(selectedDoctors[index].email!)
+        selectedDoctors.remove(at: index)
+        reloadDoctorCollection()
+    }
+    
+    func removeMed(_ index: Int) {
+        medicineSet.remove(selectedMedicines[index].id)
+        selectedMedicines.remove(at: index)
+        reloadMedicineCollection()
+    }
+    
+}
+
+//MARK: - Reload Tables and Collections
+extension MRCreateMeetingViewController {
+    
+    func reloadDoctorTable() {
+        doctorTableView.reloadData()
+        doctorTableViewHeight.constant = doctorTableView.contentSize.height
+        if doctorTableViewHeight.constant > 175 {
+            doctorTableViewHeight.constant = 175
+        }
+    }
+    
+    func reloadMedicineTable() {
+        medicineTableView.reloadData()
+        medicineTableViewHeight.constant = medicineTableView.contentSize.height
+        if medicineTableViewHeight.constant > 150 {
+            medicineTableViewHeight.constant = 150
+        }
+    }
+    
+    func reloadDoctorCollection() {
+        doctorCollection.reloadData()
+        if selectedDoctors.count == 0 {
+            doctorCollectionHeight.constant = 0
+        } else {
+            doctorCollectionHeight.constant = 60
+        }
+    }
+    
+    func reloadMedicineCollection() {
+        medicineCollection.reloadData()
+        if selectedMedicines.count == 0 {
+            medicineCollectionHeight.constant = 0
+        } else {
+            medicineCollectionHeight.constant = 40
+        }
+    }
+    
+}
+
+//MARK: - UITextViewDelegate
+extension MRCreateMeetingViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor != UIColor.black {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = MyStrings.meetingDescription
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension MRCreateMeetingViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == doctorSearchField {
+            if doctorSearchField.text == "" {
+                doctors = logic.getDoctors()
+            } else {
+                doctors = logic.getDoctors(contains: doctorSearchField.text!)
+            }
+
+            reloadDoctorTable()
+        }
+        
+        if textField == medicineSearchField {
+            if medicineSearchField.text == "" {
+                medicines = logic.getMedicines()
+            } else {
+                medicines = logic.getMedicines(contains: medicineSearchField.text!)
+            }
+
+            reloadMedicineTable()
+        }
+    }
+
     
 }
