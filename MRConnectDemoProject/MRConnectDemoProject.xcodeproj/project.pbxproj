@@ -18,9 +18,7 @@
 		0110A8B2279E988D0023AD4C /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B1279E988D0023AD4C /* UserType.swift */; };
 		0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B3279E998A0023AD4C /* LogInViewController.swift */; };
 		0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B5279E99D90023AD4C /* PersistentStorage.swift */; };
-		0110A8B8279E9A330023AD4C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B7279E9A330023AD4C /* Alert.swift */; };
 		0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */; };
-		0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8BB279E9A800023AD4C /* Gradient.swift */; };
 		0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8E3279ED6110023AD4C /* SignInViewController.swift */; };
 		011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 011C9C5F27A8062C00B02D02 /* Localizable.strings */; };
 		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
@@ -49,6 +47,8 @@
 		01A1E13127B377ED0094E374 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12B27B377ED0094E374 /* User+CoreDataProperties.swift */; };
 		01A1E13227B377ED0094E374 /* Medicine+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12C27B377ED0094E374 /* Medicine+CoreDataClass.swift */; };
 		01A1E13327B377ED0094E374 /* Medicine+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */; };
+		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
+		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01AD578527A101E200EB47DF /* MRHomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */; };
 		01AD578727A1104800EB47DF /* MRMeetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD578627A1104800EB47DF /* MRMeetings.storyboard */; };
 		01AD578A27A116C400EB47DF /* MRMeetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */; };
@@ -80,9 +80,7 @@
 		0110A8B1279E988D0023AD4C /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		0110A8B3279E998A0023AD4C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		0110A8B5279E99D90023AD4C /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
-		0110A8B7279E9A330023AD4C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
-		0110A8BB279E9A800023AD4C /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		0110A8E3279ED6110023AD4C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		011C9C5E27A8062C00B02D02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6027A8063000B02D02 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -114,6 +112,8 @@
 		01A1E12B27B377ED0094E374 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		01A1E12C27B377ED0094E374 /* Medicine+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medicine+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
+		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRHomeScreen.storyboard; sourceTree = "<group>"; };
 		01AD578627A1104800EB47DF /* MRMeetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMeetings.storyboard; sourceTree = "<group>"; };
 		01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMeetingsViewController.swift; sourceTree = "<group>"; };
@@ -187,9 +187,7 @@
 				1891533727AA331800A9495D /* CoreData */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
 				0110A8B1279E988D0023AD4C /* UserType.swift */,
-				0110A8B7279E9A330023AD4C /* Alert.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
-				0110A8BB279E9A800023AD4C /* Gradient.swift */,
 				011C9C6227A80C9500B02D02 /* MyStrings.swift */,
 				013A844327AA7A56002AC97C /* Specialities.swift */,
 				013A844527AA7BDC002AC97C /* MedicineForms.swift */,
@@ -219,6 +217,8 @@
 				018CAA7627AE618B00FF04D6 /* Bulletin */,
 				01AD578827A1167600EB47DF /* MR */,
 				01AD578E27A1206500EB47DF /* Doctor */,
+				01A1E13627B389C60094E374 /* Alert.swift */,
+				01A1E13427B385580094E374 /* Gradient.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -453,7 +453,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0110A8B8279E9A330023AD4C /* Alert.swift in Sources */,
 				01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */,
 				018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */,
 				01841AB727B2367A00E4F3B1 /* MedicineCollectionViewCell.swift in Sources */,
@@ -472,6 +471,7 @@
 				01A1E12E27B377ED0094E374 /* Meeting+CoreDataClass.swift in Sources */,
 				013A844827AA803B002AC97C /* CurrentUser.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
+				01A1E13527B385580094E374 /* Gradient.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
@@ -483,11 +483,11 @@
 				01A1E13327B377ED0094E374 /* Medicine+CoreDataProperties.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
 				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
+				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
 				01A1E13027B377ED0094E374 /* User+CoreDataClass.swift in Sources */,
 				0153A7E827B163FB000B98A6 /* DoctorCollectionViewCell.swift in Sources */,
 				01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
-				0110A8BC279E9A800023AD4C /* Gradient.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,
 				018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */,
