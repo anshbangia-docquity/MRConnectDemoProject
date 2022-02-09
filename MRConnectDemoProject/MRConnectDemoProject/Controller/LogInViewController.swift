@@ -22,10 +22,6 @@ class LogInViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         emailField.placeholder = MyStrings.email
         passwordField.placeholder = MyStrings.password
@@ -35,18 +31,6 @@ class LogInViewController: UIViewController {
         let gradientLayer = setGradientBackground()
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at:0)
-        
-        if let email = userDefault.value(forKey: "email") as? String, let pass = userDefault.value(forKey: "password") as? String {
-            let result = logic.logIn(email: email, password: pass)
-            if result == false {
-                Alert.showAlert(on: self, title: MyStrings.invalidEmailOrPass, subtitle: MyStrings.checkCredentials)
-                return
-            }
-            
-            userDefault.setValue(false, forKey: "authenticate")
-
-            dismiss(animated: true, completion: nil)
-        }
     }
 
     @IBAction func logInTapped(_ sender: Any) {
