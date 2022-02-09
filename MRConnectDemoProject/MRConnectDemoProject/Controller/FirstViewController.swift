@@ -10,6 +10,7 @@ import UIKit
 class FirstViewController: UIViewController {
     
     let userDefault = UserDefaultManager.shared.defaults
+    let user = CurrentUser()
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -18,8 +19,7 @@ class FirstViewController: UIViewController {
             if authenticate {
                 performSegue(withIdentifier: "goToLoginSignup", sender: self)
             } else {
-                let userType = userDefault.value(forKey: "userType") as? Int16
-                if UserType(rawValue: userType!) == .MRUser {
+                if user.type == .MRUser {
                     performSegue(withIdentifier: "logInMR", sender: self)
                 } else {
                     performSegue(withIdentifier: "logInDoctor", sender: self)
