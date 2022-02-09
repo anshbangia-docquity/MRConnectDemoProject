@@ -28,6 +28,41 @@ struct CoreDataHandler {
         return result
     }
     
+    func fetchMeetings(of creator: String) -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            let pred = NSPredicate(format: "creator == %@", creator)
+            request.predicate = pred
+            let sort = NSSortDescriptor(key: "date", ascending: true)
+            request.sortDescriptors = [sort]
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        return result
+    }
+    
+    func fetchMeetings(doctor: String) -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            let sort = NSSortDescriptor(key: "date", ascending: true)
+            request.sortDescriptors = [sort]
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        var meetings: [Meeting] = []
+        for meeting in result {
+            if meeting.doctors!.contains(doctor) {
+                meetings.append(meeting)
+            }
+        }
+        
+        return meetings
+    }
+    
     func signUpUser(_ resultUser: [User], name: String, contact: String, email: String, password: String, type: UserType, license: String, mrnumber: String, speciality: Int16) -> Bool {
         if resultUser.count != 0 {
             return false
@@ -127,6 +162,17 @@ struct CoreDataHandler {
         return result
     }
     
+    func fetchMeetings() -> [Meeting] {
+        var result: [Meeting] = []
+        do {
+            let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        return result
+    }
+    
     func fetchMedicines(contains name: String) -> [Medicine] {
         var result: [Medicine] = []
         do {
@@ -157,6 +203,29 @@ struct CoreDataHandler {
         
         let email = userDefault.value(forKey: "userEmail") as? String
         newMed.creator = email!
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func createMeeting(title: String, desc: String? = nil, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        let newMeet = Meeting(context: context)
+        newMeet.title = title
+        newMeet.desc = desc
+        newMeet.date = date
+        newMeet.doctors = doctors
+        newMeet.medicines = medicines
+        
+        let num = Int16(fetchMeetings().count)
+        newMeet.id = num
+        
+        let email = userDefault.value(forKey: "userEmail") as! String
+        newMeet.creator = email
         
         do {
             try context.save()

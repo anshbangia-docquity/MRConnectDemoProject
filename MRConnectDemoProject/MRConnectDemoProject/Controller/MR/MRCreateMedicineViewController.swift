@@ -17,6 +17,7 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var formLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var form: Int16 = 0
     var handler: (() -> Void)?
@@ -37,6 +38,11 @@ class MRCreateMedicineViewController: UIViewController {
         }
         
         createButton.setTitle(MyStrings.create, for: .normal)
+        cancelButton.setTitle(MyStrings.cancel, for: .normal)
+    }
+    
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func formTapped(_ sender: UISegmentedControl) {
@@ -64,7 +70,7 @@ class MRCreateMedicineViewController: UIViewController {
         let result = coreDataHandler.createMedicine(name: nameField.text!, company: companyField.text!, composition: companyField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
         
         if result == false {
-            showAlert(title: MyStrings.medCreateUnsuccess, subtitle: MyStrings.tryAgain)
+            showAlert(notCreated: MyStrings.medicine)
             return
         }
         
@@ -78,6 +84,10 @@ class MRCreateMedicineViewController: UIViewController {
     
     func showAlert(title: String, subtitle: String) {
         self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
+    }
+    
+    func showAlert(notCreated: String) {
+        self.present(Alert.showAlert(title: MyStrings.createUnsuccess.replacingOccurrences(of: "|#X#|", with: notCreated), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
     
 }

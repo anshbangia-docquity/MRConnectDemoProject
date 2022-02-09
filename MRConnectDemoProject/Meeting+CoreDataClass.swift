@@ -1,5 +1,5 @@
 //
-//  User+CoreDataClass.swift
+//  Meeting+CoreDataClass.swift
 //  MRConnectDemoProject
 //
 //  Created by Ansh Bangia on 08/02/22.
@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 
-public class User: NSManagedObject {
+public class Meeting: NSManagedObject {
 
 }

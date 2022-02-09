@@ -39,7 +39,7 @@
 "Syrup" = "Sirop";
 "Injection" = "Injection";
 "Create" = "Créer";
-"Medicine was not created successfully." = "La médecine n'a pas été créée avec succès.";
+"|#X#| was not created successfully." = "La |#X#| n'a pas été créée avec succès.";
 "Please try again." = "Veuillez réessayer.";
 "Done" = "Fait";
 "The |#X#| field cannot be empty." = "Le champ |#X#| ne peut pas être vide.";
@@ -79,3 +79,18 @@
 "Proceed" = "Procéder";
 "Enter old password" = "Entrez l'ancien mot de passe";
 "Log Out" = "Se déconnecter";
+"Create Meeting" = "Créer une réunion";
+"Title and Description" = "Titre et description";
+"Meeting title" = "Titre de la réunion";
+"Meeting description" = "Descriptif de la réunion";
+"Date and Time" = "Date et l'heure";
+"Date" = "Date";
+"Time" = "Temps";
+"Select Doctors" = "Sélectionnez les médecins";
+"Select Medicines" = "Sélectionnez les médicaments";
+"No |#X#| was selected." = "Aucun |#X#| n'a été sélectionné.";
+"Please select atleast one |#X#|." = "Veuillez sélectionner au moins un |#X#|.";
+"Meeting" = "Réunion";
+"Medicine" = "Médicament";
+"with: |#X#|" = "avec : |#X#|";
+

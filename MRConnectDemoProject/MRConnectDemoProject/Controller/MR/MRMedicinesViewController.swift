@@ -82,7 +82,7 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MRMedicinesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
         let medicine = medicines[indexPath.row]
         cell.medicineNameLabel.text = "\(medicine.name!)"

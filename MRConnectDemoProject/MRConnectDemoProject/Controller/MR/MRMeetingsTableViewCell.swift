@@ -1,20 +1,20 @@
 //
-//  MRDoctorsTableViewCell.swift
+//  MRMeetingsTableViewCell.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 27/01/22.
+//  Created by Ansh Bangia on 08/02/22.
 //
 
 import UIKit
 
-class MRDoctorsTableViewCell: UITableViewCell {
+class MRMeetingsTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var specLabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var withLabel: UILabel!
     
-    static let id = "doctorTableCell"
-    
+    static let id = "meetingTableCell"
+
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        // Initialization code
