@@ -180,7 +180,7 @@ extension CoreDataHandler {
         newMed.id = num
         
         let email = CurrentUser().email
-        newMed.creator = email!
+        newMed.creator = email
         
         do {
             try context.save()

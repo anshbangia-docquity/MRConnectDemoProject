@@ -77,6 +77,10 @@ extension Logic {
 //MARK: - Meetings
 extension Logic {
     
+    func fetchMeetings(of mr: String) -> [Meeting] {
+        return coreDataHandler.fetchMeetings(of: mr)
+    }
+    
     func fetchMeetings(for doctor: String) -> [Meeting] {
         let result = coreDataHandler.fetchMeetings()
         

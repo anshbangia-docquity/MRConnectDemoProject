@@ -249,6 +249,15 @@
 			path = "CoreData Model";
 			sourceTree = "<group>";
 		};
+		01A1E13827B3CB750094E374 /* Meetings */ = {
+			isa = PBXGroup;
+			children = (
+				01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */,
+				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
+			);
+			path = Meetings;
+			sourceTree = "<group>";
+		};
 		01AD578327A101C800EB47DF /* MRHomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,8 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
-				01AD578927A116C400EB47DF /* MRMeetingsViewController.swift */,
-				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
+				01A1E13827B3CB750094E374 /* Meetings */,
 				01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */,
 				01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */,
 				01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */,

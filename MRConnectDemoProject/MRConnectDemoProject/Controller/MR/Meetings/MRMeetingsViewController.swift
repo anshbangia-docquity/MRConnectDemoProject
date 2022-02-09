@@ -12,7 +12,7 @@ class MRMeetingsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var meetingTableView: UITableView!
     
-    let coreDataHandler = CoreDataHandler()
+    let logic = Logic()
     var meetingDates: [String: [Meeting]] = [:]
     var dates: [String] = []
     var user = CurrentUser()
@@ -21,7 +21,7 @@ class MRMeetingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let meetings = coreDataHandler.fetchMeetings(of: user.email)
+        let meetings = logic.fetchMeetings(of: user.email)
         process(meetings: meetings)
         
         meetingTableView.delegate = self
@@ -48,7 +48,7 @@ class MRMeetingsViewController: UIViewController {
     }
     
     func handler() {
-        let meetings = coreDataHandler.fetchMeetings(of: user.email)
+        let meetings = logic.fetchMeetings(of: user.email)
         process(meetings: meetings)
         meetingTableView.reloadData()
     }
