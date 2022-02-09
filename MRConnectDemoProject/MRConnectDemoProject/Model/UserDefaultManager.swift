@@ -14,12 +14,3 @@ class UserDefaultManager {
     
 }
 
-//extension UserDefaults {
-//    func clear() {
-//        guard let domainName = Bundle.main.bundleIdentifier else {
-//            return
-//        }
-//        removePersistentDomain(forName: domainName)
-//        synchronize()
-//    }
-//}

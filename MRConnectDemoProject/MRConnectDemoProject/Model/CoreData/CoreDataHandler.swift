@@ -16,7 +16,7 @@ struct CoreDataHandler {
     
 }
 
-//MARK: User
+//MARK: - User
 extension CoreDataHandler {
     
     func fetchUser(email: String) -> [User] {
@@ -70,11 +70,7 @@ extension CoreDataHandler {
     }
     
     //MARK: Create User
-    func signUpUser(_ resultUser: [User], name: String, contact: String, email: String, password: String, type: UserType, license: String, mrnumber: String, speciality: Int16) -> Bool {
-        if resultUser.count != 0 {
-            return false
-        }
-        
+    func signUpUser(name: String, contact: String, email: String, password: String, type: UserType, license: String, mrnumber: String, speciality: Int16) -> Bool {
         let newUser = User(context: context)
         newUser.name = name
         newUser.contact = contact
@@ -137,7 +133,7 @@ extension CoreDataHandler {
     
 }
 
-//MARK: Medicines
+//MARK: - Medicines
 extension CoreDataHandler {
     
     func fetchMedicines() -> [Medicine] {
@@ -198,7 +194,7 @@ extension CoreDataHandler {
     
 }
 
-//MARK: Meetings
+//MARK: - Meetings
 extension CoreDataHandler {
     
     func fetchMeetings() -> [Meeting] {
