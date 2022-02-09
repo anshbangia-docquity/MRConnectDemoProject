@@ -8,7 +8,7 @@
 import UIKit
 import BLTNBoard
 
-@objc public class ChangePasswordItem: BLTNPageItem, UITextFieldDelegate {
+@objc public class ChangePasswordItem: BLTNPageItem {
 
     public lazy var passField = UITextField()
     public lazy var confirmPassField = UITextField()
@@ -55,15 +55,19 @@ import BLTNBoard
         super.actionButtonTapped(sender: sender)
     }
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
     override public func tearDown() {
         super.tearDown()
         passField.delegate = nil
         confirmPassField.delegate = nil
     }
 
+}
+
+extension ChangePasswordItem: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
 }

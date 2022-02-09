@@ -12,7 +12,6 @@ import UIKit
 struct CoreDataHandler {
     
     let context = PersistentStorage.shared.context
-    let userDefault = UserDefaultManager.shared.defaults
     
 }
 
@@ -180,7 +179,7 @@ extension CoreDataHandler {
         let num = Int16(fetchMedicines().count)
         newMed.id = num
         
-        let email = userDefault.value(forKey: "userEmail") as? String
+        let email = CurrentUser().email
         newMed.creator = email!
         
         do {
@@ -237,7 +236,7 @@ extension CoreDataHandler {
         let num = Int16(fetchMeetings().count)
         newMeet.id = num
         
-        let email = userDefault.value(forKey: "userEmail") as! String
+        let email = CurrentUser().email
         newMeet.creator = email
         
         do {

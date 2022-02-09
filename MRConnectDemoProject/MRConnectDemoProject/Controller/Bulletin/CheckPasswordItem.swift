@@ -8,10 +8,10 @@
 import UIKit
 import BLTNBoard
 
-@objc public class CheckPasswordItem: BLTNPageItem, UITextFieldDelegate {
+@objc public class CheckPasswordItem: BLTNPageItem {
 
     public lazy var passField = UITextField()
-    @objc public var textInputHandler: ((CheckPasswordItem, String) -> Void)? = nil
+    @objc public var textInputHandler: ((CheckPasswordItem) -> Void)? = nil
         
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         passField.placeholder = MyStrings.password
@@ -33,6 +33,15 @@ import BLTNBoard
         super.actionButtonTapped(sender: sender)
     }
     
+    override public func tearDown() {
+        super.tearDown()
+        passField.delegate = nil
+    }
+
+}
+
+extension CheckPasswordItem: UITextFieldDelegate {
+    
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return true
@@ -50,12 +59,7 @@ import BLTNBoard
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        textInputHandler?(self, textField.text!)
+        textInputHandler?(self)
     }
     
-    override public func tearDown() {
-        super.tearDown()
-        passField.delegate = nil
-    }
-
 }
