@@ -12,6 +12,19 @@ struct Logic {
     let coreDataHandler = CoreDataHandler()
     let userDefault = UserDefaultManager.shared.defaults
     
+    func fetchMeetings(for doctor: String) -> [Meeting] {
+        let result = coreDataHandler.fetchMeetings()
+        
+        var meetings: [Meeting] = []
+        for meeting in result {
+            if meeting.doctors!.contains(doctor) {
+                meetings.append(meeting)
+            }
+        }
+        
+        return meetings
+    }
+    
     func logIn(email: String, password: String) -> Bool {
         let resultUser = coreDataHandler.fetchUser(email: email)
         let result = logInUser(resultUser, password: password)

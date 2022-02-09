@@ -17,11 +17,12 @@ class DoctorMeetingsViewController: UIViewController {
     var dates: [String] = []
     var user = CurrentUser()
     let dateFormatter = DateFormatter()
+    let logic = Logic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let meetings = coreDataHandler.fetchMeetings(doctor: user.email)
+        let meetings = logic.fetchMeetings(for: user.email)
         process(meetings: meetings)
         
         meetingTableView.delegate = self
