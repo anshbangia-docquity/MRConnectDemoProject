@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aiV-TY-8Gm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lF4-CY-R7a">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -142,20 +142,21 @@
                             <constraint firstItem="KWq-b0-Yio" firstAttribute="trailing" secondItem="RJY-gD-8za" secondAttribute="trailing" constant="20" id="xIc-Ep-Hy9"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="E9Y-cn-CZi">
-                        <imageReference key="image" image="person.3.fill" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="ite-it-2qj">
+                        <barButtonItem key="backBarButtonItem" title=" " id="mC0-BR-rdH"/>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="createButton" destination="RJY-gD-8za" id="8sJ-ig-MmC"/>
                         <outlet property="meetingTableView" destination="ttG-Fx-nnI" id="9P0-gQ-Il7"/>
                         <outlet property="titleLabel" destination="1Ad-ra-6xn" id="M0Y-GD-4NH"/>
                         <segue destination="Vat-Vl-KdZ" kind="presentation" identifier="goToCreate" id="pYT-w5-IDI"/>
+                        <segue destination="wxn-xC-uWt" kind="show" identifier="testing" id="kNo-cT-OCD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ux4-ue-BIP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="82"/>
+            <point key="canvasLocation" x="1047.8260869565217" y="81.696428571428569"/>
         </scene>
         <!--MRCreateMeeting-->
         <scene sceneID="5IE-1f-fXV">
@@ -163,7 +164,39 @@
                 <viewControllerPlaceholder storyboardName="MRCreateMeeting" id="Vat-Vl-KdZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6n-6f-MgT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1049" y="80"/>
+            <point key="canvasLocation" x="1847.1014492753625" y="-148.66071428571428"/>
+        </scene>
+        <!--MeetingDetails-->
+        <scene sceneID="pRK-SI-Mqj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MeetingDetails" id="wxn-xC-uWt" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0l8-3u-pxJ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JhG-y0-6Yk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1878" y="158"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xfx-Gm-fbc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lF4-CY-R7a" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="E9Y-cn-CZi">
+                        <imageReference key="image" image="person.3.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ADs-SZ-6JL">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aiV-TY-8Gm" kind="relationship" relationship="rootViewController" id="Wb8-xy-L8W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fIu-fJ-SvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="81.696428571428569"/>
         </scene>
     </scenes>
     <resources>
