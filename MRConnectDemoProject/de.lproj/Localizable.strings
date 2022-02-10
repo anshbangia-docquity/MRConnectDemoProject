@@ -92,3 +92,5 @@
 "Medicine" = "Medizin";
 "with: |#X#|" = "mit: |#X#|";
 "Edit Meeting" = "Besprechung bearbeiten";
+"No description" = "Keine Beschreibung";
+"Host" = "Gastgeber";

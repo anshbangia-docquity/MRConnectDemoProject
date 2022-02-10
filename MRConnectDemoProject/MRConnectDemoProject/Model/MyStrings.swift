@@ -107,5 +107,7 @@ struct MyStrings {
     static let editMeeting = "Edit Meeting".localize()
     static let notUpdatedTitle = "|#X#| was not updated.".localize()
     static let notUpdatedSubtitle = "An error occurred while updating |#X#|.".localize()
+    static let noDescription = "No Description".localize()
+    static let host = "Host".localize()
     
 }

@@ -139,7 +139,7 @@ class MRCreateMeetingViewController: UIViewController {
         }
         
         var descText: String? = descTextView.text
-        if descText == "" {
+        if descText == MyStrings.meetingDescription {
             descText = nil
         }
         

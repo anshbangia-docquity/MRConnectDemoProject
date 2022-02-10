@@ -24,6 +24,7 @@
 		0117681727B4C70C00E89110 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681627B4C70C00E89110 /* Profile.storyboard */; };
 		0117681A27B4F51A00E89110 /* MeetingDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681927B4F51A00E89110 /* MeetingDetails.storyboard */; };
 		0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */; };
+		0117682227B52DB700E89110 /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117682127B52DB700E89110 /* DetailsTableViewCell.swift */; };
 		011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 011C9C5F27A8062C00B02D02 /* Localizable.strings */; };
 		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
 		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
@@ -85,6 +86,7 @@
 		0117681627B4C70C00E89110 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		0117681927B4F51A00E89110 /* MeetingDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingDetails.storyboard; sourceTree = "<group>"; };
 		0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDetailsViewController.swift; sourceTree = "<group>"; };
+		0117682127B52DB700E89110 /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		011C9C5E27A8062C00B02D02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6027A8063000B02D02 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6127A806B300B02D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -243,6 +245,15 @@
 			path = Meetings;
 			sourceTree = "<group>";
 		};
+		0117681E27B5287700E89110 /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				01A1E13F27B3DEE90094E374 /* MeetingsTableViewCell.swift */,
+				0117682127B52DB700E89110 /* DetailsTableViewCell.swift */,
+			);
+			path = "Table Cells";
+			sourceTree = "<group>";
+		};
 		018CAA7627AE618B00FF04D6 /* Bulletin */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,7 +285,7 @@
 			children = (
 				01A1E13D27B3DB970094E374 /* MeetingsViewController.swift */,
 				0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */,
-				01A1E13F27B3DEE90094E374 /* MeetingsTableViewCell.swift */,
+				0117681E27B5287700E89110 /* Table Cells */,
 			);
 			path = Meetings;
 			sourceTree = "<group>";
@@ -511,6 +522,7 @@
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
+				0117682227B52DB700E89110 /* DetailsTableViewCell.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
 				018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */,
 				01A1E13227B377ED0094E374 /* Medicine+CoreDataClass.swift in Sources */,
