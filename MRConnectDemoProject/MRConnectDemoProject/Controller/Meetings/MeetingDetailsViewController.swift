@@ -9,7 +9,7 @@ import UIKit
 
 class MeetingDetailsViewController: UIViewController {
     
-    @IBOutlet weak var editButton: UIButton!
+    //@IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var meetingTitle: UILabel!
@@ -32,8 +32,10 @@ class MeetingDetailsViewController: UIViewController {
     var medicineSet = Set<Int16>()
     var selectedMedicines: [Medicine] = []
     
-    override func viewDidLoad() {
-        editButton.setTitle(MyStrings.edit, for: .normal)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //editButton.setTitle(MyStrings.edit, for: .normal)
         
         logic.dateFormatter.dateFormat = "d"
         dayLabel.text = logic.dateFormatter.string(from: meeting!.date!)
@@ -53,6 +55,7 @@ class MeetingDetailsViewController: UIViewController {
             descTextView.textColor = .systemGray3
         } else {
             descTextView.text = meeting!.desc
+            descTextView.textColor = .black
         }
         
         doctorSet = meeting!.doctors!
@@ -70,17 +73,22 @@ class MeetingDetailsViewController: UIViewController {
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
         
         if user.type == .MRUser {
-            editButton.isHidden = false
+            //editButton.isHidden = false
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
+            
             hostLabel.isHidden = true
         } else {
-            editButton.isHidden = true
+            //editButton.isHidden = true
+            hostLabel.isHidden = false
         }
     }
     
-    @IBAction func editTapped(_ sender: UIButton) {
-        print("hello")
-        
+    @objc func editTapped(sender: UIButton) {
         performSegue(withIdentifier: "goToEdit", sender: self)
+    }
+    
+    func handler() {
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,6 +96,7 @@ class MeetingDetailsViewController: UIViewController {
             let vc = segue.destination as! MRCreateMeetingViewController
             vc.edit = true
             vc.myMeeting = meeting!
+            vc.handler = handler
         }
     }
 }

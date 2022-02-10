@@ -82,6 +82,12 @@ class MRCreateMeetingViewController: UIViewController {
             
             titleField.text = myMeeting!.title
             descTextView.text = myMeeting!.desc
+            if descTextView.text.isEmpty {
+                descTextView.text = MyStrings.meetingDescription
+                descTextView.textColor = UIColor.lightGray
+            } else {
+                descTextView.textColor = .black
+            }
             
             datePicker.date = myMeeting!.date!
             timePicker.date = myMeeting!.date!

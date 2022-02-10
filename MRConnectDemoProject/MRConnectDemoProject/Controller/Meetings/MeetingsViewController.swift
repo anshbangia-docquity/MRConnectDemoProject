@@ -21,15 +21,6 @@ class MeetingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(user.name)
-        
-        let meetings: [Meeting]
-        if user.type == .MRUser {
-            meetings = logic.fetchMeetings(of: user.email)
-        } else {
-            meetings = logic.fetchMeetings(for: user.email)
-        }
-        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         
         meetingTableView.delegate = self
         meetingTableView.dataSource = self
@@ -41,6 +32,20 @@ class MeetingsViewController: UIViewController {
         } else {
             createButton.isHidden = true
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let meetings: [Meeting]
+        if user.type == .MRUser {
+            meetings = logic.fetchMeetings(of: user.email)
+        } else {
+            meetings = logic.fetchMeetings(for: user.email)
+        }
+        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
+        
+        meetingTableView.reloadData()
     }
 
     @IBAction func createTapped(_ sender: UIButton) {

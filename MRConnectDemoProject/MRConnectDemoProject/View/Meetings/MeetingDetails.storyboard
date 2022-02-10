@@ -19,29 +19,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulX-or-ptJ" userLabel="Top">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URZ-Qr-550">
-                                        <rect key="frame" x="349" y="64" width="60" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Edit">
-                                            <imageReference key="image" image="pencil" catalog="system" symbolScale="small"/>
-                                            <color key="baseForegroundColor" systemColor="labelColor"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-j7-2fD">
-                                        <rect key="frame" x="324" y="13" width="67" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Button"/>
-                                        <connections>
-                                            <action selector="editTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Lsh-E9-A9T"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.49019607840000001" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="URZ-Qr-550" secondAttribute="trailing" constant="5" id="3sE-xJ-ssK"/>
-                                    <constraint firstAttribute="bottom" secondItem="URZ-Qr-550" secondAttribute="bottom" constant="5" id="FTN-VH-pKx"/>
                                     <constraint firstAttribute="height" constant="100" id="IQO-tI-Piq"/>
                                 </constraints>
                             </view>
@@ -400,7 +379,6 @@
                         <outlet property="doctorTableView" destination="eIf-PW-O2w" id="bs7-uo-HeJ"/>
                         <outlet property="doctorTableViewHeight" destination="xA7-0d-imI" id="NkQ-XE-JOL"/>
                         <outlet property="doctorsLabel" destination="keh-YC-txW" id="QNK-lx-LWE"/>
-                        <outlet property="editButton" destination="URZ-Qr-550" id="s1K-TN-Jcl"/>
                         <outlet property="hostLabel" destination="Khx-fP-dwB" id="h4p-Gg-Ig1"/>
                         <outlet property="medicineTableView" destination="4r2-ws-vsX" id="oi6-4F-65s"/>
                         <outlet property="medicineTableViewHeight" destination="IDs-CH-xlk" id="THE-TO-fNT"/>
@@ -429,7 +407,6 @@
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="cross.case" catalog="system" width="128" height="100"/>
-        <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="labelColor">
