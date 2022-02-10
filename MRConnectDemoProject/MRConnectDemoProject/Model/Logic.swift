@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Logic {
     
@@ -82,6 +83,21 @@ extension Logic {
         return result
     }
     
+    func logOut() {
+        userDefault.removeObject(forKey: "email")
+        userDefault.removeObject(forKey: "password")
+        userDefault.removeObject(forKey: "userType")
+        userDefault.removeObject(forKey: "userSpeciality")
+        userDefault.removeObject(forKey: "userPassword")
+        userDefault.removeObject(forKey: "userName")
+        userDefault.removeObject(forKey: "userMRNumber")
+        userDefault.removeObject(forKey: "userLicense")
+        userDefault.removeObject(forKey: "userEmail")
+        userDefault.removeObject(forKey: "userContact")
+
+        userDefault.setValue(true, forKey: "authenticate")
+    }
+    
     //MARK: - Update
     func updateName(email: String, newName: String) -> Bool {
         let user = coreDataHandler.fetchUser(email: email)[0]
@@ -91,6 +107,11 @@ extension Logic {
     func updatePassword(email: String, newPass: String) -> Bool {
         let user = coreDataHandler.fetchUser(email: email)[0]
         return coreDataHandler.updatePassword(user, newPass: newPass)
+    }
+    
+    func saveProfileImage(email: String, img: UIImage) -> Bool {
+        let user = getUser(with: email)
+        return coreDataHandler.saveProfileImage(user, image: img)
     }
     
 }
@@ -116,6 +137,11 @@ extension Logic {
             medicines.append(getMedicine(with: id))
         }
         return medicines
+    }
+    
+    //MARK: - Create Medicine
+    func createMedicine(name: String, company: String, composition: String, price: Float, form: Int16) -> Bool {
+        return coreDataHandler.createMedicine(name: name, company: company, composition: composition, price: price, form: form)
     }
     
 }

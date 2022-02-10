@@ -48,6 +48,13 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eux-a7-XvY">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XoZ-rd-f5R">
+                                                            <rect key="frame" x="0.0" y="0.0" width="5" height="75"/>
+                                                            <color key="backgroundColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="5" id="atK-2V-lWT"/>
+                                                            </constraints>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fm-c3-4EU">
                                                             <rect key="frame" x="25" y="15" width="47.5" height="23"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
@@ -76,6 +83,9 @@
                                                         <constraint firstItem="0fm-c3-4EU" firstAttribute="top" secondItem="Eux-a7-XvY" secondAttribute="top" constant="15" id="NQW-8Z-muT"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZwL-5X-kjT" secondAttribute="trailing" constant="25" id="Ohl-eD-vgS"/>
                                                         <constraint firstAttribute="height" constant="75" id="aiG-al-C7y"/>
+                                                        <constraint firstItem="XoZ-rd-f5R" firstAttribute="leading" secondItem="Eux-a7-XvY" secondAttribute="leading" id="eb6-pv-epk"/>
+                                                        <constraint firstItem="XoZ-rd-f5R" firstAttribute="top" secondItem="Eux-a7-XvY" secondAttribute="top" id="xyo-5G-Vz9"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XoZ-rd-f5R" secondAttribute="bottom" id="yX7-o8-F8h"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

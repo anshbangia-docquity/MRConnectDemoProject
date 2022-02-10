@@ -118,9 +118,7 @@ extension CoreDataHandler {
         return true
     }
     
-    func saveProfileImage(_ email: String, image: UIImage) -> Bool {
-        let user = fetchUser(email: email)[0]
-        
+    func saveProfileImage(_ user: User, image: UIImage) -> Bool {
         user.profileImage = image.jpegData(compressionQuality: 1) as Data?
         do {
             try context.save()

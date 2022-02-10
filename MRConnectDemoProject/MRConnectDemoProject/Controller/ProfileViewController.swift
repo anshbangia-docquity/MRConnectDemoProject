@@ -1,14 +1,14 @@
 //
-//  DoctorProfileViewController.swift
+//  ProfileViewController.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 26/01/22.
+//  Created by Ansh Bangia on 10/02/22.
 //
 
 import UIKit
 import BLTNBoard
 
-class DoctorProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BulletinBoardDelegate {
+class ProfileViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -22,20 +22,15 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
-    let coreDataHandler = CoreDataHandler()
+    //let coreDataHandler = CoreDataHandler()
     let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         
-        bulletinBoard.delegate = self
-        
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
+        titleLabel.text = MyStrings.profile
         
         if let img = user?.profileImage {
             profileImageView.image = img
@@ -46,13 +41,22 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
             addImageButton.setTitle(MyStrings.add, for: .normal)
         }
         
-        titleLabel.text = MyStrings.profile
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
         nameLabel.text = user?.name
         emailLabel.text = user?.email
+        
+        bulletinBoard.delegate = self
+        
         changeNameButton.setTitle(MyStrings.changeName, for: .normal)
         changePassButton.setTitle(MyStrings.changePassword, for: .normal)
         logOutButton.setTitle(MyStrings.logOut, for: .normal)
-        
+    }
+    
+    @IBAction func addImagePressed(_ sender: Any) {
+        present(imagePicker, animated: true)
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
@@ -64,6 +68,37 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
         bulletinBoard.define(of: .CheckPassword)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
+    
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        logic.logOut()
+        
+        user = nil
+        self.presentingViewController?.dismiss(animated: true, completion:nil)
+    }
+    
+}
+
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let result = logic.saveProfileImage(email: user!.email, img: img)
+            if result == false {
+                Alert.showAlert(on: self, title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
+                return
+            }
+            profileImageView.image = img
+            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            addImageButton.setTitle(MyStrings.edit, for: .normal)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+//MARK: - BulletinBoardDelegate
+extension ProfileViewController: BulletinBoardDelegate {
     
     func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         bulletinBoard.boardManager?.dismissBulletin()
@@ -81,7 +116,7 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     func nameChanged(newName: String) {
         let result = logic.updateName(email: user!.email, newName: newName)
         if result == false {
-            showAlert(title: MyStrings.nameNotUpdated, subtitle: MyStrings.errorNameChange)
+            Alert.showAlert(on: self, notUpdated: MyStrings.name)
             return
         }
         userDefault.setValue(newName, forKey: "userName")
@@ -91,6 +126,7 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
     func passwordChanged(newPass: String) {
         var result = true
         var pass = user?.password
+        
         let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
         
         confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
@@ -104,54 +140,10 @@ class DoctorProfileViewController: UIViewController, UIImagePickerControllerDele
             if result {
                 self.userDefault.setValue(pass, forKey: "userPassword")
             } else {
-                self.showAlert(title: MyStrings.passNotUpdated, subtitle: MyStrings.errorPassChange)
+                Alert.showAlert(on: self, notUpdated: MyStrings.password)
             }
         }
-    }
-    
-    @IBAction func addImagePressed(_ sender: Any) {
-        present(imagePicker, animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let result = coreDataHandler.saveProfileImage(user!.email, image: img)
-            if result == false {
-                showAlert(title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
-                return
-            }
-            profileImageView.image = img
-            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            addImageButton.setTitle(MyStrings.edit, for: .normal)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func logOutPressed(_ sender: UIButton) {
-        userDefault.removeObject(forKey: "email")
-        userDefault.removeObject(forKey: "password")
-        userDefault.removeObject(forKey: "userType")
-        userDefault.removeObject(forKey: "userSpeciality")
-        userDefault.removeObject(forKey: "userPassword")
-        userDefault.removeObject(forKey: "userName")
-        userDefault.removeObject(forKey: "userMRNumber")
-        userDefault.removeObject(forKey: "userLicense")
-        userDefault.removeObject(forKey: "userEmail")
-        userDefault.removeObject(forKey: "userContact")
-
-        userDefault.setValue(true, forKey: "authenticate")
-        
-        user = nil
-        
-        self.presentingViewController?.dismiss(animated: true, completion:nil)
-    }
-    
-    func showAlert(title: String, subtitle: String) {
-        self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
-    }
-    
-    func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
     }
     
 }
+

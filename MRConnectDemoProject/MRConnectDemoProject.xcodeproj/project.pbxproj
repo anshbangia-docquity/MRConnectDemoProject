@@ -20,6 +20,9 @@
 		0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B5279E99D90023AD4C /* PersistentStorage.swift */; };
 		0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */; };
 		0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8E3279ED6110023AD4C /* SignInViewController.swift */; };
+		0117681527B4C23700E89110 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117681427B4C23700E89110 /* ProfileViewController.swift */; };
+		0117681727B4C70C00E89110 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681627B4C70C00E89110 /* Profile.storyboard */; };
+		0117681A27B4F51A00E89110 /* MeetingDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681927B4F51A00E89110 /* MeetingDetails.storyboard */; };
 		011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 011C9C5F27A8062C00B02D02 /* Localizable.strings */; };
 		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
 		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
@@ -58,10 +61,6 @@
 		01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */; };
 		01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */; };
 		01AD579A27A18B2800EB47DF /* MRMedicines.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579927A18B2800EB47DF /* MRMedicines.storyboard */; };
-		01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579B27A196A200EB47DF /* DoctorProfileViewController.swift */; };
-		01AD579E27A196D600EB47DF /* DoctorProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */; };
-		01AD57A427A1B11200EB47DF /* MRProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD57A327A1B11200EB47DF /* MRProfile.storyboard */; };
-		01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */; };
 		1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891533827AA332F00A9495D /* CoreDataHandler.swift */; };
 		F1B7B7D280F8B2797D177767 /* Pods_MRConnectDemoProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */; };
 /* End PBXBuildFile section */
@@ -81,6 +80,9 @@
 		0110A8B5279E99D90023AD4C /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		0110A8E3279ED6110023AD4C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		0117681427B4C23700E89110 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0117681627B4C70C00E89110 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		0117681927B4F51A00E89110 /* MeetingDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingDetails.storyboard; sourceTree = "<group>"; };
 		011C9C5E27A8062C00B02D02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6027A8063000B02D02 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6127A806B300B02D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -122,10 +124,6 @@
 		01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsViewController.swift; sourceTree = "<group>"; };
 		01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesViewController.swift; sourceTree = "<group>"; };
 		01AD579927A18B2800EB47DF /* MRMedicines.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMedicines.storyboard; sourceTree = SOURCE_ROOT; };
-		01AD579B27A196A200EB47DF /* DoctorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileViewController.swift; sourceTree = "<group>"; };
-		01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DoctorProfile.storyboard; sourceTree = "<group>"; };
-		01AD57A327A1B11200EB47DF /* MRProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRProfile.storyboard; sourceTree = "<group>"; };
-		01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRProfileViewController.swift; sourceTree = "<group>"; };
 		1891533827AA332F00A9495D /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.release.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.release.xcconfig"; sourceTree = "<group>"; };
 		60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.debug.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,7 +198,8 @@
 				0110A892279E97100023AD4C /* Main.storyboard */,
 				013A843F27AA4E13002AC97C /* LoginSignup.storyboard */,
 				0110A89A279E97150023AD4C /* LaunchScreen.storyboard */,
-				01A1E13B27B3D73E0094E374 /* Meetings.storyboard */,
+				0117681B27B4F52300E89110 /* Meetings */,
+				0117681627B4C70C00E89110 /* Profile.storyboard */,
 				01AD578327A101C800EB47DF /* MRHomeScreen */,
 				01AD578B27A11F2C00EB47DF /* DoctorHomeScreen */,
 			);
@@ -214,6 +213,7 @@
 				0110A8B3279E998A0023AD4C /* LogInViewController.swift */,
 				0110A8E3279ED6110023AD4C /* SignInViewController.swift */,
 				01A1E14127B3EB9D0094E374 /* Meetings */,
+				0117681427B4C23700E89110 /* ProfileViewController.swift */,
 				01AD578827A1167600EB47DF /* MR */,
 				01AD578E27A1206500EB47DF /* Doctor */,
 				018CAA7627AE618B00FF04D6 /* Bulletin */,
@@ -221,6 +221,24 @@
 				01A1E13427B385580094E374 /* Gradient.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		0117681827B4CF6100E89110 /* Medicines */ = {
+			isa = PBXGroup;
+			children = (
+				01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */,
+				01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */,
+			);
+			path = Medicines;
+			sourceTree = "<group>";
+		};
+		0117681B27B4F52300E89110 /* Meetings */ = {
+			isa = PBXGroup;
+			children = (
+				01A1E13B27B3D73E0094E374 /* Meetings.storyboard */,
+				0117681927B4F51A00E89110 /* MeetingDetails.storyboard */,
+			);
+			path = Meetings;
 			sourceTree = "<group>";
 		};
 		018CAA7627AE618B00FF04D6 /* Bulletin */ = {
@@ -247,15 +265,6 @@
 				01A1E12D27B377ED0094E374 /* Medicine+CoreDataProperties.swift */,
 			);
 			path = "CoreData Model";
-			sourceTree = "<group>";
-		};
-		01A1E13827B3CB750094E374 /* Meetings */ = {
-			isa = PBXGroup;
-			children = (
-				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
-				01A1E14527B417990094E374 /* Collection Cells */,
-			);
-			path = Meetings;
 			sourceTree = "<group>";
 		};
 		01A1E14127B3EB9D0094E374 /* Meetings */ = {
@@ -292,7 +301,6 @@
 				01A1E14227B413820094E374 /* MRCreateMeeting.storyboard */,
 				01AD579327A1251A00EB47DF /* MRDoctors.storyboard */,
 				01AD579927A18B2800EB47DF /* MRMedicines.storyboard */,
-				01AD57A327A1B11200EB47DF /* MRProfile.storyboard */,
 			);
 			path = MRHomeScreen;
 			sourceTree = "<group>";
@@ -301,12 +309,11 @@
 			isa = PBXGroup;
 			children = (
 				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
-				01A1E13827B3CB750094E374 /* Meetings */,
-				01A1E14427B414590094E374 /* Table Cells */,
+				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
+				01A1E14527B417990094E374 /* Collection Cells */,
 				01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */,
-				01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */,
-				01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */,
-				01AD57A527A1B19700EB47DF /* MRProfileViewController.swift */,
+				0117681827B4CF6100E89110 /* Medicines */,
+				01A1E14427B414590094E374 /* Table Cells */,
 			);
 			path = MR;
 			sourceTree = "<group>";
@@ -315,7 +322,6 @@
 			isa = PBXGroup;
 			children = (
 				01AD579127A121FA00EB47DF /* DoctorHomeScreen.storyboard */,
-				01AD579D27A196D600EB47DF /* DoctorProfile.storyboard */,
 			);
 			path = DoctorHomeScreen;
 			sourceTree = "<group>";
@@ -324,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */,
-				01AD579B27A196A200EB47DF /* DoctorProfileViewController.swift */,
 			);
 			path = Doctor;
 			sourceTree = "<group>";
@@ -422,14 +427,14 @@
 				011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */,
 				0110A89C279E97150023AD4C /* LaunchScreen.storyboard in Resources */,
 				01A1E14327B413820094E374 /* MRCreateMeeting.storyboard in Resources */,
+				0117681A27B4F51A00E89110 /* MeetingDetails.storyboard in Resources */,
 				01AD579227A121FA00EB47DF /* DoctorHomeScreen.storyboard in Resources */,
 				0110A899279E97150023AD4C /* Assets.xcassets in Resources */,
 				013A844027AA4E13002AC97C /* LoginSignup.storyboard in Resources */,
 				01AD578527A101E200EB47DF /* MRHomeScreen.storyboard in Resources */,
-				01AD57A427A1B11200EB47DF /* MRProfile.storyboard in Resources */,
 				0110A894279E97100023AD4C /* Main.storyboard in Resources */,
 				01AD579A27A18B2800EB47DF /* MRMedicines.storyboard in Resources */,
-				01AD579E27A196D600EB47DF /* DoctorProfile.storyboard in Resources */,
+				0117681727B4C70C00E89110 /* Profile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,11 +493,11 @@
 				01A1E14027B3DEE90094E374 /* MeetingsTableViewCell.swift in Sources */,
 				0110A8B0279E98620023AD4C /* Logic.swift in Sources */,
 				018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */,
+				0117681527B4C23700E89110 /* ProfileViewController.swift in Sources */,
 				0105AD9827A92E8400607DCF /* BulletinBoard.swift in Sources */,
 				0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */,
 				01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */,
 				0110A8B2279E988D0023AD4C /* UserType.swift in Sources */,
-				01AD579C27A196A200EB47DF /* DoctorProfileViewController.swift in Sources */,
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
 				01A1E12E27B377ED0094E374 /* Meeting+CoreDataClass.swift in Sources */,
@@ -514,7 +519,6 @@
 				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
 				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
 				01A1E13027B377ED0094E374 /* User+CoreDataClass.swift in Sources */,
-				01AD57A627A1B19700EB47DF /* MRProfileViewController.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,

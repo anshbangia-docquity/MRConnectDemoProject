@@ -20,8 +20,14 @@ class MeetingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(user.name)
         
-        let meetings = logic.fetchMeetings(of: user.email)
+        let meetings: [Meeting]
+        if user.type == .MRUser {
+            meetings = logic.fetchMeetings(of: user.email)
+        } else {
+            meetings = logic.fetchMeetings(for: user.email)
+        }
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         
         meetingTableView.delegate = self

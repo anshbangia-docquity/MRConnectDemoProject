@@ -231,9 +231,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             doctorSet.insert(doctors[indexPath.row].email!)
             selectedDoctors.insert(doctors[indexPath.row], at: 0)
             
-            DispatchQueue.main.async {
-                self.reloadDoctorCollection()
-            }
+            reloadDoctorCollection()
         } else {
             if medicineSet.contains(medicines[indexPath.row].id) {
                 return
@@ -242,9 +240,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             medicineSet.insert(medicines[indexPath.row].id)
             selectedMedicines.insert(medicines[indexPath.row], at: 0)
             
-            DispatchQueue.main.async {
-                self.reloadMedicineCollection()
-            }
+            reloadMedicineCollection()
         }
     }
     
@@ -338,7 +334,9 @@ extension MRCreateMeetingViewController {
     }
     
     func reloadDoctorCollection() {
-        doctorCollection.reloadData()
+        DispatchQueue.main.async {
+            self.doctorCollection.reloadData()
+        }
         if selectedDoctors.count == 0 {
             doctorCollectionHeight.constant = 0
         } else {
@@ -347,7 +345,9 @@ extension MRCreateMeetingViewController {
     }
     
     func reloadMedicineCollection() {
-        medicineCollection.reloadData()
+        DispatchQueue.main.async {
+            self.medicineCollection.reloadData()
+        }
         if selectedMedicines.count == 0 {
             medicineCollectionHeight.constant = 0
         } else {
