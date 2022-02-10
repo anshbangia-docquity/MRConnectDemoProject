@@ -151,7 +151,7 @@
                         <outlet property="meetingTableView" destination="ttG-Fx-nnI" id="9P0-gQ-Il7"/>
                         <outlet property="titleLabel" destination="1Ad-ra-6xn" id="M0Y-GD-4NH"/>
                         <segue destination="Vat-Vl-KdZ" kind="presentation" identifier="goToCreate" id="pYT-w5-IDI"/>
-                        <segue destination="wxn-xC-uWt" kind="show" identifier="testing" id="kNo-cT-OCD"/>
+                        <segue destination="wxn-xC-uWt" kind="show" identifier="goToDetails" id="kNo-cT-OCD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ux4-ue-BIP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

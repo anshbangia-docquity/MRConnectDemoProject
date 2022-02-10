@@ -23,6 +23,7 @@
 		0117681527B4C23700E89110 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117681427B4C23700E89110 /* ProfileViewController.swift */; };
 		0117681727B4C70C00E89110 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681627B4C70C00E89110 /* Profile.storyboard */; };
 		0117681A27B4F51A00E89110 /* MeetingDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681927B4F51A00E89110 /* MeetingDetails.storyboard */; };
+		0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */; };
 		011C9C5D27A8062C00B02D02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 011C9C5F27A8062C00B02D02 /* Localizable.strings */; };
 		011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6227A80C9500B02D02 /* MyStrings.swift */; };
 		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
@@ -83,6 +84,7 @@
 		0117681427B4C23700E89110 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0117681627B4C70C00E89110 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		0117681927B4F51A00E89110 /* MeetingDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingDetails.storyboard; sourceTree = "<group>"; };
+		0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDetailsViewController.swift; sourceTree = "<group>"; };
 		011C9C5E27A8062C00B02D02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6027A8063000B02D02 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		011C9C6127A806B300B02D02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				01A1E13D27B3DB970094E374 /* MeetingsViewController.swift */,
+				0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */,
 				01A1E13F27B3DEE90094E374 /* MeetingsTableViewCell.swift */,
 			);
 			path = Meetings;
@@ -527,6 +530,7 @@
 				01A1E13E27B3DB970094E374 /* MeetingsViewController.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
 				01A1E13127B377ED0094E374 /* User+CoreDataProperties.swift in Sources */,
+				0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */,
 				01A1E12F27B377ED0094E374 /* Meeting+CoreDataProperties.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */,
 			);

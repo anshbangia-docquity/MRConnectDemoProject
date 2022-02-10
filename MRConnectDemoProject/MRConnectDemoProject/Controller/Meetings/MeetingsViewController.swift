@@ -17,6 +17,7 @@ class MeetingsViewController: UIViewController {
     var meetingDates: [String: [Meeting]] = [:]
     var dates: [String] = []
     var user = CurrentUser()
+    var tappedMeeting: Meeting?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +53,6 @@ class MeetingsViewController: UIViewController {
         meetingTableView.reloadData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCreate" {
-            let vc = segue.destination as! MRCreateMeetingViewController
-            vc.handler = handler
-        }
-    }
 }
 
 extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -99,7 +94,26 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "testing", sender: self)
+        let meetings = meetingDates[dates[indexPath.section]]!
+        let meeting = meetings[indexPath.row]
+        tappedMeeting = meeting
+        
+        performSegue(withIdentifier: "goToDetails", sender: self)
+    }
+    
+}
+
+//MARK: - Prepare for Segues
+extension MeetingsViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCreate" {
+            let vc = segue.destination as! MRCreateMeetingViewController
+            vc.handler = handler
+        } else if segue.identifier == "goToDetails" {
+            let vc = segue.destination as! MeetingDetailsViewController
+            vc.meeting = tappedMeeting
+        }
     }
     
 }
