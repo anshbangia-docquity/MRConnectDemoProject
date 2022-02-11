@@ -35,6 +35,9 @@
 		013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844527AA7BDC002AC97C /* MedicineForms.swift */; };
 		013A844827AA803B002AC97C /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844727AA803B002AC97C /* CurrentUser.swift */; };
 		0153A7E627B0EF98000B98A6 /* MRCreateMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */; };
+		0161858D27B64F96006C636E /* MeetingDoctorsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161858C27B64F96006C636E /* MeetingDoctorsCollectionViewCell.swift */; };
+		0161858F27B651EF006C636E /* MeetingsInnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161858E27B651EF006C636E /* MeetingsInnerTableViewCell.swift */; };
+		0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161859027B6658F006C636E /* MeetingsOuterTableViewCell.swift */; };
 		01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */; };
 		01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */; };
 		017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */; };
@@ -100,6 +103,9 @@
 		013A844527AA7BDC002AC97C /* MedicineForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineForms.swift; sourceTree = "<group>"; };
 		013A844727AA803B002AC97C /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMeetingViewController.swift; sourceTree = "<group>"; };
+		0161858C27B64F96006C636E /* MeetingDoctorsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDoctorsCollectionViewCell.swift; sourceTree = "<group>"; };
+		0161858E27B651EF006C636E /* MeetingsInnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsInnerTableViewCell.swift; sourceTree = "<group>"; };
+		0161859027B6658F006C636E /* MeetingsOuterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsOuterTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsTableViewCell.swift; sourceTree = "<group>"; };
 		01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewController.swift; sourceTree = "<group>"; };
 		017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesTableViewCell.swift; sourceTree = "<group>"; };
@@ -248,8 +254,10 @@
 		0117681E27B5287700E89110 /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
-				01A1E13F27B3DEE90094E374 /* MeetingsTableViewCell.swift */,
+				0161859027B6658F006C636E /* MeetingsOuterTableViewCell.swift */,
+				0161858E27B651EF006C636E /* MeetingsInnerTableViewCell.swift */,
 				0117682127B52DB700E89110 /* DetailsTableViewCell.swift */,
+				01A1E13F27B3DEE90094E374 /* MeetingsTableViewCell.swift */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 			children = (
 				01A1E13D27B3DB970094E374 /* MeetingsViewController.swift */,
 				0117681C27B50AE900E89110 /* MeetingDetailsViewController.swift */,
+				0161858C27B64F96006C636E /* MeetingDoctorsCollectionViewCell.swift */,
 				0117681E27B5287700E89110 /* Table Cells */,
 			);
 			path = Meetings;
@@ -527,11 +536,13 @@
 				018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */,
 				01A1E13227B377ED0094E374 /* Medicine+CoreDataClass.swift in Sources */,
 				013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */,
+				0161858D27B64F96006C636E /* MeetingDoctorsCollectionViewCell.swift in Sources */,
 				0153A7E627B0EF98000B98A6 /* MRCreateMeetingViewController.swift in Sources */,
 				01A1E14927B41AD70094E374 /* MRMedicinesCollectionViewCell.swift in Sources */,
 				01A1E13327B377ED0094E374 /* Medicine+CoreDataProperties.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
 				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
+				0161858F27B651EF006C636E /* MeetingsInnerTableViewCell.swift in Sources */,
 				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
 				01A1E13027B377ED0094E374 /* User+CoreDataClass.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
@@ -541,6 +552,7 @@
 				0110A88F279E97100023AD4C /* SceneDelegate.swift in Sources */,
 				01A1E13E27B3DB970094E374 /* MeetingsViewController.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
+				0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */,
 				01A1E13127B377ED0094E374 /* User+CoreDataProperties.swift in Sources */,
 				0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */,
 				01A1E12F27B377ED0094E374 /* Meeting+CoreDataProperties.swift in Sources */,

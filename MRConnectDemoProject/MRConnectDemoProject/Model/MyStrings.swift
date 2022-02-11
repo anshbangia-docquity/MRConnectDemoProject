@@ -109,5 +109,6 @@ struct MyStrings {
     static let notUpdatedSubtitle = "An error occurred while updating |#X#|.".localize()
     static let noDescription = "No Description".localize()
     static let host = "Host".localize()
+    static let today = "Today".localize()
     
 }

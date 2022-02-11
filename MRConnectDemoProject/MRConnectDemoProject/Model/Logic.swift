@@ -25,7 +25,7 @@ extension Logic {
     
     func getUsers(with emails: Set<String>) -> [User] {
         var users: [User] = []
-        for email in emails {
+        for email in emails.sorted() {
             users.append(getUser(with: email))
         }
         return users
@@ -178,7 +178,7 @@ extension Logic {
     
     //MARK: - Other
     mutating func processMeetingDates(meetings: [Meeting]) -> ([String:[Meeting]], [String]) {
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        dateFormatter.dateFormat = "MMM d, yyyy"
         var meetingDates: [String:[Meeting]] = [:]
         var dates: [String] = []
         for meeting in meetings {
