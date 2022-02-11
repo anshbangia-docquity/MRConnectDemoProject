@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="155" width="414" height="658"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="doctorTableCell" rowHeight="75" id="Oxq-12-qh8" customClass="MRDoctorsTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="doctorsTableCell" rowHeight="75" id="Oxq-12-qh8" customClass="MRDoctorsTableViewCell" customModule="MRConnectDemoProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oxq-12-qh8" id="oLV-Je-85e">

@@ -2,7 +2,7 @@
 //  Meeting+CoreDataProperties.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 08/02/22.
+//  Created by Ansh Bangia on 09/02/22.
 //
 //
 
@@ -16,13 +16,13 @@ extension Meeting {
         return NSFetchRequest<Meeting>(entityName: "Meeting")
     }
 
-    @NSManaged public var id: Int16
     @NSManaged public var creator: String?
-    @NSManaged public var title: String?
-    @NSManaged public var desc: String?
     @NSManaged public var date: Date?
+    @NSManaged public var desc: String?
     @NSManaged public var doctors: Set<String>?
+    @NSManaged public var id: Int16
     @NSManaged public var medicines: Set<Int16>?
+    @NSManaged public var title: String?
 
 }
 

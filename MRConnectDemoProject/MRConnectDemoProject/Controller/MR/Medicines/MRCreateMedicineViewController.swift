@@ -21,7 +21,7 @@ class MRCreateMedicineViewController: UIViewController {
     
     var form: Int16 = 0
     var handler: (() -> Void)?
-    let coreDataHandler = CoreDataHandler()
+    let logic = Logic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,43 +51,31 @@ class MRCreateMedicineViewController: UIViewController {
     
     @IBAction func createPressed(_ sender: UIButton) {
         if nameField.text!.isEmpty {
-            showAlert(emptyField: nameField.placeholder!)
+            Alert.showAlert(on: self, emptyField: nameField.placeholder!)
             return
         }
         if companyField.text!.isEmpty {
-            showAlert(emptyField: companyField.placeholder!)
+            Alert.showAlert(on: self, emptyField: companyField.placeholder!)
             return
         }
         if compositionField.text!.isEmpty {
-            showAlert(emptyField: compositionField.placeholder!)
+            Alert.showAlert(on: self, emptyField: compositionField.placeholder!)
             return
         }
         if priceField.text!.isEmpty {
-            showAlert(emptyField: priceField.placeholder!)
+            Alert.showAlert(on: self, emptyField: priceField.placeholder!)
             return
         }
         
-        let result = coreDataHandler.createMedicine(name: nameField.text!, company: companyField.text!, composition: companyField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
+        let result = logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: compositionField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
         
         if result == false {
-            showAlert(notCreated: MyStrings.medicine)
+            Alert.showAlert(on: self, notCreated: MyStrings.medicine)
             return
         }
         
         handler!()
         dismiss(animated: true, completion: nil)
-    }
-    
-    func showAlert(emptyField: String) {
-        self.present(Alert.showAlert(title: MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField), subtitle: MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField)), animated: true, completion: nil)
-    }
-    
-    func showAlert(title: String, subtitle: String) {
-        self.present(Alert.showAlert(title: title, subtitle: subtitle), animated: true, completion: nil)
-    }
-    
-    func showAlert(notCreated: String) {
-        self.present(Alert.showAlert(title: MyStrings.createUnsuccess.replacingOccurrences(of: "|#X#|", with: notCreated), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
     
 }

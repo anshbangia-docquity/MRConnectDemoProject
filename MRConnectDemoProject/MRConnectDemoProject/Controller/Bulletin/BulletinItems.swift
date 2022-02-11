@@ -54,7 +54,7 @@ struct BulletinItems {
         item.requiresCloseButton = false
         item.appearance.actionButtonFontSize = 20
 
-        item.textInputHandler = { item, newName in
+        item.textInputHandler = { item in
             let changePasswordItem = self.makeChangePasswordItem(delegate, board: board)
             item.manager?.push(item: changePasswordItem)
         }

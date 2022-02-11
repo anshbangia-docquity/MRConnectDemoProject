@@ -8,7 +8,7 @@
 import UIKit
 import BLTNBoard
 
-@objc public class ChangeNameItem: BLTNPageItem, UITextFieldDelegate {
+@objc public class ChangeNameItem: BLTNPageItem {
 
     public lazy var nameField = UITextField()
     @objc public var textInputHandler: ((String) -> Void)? = nil
@@ -32,13 +32,14 @@ import BLTNBoard
         super.actionButtonTapped(sender: sender)
     }
     
-    @objc open func isInputValid(text: String?) -> Bool {
-        if text == nil || text!.isEmpty {
-            return false
-        }
-
-        return true
+    override public func tearDown() {
+        super.tearDown()
+        nameField.delegate = nil
     }
+
+}
+
+extension ChangeNameItem: UITextFieldDelegate {
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
@@ -46,7 +47,7 @@ import BLTNBoard
     }
     
     public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if !isInputValid(text: textField.text) {
+        if textField.text == nil || textField.text!.isEmpty {
             descriptionLabel!.textColor = .red
             descriptionLabel!.text = MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: MyStrings.newName)
             textField.backgroundColor = UIColor.red.withAlphaComponent(0.3)
@@ -60,9 +61,4 @@ import BLTNBoard
         textInputHandler?(textField.text!)
     }
     
-    override public func tearDown() {
-        super.tearDown()
-        nameField.delegate = nil
-    }
-
 }

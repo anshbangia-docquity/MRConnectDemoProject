@@ -1,20 +1,22 @@
 //
-//  MRMeetingsTableViewCell.swift
+//  DetailsTableViewCell.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 08/02/22.
+//  Created by Ansh Bangia on 10/02/22.
 //
 
 import UIKit
 
-class MRMeetingsTableViewCell: UITableViewCell {
+class DetailsTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var withLabel: UILabel!
-    
-    static let id = "meetingTableCell"
+    static let id = "detailTableCell"
 
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    
+
+    
+    
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        // Initialization code

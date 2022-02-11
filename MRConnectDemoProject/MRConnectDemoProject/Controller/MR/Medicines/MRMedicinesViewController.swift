@@ -7,19 +7,19 @@
 
 import UIKit
 
-class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
+class MRMedicinesViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
     
-    let coreDataHandler = CoreDataHandler()
+    let logic = Logic()
     var medicines: [Medicine] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        medicines = coreDataHandler.fetchMedicines()
+        medicines = logic.getMedicines()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,28 +33,13 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
         searchField.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchField.text == "" {
-            medicines = coreDataHandler.fetchMedicines()
-        } else {
-            medicines = coreDataHandler.fetchMedicines(contains: textField.text!)
-        }
-
-        tableView.reloadData()
-    }
-    
     @IBAction func createPressed(_ sender: UIButton) {
         searchField.text = ""
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
     func handler() {
-        medicines = coreDataHandler.fetchMedicines()
+        medicines = logic.getMedicines()
         tableView.reloadData()
     }
     
@@ -67,6 +52,7 @@ class MRMedicinesViewController: UIViewController, UITextFieldDelegate {
     
 }
 
+//MARK: - UITableViewDelegate, UITableViewData Source
 extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,6 +75,26 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
         cell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
         
         return cell
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension MRMedicinesViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if searchField.text == "" {
+            medicines = logic.getMedicines()
+        } else {
+            medicines = logic.getMedicines(contains: textField.text!)
+        }
+
+        tableView.reloadData()
     }
     
 }

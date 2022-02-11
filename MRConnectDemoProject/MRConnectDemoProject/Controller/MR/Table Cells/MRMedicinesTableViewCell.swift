@@ -12,7 +12,7 @@ class MRMedicinesTableViewCell: UITableViewCell {
     @IBOutlet weak var medicineNameLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
     
-    static let id = "medicineTableCell"
+    static let id = "medicinesTableCell"
     //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        // Initialization code

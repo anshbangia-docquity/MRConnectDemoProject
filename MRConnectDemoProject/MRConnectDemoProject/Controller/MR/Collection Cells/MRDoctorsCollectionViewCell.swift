@@ -1,20 +1,20 @@
 //
-//  DoctorCollectionViewCell.swift
+//  MRDoctorsCollectionViewCell.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 07/02/22.
+//  Created by Ansh Bangia on 09/02/22.
 //
 
 import UIKit
 
-class DoctorCollectionViewCell: UICollectionViewCell {
+class MRDoctorsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var profileImage: UIImageView!
     
     var removeDoctor: ((Int) -> Void)?
     var index: Int?
     
-    static let id = "doctorCollectionCell"
+    static let id = "doctorsCollectionCell"
     
     @IBAction func removeTapped(_ sender: UIButton) {
         removeDoctor?(index!)

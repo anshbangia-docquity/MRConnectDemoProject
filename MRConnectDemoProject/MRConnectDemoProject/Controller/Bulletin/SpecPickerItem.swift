@@ -8,7 +8,7 @@
 import UIKit
 import BLTNBoard
 
-@objc public class SpecPickerItem: BLTNPageItem, UIPickerViewDelegate, UIPickerViewDataSource {
+@objc public class SpecPickerItem: BLTNPageItem {
 
     public lazy var picker = UIPickerView()
     var spec: Int16 = Specialities.specialities.keys.first!
@@ -19,20 +19,24 @@ import BLTNBoard
         return [picker]
     }
 
+}
+
+extension SpecPickerItem: UIPickerViewDelegate, UIPickerViewDataSource {
+    
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Specialities.specialities.count
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Specialities.specialities[Array(Specialities.specialities.keys)[row]]
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         spec = Array(Specialities.specialities.keys)[row]
     }
-
+    
 }

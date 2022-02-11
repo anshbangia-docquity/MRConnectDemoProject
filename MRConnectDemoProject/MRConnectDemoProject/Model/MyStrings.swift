@@ -79,8 +79,6 @@ struct MyStrings {
     static let changeName = "Change Name".localize()
     static let editName = "Edit your name".localize()
     static let newName = "new name".localize()
-    static let nameNotUpdated = "Name was not updated.".localize()
-    static let errorNameChange = "An error occurred while updating name.".localize()
     static let newPassword = "new password".localize()
     static let confirmNewPass = "confirm new password".localize()
     static let changePassword = "Change Password".localize()
@@ -88,8 +86,6 @@ struct MyStrings {
     static let askChangePass = "Are you sure you want to change password?".localize()
     static let confirm = "Confirm".localize()
     static let cancel = "Cancel".localize()
-    static let passNotUpdated = "Password was not updated.".localize()
-    static let errorPassChange = "An error occurred while updating password.".localize()
     static let invalidPassword = "Invalid Password".localize()
     static let proceed = "Proceed".localize()
     static let enterOldPass = "Enter old password".localize()
@@ -108,5 +104,10 @@ struct MyStrings {
     static let meeting = "Meeting".localize()
     static let medicine = "Medicine".localize()
     static let withLabel = "with: |#X#|".localize()
+    static let editMeeting = "Edit Meeting".localize()
+    static let notUpdatedTitle = "|#X#| was not updated.".localize()
+    static let notUpdatedSubtitle = "An error occurred while updating |#X#|.".localize()
+    static let noDescription = "No Description".localize()
+    static let host = "Host".localize()
     
 }

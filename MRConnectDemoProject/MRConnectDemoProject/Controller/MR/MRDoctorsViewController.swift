@@ -7,19 +7,19 @@
 
 import UIKit
 
-class MRDoctorsViewController: UIViewController, UITextFieldDelegate {
+class MRDoctorsViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
     
-    let coreDataHandler = CoreDataHandler()
+    let logic = Logic()
     var doctors: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doctors = coreDataHandler.fetchUser(of: .Doctor)
+        doctors = logic.getDoctors()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,23 +34,9 @@ class MRDoctorsViewController: UIViewController, UITextFieldDelegate {
         searchField.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchField.text == "" {
-            doctors = coreDataHandler.fetchUser(of: UserType.Doctor)
-        } else {
-            doctors = coreDataHandler.fetchUser(of: .Doctor, contains: searchField.text!)
-        }
-
-        tableView.reloadData()
-    }
-    
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,7 +48,7 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 85
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,8 +64,27 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.profileImage.image = UIImage(systemName: "person.circle")
         }
         
-        
         return cell
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension MRDoctorsViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if searchField.text == "" {
+            doctors = logic.getDoctors()
+        } else {
+            doctors = logic.getDoctors(contains: searchField.text!)
+        }
+
+        tableView.reloadData()
     }
     
 }

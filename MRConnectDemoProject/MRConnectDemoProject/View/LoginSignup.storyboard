@@ -204,13 +204,13 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     </textField>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1p-J9-STt">
+                                                    <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1p-J9-STt">
                                                         <rect key="frame" x="0.0" y="266.5" width="250" height="0.0"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="filled" title="specialities">
+                                                        <buttonConfiguration key="configuration" style="plain" title="specialities">
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                                             <color key="baseForegroundColor" systemColor="systemGray3Color"/>
-                                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="specButtonPressed:" destination="Jlr-0F-v2v" eventType="touchUpInside" id="brD-ZW-Mfc"/>
