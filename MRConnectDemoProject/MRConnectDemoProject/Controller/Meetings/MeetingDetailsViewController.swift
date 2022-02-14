@@ -32,31 +32,8 @@ class MeetingDetailsViewController: UIViewController {
     var medicineSet = Set<Int16>()
     var selectedMedicines: [Medicine] = []
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //editButton.setTitle(MyStrings.edit, for: .normal)
-        
-        logic.dateFormatter.dateFormat = "d"
-        dayLabel.text = logic.dateFormatter.string(from: meeting!.date!)
-        
-        logic.dateFormatter.dateFormat = "MMM"
-        monthLabel.text = logic.dateFormatter.string(from: meeting!.date!)
-        
-        meetingTitle.text = meeting!.title
-        
-        hostLabel.text = MyStrings.host + ": " + logic.getUser(with: meeting!.creator!).name!
-        
-        logic.dateFormatter.dateFormat = "h:mm a"
-        timeLabel.text = logic.dateFormatter.string(from: meeting!.date!)
-        
-        if meeting!.desc == nil {
-            descTextView.text = MyStrings.noDescription
-            descTextView.textColor = .systemGray3
-        } else {
-            descTextView.text = meeting!.desc
-            descTextView.textColor = .black
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         doctorSet = meeting!.doctors!
         selectedDoctors = logic.getUsers(with: doctorSet)
@@ -71,6 +48,39 @@ class MeetingDetailsViewController: UIViewController {
         medicineTableView.dataSource = self
         medicineTableView.reloadData()
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //editButton.setTitle(MyStrings.edit, for: .normal)
+        
+        logic.dateFormatter.dateFormat = "d"
+        dayLabel.text = logic.dateFormatter.string(from: meeting!.startDate!)
+        
+        logic.dateFormatter.dateFormat = "MMM"
+        monthLabel.text = logic.dateFormatter.string(from: meeting!.startDate!)
+        
+        meetingTitle.text = meeting!.title
+        
+        hostLabel.text = MyStrings.host + ": " + logic.getUser(with: meeting!.creator!).name!
+        
+        logic.dateFormatter.dateFormat = "hh:mm a"
+        let startDate = logic.dateFormatter.string(from: meeting!.startDate!)
+        let endDate = logic.dateFormatter.string(from: meeting!.endDate!)
+        timeLabel.text = startDate + " - " + endDate
+        
+        if meeting!.desc == nil {
+            descTextView.text = MyStrings.noDescription
+            descTextView.textColor = .systemGray3
+        } else {
+            descTextView.text = meeting!.desc
+            descTextView.textColor = .black
+        }
+        
+
+        
+
         
         if user.type == .MRUser {
             //editButton.isHidden = false
@@ -81,14 +91,24 @@ class MeetingDetailsViewController: UIViewController {
             //editButton.isHidden = true
             hostLabel.isHidden = false
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
     }
     
     @objc func editTapped(sender: UIButton) {
         performSegue(withIdentifier: "goToEdit", sender: self)
     }
     
-    func handler() {
+    @objc func handler() {
+        doctorSet = meeting!.doctors!
+        selectedDoctors = logic.getUsers(with: doctorSet)
+        medicineSet = meeting!.medicines!
+        selectedMedicines = logic.getMedicines(with: medicineSet)
         
+        doctorTableView.reloadData()
+        doctorTableViewHeight.constant = doctorTableView.contentSize.height
+        medicineTableView.reloadData()
+        medicineTableViewHeight.constant = medicineTableView.contentSize.height
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -96,7 +116,6 @@ class MeetingDetailsViewController: UIViewController {
             let vc = segue.destination as! MRCreateMeetingViewController
             vc.edit = true
             vc.myMeeting = meeting!
-            vc.handler = handler
         }
     }
 }

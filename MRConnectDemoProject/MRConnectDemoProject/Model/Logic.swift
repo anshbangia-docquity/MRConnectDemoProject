@@ -167,13 +167,13 @@ extension Logic {
     }
     
     //MARK: - Create Meeting
-    func createMeeting(title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
-        return coreDataHandler.createMeeting(title: title, desc: desc, date: date, doctors: doctors, medicines: medicines)
+    func createMeeting(title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        return coreDataHandler.createMeeting(title: title, desc: desc, startDate: startDate, endDate: endDate, doctors: doctors, medicines: medicines)
     }
     
     //MARK: - Update Meeting
-    func editMeeting(meeting: Meeting, title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
-        return coreDataHandler.editMeeting(meeting: meeting, title: title, desc: desc, date: date, doctors: doctors, medicines: medicines)
+    func editMeeting(meeting: Meeting, title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        return coreDataHandler.editMeeting(meeting: meeting, title: title, desc: desc, startDate: startDate, endDate: endDate, doctors: doctors, medicines: medicines)
     }
     
     //MARK: - Other
@@ -182,7 +182,7 @@ extension Logic {
         var meetingDates: [String:[Meeting]] = [:]
         var dates: [String] = []
         for meeting in meetings {
-            let dateStr = dateFormatter.string(from: meeting.date!)
+            let dateStr = dateFormatter.string(from: meeting.startDate!)
             if meetingDates[dateStr] == nil
             {
                 meetingDates[dateStr] = []

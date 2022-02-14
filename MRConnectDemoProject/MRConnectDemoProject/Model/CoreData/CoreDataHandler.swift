@@ -211,7 +211,7 @@ extension CoreDataHandler {
         var result: [Meeting] = []
         do {
             let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
-            let sort = NSSortDescriptor(key: "date", ascending: true)
+            let sort = NSSortDescriptor(key: "startDate", ascending: true)
             request.sortDescriptors = [sort]
             
             result = try PersistentStorage.shared.context.fetch(request)
@@ -226,7 +226,7 @@ extension CoreDataHandler {
             let request = Meeting.fetchRequest() as NSFetchRequest<Meeting>
             let pred = NSPredicate(format: "creator == %@", creator)
             request.predicate = pred
-            let sort = NSSortDescriptor(key: "date", ascending: true)
+            let sort = NSSortDescriptor(key: "startDate", ascending: true)
             request.sortDescriptors = [sort]
             
             result = try PersistentStorage.shared.context.fetch(request)
@@ -236,11 +236,12 @@ extension CoreDataHandler {
     }
     
     //MARK: - Create Meeting
-    func createMeeting(title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+    func createMeeting(title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
         let newMeet = Meeting(context: context)
         newMeet.title = title
         newMeet.desc = desc
-        newMeet.date = date
+        newMeet.startDate = startDate
+        newMeet.endDate = endDate
         newMeet.doctors = doctors
         newMeet.medicines = medicines
         
@@ -260,10 +261,11 @@ extension CoreDataHandler {
     }
     
     //MARK: - Update Meeting
-    func editMeeting(meeting: Meeting, title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+    func editMeeting(meeting: Meeting, title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
         meeting.title = title
         meeting.desc = desc
-        meeting.date = date
+        meeting.startDate = startDate
+        meeting.endDate = endDate
         meeting.doctors = doctors
         meeting.medicines = medicines
 

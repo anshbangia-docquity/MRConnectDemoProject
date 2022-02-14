@@ -75,10 +75,10 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="721"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyb-H9-UPy" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1082"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1172"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="t9v-ef-JrZ" userLabel="Main Stack">
-                                                <rect key="frame" x="20" y="30" width="374" height="1032"/>
+                                                <rect key="frame" x="20" y="30" width="374" height="1122"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-kO-Doy" userLabel="Title Desc">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="194"/>
@@ -161,10 +161,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeE-Ca-URy" userLabel="Date Time">
-                                                        <rect key="frame" x="0.0" y="224" width="374" height="122"/>
+                                                        <rect key="frame" x="0.0" y="224" width="374" height="212"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="3OT-SN-RDV">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="122"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="212"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iba-ih-zLE" userLabel="Heading">
                                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -184,7 +184,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lx-U9-jwd" userLabel="Date Time">
-                                                                        <rect key="frame" x="0.0" y="52" width="374" height="70"/>
+                                                                        <rect key="frame" x="0.0" y="52" width="374" height="160"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DQ-SO-Sz1">
                                                                                 <rect key="frame" x="10" y="25" width="36" height="20.5"/>
@@ -193,34 +193,50 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="XNb-yf-6oq">
-                                                                                <rect key="frame" x="30" y="19.5" width="150" height="31"/>
+                                                                                <rect key="frame" x="30" y="20" width="150" height="31"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="150" id="WLp-7t-bp1"/>
                                                                                 </constraints>
                                                                             </datePicker>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRw-s7-zaW">
-                                                                                <rect key="frame" x="205" y="25" width="38" height="20.5"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRw-s7-zaW">
+                                                                                <rect key="frame" x="10" y="70.5" width="79" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="bRQ-nd-FgC">
-                                                                                <rect key="frame" x="253" y="19.5" width="100" height="31"/>
+                                                                                <rect key="frame" x="99" y="65.5" width="100" height="31"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="100" id="8D9-Fe-WDB"/>
+                                                                                </constraints>
+                                                                            </datePicker>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKM-m7-bEp">
+                                                                                <rect key="frame" x="10" y="116" width="71.5" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="952-Fb-BSv">
+                                                                                <rect key="frame" x="91.5" y="111" width="100" height="31"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="100" id="ovB-WR-IjA"/>
                                                                                 </constraints>
                                                                             </datePicker>
                                                                         </subviews>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                         <constraints>
-                                                                            <constraint firstItem="bRQ-nd-FgC" firstAttribute="centerY" secondItem="8lx-U9-jwd" secondAttribute="centerY" id="1nT-2d-fW5"/>
-                                                                            <constraint firstItem="TRw-s7-zaW" firstAttribute="centerY" secondItem="8lx-U9-jwd" secondAttribute="centerY" id="Lz3-Db-Rfp"/>
+                                                                            <constraint firstItem="bRQ-nd-FgC" firstAttribute="centerY" secondItem="TRw-s7-zaW" secondAttribute="centerY" id="1nT-2d-fW5"/>
+                                                                            <constraint firstItem="952-Fb-BSv" firstAttribute="centerY" secondItem="FKM-m7-bEp" secondAttribute="centerY" id="2Wj-V9-Z1h"/>
+                                                                            <constraint firstItem="952-Fb-BSv" firstAttribute="leading" secondItem="FKM-m7-bEp" secondAttribute="trailing" constant="10" id="59K-xK-hZU"/>
                                                                             <constraint firstItem="1DQ-SO-Sz1" firstAttribute="leading" secondItem="8lx-U9-jwd" secondAttribute="leading" constant="10" id="PtH-ye-7Tk"/>
-                                                                            <constraint firstItem="1DQ-SO-Sz1" firstAttribute="centerY" secondItem="8lx-U9-jwd" secondAttribute="centerY" id="Sxc-ip-7ZD"/>
-                                                                            <constraint firstItem="XNb-yf-6oq" firstAttribute="centerY" secondItem="8lx-U9-jwd" secondAttribute="centerY" id="UiC-PZ-h4t"/>
-                                                                            <constraint firstItem="TRw-s7-zaW" firstAttribute="leading" secondItem="XNb-yf-6oq" secondAttribute="trailing" constant="25" id="far-Ft-Fm7"/>
+                                                                            <constraint firstItem="FKM-m7-bEp" firstAttribute="leading" secondItem="TRw-s7-zaW" secondAttribute="leading" id="Rfm-pY-7hK"/>
+                                                                            <constraint firstItem="XNb-yf-6oq" firstAttribute="centerY" secondItem="1DQ-SO-Sz1" secondAttribute="centerY" id="UiC-PZ-h4t"/>
+                                                                            <constraint firstItem="TRw-s7-zaW" firstAttribute="leading" secondItem="1DQ-SO-Sz1" secondAttribute="leading" id="far-Ft-Fm7"/>
+                                                                            <constraint firstItem="TRw-s7-zaW" firstAttribute="top" secondItem="1DQ-SO-Sz1" secondAttribute="bottom" constant="25" id="kGJ-g0-lJX"/>
+                                                                            <constraint firstItem="FKM-m7-bEp" firstAttribute="top" secondItem="TRw-s7-zaW" secondAttribute="bottom" constant="25" id="t09-81-lcs"/>
                                                                             <constraint firstItem="bRQ-nd-FgC" firstAttribute="leading" secondItem="TRw-s7-zaW" secondAttribute="trailing" constant="10" id="vWX-Dk-DMF"/>
-                                                                            <constraint firstAttribute="height" constant="70" id="vwI-ga-AQf"/>
+                                                                            <constraint firstItem="1DQ-SO-Sz1" firstAttribute="top" secondItem="8lx-U9-jwd" secondAttribute="top" constant="25" id="vZR-2B-8jf"/>
+                                                                            <constraint firstAttribute="height" constant="160" id="vwI-ga-AQf"/>
                                                                             <constraint firstItem="XNb-yf-6oq" firstAttribute="leading" secondItem="1DQ-SO-Sz1" secondAttribute="leading" constant="20" id="w20-Mm-gvi"/>
                                                                         </constraints>
                                                                     </view>
@@ -243,7 +259,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHH-ew-SwF" userLabel="Doctors">
-                                                        <rect key="frame" x="0.0" y="376" width="374" height="325"/>
+                                                        <rect key="frame" x="0.0" y="466" width="374" height="325"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1EB-EV-ohL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="325"/>
@@ -511,7 +527,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceD-b0-bpF" userLabel="Medicines">
-                                                        <rect key="frame" x="0.0" y="731" width="374" height="301"/>
+                                                        <rect key="frame" x="0.0" y="821" width="374" height="301"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i5K-mL-cy8">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="301"/>
@@ -811,6 +827,8 @@
                         <outlet property="doctorSearchField" destination="kGu-Rn-NJe" id="n7s-dv-B0C"/>
                         <outlet property="doctorTableView" destination="8wg-KU-PSK" id="1Nx-q9-rnk"/>
                         <outlet property="doctorTableViewHeight" destination="HEV-bM-DCS" id="2aw-Ia-VYd"/>
+                        <outlet property="endTimeLabel" destination="FKM-m7-bEp" id="eB3-aA-7Av"/>
+                        <outlet property="endTimePicker" destination="952-Fb-BSv" id="RAL-FR-txK"/>
                         <outlet property="medicineCollection" destination="CMv-2o-sgw" id="J6N-eV-otG"/>
                         <outlet property="medicineCollectionHeight" destination="hgX-xW-XKI" id="OYF-CM-i99"/>
                         <outlet property="medicineSearchField" destination="RhU-y0-ZI5" id="tjy-GP-gPL"/>
@@ -818,8 +836,8 @@
                         <outlet property="medicineTableViewHeight" destination="BDj-g0-WCL" id="B1Y-rD-Acp"/>
                         <outlet property="selectDoctorsLabel" destination="W5k-Dw-WE4" id="5so-8B-Bb0"/>
                         <outlet property="selectMedicinesLabel" destination="R36-Gn-77H" id="oTT-8w-3f1"/>
-                        <outlet property="timeLabel" destination="TRw-s7-zaW" id="7KZ-f1-zCg"/>
-                        <outlet property="timePicker" destination="bRQ-nd-FgC" id="exX-8D-I0W"/>
+                        <outlet property="startTimeLabel" destination="TRw-s7-zaW" id="7KZ-f1-zCg"/>
+                        <outlet property="startTimePicker" destination="bRQ-nd-FgC" id="exX-8D-I0W"/>
                         <outlet property="titleDescLabel" destination="A1b-Kg-L7u" id="kBp-94-lvh"/>
                         <outlet property="titleField" destination="tbc-9F-jcJ" id="gbM-Rp-T3a"/>
                         <outlet property="titleLabel" destination="5gV-7N-cWb" id="BAm-Xc-X0K"/>

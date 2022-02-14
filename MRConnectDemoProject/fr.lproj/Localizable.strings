@@ -95,4 +95,8 @@
 "No description" = "Pas de description";
 "Host" = "Hôte";
 "Today" = "Aujourd'hui";
+"Start Time" = "Heure de début";
+"End Time" = "Heure de fin";
+"Invalid meeting time selected" = "Heure de réunion sélectionnée incorrecte";
+"Select appropriate meeting time." = "Sélectionnez l'heure de réunion appropriée.";
 

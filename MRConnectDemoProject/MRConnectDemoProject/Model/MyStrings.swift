@@ -110,5 +110,9 @@ struct MyStrings {
     static let noDescription = "No Description".localize()
     static let host = "Host".localize()
     static let today = "Today".localize()
+    static let startTime = "Start Time".localize()
+    static let endTime = "End Time".localize()
+    static let invalidTime = "Invalid meeting time selected".localize()
+    static let againApptTime = "Select appropriate meeting time.".localize()
     
 }

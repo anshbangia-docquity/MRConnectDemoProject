@@ -36,10 +36,6 @@ class MeetingsViewController: UIViewController {
         }
         
         meetingTableView.separatorStyle = .none
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         let meetings: [Meeting]
         if user.type == .MRUser {
@@ -48,10 +44,22 @@ class MeetingsViewController: UIViewController {
             meetings = logic.fetchMeetings(for: user.email)
         }
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
-        
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
+        
+  
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+
+        
+
         
 //        self.meetingTableView.layoutSubviews()
 //        meetingTableView.rowHeight = UITableView.automaticDimension
@@ -62,10 +70,12 @@ class MeetingsViewController: UIViewController {
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
-    func handler() {
+    @objc func handler() {
         let meetings = logic.fetchMeetings(of: user.email)
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
-        meetingTableView.reloadData()
+        DispatchQueue.main.async {
+            self.meetingTableView.reloadData()
+        }
     }
     
 }
@@ -85,7 +95,13 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return test
+        //return CGFloat(100 * meetingDates[dates[indexPath.row]]!.count) + 25
+        
+        var h = meetingDates[dates[indexPath.row]]!.count
+        h *= 115
+        h += 25 + 55
+        return CGFloat(h)
+        //return test
     }
     
 //    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -138,7 +154,6 @@ extension MeetingsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToCreate" {
             let vc = segue.destination as! MRCreateMeetingViewController
-            vc.handler = handler
         } else if segue.identifier == "goToDetails" {
             let vc = segue.destination as! MeetingDetailsViewController
             vc.meeting = tappedMeeting

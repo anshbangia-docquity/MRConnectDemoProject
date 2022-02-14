@@ -27,6 +27,8 @@ class MRMedicinesViewController: UIViewController {
 
         titleLabel.text = MyStrings.medicines
         searchField.placeholder = MyStrings.search
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(medAdded), name: Notification.Name("medAdded"), object: nil)
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -38,16 +40,9 @@ class MRMedicinesViewController: UIViewController {
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
-    func handler() {
+    @objc func medAdded() {
         medicines = logic.getMedicines()
         tableView.reloadData()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCreate" {
-            let vc = segue.destination as! MRCreateMedicineViewController
-            vc.handler = handler
-        }
     }
     
 }
