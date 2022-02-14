@@ -45,6 +45,7 @@
 		018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */; };
 		018CAA7E27AE777500FF04D6 /* ChangePasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */; };
 		018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */; };
+		0191310827BAB5680015B174 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0191310727BAB5680015B174 /* GoogleService-Info.plist */; };
 		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
 		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01A1E13C27B3D73E0094E374 /* Meetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A1E13B27B3D73E0094E374 /* Meetings.storyboard */; };
@@ -111,6 +112,7 @@
 		018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameItem.swift; sourceTree = "<group>"; };
 		018CAA7D27AE777500FF04D6 /* ChangePasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordItem.swift; sourceTree = "<group>"; };
 		018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPasswordItem.swift; sourceTree = "<group>"; };
+		0191310727BAB5680015B174 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01A1E13B27B3D73E0094E374 /* Meetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Meetings.storyboard; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				0110A88C279E97100023AD4C /* AppDelegate.swift */,
 				0110A88E279E97100023AD4C /* SceneDelegate.swift */,
 				0110A895279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld */,
+				0191310727BAB5680015B174 /* GoogleService-Info.plist */,
 				0110A8AC279E981B0023AD4C /* Model */,
 				0110A8AD279E98280023AD4C /* View */,
 				0110A8AE279E98460023AD4C /* Controller */,
@@ -452,6 +455,7 @@
 				0110A894279E97100023AD4C /* Main.storyboard in Resources */,
 				01AD579A27A18B2800EB47DF /* MRMedicines.storyboard in Resources */,
 				0117681727B4C70C00E89110 /* Profile.storyboard in Resources */,
+				0191310827BAB5680015B174 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,7 +726,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anshbangia.MRConnectDemoProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.docquity.MRConnectDemoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -750,7 +754,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anshbangia.MRConnectDemoProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.docquity.MRConnectDemoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
