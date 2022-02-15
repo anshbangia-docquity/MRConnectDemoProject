@@ -48,14 +48,26 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        return 140
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        cell.configure(name: doctor.name!, spec: doctor.speciality)
+        cell.configure(name: doctor.name!, spec: doctor.speciality, email: doctor.email!, contact: doctor.contact!, office: doctor.office!)
+        
+        cell.layer.maskedCorners = []
+        if indexPath.row == 0 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
+        if indexPath.row == doctors.count - 1 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+        }
         
         if let img = doctor.profileImage {
             cell.configImg(imgData: img)

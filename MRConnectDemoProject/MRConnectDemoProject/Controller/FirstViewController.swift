@@ -12,22 +12,22 @@ class FirstViewController: UIViewController {
     
     let userDefault = UserDefaultManager.shared.defaults
     
-    let database = Firestore.firestore()
+//    let database = Firestore.firestore()
     
-    func saveData(text: String) {
-        let docRef = database.document("docquity/example")
-        docRef.setData(["text": text])
-    }
+//    func saveData(text: String) {
+//        let docRef = database.document("docquity/example")
+//        docRef.setData(["text": text])
+//    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let docRef = database.document("docquity/example")
-        docRef.addSnapshotListener { snapshot, error in
-            guard let data = snapshot?.data(), error == nil else { return }
-            
-            print(data)
-        }
+//        let docRef = database.document("docquity/example")
+//        docRef.addSnapshotListener { snapshot, error in
+//            guard let data = snapshot?.data(), error == nil else { return }
+//
+//            print(data)
+//        }
         
 
         
@@ -46,10 +46,10 @@ class FirstViewController: UIViewController {
         }
     }
     
-    func xyz() {
-        let text = "ansh"
-        saveData(text: text)
-    }
+//    func xyz() {
+//        let text = "ansh"
+//        saveData(text: text)
+//    }
 
 }
 

@@ -71,12 +71,12 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
         cell.layer.maskedCorners = []
         if indexPath.row == 0 {
             cell.layer.masksToBounds = true
-            cell.layer.cornerRadius = 15
+            cell.layer.cornerRadius = 20
             cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
         if indexPath.row == medicines.count - 1 {
             cell.layer.masksToBounds = true
-            cell.layer.cornerRadius = 15
+            cell.layer.cornerRadius = 20
             cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
         }
         
