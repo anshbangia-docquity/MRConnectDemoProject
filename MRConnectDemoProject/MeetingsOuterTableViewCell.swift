@@ -49,9 +49,6 @@ class MeetingsOuterTableViewCell: UITableViewCell {
             dayLabel.textColor = .black
         } else {
             dateTimeView.backgroundColor = .white
-            dateLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
-            monthLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
-            dayLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             dateLabel.textColor = .black
             monthLabel.textColor = .black
             dayLabel.textColor = .black

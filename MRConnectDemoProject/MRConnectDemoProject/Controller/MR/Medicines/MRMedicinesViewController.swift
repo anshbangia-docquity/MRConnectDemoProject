@@ -59,14 +59,26 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
         let medicine = medicines[indexPath.row]
-        cell.configure(med: medicine.name!, company: medicine.company!)
+        cell.configure(med: medicine.name!, company: medicine.company!, type: medicine.form)
+        
+        cell.layer.maskedCorners = []
+        if indexPath.row == 0 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 15
+            cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
+        if indexPath.row == medicines.count - 1 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 15
+            cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+        }
         
         return cell
     }
