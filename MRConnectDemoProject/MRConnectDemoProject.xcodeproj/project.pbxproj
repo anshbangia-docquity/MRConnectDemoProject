@@ -20,6 +20,7 @@
 		0110A8B6279E99DA0023AD4C /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B5279E99D90023AD4C /* PersistentStorage.swift */; };
 		0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */; };
 		0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110A8E3279ED6110023AD4C /* SignInViewController.swift */; };
+		01172A4527BC06EF00366FB8 /* MRDoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01172A4427BC06EF00366FB8 /* MRDoctorDetailsViewController.swift */; };
 		0117681527B4C23700E89110 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117681427B4C23700E89110 /* ProfileViewController.swift */; };
 		0117681727B4C70C00E89110 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681627B4C70C00E89110 /* Profile.storyboard */; };
 		0117681A27B4F51A00E89110 /* MeetingDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0117681927B4F51A00E89110 /* MeetingDetails.storyboard */; };
@@ -85,6 +86,7 @@
 		0110A8B5279E99D90023AD4C /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		0110A8E3279ED6110023AD4C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		01172A4427BC06EF00366FB8 /* MRDoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorDetailsViewController.swift; sourceTree = "<group>"; };
 		0117681427B4C23700E89110 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0117681627B4C70C00E89110 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		0117681927B4F51A00E89110 /* MeetingDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingDetails.storyboard; sourceTree = "<group>"; };
@@ -262,6 +264,15 @@
 			path = "Table Cells";
 			sourceTree = "<group>";
 		};
+		0125586227BC05A300C3957A /* Doctors */ = {
+			isa = PBXGroup;
+			children = (
+				01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */,
+				01172A4427BC06EF00366FB8 /* MRDoctorDetailsViewController.swift */,
+			);
+			path = Doctors;
+			sourceTree = "<group>";
+		};
 		018CAA7627AE618B00FF04D6 /* Bulletin */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,7 +345,7 @@
 				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
 				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
 				01A1E14527B417990094E374 /* Collection Cells */,
-				01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */,
+				0125586227BC05A300C3957A /* Doctors */,
 				0117681827B4CF6100E89110 /* Medicines */,
 				01A1E14427B414590094E374 /* Table Cells */,
 			);
@@ -524,6 +535,7 @@
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,
 				01A1E14727B417EB0094E374 /* MRDoctorsCollectionViewCell.swift in Sources */,
+				01172A4527BC06EF00366FB8 /* MRDoctorDetailsViewController.swift in Sources */,
 				013A844827AA803B002AC97C /* CurrentUser.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
 				01A1E13527B385580094E374 /* Gradient.swift in Sources */,

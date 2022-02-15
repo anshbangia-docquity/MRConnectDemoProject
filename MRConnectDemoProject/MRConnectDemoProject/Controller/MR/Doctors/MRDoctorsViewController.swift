@@ -15,6 +15,7 @@ class MRDoctorsViewController: UIViewController {
     
     let logic = Logic()
     var doctors: [User] = []
+    var tappedDoctor: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,18 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tappedDoctor = doctors[indexPath.row]
+        performSegue(withIdentifier: "goToDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetails" {
+            let vc = segue.destination as! MRDoctorDetailsViewController
+            vc.doctor = tappedDoctor
+        }
     }
     
 }

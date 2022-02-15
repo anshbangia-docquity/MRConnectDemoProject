@@ -54,7 +54,12 @@ class MeetingsViewController: UIViewController {
     }
     
     @objc func handler() {
-        let meetings = logic.fetchMeetings(of: user.email)
+        let meetings: [Meeting]
+        if user.type == .MRUser {
+            meetings = logic.fetchMeetings(of: user.email)
+        } else {
+            meetings = logic.fetchMeetings(for: user.email)
+        }
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()

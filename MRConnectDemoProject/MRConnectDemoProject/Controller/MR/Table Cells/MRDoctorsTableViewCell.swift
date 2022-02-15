@@ -35,7 +35,7 @@ class MRDoctorsTableViewCell: UITableViewCell {
         specLabel.text = Specialities.specialities[spec]
         emailLabel.text = email
         contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: contact)
-        var myOffice = "Not specified"
+        var myOffice = MyStrings.notSpecified
         if !office.isEmpty {
             myOffice = office
         }

@@ -123,5 +123,6 @@ struct MyStrings {
     static let addOffice = "Add current working location".localize()
     static let addQuali = "Add qualification".localize()
     static let addExp = "Add prior work experience".localize()
+    static let notSpecified = "Not specified".localize()
     
 }
