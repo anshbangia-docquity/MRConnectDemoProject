@@ -104,6 +104,11 @@ extension Logic {
         return coreDataHandler.updateName(user, newName: newName)
     }
     
+    func updateNumber(email: String, newNum: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateNumber(user, newNum: newNum)
+    }
+    
     func updatePassword(email: String, newPass: String) -> Bool {
         let user = coreDataHandler.fetchUser(email: email)[0]
         return coreDataHandler.updatePassword(user, newPass: newPass)

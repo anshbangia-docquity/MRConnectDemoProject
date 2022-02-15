@@ -11,6 +11,7 @@ import BLTNBoard
 enum BulletinTypes {
     
     case SpeckPicker
+    case ChangeNumber
     case ChangeName
     case CheckPassword
     case ChangePassword
@@ -33,6 +34,8 @@ class BulletinBoard {
         switch type {
         case .SpeckPicker:
             item = bulletinItem.makeSpeckPickerItem(delegate!, board: self)
+        case .ChangeNumber:
+            item = bulletinItem.makeChangeNumber(delegate!, board: self)
         case .ChangeName:
             item = bulletinItem.makeChangeNameItem(delegate!, board: self)
         case .CheckPassword:

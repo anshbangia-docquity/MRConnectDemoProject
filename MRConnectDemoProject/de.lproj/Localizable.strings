@@ -99,3 +99,6 @@
 "End Time" = "Endzeit";
 "Invalid meeting time selected" = "Ungültige Besprechungszeit ausgewählt";
 "Select appropriate meeting time." = "Wählen Sie eine geeignete Besprechungszeit aus.";
+"Update Contact" = "Kontakt aktualisieren";
+"Update your contact" = "Aktualisieren Sie Ihren Kontakt";
+"Contact: |#X#|" = "Kontakt: |#X#|";

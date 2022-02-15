@@ -114,5 +114,8 @@ struct MyStrings {
     static let endTime = "End Time".localize()
     static let invalidTime = "Invalid meeting time selected".localize()
     static let againApptTime = "Select appropriate meeting time.".localize()
+    static let updateContact = "Update Contact".localize()
+    static let updateYourContact = "Update your contact".localize()
+    static let dispContact = "Contact: |#X#|".localize()
     
 }

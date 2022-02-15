@@ -41,13 +41,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="713"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Sh-nc-RsA">
-                                                <rect key="frame" x="25" y="100" width="364" height="329"/>
+                                                <rect key="frame" x="25" y="100" width="364" height="392"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kwa-rz-Q8d">
-                                                        <rect key="frame" x="0.0" y="40" width="364" height="289"/>
+                                                        <rect key="frame" x="0.0" y="40" width="364" height="352"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0cf-fQ-1oF" userLabel="Name_Email">
-                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="80"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0cf-fQ-1oF" userLabel="Name_Email_Contact">
+                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="90"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lj-25-hqA">
                                                                         <rect key="frame" x="155" y="4" width="54" height="23"/>
@@ -61,18 +61,26 @@
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact: xyz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMh-KU-K4i">
+                                                                        <rect key="frame" x="144" y="57" width="76.5" height="16"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="80" id="Ls9-i5-qYU"/>
+                                                                    <constraint firstItem="uMh-KU-K4i" firstAttribute="top" secondItem="faZ-9z-Yx8" secondAttribute="bottom" constant="7" id="0iH-hb-CR7"/>
+                                                                    <constraint firstAttribute="height" constant="90" id="Ls9-i5-qYU"/>
                                                                     <constraint firstItem="faZ-9z-Yx8" firstAttribute="top" secondItem="8Lj-25-hqA" secondAttribute="bottom" constant="7" id="lD1-E6-wmV"/>
                                                                     <constraint firstItem="8Lj-25-hqA" firstAttribute="top" secondItem="0cf-fQ-1oF" secondAttribute="top" constant="4" id="qPA-d1-HSN"/>
                                                                     <constraint firstItem="faZ-9z-Yx8" firstAttribute="centerX" secondItem="0cf-fQ-1oF" secondAttribute="centerX" id="seK-rp-BB1"/>
+                                                                    <constraint firstItem="uMh-KU-K4i" firstAttribute="centerX" secondItem="0cf-fQ-1oF" secondAttribute="centerX" id="wPK-WT-SC6"/>
                                                                     <constraint firstItem="8Lj-25-hqA" firstAttribute="centerX" secondItem="0cf-fQ-1oF" secondAttribute="centerX" id="yZ9-A7-fCG"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9z4-pP-VQr" userLabel="Name">
-                                                                <rect key="frame" x="0.0" y="83" width="364" height="50"/>
+                                                                <rect key="frame" x="0.0" y="93" width="364" height="50"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0b-gA-QGK">
                                                                         <rect key="frame" x="15" y="8.5" width="334" height="33"/>
@@ -105,8 +113,42 @@
                                                                     <constraint firstAttribute="height" constant="50" id="jEa-Nh-MSp"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6o-3R-57b" userLabel="Number">
+                                                                <rect key="frame" x="0.0" y="146" width="364" height="50"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkf-fl-nUo">
+                                                                        <rect key="frame" x="15" y="8.5" width="334" height="33"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" title="Update Contact">
+                                                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="changeNumberTapped:" destination="Mdh-VA-Wzo" eventType="touchUpInside" id="92u-so-TRl"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jhv-bB-Wdn">
+                                                                        <rect key="frame" x="324" y="14" width="25" height="21.5"/>
+                                                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="25" id="6HV-Tr-MgQ"/>
+                                                                            <constraint firstAttribute="height" constant="25" id="QTr-Uj-MmD"/>
+                                                                        </constraints>
+                                                                        <imageReference key="image" image="gearshape" catalog="system" symbolScale="small"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="jhv-bB-Wdn" firstAttribute="centerY" secondItem="Y6o-3R-57b" secondAttribute="centerY" id="4Sd-ks-4iy"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="8qo-Ru-zPE"/>
+                                                                    <constraint firstItem="pkf-fl-nUo" firstAttribute="centerY" secondItem="Y6o-3R-57b" secondAttribute="centerY" id="9Cj-kk-WzP"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="pkf-fl-nUo" secondAttribute="trailing" constant="15" id="IvC-E9-APl"/>
+                                                                    <constraint firstItem="pkf-fl-nUo" firstAttribute="leading" secondItem="Y6o-3R-57b" secondAttribute="leading" constant="15" id="QXP-mZ-Mwf"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="jhv-bB-Wdn" secondAttribute="trailing" constant="15" id="fet-sK-BMD"/>
+                                                                </constraints>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6w-LD-g94" userLabel="Password">
-                                                                <rect key="frame" x="0.0" y="136" width="364" height="50"/>
+                                                                <rect key="frame" x="0.0" y="199" width="364" height="50"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oh2-eP-7D5">
                                                                         <rect key="frame" x="15" y="8.5" width="334" height="33"/>
@@ -140,7 +182,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obL-XU-dmc" userLabel="Logout">
-                                                                <rect key="frame" x="0.0" y="189" width="364" height="100"/>
+                                                                <rect key="frame" x="0.0" y="252" width="364" height="100"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAE-Um-Dpw">
                                                                         <rect key="frame" x="15" y="0.0" width="334" height="100"/>
@@ -269,7 +311,9 @@
                     <connections>
                         <outlet property="addImageButton" destination="11d-rp-nZc" id="lLq-nr-6Dl"/>
                         <outlet property="changeNameButton" destination="D0b-gA-QGK" id="VcD-ra-5Ky"/>
+                        <outlet property="changeNumberButton" destination="pkf-fl-nUo" id="wHi-CQ-PMK"/>
                         <outlet property="changePassButton" destination="oh2-eP-7D5" id="cpn-BY-FP8"/>
+                        <outlet property="contactLabel" destination="uMh-KU-K4i" id="JvN-lN-xd5"/>
                         <outlet property="emailLabel" destination="faZ-9z-Yx8" id="io8-XY-MhB"/>
                         <outlet property="logOutButton" destination="yAE-Um-Dpw" id="oNr-LT-zlJ"/>
                         <outlet property="nameLabel" destination="8Lj-25-hqA" id="6Ik-GI-jDM"/>

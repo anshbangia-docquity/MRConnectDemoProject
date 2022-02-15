@@ -15,14 +15,15 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var changeNameButton: UIButton!
+    @IBOutlet weak var changeNumberButton: UIButton!
     @IBOutlet weak var changePassButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
     
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
-    //let coreDataHandler = CoreDataHandler()
     let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
@@ -47,10 +48,12 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = user?.name
         emailLabel.text = user?.email
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
         
         bulletinBoard.delegate = self
         
         changeNameButton.setTitle(MyStrings.changeName, for: .normal)
+        changeNumberButton.setTitle(MyStrings.updateContact, for: .normal)
         changePassButton.setTitle(MyStrings.changePassword, for: .normal)
         logOutButton.setTitle(MyStrings.logOut, for: .normal)
     }
@@ -61,6 +64,11 @@ class ProfileViewController: UIViewController {
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
         bulletinBoard.define(of: .ChangeName)
+        bulletinBoard.boardManager?.showBulletin(above: self)
+    }
+    
+    @IBAction func changeNumberTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .ChangeNumber)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
@@ -108,6 +116,8 @@ extension ProfileViewController: BulletinBoardDelegate {
             nameChanged(newName: selection as! String)
         case .ChangePassword:
             passwordChanged(newPass: selection as! String)
+        case .ChangeNumber:
+            numberChanged(newNum: selection as! String)
         default:
             break
         }
@@ -121,6 +131,16 @@ extension ProfileViewController: BulletinBoardDelegate {
         }
         userDefault.setValue(newName, forKey: "userName")
         nameLabel.text = user?.name
+    }
+    
+    func numberChanged(newNum: String) {
+        let result = logic.updateNumber(email: user!.email, newNum: newNum)
+        if result == false {
+            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
+            return
+        }
+        userDefault.setValue(newNum, forKey: "userContact")
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
     }
     
     func passwordChanged(newPass: String) {

@@ -106,6 +106,19 @@ extension CoreDataHandler {
         return true
     }
     
+    func updateNumber(_ user: User, newNum: String) -> Bool {
+        user.contact = newNum
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+
+    
     func updatePassword(_ user: User, newPass: String) -> Bool {
         user.password = newPass
         
