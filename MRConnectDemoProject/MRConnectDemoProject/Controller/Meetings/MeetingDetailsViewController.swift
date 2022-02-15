@@ -9,7 +9,6 @@ import UIKit
 
 class MeetingDetailsViewController: UIViewController {
     
-    //@IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var meetingTitle: UILabel!
@@ -53,8 +52,6 @@ class MeetingDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //editButton.setTitle(MyStrings.edit, for: .normal)
-        
         logic.dateFormatter.dateFormat = "d"
         dayLabel.text = logic.dateFormatter.string(from: meeting!.startDate!)
         
@@ -78,17 +75,11 @@ class MeetingDetailsViewController: UIViewController {
             descTextView.textColor = .black
         }
         
-
-        
-
-        
         if user.type == .MRUser {
-            //editButton.isHidden = false
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
             
             hostLabel.isHidden = true
         } else {
-            //editButton.isHidden = true
             hostLabel.isHidden = false
         }
         
@@ -143,9 +134,9 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.id) as! DetailsTableViewCell
         
         if tableView == doctorTableView {
-            cell.titleLabel.text = "Dr. " + selectedDoctors[indexPath.row].name!
+            cell.config(title: "Dr. " + selectedDoctors[indexPath.row].name!)
         } else {
-            cell.titleLabel.text = selectedMedicines[indexPath.row].name!
+            cell.config(title: selectedMedicines[indexPath.row].name!)
         }
         
         return cell

@@ -15,15 +15,16 @@ class MRDoctorsTableViewCell: UITableViewCell {
     
     static let id = "doctorsTableCell"
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
+    func configure(name: String, spec: Int16) {
+        nameLabel.text = "Dr. \(name)"
+        specLabel.text = Specialities.specialities[spec]
+        profileImage.image = UIImage(systemName: "person.circle")
+    }
+    
+    func configImg(imgData: Data) {
+        DispatchQueue.main.async {
+            self.profileImage.image = UIImage(data: imgData)
+        }
+    }
 
 }

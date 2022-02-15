@@ -20,8 +20,16 @@ class MRDoctorsCollectionViewCell: UICollectionViewCell {
         removeDoctor?(index!)
     }
     
-    func configure(with img: UIImage) {
-        profileImage.image = img
+    func configure(index: Int, removeDoctor: @escaping (Int) -> Void ) {
+        profileImage.image = UIImage(systemName: "person.circle")
+        self.index = index
+        self.removeDoctor = removeDoctor
+    }
+    
+    func configImg(imgData: Data) {
+        DispatchQueue.main.async {
+            self.profileImage.image = UIImage(data: imgData)
+        }
     }
     
 }

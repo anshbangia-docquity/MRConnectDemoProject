@@ -199,7 +199,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == doctorTableView {
-            return 80
+            return 90
         } else {
             return 50
         }
@@ -212,13 +212,10 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
             
             let doctor = doctors[indexPath.row]
-            myCell.nameLabel.text = "Dr. \(doctor.name!)"
-            myCell.specLabel.text = Specialities.specialities[doctor.speciality]
+            myCell.configure(name: doctor.name!, spec: doctor.speciality)
             
             if let img = doctor.profileImage {
-                myCell.profileImage.image = UIImage(data: img)
-            } else {
-                myCell.profileImage.image = UIImage(systemName: "person.circle")
+                myCell.configImg(imgData: img)
             }
             
             cell = myCell
@@ -226,8 +223,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
             
             let medicine = medicines[indexPath.row]
-            myCell.medicineNameLabel.text = "\(medicine.name!)"
-            myCell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
+            myCell.configure(med: medicine.name!, company: medicine.company!)
             
             cell = myCell
         }
@@ -282,20 +278,27 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         if collectionView == doctorCollection {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRDoctorsCollectionViewCell.id, for: indexPath) as? MRDoctorsCollectionViewCell {
                 let doctor = selectedDoctors[indexPath.item]
-                if let img = doctor.profileImage {
-                    myCell.profileImage.image = UIImage(data: img)
-                } else {
-                    myCell.profileImage.image = UIImage(systemName: "person.circle")
+                myCell.configure(index: indexPath.item) { [self] index in
+                    doctorSet.remove(selectedDoctors[index].email!)
+                    selectedDoctors.remove(at: index)
+                    reloadDoctorCollection()
                 }
-                myCell.index = indexPath.item
-                myCell.removeDoctor = removeDoctor
+                
+                if let img = doctor.profileImage {
+                    myCell.configImg(imgData: img)
+                }
+                
                 cell = myCell
             }
         } else {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRMedicinesCollectionViewCell.id, for: indexPath) as? MRMedicinesCollectionViewCell {
-                myCell.medicineName.text = selectedMedicines[indexPath.row].name
-                myCell.index = indexPath.item
-                myCell.removeMed = removeMed
+                let medicine = selectedMedicines[indexPath.item]
+                myCell.configure(medName: medicine.name!, index: indexPath.item) { [self] index in
+                    medicineSet.remove(selectedMedicines[index].id)
+                    selectedMedicines.remove(at: index)
+                    reloadMedicineCollection()
+                }
+                
                 cell = myCell
             }
         }
@@ -312,19 +315,6 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
             return CGSize(width: width, height: 30)
         }
         return CGSize(width: 60, height: 50)
-    }
-
-    
-    func removeDoctor(_ index: Int) {
-        doctorSet.remove(selectedDoctors[index].email!)
-        selectedDoctors.remove(at: index)
-        reloadDoctorCollection()
-    }
-    
-    func removeMed(_ index: Int) {
-        medicineSet.remove(selectedMedicines[index].id)
-        selectedMedicines.remove(at: index)
-        reloadMedicineCollection()
     }
     
 }

@@ -66,8 +66,7 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
         let medicine = medicines[indexPath.row]
-        cell.medicineNameLabel.text = "\(medicine.name!)"
-        cell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
+        cell.configure(med: medicine.name!, company: medicine.company!)
         
         return cell
     }

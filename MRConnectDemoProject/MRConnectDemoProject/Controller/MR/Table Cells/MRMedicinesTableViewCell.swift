@@ -13,7 +13,15 @@ class MRMedicinesTableViewCell: UITableViewCell {
     @IBOutlet weak var companyLabel: UILabel!
     
     static let id = "medicinesTableCell"
-    //    override func awakeFromNib() {
+    
+    func configure(med: String, company: String) {
+        medicineNameLabel.text = med
+        companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: company)
+    }
+
+}
+
+//    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        // Initialization code
 //    }
@@ -23,5 +31,3 @@ class MRMedicinesTableViewCell: UITableViewCell {
 //
 //        // Configure the view for the selected state
 //    }
-
-}

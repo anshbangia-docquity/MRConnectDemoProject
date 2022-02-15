@@ -55,13 +55,10 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = Specialities.specialities[doctor.speciality]
+        cell.configure(name: doctor.name!, spec: doctor.speciality)
         
         if let img = doctor.profileImage {
-            cell.profileImage.image = UIImage(data: img)
-        } else {
-            cell.profileImage.image = UIImage(systemName: "person.circle")
+            cell.configImg(imgData: img)
         }
         
         return cell
