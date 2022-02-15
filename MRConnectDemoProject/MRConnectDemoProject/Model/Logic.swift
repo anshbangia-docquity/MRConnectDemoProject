@@ -68,6 +68,9 @@ extension Logic {
         } else {
             userDefault.setValue(user.mrnumber, forKey: "userMRNumber")
             userDefault.setValue(user.speciality, forKey: "userSpeciality")
+            userDefault.setValue(user.office, forKey: "userOffice")
+            userDefault.setValue(user.quali, forKey: "userQuali")
+            userDefault.setValue(user.exp, forKey: "userExp")
         }
         
         return true
@@ -94,6 +97,9 @@ extension Logic {
         userDefault.removeObject(forKey: "userLicense")
         userDefault.removeObject(forKey: "userEmail")
         userDefault.removeObject(forKey: "userContact")
+        userDefault.removeObject(forKey: "userOffice")
+        userDefault.removeObject(forKey: "userQuali")
+        userDefault.removeObject(forKey: "userExp")
 
         userDefault.setValue(true, forKey: "authenticate")
     }
@@ -112,6 +118,21 @@ extension Logic {
     func updatePassword(email: String, newPass: String) -> Bool {
         let user = coreDataHandler.fetchUser(email: email)[0]
         return coreDataHandler.updatePassword(user, newPass: newPass)
+    }
+    
+    func updateOffice(email: String, office: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateOffice(user, office: office)
+    }
+    
+    func updateQuali(email: String, quali: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateQuali(user, quali: quali)
+    }
+    
+    func updateExp(email: String, exp: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateExp(user, exp: exp)
     }
     
     func saveProfileImage(email: String, img: UIImage) -> Bool {

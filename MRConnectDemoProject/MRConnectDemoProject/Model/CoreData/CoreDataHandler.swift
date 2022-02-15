@@ -82,6 +82,9 @@ extension CoreDataHandler {
         } else {
             newUser.mrnumber = mrnumber
             newUser.speciality = speciality
+            newUser.office = ""
+            newUser.quali = ""
+            newUser.exp = ""
         }
 
         do {
@@ -121,6 +124,42 @@ extension CoreDataHandler {
     
     func updatePassword(_ user: User, newPass: String) -> Bool {
         user.password = newPass
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func updateOffice(_ user: User, office: String) -> Bool {
+        user.office = office
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func updateQuali(_ user: User, quali: String) -> Bool {
+        user.quali = quali
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func updateExp(_ user: User, exp: String) -> Bool {
+        user.exp = exp
         
         do {
             try context.save()

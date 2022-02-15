@@ -132,7 +132,6 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.id) as! DetailsTableViewCell
-        
         if tableView == doctorTableView {
             cell.config(title: "Dr. " + selectedDoctors[indexPath.row].name!)
         } else {

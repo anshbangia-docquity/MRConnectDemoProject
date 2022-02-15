@@ -117,5 +117,11 @@ struct MyStrings {
     static let updateContact = "Update Contact".localize()
     static let updateYourContact = "Update your contact".localize()
     static let dispContact = "Contact: |#X#|".localize()
+    static let office = "Current Office".localize()
+    static let quali = "Qualification".localize()
+    static let exp = "Work Experience".localize()
+    static let addOffice = "Add current working location".localize()
+    static let addQuali = "Add qualification".localize()
+    static let addExp = "Add prior work experience".localize()
     
 }

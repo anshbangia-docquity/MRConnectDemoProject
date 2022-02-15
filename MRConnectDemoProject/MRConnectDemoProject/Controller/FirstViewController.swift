@@ -36,7 +36,6 @@ class FirstViewController: UIViewController {
                 performSegue(withIdentifier: "goToLoginSignup", sender: self)
             } else {
                 if CurrentUser().type == .MRUser {
-                    xyz()
                     performSegue(withIdentifier: "logInMR", sender: self)
                 } else {
                     performSegue(withIdentifier: "logInDoctor", sender: self)

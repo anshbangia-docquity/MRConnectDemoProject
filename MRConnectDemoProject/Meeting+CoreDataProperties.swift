@@ -2,7 +2,7 @@
 //  Meeting+CoreDataProperties.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 13/02/22.
+//  Created by Ansh Bangia on 15/02/22.
 //
 //
 
@@ -17,13 +17,13 @@ extension Meeting {
     }
 
     @NSManaged public var creator: String?
-    @NSManaged public var startDate: Date?
     @NSManaged public var desc: String?
     @NSManaged public var doctors: Set<String>?
+    @NSManaged public var endDate: Date?
     @NSManaged public var id: Int16
     @NSManaged public var medicines: Set<Int16>?
+    @NSManaged public var startDate: Date?
     @NSManaged public var title: String?
-    @NSManaged public var endDate: Date?
 
 }
 
