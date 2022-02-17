@@ -38,6 +38,7 @@
 		0125586027BB92FE00C3957A /* Meeting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125585A27BB92FE00C3957A /* Meeting+CoreDataClass.swift */; };
 		0125586127BB92FE00C3957A /* Meeting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125585B27BB92FE00C3957A /* Meeting+CoreDataProperties.swift */; };
 		012EA2CC27BE49CC003F0537 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 012EA2CB27BE49CC003F0537 /* GoogleService-Info.plist */; };
+		012EA2CE27BE7703003F0537 /* RecordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012EA2CD27BE7703003F0537 /* RecordItem.swift */; };
 		013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A843D27AA4DC1002AC97C /* FirstViewController.swift */; };
 		013A844027AA4E13002AC97C /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013A843F27AA4E13002AC97C /* LoginSignup.storyboard */; };
 		013A844427AA7A56002AC97C /* Specialities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A844327AA7A56002AC97C /* Specialities.swift */; };
@@ -107,6 +108,7 @@
 		0125585A27BB92FE00C3957A /* Meeting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		0125585B27BB92FE00C3957A /* Meeting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		012EA2CB27BE49CC003F0537 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		012EA2CD27BE7703003F0537 /* RecordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordItem.swift; sourceTree = "<group>"; };
 		013A843D27AA4DC1002AC97C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		013A843F27AA4E13002AC97C /* LoginSignup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		013A844327AA7A56002AC97C /* Specialities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specialities.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				018CAA7B27AE6D7700FF04D6 /* ChangeNameItem.swift */,
 				018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */,
 				0125585427BB731100C3957A /* ChangePasswordItem copy.swift */,
+				012EA2CD27BE7703003F0537 /* RecordItem.swift */,
 			);
 			path = Bulletin;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				0105AD9827A92E8400607DCF /* BulletinBoard.swift in Sources */,
 				0110A8BA279E9A570023AD4C /* UserDefaultManager.swift in Sources */,
 				01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */,
+				012EA2CE27BE7703003F0537 /* RecordItem.swift in Sources */,
 				0110A8B2279E988D0023AD4C /* UserType.swift in Sources */,
 				011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */,
 				011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */,

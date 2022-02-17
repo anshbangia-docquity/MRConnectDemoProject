@@ -22,6 +22,7 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var medicineTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var hostLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var recordButton: UIButton!
     
     
     let user = CurrentUser()
@@ -32,6 +33,7 @@ class MeetingDetailsViewController: UIViewController {
     var medicineSet = Set<Int16>()
     var selectedMedicines: [Medicine] = []
     var timer: Timer?
+    let bulletinBoard = BulletinBoard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +51,13 @@ class MeetingDetailsViewController: UIViewController {
         medicineTableView.dataSource = self
         medicineTableView.reloadData()
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
+        
+        doctorsLabel.text = MyStrings.doctors
+        medicinesLabel.text = MyStrings.medicines
+        
+        recordButton.isHidden = true
+        recordButton.setTitle("  " + MyStrings.recordMeeting, for: .normal)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +120,10 @@ class MeetingDetailsViewController: UIViewController {
         if date >= meeting!.startDate! && date <= meeting!.endDate! {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
+            
+            if user.type == .MRUser {
+                recordButton.isHidden = false
+            }
         }
         
         if date > meeting!.endDate! {
@@ -141,6 +154,11 @@ class MeetingDetailsViewController: UIViewController {
             vc.edit = true
             vc.myMeeting = meeting!
         }
+    }
+    
+    @IBAction func recordMeetingTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .RecordItem)
+        bulletinBoard.boardManager?.showBulletin(above: self)
     }
 }
 

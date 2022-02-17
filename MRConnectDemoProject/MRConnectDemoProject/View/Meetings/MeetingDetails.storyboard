@@ -106,7 +106,7 @@
                                                                         <rect key="frame" x="25" y="15" width="70" height="70"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oH7-CG-mTt">
-                                                                                <rect key="frame" x="10" y="10.5" width="50" height="49"/>
+                                                                                <rect key="frame" x="10" y="9.5" width="50" height="50"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <color key="tintColor" red="0.49019607840000001" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <constraints>
@@ -365,12 +365,32 @@
                                     <constraint firstItem="2Y5-Iv-jF8" firstAttribute="leading" secondItem="CGB-qB-BoT" secondAttribute="leading" id="fBL-vE-obX"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48G-U4-sd4">
+                                <rect key="frame" x="256" y="811" width="138" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="mic" catalog="system" title="  Record Meeting">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.4895300487" green="0.72406735499999997" blue="0.220456019" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recordMeetingTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="EQa-fc-mXx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" red="0.49019607840000001" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="CGB-qB-BoT" secondAttribute="trailing" id="DHI-jk-7ZB"/>
                             <constraint firstAttribute="bottom" secondItem="CGB-qB-BoT" secondAttribute="bottom" id="E8k-vk-8E1"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="48G-U4-sd4" secondAttribute="bottom" constant="20" id="N4p-VG-N2l"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="48G-U4-sd4" secondAttribute="trailing" constant="20" id="QDU-AL-ZoD"/>
                             <constraint firstAttribute="trailing" secondItem="vfy-WT-0y5" secondAttribute="trailing" id="crH-ZP-lSW"/>
                             <constraint firstItem="CGB-qB-BoT" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="lCo-yw-bPS"/>
                             <constraint firstItem="vfy-WT-0y5" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="na9-SG-iLv"/>
@@ -393,6 +413,7 @@
                         <outlet property="medicinesLabel" destination="lxj-gh-D7j" id="j1u-UK-czR"/>
                         <outlet property="meetingTitle" destination="sDF-6F-EXA" id="p0Q-HQ-xuZ"/>
                         <outlet property="monthLabel" destination="Wp4-hK-9Z3" id="cd9-jb-WYt"/>
+                        <outlet property="recordButton" destination="48G-U4-sd4" id="faQ-ng-kde"/>
                         <outlet property="statusLabel" destination="X06-aZ-Aeh" id="VGA-BQ-P5V"/>
                         <outlet property="timeLabel" destination="eSk-g2-8Ff" id="L4t-E5-l8S"/>
                         <segue destination="R9x-Tr-DU0" kind="presentation" identifier="goToEdit" id="7hf-tw-yrt"/>
@@ -416,6 +437,7 @@
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="cross.case" catalog="system" width="128" height="100"/>
+        <image name="mic" catalog="system" width="108" height="128"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="labelColor">

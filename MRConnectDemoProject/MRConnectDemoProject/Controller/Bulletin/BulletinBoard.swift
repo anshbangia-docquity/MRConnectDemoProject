@@ -15,6 +15,7 @@ enum BulletinTypes {
     case ChangeName
     case CheckPassword
     case ChangePassword
+    case RecordItem
     
 }
 
@@ -33,13 +34,15 @@ class BulletinBoard {
         var item: BLTNPageItem?
         switch type {
         case .SpeckPicker:
-            item = bulletinItem.makeSpeckPickerItem(delegate!, board: self)
+            item = bulletinItem.makeSpeckPickerItem(delegate, board: self)
         case .ChangeNumber:
-            item = bulletinItem.makeChangeNumber(delegate!, board: self)
+            item = bulletinItem.makeChangeNumber(delegate, board: self)
         case .ChangeName:
-            item = bulletinItem.makeChangeNameItem(delegate!, board: self)
+            item = bulletinItem.makeChangeNameItem(delegate, board: self)
         case .CheckPassword:
-            item = bulletinItem.makeCheckPasswordItem(delegate!, board: self)
+            item = bulletinItem.makeCheckPasswordItem(delegate, board: self)
+        case .RecordItem:
+            item = bulletinItem.makeRecordItem(delegate, board: self)
         default:
             break
         }

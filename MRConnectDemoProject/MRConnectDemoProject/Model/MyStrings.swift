@@ -127,5 +127,7 @@ struct MyStrings {
     static let minsRemaining = "In |#X#| minutes".localize()
     static let minRemaining = "In |#X#| minute".localize()
     static let inProgress = "In progress".localize()
+    static let recordMeeting = "Record Meeting".localize()
+    static let stop = "Stop".localize()
     
 }

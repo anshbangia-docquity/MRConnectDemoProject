@@ -10,7 +10,7 @@ import BLTNBoard
 
 struct BulletinItems {
     
-    func makeSpeckPickerItem(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> SpecPickerItem {
+    func makeSpeckPickerItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> SpecPickerItem {
         let item = SpecPickerItem(title: MyStrings.specialization)
         item.actionButtonTitle = MyStrings.done
         item.descriptionText = MyStrings.chooseSpec
@@ -21,13 +21,13 @@ struct BulletinItems {
         item.appearance.actionButtonFontSize = 20
 
         item.actionHandler = { _ in
-            delegate.doneTapped(board, selection: item.spec, type: .SpeckPicker)
+            delegate?.doneTapped(board, selection: item.spec, type: .SpeckPicker)
         }
         
         return item
     }
     
-    func makeChangeNumber(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> ChangeNumberItem {
+    func makeChangeNumber(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> ChangeNumberItem {
         let item = ChangeNumberItem(title: MyStrings.updateContact)
         item.actionButtonTitle = MyStrings.done
         item.descriptionText = MyStrings.updateYourContact
@@ -38,13 +38,13 @@ struct BulletinItems {
         item.appearance.actionButtonFontSize = 20
         
         item.textInputHandler = { newNum in
-            delegate.doneTapped(board, selection: newNum, type: .ChangeNumber)
+            delegate?.doneTapped(board, selection: newNum, type: .ChangeNumber)
         }
         
         return item
     }
     
-    func makeChangeNameItem(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> ChangeNameItem {
+    func makeChangeNameItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> ChangeNameItem {
         let item = ChangeNameItem(title: MyStrings.changeName)
         item.actionButtonTitle = MyStrings.done
         item.descriptionText = MyStrings.editName
@@ -55,13 +55,13 @@ struct BulletinItems {
         item.appearance.actionButtonFontSize = 20
         
         item.textInputHandler = { newName in
-            delegate.doneTapped(board, selection: newName, type: .ChangeName)
+            delegate?.doneTapped(board, selection: newName, type: .ChangeName)
         }
         
         return item
     }
     
-    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> CheckPasswordItem {
+    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> CheckPasswordItem {
         let item = CheckPasswordItem(title: MyStrings.changePassword)
         item.actionButtonTitle = MyStrings.proceed
         item.descriptionText = MyStrings.enterOldPass
@@ -79,7 +79,7 @@ struct BulletinItems {
         return item
     }
     
-    func makeChangePasswordItem(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> ChangePasswordItem {
+    func makeChangePasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> ChangePasswordItem {
         let item = ChangePasswordItem(title: MyStrings.changePassword)
         item.actionButtonTitle = MyStrings.done
         item.descriptionText = MyStrings.enterNewPass
@@ -90,8 +90,25 @@ struct BulletinItems {
         item.appearance.actionButtonFontSize = 20
 
         item.actionHandler = { _ in
-            delegate.doneTapped(board, selection: item.passField.text!, type: .ChangePassword)
+            delegate?.doneTapped(board, selection: item.passField.text!, type: .ChangePassword)
         }
+        
+        return item
+    }
+    
+    func makeRecordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> RecordItem {
+        let item = RecordItem(title: MyStrings.recordMeeting)
+        //item.actionButtonTitle = MyStrings.stop
+        //item.appearance.actionButtonColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+        //item.appearance.actionButtonTitleColor = .black
+        //item.appearance.titleFontSize = 25
+        item.requiresCloseButton = false
+        //item.appearance.actionButtonFontSize = 20
+
+//        item.actionHandler = { _ in
+//            delegate?.doneTapped(board, selection: 0, type: .RecordItem)
+//            item.manager?.dismissBulletin(animated: true)
+//        }
         
         return item
     }
