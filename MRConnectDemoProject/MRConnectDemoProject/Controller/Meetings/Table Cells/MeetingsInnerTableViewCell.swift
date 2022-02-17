@@ -19,11 +19,13 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var img2: UIImageView!
     @IBOutlet weak var img3: UIImageView!
     @IBOutlet weak var moreView: UIView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     var meeting: Meeting?
     var logic = Logic()
     var doctorCount = 0
     var selectedDoctors: [User] = []
+    var timer: Timer?
     
     func configure(myMeeting: Meeting) {
         meeting = myMeeting
@@ -42,13 +44,6 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             moreLabel.text = "+\(doctorCount - 2) more"
         } else {
             moreLabel.isHidden = true
-        }
-        logic.dateFormatter.dateFormat = "MMM d"
-        let currDate = Date()
-        if currDate >= meeting!.startDate! && currDate <= meeting!.endDate! {
-            sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
-        } else {
-            sideBar.backgroundColor = .white
         }
         
         img1.image = UIImage(systemName: "person.circle")
@@ -90,6 +85,41 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             moreView.isHidden = false
             moreLabel.text = "+\(doctorCount - 3)"
         }
+        configureStatus()
+        //DispatchQueue.global().async {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.configureStatus()
+        })
+        //}
+    }
+    
+    func configureStatus() {
+        let date = Date()
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!.startDate!)
+        let minutes = diffComponents.minute
+        guard var minutes = minutes else {return}
+        minutes += 1
+        statusLabel.textColor = .red
+        if minutes <= 10 && minutes > 1 {
+            statusLabel.text = MyStrings.minsRemaining.replacingOccurrences(of: "|#X#|", with: "\(minutes)")
+        } else if minutes == 1 {
+            statusLabel.text = MyStrings.minRemaining.replacingOccurrences(of: "|#X#|", with: "\(minutes)")
+        } else {
+            statusLabel.text = ""
+        }
+        
+        if date >= meeting!.startDate! && date <= meeting!.endDate! {
+            statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+            statusLabel.text = MyStrings.inProgress
+            sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+        } else {
+            sideBar.backgroundColor = .white
+        }
+        
+        if date > meeting!.endDate! {
+            timer?.invalidate()
+        }
+        
     }
     
 }

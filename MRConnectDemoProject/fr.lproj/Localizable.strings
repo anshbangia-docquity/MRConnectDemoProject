@@ -109,5 +109,8 @@
 "Add qualification" = "Ajouter une qualification";
 "Add prior work experience" = "Ajouter une expérience de travail antérieure";
 "Not specified" = "Non spécifié";
+"|#X#| minutes remaining" = "Minutes |#X#| restantes";
+"|#X#| minute remaining" = "Minute |#X#| restantes";
+"In progress" = "En cours";
 
 

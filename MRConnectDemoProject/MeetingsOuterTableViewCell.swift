@@ -38,6 +38,7 @@ class MeetingsOuterTableViewCell: UITableViewCell {
         dateLabel.text = logic.dateFormatter.string(from: date)
         logic.dateFormatter.dateFormat = "MMM"
         monthLabel.text = logic.dateFormatter.string(from: date)
+ 
         logic.dateFormatter.dateFormat = "EEEE"
         dayLabel.text = logic.dateFormatter.string(from: date)
         if dayLabel.text! == logic.dateFormatter.string(from: Date())
@@ -59,6 +60,10 @@ class MeetingsOuterTableViewCell: UITableViewCell {
         
         meetingTable.reloadData()
         meetingTableHeight.constant = CGFloat((meetings.count * 115))
+        
+//        let _ = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { _ in
+//            NotificationCenter.default.post(name: Notification.Name("oneSecond"), object: nil)
+//        }
     }
     
 }
@@ -83,8 +88,18 @@ extension MeetingsOuterTableViewCell: UITableViewDelegate, UITableViewDataSource
         
         cell.configure(myMeeting: meetings[indexPath.row])
         
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.oneSecond(cell:)), name: Notification.Name("oneSecond"), object: nil)
+        
+//        NotificationCenter.default.addObserver(forName: Notification.Name("oneSecond"), object: nil, queue: nil) { _ in
+//            cell.configureStatus()
+//        }
+        
         return cell
     }
+    
+//    @objc func oneSecond(cell: MeetingsInnerTableViewCell) {
+//        cell.configureStatus()
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
