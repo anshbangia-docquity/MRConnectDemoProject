@@ -27,6 +27,23 @@ struct BulletinItems {
         return item
     }
     
+    func makeChangeNumber(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> ChangeNumberItem {
+        let item = ChangeNumberItem(title: MyStrings.updateContact)
+        item.actionButtonTitle = MyStrings.done
+        item.descriptionText = MyStrings.updateYourContact
+        item.appearance.actionButtonColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+        item.appearance.actionButtonTitleColor = .black
+        item.appearance.titleFontSize = 25
+        item.requiresCloseButton = false
+        item.appearance.actionButtonFontSize = 20
+        
+        item.textInputHandler = { newNum in
+            delegate.doneTapped(board, selection: newNum, type: .ChangeNumber)
+        }
+        
+        return item
+    }
+    
     func makeChangeNameItem(_ delegate: BulletinBoardDelegate, board: BulletinBoard) -> ChangeNameItem {
         let item = ChangeNameItem(title: MyStrings.changeName)
         item.actionButtonTitle = MyStrings.done

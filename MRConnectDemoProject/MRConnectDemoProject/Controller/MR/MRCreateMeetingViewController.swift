@@ -17,9 +17,11 @@ class MRCreateMeetingViewController: UIViewController {
     @IBOutlet weak var descTextView: UITextView!
     @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var timePicker: UIDatePicker!
+    @IBOutlet weak var startTimePicker: UIDatePicker!
+    @IBOutlet weak var endTimePicker: UIDatePicker!
     @IBOutlet weak var doctorTableView: UITableView!
     @IBOutlet weak var doctorSearchField: UITextField!
     @IBOutlet weak var doctorTableViewHeight: NSLayoutConstraint!
@@ -40,7 +42,6 @@ class MRCreateMeetingViewController: UIViewController {
     var selectedMedicines: [Medicine] = []
     var doctorSet = Set<String>()
     var medicineSet = Set<Int16>()
-    var handler: (() -> Void)?
     
     var edit = false
     var myMeeting: Meeting?
@@ -56,7 +57,8 @@ class MRCreateMeetingViewController: UIViewController {
         
         dateTimeLabel.text = MyStrings.dateAndTime
         dateLabel.text = MyStrings.date
-        timeLabel.text = MyStrings.time
+        startTimeLabel.text = MyStrings.startTime
+        endTimeLabel.text = MyStrings.endTime
         
         selectDoctorsLabel.text = MyStrings.selectDoctors
         doctorCollection.delegate = self
@@ -89,8 +91,9 @@ class MRCreateMeetingViewController: UIViewController {
                 descTextView.textColor = .black
             }
             
-            datePicker.date = myMeeting!.date!
-            timePicker.date = myMeeting!.date!
+            datePicker.date = myMeeting!.startDate!
+            startTimePicker.date = myMeeting!.startDate!
+            endTimePicker.date = myMeeting!.endDate!
             
             doctorSet = myMeeting!.doctors!
             selectedDoctors = logic.getUsers(with: doctorSet)
@@ -134,6 +137,11 @@ class MRCreateMeetingViewController: UIViewController {
             return
         }
         
+        if endTimePicker.date <= startTimePicker.date {
+            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
+            return
+        }
+        
         if selectedDoctors.count == 0 {
             Alert.showAlert(on: self, noSelection: MyStrings.doctor)
             return
@@ -149,17 +157,18 @@ class MRCreateMeetingViewController: UIViewController {
             descText = nil
         }
         
-        let date = logic.combineDateTime(date: datePicker.date, time: timePicker.date)
+        let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
+        let endDate = logic.combineDateTime(date: datePicker.date, time: endTimePicker.date)
         
         if edit {
-            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
             
             if result == false {
                 Alert.showAlert(on: self, notUpdated: MyStrings.meeting)
                 return
             }
         } else {
-            let result = logic.createMeeting(title: titleField.text!, desc: descText, date: date, doctors: doctorSet, medicines: medicineSet)
+            let result = logic.createMeeting(title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
             
             if result == false {
                 Alert.showAlert(on: self, notCreated: MyStrings.meeting)
@@ -167,7 +176,7 @@ class MRCreateMeetingViewController: UIViewController {
             }
         }
         
-        handler!()
+        NotificationCenter.default.post(name: Notification.Name("reloadMeetings"), object: nil)
         dismiss(animated: true, completion: nil)
     }
     
@@ -190,7 +199,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == doctorTableView {
-            return 80
+            return 90
         } else {
             return 50
         }
@@ -203,13 +212,10 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
             
             let doctor = doctors[indexPath.row]
-            myCell.nameLabel.text = "Dr. \(doctor.name!)"
-            myCell.specLabel.text = Specialities.specialities[doctor.speciality]
+            myCell.configure(name: doctor.name!, spec: doctor.speciality)
             
             if let img = doctor.profileImage {
-                myCell.profileImage.image = UIImage(data: img)
-            } else {
-                myCell.profileImage.image = UIImage(systemName: "person.circle")
+                myCell.configImg(imgData: img)
             }
             
             cell = myCell
@@ -217,8 +223,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
             
             let medicine = medicines[indexPath.row]
-            myCell.medicineNameLabel.text = "\(medicine.name!)"
-            myCell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
+            myCell.configure(med: medicine.name!, company: medicine.company!)
             
             cell = myCell
         }
@@ -273,20 +278,27 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         if collectionView == doctorCollection {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRDoctorsCollectionViewCell.id, for: indexPath) as? MRDoctorsCollectionViewCell {
                 let doctor = selectedDoctors[indexPath.item]
-                if let img = doctor.profileImage {
-                    myCell.profileImage.image = UIImage(data: img)
-                } else {
-                    myCell.profileImage.image = UIImage(systemName: "person.circle")
+                myCell.configure(index: indexPath.item) { [self] index in
+                    doctorSet.remove(selectedDoctors[index].email!)
+                    selectedDoctors.remove(at: index)
+                    reloadDoctorCollection()
                 }
-                myCell.index = indexPath.item
-                myCell.removeDoctor = removeDoctor
+                
+                if let img = doctor.profileImage {
+                    myCell.configImg(imgData: img)
+                }
+                
                 cell = myCell
             }
         } else {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRMedicinesCollectionViewCell.id, for: indexPath) as? MRMedicinesCollectionViewCell {
-                myCell.medicineName.text = selectedMedicines[indexPath.row].name
-                myCell.index = indexPath.item
-                myCell.removeMed = removeMed
+                let medicine = selectedMedicines[indexPath.item]
+                myCell.configure(medName: medicine.name!, index: indexPath.item) { [self] index in
+                    medicineSet.remove(selectedMedicines[index].id)
+                    selectedMedicines.remove(at: index)
+                    reloadMedicineCollection()
+                }
+                
                 cell = myCell
             }
         }
@@ -303,19 +315,6 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
             return CGSize(width: width, height: 30)
         }
         return CGSize(width: 60, height: 50)
-    }
-
-    
-    func removeDoctor(_ index: Int) {
-        doctorSet.remove(selectedDoctors[index].email!)
-        selectedDoctors.remove(at: index)
-        reloadDoctorCollection()
-    }
-    
-    func removeMed(_ index: Int) {
-        medicineSet.remove(selectedMedicines[index].id)
-        selectedMedicines.remove(at: index)
-        reloadMedicineCollection()
     }
     
 }

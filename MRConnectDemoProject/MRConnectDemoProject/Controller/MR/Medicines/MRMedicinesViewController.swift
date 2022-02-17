@@ -27,6 +27,8 @@ class MRMedicinesViewController: UIViewController {
 
         titleLabel.text = MyStrings.medicines
         searchField.placeholder = MyStrings.search
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(medAdded), name: Notification.Name("medAdded"), object: nil)
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -38,16 +40,9 @@ class MRMedicinesViewController: UIViewController {
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
-    func handler() {
+    @objc func medAdded() {
         medicines = logic.getMedicines()
         tableView.reloadData()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCreate" {
-            let vc = segue.destination as! MRCreateMedicineViewController
-            vc.handler = handler
-        }
     }
     
 }
@@ -64,15 +59,26 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
         let medicine = medicines[indexPath.row]
-        cell.medicineNameLabel.text = "\(medicine.name!)"
-        cell.companyLabel.text = MyStrings.companyName.replacingOccurrences(of: "|#X#|", with: medicine.company!)
+        cell.configure(med: medicine.name!, company: medicine.company!, type: medicine.form)
+        
+        cell.layer.maskedCorners = []
+        if indexPath.row == 0 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
+        if indexPath.row == medicines.count - 1 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+        }
         
         return cell
     }

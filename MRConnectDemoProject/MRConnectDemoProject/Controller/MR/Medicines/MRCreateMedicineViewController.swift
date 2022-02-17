@@ -20,7 +20,6 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var form: Int16 = 0
-    var handler: (() -> Void)?
     let logic = Logic()
     
     override func viewDidLoad() {
@@ -74,7 +73,7 @@ class MRCreateMedicineViewController: UIViewController {
             return
         }
         
-        handler!()
+        NotificationCenter.default.post(name: Notification.Name("medAdded"), object: nil)
         dismiss(animated: true, completion: nil)
     }
     

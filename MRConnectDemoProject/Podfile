@@ -3,5 +3,7 @@ target 'MRConnectDemoProject' do
 
 pod 'IQKeyboardManagerSwift'
 pod 'BulletinBoard'
+pod 'Firebase/Core'
+pod 'Firebase/Firestore'
 
 end

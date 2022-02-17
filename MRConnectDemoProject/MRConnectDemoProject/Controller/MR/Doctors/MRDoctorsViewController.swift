@@ -15,6 +15,7 @@ class MRDoctorsViewController: UIViewController {
     
     let logic = Logic()
     var doctors: [User] = []
+    var tappedDoctor: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,23 +49,44 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        return 140
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        cell.nameLabel.text = "Dr. \(doctor.name!)"
-        cell.specLabel.text = Specialities.specialities[doctor.speciality]
+        cell.configure(name: doctor.name!, spec: doctor.speciality, email: doctor.email!, contact: doctor.contact!, office: doctor.office!)
+        
+        cell.layer.maskedCorners = []
+        if indexPath.row == 0 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
+        if indexPath.row == doctors.count - 1 {
+            cell.layer.masksToBounds = true
+            cell.layer.cornerRadius = 20
+            cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+        }
         
         if let img = doctor.profileImage {
-            cell.profileImage.image = UIImage(data: img)
-        } else {
-            cell.profileImage.image = UIImage(systemName: "person.circle")
+            cell.configImg(imgData: img)
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tappedDoctor = doctors[indexPath.row]
+        performSegue(withIdentifier: "goToDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetails" {
+            let vc = segue.destination as! MRDoctorDetailsViewController
+            vc.doctor = tappedDoctor
+        }
     }
     
 }

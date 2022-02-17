@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import BLTNBoard
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,9 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done".localize()
         
-        if userDefault.value(forKey: "numOfMed") == nil {
-            userDefault.setValue(0, forKey: "numOfMed")
-        }
+        FirebaseApp.configure()
         
         return true
     }

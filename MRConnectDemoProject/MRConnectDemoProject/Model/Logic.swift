@@ -25,7 +25,7 @@ extension Logic {
     
     func getUsers(with emails: Set<String>) -> [User] {
         var users: [User] = []
-        for email in emails {
+        for email in emails.sorted() {
             users.append(getUser(with: email))
         }
         return users
@@ -68,6 +68,9 @@ extension Logic {
         } else {
             userDefault.setValue(user.mrnumber, forKey: "userMRNumber")
             userDefault.setValue(user.speciality, forKey: "userSpeciality")
+            userDefault.setValue(user.office, forKey: "userOffice")
+            userDefault.setValue(user.quali, forKey: "userQuali")
+            userDefault.setValue(user.exp, forKey: "userExp")
         }
         
         return true
@@ -94,6 +97,9 @@ extension Logic {
         userDefault.removeObject(forKey: "userLicense")
         userDefault.removeObject(forKey: "userEmail")
         userDefault.removeObject(forKey: "userContact")
+        userDefault.removeObject(forKey: "userOffice")
+        userDefault.removeObject(forKey: "userQuali")
+        userDefault.removeObject(forKey: "userExp")
 
         userDefault.setValue(true, forKey: "authenticate")
     }
@@ -104,9 +110,29 @@ extension Logic {
         return coreDataHandler.updateName(user, newName: newName)
     }
     
+    func updateNumber(email: String, newNum: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateNumber(user, newNum: newNum)
+    }
+    
     func updatePassword(email: String, newPass: String) -> Bool {
         let user = coreDataHandler.fetchUser(email: email)[0]
         return coreDataHandler.updatePassword(user, newPass: newPass)
+    }
+    
+    func updateOffice(email: String, office: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateOffice(user, office: office)
+    }
+    
+    func updateQuali(email: String, quali: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateQuali(user, quali: quali)
+    }
+    
+    func updateExp(email: String, exp: String) -> Bool {
+        let user = coreDataHandler.fetchUser(email: email)[0]
+        return coreDataHandler.updateExp(user, exp: exp)
     }
     
     func saveProfileImage(email: String, img: UIImage) -> Bool {
@@ -167,22 +193,22 @@ extension Logic {
     }
     
     //MARK: - Create Meeting
-    func createMeeting(title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
-        return coreDataHandler.createMeeting(title: title, desc: desc, date: date, doctors: doctors, medicines: medicines)
+    func createMeeting(title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        return coreDataHandler.createMeeting(title: title, desc: desc, startDate: startDate, endDate: endDate, doctors: doctors, medicines: medicines)
     }
     
     //MARK: - Update Meeting
-    func editMeeting(meeting: Meeting, title: String, desc: String?, date: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
-        return coreDataHandler.editMeeting(meeting: meeting, title: title, desc: desc, date: date, doctors: doctors, medicines: medicines)
+    func editMeeting(meeting: Meeting, title: String, desc: String?, startDate: Date, endDate: Date, doctors: Set<String>, medicines: Set<Int16>) -> Bool {
+        return coreDataHandler.editMeeting(meeting: meeting, title: title, desc: desc, startDate: startDate, endDate: endDate, doctors: doctors, medicines: medicines)
     }
     
     //MARK: - Other
     mutating func processMeetingDates(meetings: [Meeting]) -> ([String:[Meeting]], [String]) {
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        dateFormatter.dateFormat = "MMM d, yyyy"
         var meetingDates: [String:[Meeting]] = [:]
         var dates: [String] = []
         for meeting in meetings {
-            let dateStr = dateFormatter.string(from: meeting.date!)
+            let dateStr = dateFormatter.string(from: meeting.startDate!)
             if meetingDates[dateStr] == nil
             {
                 meetingDates[dateStr] = []

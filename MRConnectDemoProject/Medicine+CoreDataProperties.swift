@@ -2,7 +2,7 @@
 //  Medicine+CoreDataProperties.swift
 //  MRConnectDemoProject
 //
-//  Created by Ansh Bangia on 09/02/22.
+//  Created by Ansh Bangia on 15/02/22.
 //
 //
 

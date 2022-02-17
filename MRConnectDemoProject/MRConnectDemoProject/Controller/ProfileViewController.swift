@@ -15,14 +15,24 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var changeNameButton: UIButton!
+    @IBOutlet weak var changeNumberButton: UIButton!
     @IBOutlet weak var changePassButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var officeView: UIView!
+    @IBOutlet weak var qualiView: UIView!
+    @IBOutlet weak var expView: UIView!
+    @IBOutlet weak var officeLabel: UILabel!
+    @IBOutlet weak var qualiLabel: UILabel!
+    @IBOutlet weak var expLabel: UILabel!
+    @IBOutlet weak var officeTextView: UITextView!
+    @IBOutlet weak var qualiTextView: UITextView!
+    @IBOutlet weak var expTextView: UITextView!
     
     let userDefault = UserDefaultManager.shared.defaults
     var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
-    //let coreDataHandler = CoreDataHandler()
     let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
@@ -47,12 +57,55 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = user?.name
         emailLabel.text = user?.email
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
         
         bulletinBoard.delegate = self
         
         changeNameButton.setTitle(MyStrings.changeName, for: .normal)
+        changeNumberButton.setTitle(MyStrings.updateContact, for: .normal)
         changePassButton.setTitle(MyStrings.changePassword, for: .normal)
         logOutButton.setTitle(MyStrings.logOut, for: .normal)
+        
+        officeTextView.delegate = self
+        qualiTextView.delegate = self
+        expTextView.delegate = self
+        if user?.type == .Doctor {
+            officeView.isHidden = false
+            qualiView.isHidden = false
+            expView.isHidden = false
+            
+            officeLabel.text = MyStrings.office
+            qualiLabel.text = MyStrings.quali
+            expLabel.text = MyStrings.exp
+            
+            if user!.office.isEmpty {
+                officeTextView.text = MyStrings.addOffice
+                officeTextView.textColor = .systemGray3
+            } else {
+                officeTextView.text = user?.office
+                officeTextView.textColor = .black
+            }
+            
+            if user!.quali.isEmpty {
+                qualiTextView.text = MyStrings.addQuali
+                qualiTextView.textColor = .systemGray3
+            } else {
+                qualiTextView.text = user?.quali
+                qualiTextView.textColor = .black
+            }
+            
+            if user!.exp.isEmpty {
+                expTextView.text = MyStrings.addExp
+                expTextView.textColor = .systemGray3
+            } else {
+                expTextView.text = user?.exp
+                expTextView.textColor = .black
+            }
+        } else {
+            officeView.isHidden = true
+            qualiView.isHidden = true
+            expView.isHidden = true
+        }
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
@@ -61,6 +114,11 @@ class ProfileViewController: UIViewController {
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
         bulletinBoard.define(of: .ChangeName)
+        bulletinBoard.boardManager?.showBulletin(above: self)
+    }
+    
+    @IBAction func changeNumberTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .ChangeNumber)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
@@ -97,6 +155,45 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
 }
 
+//MARK: - UITextViewDelegate
+extension ProfileViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .systemGray3 {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let entry = textView.text ?? ""
+        if entry.isEmpty {
+            textView.textColor = .systemGray3
+            switch textView {
+            case officeTextView:
+                textView.text = MyStrings.addOffice
+            case qualiTextView:
+                textView.text = MyStrings.addQuali
+            default:
+                textView.text = MyStrings.addExp
+            }
+        }
+        
+        switch textView {
+        case officeTextView:
+            let _ = logic.updateOffice(email: user!.email, office: entry)
+            userDefault.setValue(entry, forKey: "userOffice")
+        case qualiTextView:
+            let _ = logic.updateQuali(email: user!.email, quali: entry)
+            userDefault.setValue(entry, forKey: "userQuali")
+        default:
+            let _ = logic.updateExp(email: user!.email, exp: entry)
+            userDefault.setValue(entry, forKey: "userExp")
+        }
+    }
+    
+}
+
 //MARK: - BulletinBoardDelegate
 extension ProfileViewController: BulletinBoardDelegate {
     
@@ -108,6 +205,8 @@ extension ProfileViewController: BulletinBoardDelegate {
             nameChanged(newName: selection as! String)
         case .ChangePassword:
             passwordChanged(newPass: selection as! String)
+        case .ChangeNumber:
+            numberChanged(newNum: selection as! String)
         default:
             break
         }
@@ -121,6 +220,16 @@ extension ProfileViewController: BulletinBoardDelegate {
         }
         userDefault.setValue(newName, forKey: "userName")
         nameLabel.text = user?.name
+    }
+    
+    func numberChanged(newNum: String) {
+        let result = logic.updateNumber(email: user!.email, newNum: newNum)
+        if result == false {
+            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
+            return
+        }
+        userDefault.setValue(newNum, forKey: "userContact")
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
     }
     
     func passwordChanged(newPass: String) {

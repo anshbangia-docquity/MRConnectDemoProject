@@ -20,4 +20,10 @@ class MRMedicinesCollectionViewCell: UICollectionViewCell {
         removeMed?(index!)
     }
     
+    func configure(medName: String, index: Int, removeMed: @escaping (Int) -> Void) {
+        self.medicineName.text = medName
+        self.index = index
+        self.removeMed = removeMed
+    }
+    
 }

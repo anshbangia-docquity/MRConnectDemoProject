@@ -12,18 +12,35 @@ class MRDoctorsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var specLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var officeLabel: UILabel!
     
     static let id = "doctorsTableCell"
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
+    func configure(name: String, spec: Int16) {
+        nameLabel.text = "Dr. \(name)"
+        specLabel.text = Specialities.specialities[spec]
+        profileImage.image = UIImage(systemName: "person.circle")
+    }
+    
+    func configImg(imgData: Data) {
+        DispatchQueue.main.async {
+            self.profileImage.image = UIImage(data: imgData)
+        }
+    }
+    
+    func configure(name: String, spec: Int16, email: String, contact: String, office: String) {
+        nameLabel.text = "Dr. \(name)"
+        specLabel.text = Specialities.specialities[spec]
+        emailLabel.text = email
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: contact)
+        var myOffice = MyStrings.notSpecified
+        if !office.isEmpty {
+            myOffice = office
+        }
+        officeLabel.text = MyStrings.office + ": " + myOffice
+        profileImage.image = UIImage(systemName: "person.circle")
+    }
 
 }

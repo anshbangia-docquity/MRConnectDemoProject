@@ -32,10 +32,8 @@ class MeetingsViewController: UIViewController {
         } else {
             createButton.isHidden = true
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        meetingTableView.separatorStyle = .none
         
         let meetings: [Meeting]
         if user.type == .MRUser {
@@ -44,18 +42,28 @@ class MeetingsViewController: UIViewController {
             meetings = logic.fetchMeetings(for: user.email)
         }
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
+        DispatchQueue.main.async {
+            self.meetingTableView.reloadData()
+        }
         
-        meetingTableView.reloadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
     }
 
     @IBAction func createTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
-    func handler() {
-        let meetings = logic.fetchMeetings(of: user.email)
+    @objc func handler() {
+        let meetings: [Meeting]
+        if user.type == .MRUser {
+            meetings = logic.fetchMeetings(of: user.email)
+        } else {
+            meetings = logic.fetchMeetings(for: user.email)
+        }
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
-        meetingTableView.reloadData()
+        DispatchQueue.main.async {
+            self.meetingTableView.reloadData()
+        }
     }
     
 }
@@ -63,46 +71,31 @@ class MeetingsViewController: UIViewController {
 extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        dates.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dates[section]
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return meetingDates[dates[section]]!.count
+        return dates.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        var h = meetingDates[dates[indexPath.row]]!.count
+        h *= 115
+        h += 25 + 55
+        return CGFloat(h)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MeetingsTableViewCell.id, for: indexPath) as! MeetingsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MeetingsOuterTableViewCell.id, for: indexPath) as! MeetingsOuterTableViewCell
         
-        let meetings = meetingDates[dates[indexPath.section]]!
-        let meeting = meetings[indexPath.row]
-        logic.dateFormatter.dateFormat = "h:mm a"
-        let time = logic.dateFormatter.string(from: meeting.date!)
-        cell.titleLabel.text = meeting.title
-        cell.timeLabel.text = time
-        
-        if user.type == .MRUser {
-            cell.withLabel.text = MyStrings.withLabel.replacingOccurrences(of: "|#X#|", with: ("\(meeting.doctors!.count) " + MyStrings.doctors))
-        } else {
-            let creator = logic.getUser(with: meeting.creator!)
-            cell.withLabel.text = MyStrings.withLabel.replacingOccurrences(of: "|#X#|", with: creator.name!)
-        }
+        let meetings = meetingDates[dates[indexPath.row]]!
+        cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting)
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meetings = meetingDates[dates[indexPath.section]]!
-        let meeting = meetings[indexPath.row]
+    func openMeeting(_ meeting: Meeting) {
         tappedMeeting = meeting
-        
         performSegue(withIdentifier: "goToDetails", sender: self)
     }
     
@@ -112,10 +105,7 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
 extension MeetingsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCreate" {
-            let vc = segue.destination as! MRCreateMeetingViewController
-            vc.handler = handler
-        } else if segue.identifier == "goToDetails" {
+        if segue.identifier == "goToDetails" {
             let vc = segue.destination as! MeetingDetailsViewController
             vc.meeting = tappedMeeting
         }

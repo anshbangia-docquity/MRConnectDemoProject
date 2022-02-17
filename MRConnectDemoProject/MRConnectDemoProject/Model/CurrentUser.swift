@@ -46,5 +46,15 @@ class CurrentUser {
         
         return UIImage(data: img!)
     }
+    var office: String {
+        return userDefault.value(forKey: "userOffice") as! String
+    }
+    var quali: String {
+        return userDefault.value(forKey: "userQuali") as! String
+    }
+    var exp: String {
+        return userDefault.value(forKey: "userExp") as! String
+    }
+    
     
 }
