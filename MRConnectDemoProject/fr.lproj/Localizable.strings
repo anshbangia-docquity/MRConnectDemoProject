@@ -114,4 +114,6 @@
 "In progress" = "En cours";
 "Record Meeting" = "Enregistrer la réunion";
 "Stop" = "Arrêter";
+"Microphone permission not granted." = "L'autorisation du microphone n'est pas accordée.";
+"Give access to microphone." = "Donner accès au microphone.";
 

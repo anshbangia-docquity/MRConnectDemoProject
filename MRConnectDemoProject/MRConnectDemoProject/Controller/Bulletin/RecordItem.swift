@@ -7,6 +7,7 @@
 
 import UIKit
 import BLTNBoard
+//import AVFoundation
 
 @objc public class RecordItem: BLTNPageItem {
     
@@ -89,6 +90,7 @@ import BLTNBoard
             stopButton.widthAnchor.constraint(equalToConstant: 45),
             stopButton.heightAnchor.constraint(equalToConstant: 45)
         ])
+        stopButton.isEnabled = false
         
         return [view]
     }

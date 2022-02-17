@@ -114,3 +114,5 @@
 "In progress" = "In Bearbeitung";
 "Record Meeting" = "Meeting aufzeichnen";
 "Stop" = "Stoppen";
+"Microphone permission not granted." = "Mikrofonberechtigung nicht erteilt.";
+"Give access to microphone." = "Gewähren Sie Zugriff auf das Mikrofon.";

@@ -157,6 +157,12 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     @IBAction func recordMeetingTapped(_ sender: UIButton) {
+        logic.check_record_permission()
+        if !logic.isAudioRecordingGranted {
+            Alert.showAlert(on: self, title: MyStrings.noMic, subtitle: MyStrings.enableMic)
+            return
+        }
+        
         bulletinBoard.define(of: .RecordItem)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }

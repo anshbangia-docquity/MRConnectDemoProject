@@ -7,12 +7,20 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
-struct Logic {
+class Logic {
     
     let coreDataHandler = CoreDataHandler()
     let userDefault = UserDefaultManager.shared.defaults
     lazy var dateFormatter = DateFormatter()
+    var audioRecorder: AVAudioRecorder!
+    var timer: Timer!
+    
+    var isAudioRecordingGranted: Bool!
+    var isRecording = false
+    var isRecordingPaused = false
+    var recordingFileName: String?
     
 }
 
@@ -203,7 +211,7 @@ extension Logic {
     }
     
     //MARK: - Other
-    mutating func processMeetingDates(meetings: [Meeting]) -> ([String:[Meeting]], [String]) {
+    func processMeetingDates(meetings: [Meeting]) -> ([String:[Meeting]], [String]) {
         dateFormatter.dateFormat = "MMM d, yyyy"
         var meetingDates: [String:[Meeting]] = [:]
         var dates: [String] = []
@@ -222,10 +230,62 @@ extension Logic {
     
 }
 
+//MARK: - Audio Recorder
+extension Logic: AVAudioRecorderDelegate {
+    
+    func check_record_permission() {
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSession.RecordPermission.granted:
+            isAudioRecordingGranted = true
+        case AVAudioSession.RecordPermission.denied:
+            isAudioRecordingGranted = false
+        case AVAudioSession.RecordPermission.undetermined: AVAudioSession.sharedInstance().requestRecordPermission { allowed in
+            if allowed {
+                self.isAudioRecordingGranted = true
+            } else {
+                self.isAudioRecordingGranted = false
+            }
+        }
+        default:
+            break
+        }
+    }
+    
+    func getNewFileUrl(for meeting: Int16) -> URL {
+        dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        let dateStr = dateFormatter.string(from: Date())
+        let filename = "meeting\(meeting)/recording_" + dateStr
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+        recordingFileName = filename
+        return filePath
+    }
+    
+    func setup_recorder(for meeting: Int16) {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 2,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            audioRecorder = try AVAudioRecorder(url: getNewFileUrl(for: meeting), settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.isMeteringEnabled = true
+            audioRecorder.prepareToRecord()
+        } catch let error {
+            print("ERROR: \(error)")
+        }
+    }
+    
+}
+
 //MARK: - Other
 extension Logic {
     
-    mutating func combineDateTime(date: Date, time: Date) -> Date {
+    func combineDateTime(date: Date, time: Date) -> Date {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateStr = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "HH:mm"
@@ -235,6 +295,12 @@ extension Logic {
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
         let date = dateFormatter.date(from: dateTimeStr)!
         return date
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
     
 }

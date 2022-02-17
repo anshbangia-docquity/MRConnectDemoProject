@@ -129,5 +129,7 @@ struct MyStrings {
     static let inProgress = "In progress".localize()
     static let recordMeeting = "Record Meeting".localize()
     static let stop = "Stop".localize()
+    static let noMic = "Microphone permission not granted.".localize()
+    static let enableMic = "Give access to microphone.".localize()
     
 }
