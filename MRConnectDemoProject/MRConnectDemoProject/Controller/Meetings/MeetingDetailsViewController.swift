@@ -21,6 +21,7 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var medicineTableView: UITableView!
     @IBOutlet weak var medicineTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var hostLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     
     let user = CurrentUser()
@@ -30,6 +31,7 @@ class MeetingDetailsViewController: UIViewController {
     var selectedDoctors: [User] = []
     var medicineSet = Set<Int16>()
     var selectedMedicines: [Medicine] = []
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +86,37 @@ class MeetingDetailsViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
+        
+        configureStatus()
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.configureStatus()
+        })
+    }
+    
+    func configureStatus() {
+        let date = Date()
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!.startDate!)
+        let minutes = diffComponents.minute
+        guard var minutes = minutes else {return}
+        minutes += 1
+        statusLabel.textColor = .red
+        if minutes <= 10 && minutes > 1 {
+            statusLabel.text = MyStrings.minsRemaining.replacingOccurrences(of: "|#X#|", with: "\(minutes)")
+        } else if minutes == 1 {
+            statusLabel.text = MyStrings.minRemaining.replacingOccurrences(of: "|#X#|", with: "\(minutes)")
+        } else {
+            statusLabel.text = ""
+        }
+        
+        if date >= meeting!.startDate! && date <= meeting!.endDate! {
+            statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+            statusLabel.text = MyStrings.inProgress
+        }
+        
+        if date > meeting!.endDate! {
+            timer?.invalidate()
+        }
+        
     }
     
     @objc func editTapped(sender: UIButton) {

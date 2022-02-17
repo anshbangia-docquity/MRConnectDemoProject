@@ -136,13 +136,21 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X06-aZ-Aeh">
+                                                                        <rect key="frame" x="120" y="65" width="44" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="his-6O-l9w" firstAttribute="leading" secondItem="06c-w1-z8m" secondAttribute="leading" constant="25" id="BBE-aj-2NL"/>
                                                                     <constraint firstAttribute="height" constant="100" id="EkY-OA-Wnu"/>
+                                                                    <constraint firstItem="X06-aZ-Aeh" firstAttribute="leading" secondItem="eSk-g2-8Ff" secondAttribute="leading" id="K5Y-PM-5Um"/>
                                                                     <constraint firstItem="his-6O-l9w" firstAttribute="centerY" secondItem="06c-w1-z8m" secondAttribute="centerY" id="Oya-I5-wcW"/>
                                                                     <constraint firstItem="eSk-g2-8Ff" firstAttribute="centerY" secondItem="06c-w1-z8m" secondAttribute="centerY" id="Vgw-Lf-jHh"/>
+                                                                    <constraint firstItem="X06-aZ-Aeh" firstAttribute="top" secondItem="eSk-g2-8Ff" secondAttribute="bottom" constant="3" id="erL-d0-3YT"/>
                                                                     <constraint firstItem="eSk-g2-8Ff" firstAttribute="leading" secondItem="his-6O-l9w" secondAttribute="trailing" constant="25" id="lGb-XI-hzv"/>
                                                                 </constraints>
                                                             </view>
@@ -385,6 +393,7 @@
                         <outlet property="medicinesLabel" destination="lxj-gh-D7j" id="j1u-UK-czR"/>
                         <outlet property="meetingTitle" destination="sDF-6F-EXA" id="p0Q-HQ-xuZ"/>
                         <outlet property="monthLabel" destination="Wp4-hK-9Z3" id="cd9-jb-WYt"/>
+                        <outlet property="statusLabel" destination="X06-aZ-Aeh" id="VGA-BQ-P5V"/>
                         <outlet property="timeLabel" destination="eSk-g2-8Ff" id="L4t-E5-l8S"/>
                         <segue destination="R9x-Tr-DU0" kind="presentation" identifier="goToEdit" id="7hf-tw-yrt"/>
                     </connections>

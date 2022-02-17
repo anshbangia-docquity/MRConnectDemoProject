@@ -109,6 +109,6 @@
 "Add qualification" = "Qualifikation hinzufügen";
 "Add prior work experience" = "Fügen Sie vorherige Berufserfahrung hinzu";
 "Not specified" = "Unbestimmt";
-"|#X#| minutes remaining" = "|#X#| verbleibende Minuten";
-"|#X#| minute remaining" = "|#X#| Verbleibende Minute";
+"In |#X#| minutes" = "In |#X#| Minuten";
+"In |#X#| minute" = "In |#X#| Minute";
 "In progress" = "In Bearbeitung";

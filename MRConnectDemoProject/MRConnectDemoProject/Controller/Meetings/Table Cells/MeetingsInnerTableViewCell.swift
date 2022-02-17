@@ -85,6 +85,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             moreView.isHidden = false
             moreLabel.text = "+\(doctorCount - 3)"
         }
+        
         configureStatus()
         //DispatchQueue.global().async {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in

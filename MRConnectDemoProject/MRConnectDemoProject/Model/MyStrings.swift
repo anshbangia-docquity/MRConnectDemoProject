@@ -124,8 +124,8 @@ struct MyStrings {
     static let addQuali = "Add qualification".localize()
     static let addExp = "Add prior work experience".localize()
     static let notSpecified = "Not specified".localize()
-    static let minsRemaining = "|#X#| minutes remaining".localize()
-    static let minRemaining = "|#X#| minute remaining".localize()
+    static let minsRemaining = "In |#X#| minutes".localize()
+    static let minRemaining = "In |#X#| minute".localize()
     static let inProgress = "In progress".localize()
     
 }
