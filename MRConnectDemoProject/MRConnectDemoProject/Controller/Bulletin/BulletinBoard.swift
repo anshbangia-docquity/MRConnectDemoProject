@@ -28,7 +28,7 @@ class BulletinBoard {
     var boardManager: BLTNItemManager?
     var delegate: BulletinBoardDelegate?
 
-    func define(of type: BulletinTypes) {
+    func define(of type: BulletinTypes, additional info: Any? = nil) {
         let bulletinItem = BulletinItems()
         
         var item: BLTNPageItem?
@@ -42,7 +42,7 @@ class BulletinBoard {
         case .CheckPassword:
             item = bulletinItem.makeCheckPasswordItem(delegate, board: self)
         case .RecordItem:
-            item = bulletinItem.makeRecordItem(delegate, board: self)
+            item = bulletinItem.makeRecordItem(delegate, board: self, meeting: info as! Int16)
         default:
             break
         }
@@ -52,3 +52,5 @@ class BulletinBoard {
     }
 
 }
+
+

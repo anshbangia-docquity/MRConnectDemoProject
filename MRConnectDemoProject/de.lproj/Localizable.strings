@@ -116,3 +116,10 @@
 "Stop" = "Stoppen";
 "Microphone permission not granted." = "Mikrofonberechtigung nicht erteilt.";
 "Give access to microphone." = "Gewähren Sie Zugriff auf das Mikrofon.";
+"Save Recording?" = "Aufnahme speichern?";
+"Do you want to save the recording?" = "Möchten Sie die Aufnahme speichern?";
+"Yes" = "Jawohl";
+"Discard" = "Verwerfen";
+"Recording" = "Aufzeichnung";
+"|#X#| was not saved." = "ABC wurde nicht gespeichert.";
+"An error occurred while saving |#X#|." = "Beim Speichern von |#X#| ist ein Fehler aufgetreten.";

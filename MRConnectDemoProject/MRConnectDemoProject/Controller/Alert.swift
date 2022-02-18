@@ -36,5 +36,9 @@ struct Alert {
     static func showAlert(on viewController: UIViewController, notUpdated: String) {
         viewController.present(Alert.showAlert(title: MyStrings.notUpdatedTitle.replacingOccurrences(of: "|#X#|", with: notUpdated), subtitle: MyStrings.notUpdatedSubtitle.replacingOccurrences(of: "|#X#|", with: notUpdated)), animated: true, completion: nil)
     }
+    
+    static func showAlert(on viewController: UIViewController, notSaved: String) {
+        viewController.present(Alert.showAlert(title: MyStrings.notSavedTitle.replacingOccurrences(of: "|#X#|", with: notSaved), subtitle: MyStrings.notSavedSubtitle.replacingOccurrences(of: "|#X#|", with: notSaved)), animated: true, completion: nil)
+    }
 
 }

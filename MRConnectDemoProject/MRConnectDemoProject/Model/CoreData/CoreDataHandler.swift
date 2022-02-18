@@ -332,4 +332,25 @@ extension CoreDataHandler {
     
 }
 
+//MARK: - Recording
+extension CoreDataHandler {
+    
+    func saveRecording(fileName: String, meeting: Int16) -> Bool {
+        let rec = Recording(context: context)
+        
+        rec.fileName = fileName
+        rec.meeting = meeting
+        
+        do {
+            try context.save()
+        } catch {
+            return false
+        }
+        
+        return true
+    }
+    
+}
+
+
 

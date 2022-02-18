@@ -131,5 +131,12 @@ struct MyStrings {
     static let stop = "Stop".localize()
     static let noMic = "Microphone permission not granted.".localize()
     static let enableMic = "Give access to microphone.".localize()
+    static let askSaveRecording = "Save Recording?".localize()
+    static let confirmSaveRecording = "Do you want to save the recording?".localize()
+    static let yes = "Yes".localize()
+    static let discard = "Discard".localize()
+    static let recording = "Recording".localize()
+    static let notSavedTitle = "|#X#| was not saved.".localize()
+    static let notSavedSubtitle = "An error occurred while saving |#X#|.".localize()
     
 }

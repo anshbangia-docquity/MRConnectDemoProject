@@ -106,7 +106,7 @@
                                                                         <rect key="frame" x="25" y="15" width="70" height="70"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oH7-CG-mTt">
-                                                                                <rect key="frame" x="10" y="9.5" width="50" height="50"/>
+                                                                                <rect key="frame" x="10" y="10.5" width="50" height="49"/>
                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <color key="tintColor" red="0.49019607840000001" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                 <constraints>

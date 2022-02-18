@@ -58,6 +58,8 @@ class MeetingDetailsViewController: UIViewController {
         recordButton.isHidden = true
         recordButton.setTitle("  " + MyStrings.recordMeeting, for: .normal)
         
+        bulletinBoard.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,15 +159,38 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     @IBAction func recordMeetingTapped(_ sender: UIButton) {
-        logic.check_record_permission()
-        if !logic.isAudioRecordingGranted {
+        if !logic.checkRecordPermission() {
             Alert.showAlert(on: self, title: MyStrings.noMic, subtitle: MyStrings.enableMic)
             return
         }
         
-        bulletinBoard.define(of: .RecordItem)
+        bulletinBoard.define(of: .RecordItem, additional: meeting!.id)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
+}
+
+//MARK: - BulletinBoardDelegate
+extension MeetingDetailsViewController: BulletinBoardDelegate {
+    
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
+        bulletinBoard.boardManager?.dismissBulletin()
+        let fileName = selection as! String
+        
+        var result = true
+        
+        let confirmAlert = UIAlertController(title: MyStrings.askSaveRecording, message: MyStrings.confirmSaveRecording, preferredStyle: .alert)
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.yes, style: .default, handler: { (action: UIAlertAction!) in
+            result = self.logic.saveRecording(fileName: fileName, meeting: self.meeting!.id)
+        }))
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.discard, style: .destructive, handler: nil))
+
+        present(confirmAlert, animated: true) {
+            if !result {
+                Alert.showAlert(on: self, notSaved: MyStrings.recording)
+            }
+        }
+    }
+    
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
