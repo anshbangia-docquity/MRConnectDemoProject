@@ -97,21 +97,12 @@ struct BulletinItems {
     }
     
     func makeRecordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, meeting: Int16) -> RecordItem {
-        //item.actionButtonTitle = MyStrings.stop
-        //item.appearance.actionButtonColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
-        //item.appearance.actionButtonTitleColor = .black
-        //item.appearance.titleFontSize = 2
-        //item.appearance.actionButtonFontSize = 20
-//        item.actionHandler = { _ in
-//            delegate?.doneTapped(board, selection: 0, type: .RecordItem)
-//            item.manager?.dismissBulletin(animated: true)
-//        }
-        
         let item = RecordItem(title: MyStrings.recordMeeting)
         item.meeting = meeting
+        item.isDismissable = true
         item.requiresCloseButton = false
-        item.saveRecording = { fileName in
-            delegate?.doneTapped(board, selection: fileName!, type: .RecordItem)
+        item.saveRecording = { success, fileName, audioRecorder in
+            delegate?.doneTapped(board, selection: (success, fileName, audioRecorder), type: .RecordItem)
         }
         
         return item

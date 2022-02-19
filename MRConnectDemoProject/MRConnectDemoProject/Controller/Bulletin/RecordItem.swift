@@ -25,11 +25,14 @@ import AVFoundation
     var recordingFileName: String?
     var logic = Logic()
     var meeting: Int16 = -1
-    @objc public var saveRecording: ((String?) -> Void)? = nil
+    @objc public var saveRecording: ((Bool, String?, AVAudioRecorder?) -> Void)? = nil
+    
+    var anim1constraint: NSLayoutConstraint!
+    var anim2constraint: NSLayoutConstraint!
     
     public override func makeViewsUnderTitle(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: 237.5).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 175).isActive = true
         
         timeLabel = UILabel(frame: view.frame)
         view.addSubview(timeLabel)
@@ -65,9 +68,10 @@ import AVFoundation
         animateView1.layer.masksToBounds = true
         animateView1.layer.cornerRadius = 27.5
         animateView1.translatesAutoresizingMaskIntoConstraints = false
+        anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0)
         NSLayoutConstraint.activate([
             animateView1.centerXAnchor.constraint(equalTo: recordButton.centerXAnchor),
-            animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0),
+            anim1constraint,
             animateView1.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor),
             animateView1.widthAnchor.constraint(equalTo: animateView1.heightAnchor)
         ])
@@ -79,9 +83,10 @@ import AVFoundation
         animateView2.layer.masksToBounds = true
         animateView2.layer.cornerRadius = 27.5
         animateView2.translatesAutoresizingMaskIntoConstraints = false
+        anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0)
         NSLayoutConstraint.activate([
             animateView2.centerXAnchor.constraint(equalTo: recordButton.centerXAnchor),
-            animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0),
+            anim2constraint,
             animateView2.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor),
             animateView2.widthAnchor.constraint(equalTo: animateView2.heightAnchor)
         ])
@@ -97,25 +102,40 @@ import AVFoundation
         stopButton.addTarget(self, action: #selector(stopPressed), for: .touchUpInside)
         stopButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stopButton.topAnchor.constraint(equalTo: recordButton.bottomAnchor, constant: 55),
-            stopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stopButton.leftAnchor.constraint(equalTo: recordButton.rightAnchor, constant: 75),
+            stopButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor),
             stopButton.widthAnchor.constraint(equalToConstant: 45),
             stopButton.heightAnchor.constraint(equalToConstant: 45)
         ])
         stopButton.isEnabled = false
         
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteRecording), name: Notification.Name("deleteRecording"), object: nil)
+        
+        //self.dismissalHandler = nil
+        
         return [view]
+        
+      
     }
     
+    public override func onDismiss() {
+        if isRecording {
+            audioRecorder.stop()
+            timer.invalidate()
+            audioRecorder.deleteRecording()
+            audioRecorder = nil
+        }
+    }
+
 }
 
 //MARK: - Audio Recorder
-extension RecordItem: AVAudioRecorderDelegate {
+extension RecordItem {
     
     func getNewFileUrl() -> URL {
         logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
         let dateStr = logic.dateFormatter.string(from: Date())
-        let filename = "meeting_\(meeting)_recording_" + dateStr
+        let filename = "meeting_\(meeting)_recording_" + dateStr + ".m4a"
         let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
         recordingFileName = filename
         print(filePath)
@@ -143,6 +163,8 @@ extension RecordItem: AVAudioRecorderDelegate {
     }
     
     @objc func recordPressed() {
+        //super.isDismissable = false
+        
         if isRecording == false {
             setup_recorder()
             audioRecorder.record()
@@ -152,6 +174,7 @@ extension RecordItem: AVAudioRecorderDelegate {
             stopButton.isEnabled = true
             isRecording = true
             isRecordingPaused = false
+            
         } else if isRecording == true {
             if isRecordingPaused == false {
                 audioRecorder.pause()
@@ -168,14 +191,41 @@ extension RecordItem: AVAudioRecorderDelegate {
     }
     
     @objc func stopPressed() {
-        //stopAudioRecording(success: true)
-        recordButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
-        stopButton.isEnabled = false
-        isRecording = false
-        isRecordingPaused = false
+        stopRecording(success: true)
         
-        saveRecording?(recordingFileName)
-        resetAnimation()
+        saveRecording?(true, recordingFileName, audioRecorder)
+        audioRecorder = nil
+    }
+    
+    @objc func deleteRecording() {
+        audioRecorder.deleteRecording()
+    }
+    
+    func stopRecording(success : Bool) {
+        if success {
+            audioRecorder.stop()
+            
+            timer.invalidate()
+            
+            recordButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
+            stopButton.isEnabled = false
+            isRecording = false
+            isRecordingPaused = false
+            
+            resetAnimation()
+        } else {
+            saveRecording?(false, nil, nil)
+        }
+    }
+}
+
+//MARK: - AVAudioRecorderDelegate
+extension RecordItem: AVAudioRecorderDelegate {
+    
+    public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            stopRecording(success: false)
+        }
     }
     
 }
@@ -194,25 +244,46 @@ extension RecordItem {
             
             audioRecorder.updateMeters()
             let power = audioRecorder.averagePower(forChannel: 0)
-            let lowerLimit: Float = -32.5
-            if power > lowerLimit {
-                let proportion = -30 * (power + 15 - lowerLimit) / lowerLimit
-                NSLayoutConstraint.activate([
-                    animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(proportion)),
-                    animateView2.widthAnchor.constraint(equalTo: animateView1.widthAnchor, multiplier: 2)
-                ])
+            
+            let oldMax: Float = -10
+            let oldMin: Float = -35
+            let oldRange = oldMax - oldMin
+            let newMax: Float = 93.75
+            let newMin: Float = 0
+            let newRange = newMax - newMin
+            let newValue: Float
+            if power > oldMin {
+                newValue = (((power - oldMin) * newRange) / oldRange) + newMin
             } else {
-                resetAnimation()
+                newValue = 0
             }
-            animateView1.layer.cornerRadius = animateView1.frame.width / 2
-            animateView2.layer.cornerRadius = animateView2.frame.width / 2
+            
+            NSLayoutConstraint.deactivate([
+                anim1constraint,
+                anim2constraint
+            ])
+            anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue))
+            anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue * 2))
+            NSLayoutConstraint.activate([
+                anim1constraint,
+                anim2constraint
+            ])
+            
+            animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
+            animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
         }
     }
     
     func resetAnimation() {
+        NSLayoutConstraint.deactivate([
+            anim1constraint,
+            anim2constraint
+        ])
+        anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0)
+        anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0)
         NSLayoutConstraint.activate([
-            animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: 0),
-            animateView2.widthAnchor.constraint(equalTo: animateView1.widthAnchor)
+            anim1constraint,
+            anim2constraint
         ])
         animateView1.layer.cornerRadius = animateView1.frame.width / 2
         animateView2.layer.cornerRadius = animateView2.frame.width / 2

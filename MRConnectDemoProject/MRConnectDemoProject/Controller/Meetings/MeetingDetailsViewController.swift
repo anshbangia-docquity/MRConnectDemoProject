@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFAudio
 
 class MeetingDetailsViewController: UIViewController {
     
@@ -174,20 +175,28 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
     
     func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         bulletinBoard.boardManager?.dismissBulletin()
-        let fileName = selection as! String
-        
-        var result = true
-        
-        let confirmAlert = UIAlertController(title: MyStrings.askSaveRecording, message: MyStrings.confirmSaveRecording, preferredStyle: .alert)
-        confirmAlert.addAction(UIAlertAction(title: MyStrings.yes, style: .default, handler: { (action: UIAlertAction!) in
-            result = self.logic.saveRecording(fileName: fileName, meeting: self.meeting!.id)
-        }))
-        confirmAlert.addAction(UIAlertAction(title: MyStrings.discard, style: .destructive, handler: nil))
+        let selection = selection as! (Bool, String?, AVAudioRecorder?)
+        if selection.0 {
+            let fileName = selection.1!
+            var result = true
+            
+            let confirmAlert = UIAlertController(title: MyStrings.askSaveRecording, message: MyStrings.confirmSaveRecording, preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: MyStrings.discard, style: .destructive, handler: { _ in
+                selection.2!.deleteRecording()
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: MyStrings.yes, style: .default, handler: { (action: UIAlertAction!) in
+                result = self.logic.saveRecording(fileName: fileName, meeting: self.meeting!.id)
+            }))
 
-        present(confirmAlert, animated: true) {
-            if !result {
-                Alert.showAlert(on: self, notSaved: MyStrings.recording)
+            present(confirmAlert, animated: true) {
+                if !result {
+                    Alert.showAlert(on: self, notSaved: MyStrings.recording)
+                }
             }
+        } else {
+            Alert.showAlert(on: self, error: MyStrings.recording)
         }
     }
     

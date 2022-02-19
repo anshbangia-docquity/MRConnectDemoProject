@@ -138,5 +138,6 @@ struct MyStrings {
     static let recording = "Recording".localize()
     static let notSavedTitle = "|#X#| was not saved.".localize()
     static let notSavedSubtitle = "An error occurred while saving |#X#|.".localize()
+    static let errorIn = "There was an erro in |#X#|.".localize()
     
 }

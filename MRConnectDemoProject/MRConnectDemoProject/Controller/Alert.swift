@@ -40,5 +40,9 @@ struct Alert {
     static func showAlert(on viewController: UIViewController, notSaved: String) {
         viewController.present(Alert.showAlert(title: MyStrings.notSavedTitle.replacingOccurrences(of: "|#X#|", with: notSaved), subtitle: MyStrings.notSavedSubtitle.replacingOccurrences(of: "|#X#|", with: notSaved)), animated: true, completion: nil)
     }
+    
+    static func showAlert(on viewController: UIViewController, error: String) {
+        viewController.present(Alert.showAlert(title: MyStrings.errorIn.replacingOccurrences(of: "|#X#|", with: error), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
+    }
 
 }

@@ -366,7 +366,10 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48G-U4-sd4">
-                                <rect key="frame" x="256" y="811" width="138" height="31"/>
+                                <rect key="frame" x="256" y="802" width="138" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ugc-QQ-Mtw"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="mic" catalog="system" title="  Record Meeting">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleSubhead"/>

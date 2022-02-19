@@ -227,7 +227,7 @@ extension Logic {
 extension Logic {
     
     func saveRecording(fileName: String, meeting: Int16) -> Bool {
-        return coreDataHandler.saveRecording(fileName: String, meeting: Int16)
+        return coreDataHandler.saveRecording(fileName: fileName, meeting: meeting)
     }
     
 }
