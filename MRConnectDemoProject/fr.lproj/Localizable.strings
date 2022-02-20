@@ -126,4 +126,6 @@
 "There was an error in |#X#|." = "Il y avait une erreur dans |#X#|.";
 "Meeting over" = "Réunion terminée";
 "Recordings" = "Enregistrements";
+"Error" = "Erreur";
+"File not found" = "Fichier introuvable";
 

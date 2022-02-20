@@ -468,6 +468,9 @@
                                             <constraint firstAttribute="width" constant="375" id="BC0-SC-gzD"/>
                                         </constraints>
                                         <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="audioScrub:" destination="Y6W-OH-hqX" eventType="valueChanged" id="qX4-fm-ORm"/>
+                                        </connections>
                                     </slider>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSH-KW-VND">
                                         <rect key="frame" x="142" y="60.5" width="30" height="30"/>
@@ -480,6 +483,9 @@
                                             <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="playTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6iB-PU-K3i"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQC-YK-fFW">
                                         <rect key="frame" x="242" y="60.5" width="30" height="30"/>
@@ -492,6 +498,9 @@
                                             <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="stopPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="19v-qr-7WQ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.4895300487" green="0.72406735499999997" blue="0.220456019" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -563,12 +572,18 @@
                         <outlet property="medicinesLabel" destination="lxj-gh-D7j" id="j1u-UK-czR"/>
                         <outlet property="meetingTitle" destination="sDF-6F-EXA" id="p0Q-HQ-xuZ"/>
                         <outlet property="monthLabel" destination="Wp4-hK-9Z3" id="cd9-jb-WYt"/>
+                        <outlet property="playButton" destination="GSH-KW-VND" id="pNj-ay-1dp"/>
+                        <outlet property="playCurrentTime" destination="aJp-v8-fTx" id="OgH-vc-SAn"/>
+                        <outlet property="playSlider" destination="UVH-8R-C0N" id="5fu-wb-Vo2"/>
+                        <outlet property="playTotalTime" destination="y7B-dX-BLi" id="ZNy-2c-8q1"/>
+                        <outlet property="playerHeight" destination="yDX-Ul-BkT" id="5co-0i-ubn"/>
                         <outlet property="recordButton" destination="48G-U4-sd4" id="faQ-ng-kde"/>
                         <outlet property="recordingTableHeight" destination="7LT-CO-XUQ" id="igJ-AF-zK6"/>
                         <outlet property="recordingTableView" destination="QxS-O4-LnY" id="mLY-n5-lGL"/>
                         <outlet property="recordingsLabel" destination="Y01-yA-edf" id="wSY-2r-TKP"/>
                         <outlet property="recordingsView" destination="KCB-Dp-yZV" id="hEU-wj-sUG"/>
                         <outlet property="statusLabel" destination="X06-aZ-Aeh" id="VGA-BQ-P5V"/>
+                        <outlet property="stopButton" destination="wQC-YK-fFW" id="65Z-fQ-maM"/>
                         <outlet property="timeLabel" destination="eSk-g2-8Ff" id="L4t-E5-l8S"/>
                         <segue destination="R9x-Tr-DU0" kind="presentation" identifier="goToEdit" id="7hf-tw-yrt"/>
                     </connections>

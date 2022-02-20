@@ -126,3 +126,5 @@
 "There was an error in |#X#|." = "Bei |#X#| ist ein Fehler aufgetreten.";
 "Meeting over" = "Treffen vorbei";
 "Recordings" = "Aufnahmen";
+"Error" = "Fehler";
+"File not found" = "Datei nicht gefunden";

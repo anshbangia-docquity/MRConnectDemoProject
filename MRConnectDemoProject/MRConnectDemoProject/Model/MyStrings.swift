@@ -141,5 +141,7 @@ struct MyStrings {
     static let errorIn = "There was an erro in |#X#|.".localize()
     static let meetingOver = "Meeting over".localize()
     static let recordings = "Recordings".localize()
+    static let error = "Error".localize()
+    static let fileNotFound = "File not found".localize()
     
 }

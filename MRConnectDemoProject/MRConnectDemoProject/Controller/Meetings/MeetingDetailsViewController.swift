@@ -28,6 +28,12 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var recordingTableHeight: NSLayoutConstraint!
     @IBOutlet weak var recordingsLabel: UILabel!
     @IBOutlet weak var recordingsView: UIView!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var playCurrentTime: UILabel!
+    @IBOutlet weak var playTotalTime: UILabel!
+    @IBOutlet weak var playSlider: UISlider!
+    @IBOutlet weak var playerHeight: NSLayoutConstraint!
     
     
     let user = CurrentUser()
@@ -37,11 +43,15 @@ class MeetingDetailsViewController: UIViewController {
     var selectedDoctors: [User] = []
     var medicineSet = Set<Int16>()
     var selectedMedicines: [Medicine] = []
-    var timer: Timer?
+    var statusTimer: Timer?
     let bulletinBoard = BulletinBoard()
     var recordings: [Recording] = []
     
     var audioPlayer: AVAudioPlayer!
+    var isPlaying = false
+    var isPlaybackPaused = false
+    var playerTimer: Timer!
+    var replay = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +62,7 @@ class MeetingDetailsViewController: UIViewController {
         doctorTableView.dataSource = self
         doctorTableView.reloadData()
         doctorTableViewHeight.constant = doctorTableView.contentSize.height
+        doctorTableView.allowsSelection = false
         
         medicineSet = meeting!.medicines!
         selectedMedicines = logic.getMedicines(with: medicineSet)
@@ -59,6 +70,7 @@ class MeetingDetailsViewController: UIViewController {
         medicineTableView.dataSource = self
         medicineTableView.reloadData()
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
+        medicineTableView.allowsSelection = false
         
         recordings = logic.getRecordings(of: meeting!.id)
         recordingsView.isHidden = false
@@ -79,6 +91,10 @@ class MeetingDetailsViewController: UIViewController {
         recordButton.setTitle("  " + MyStrings.recordMeeting, for: .normal)
         
         bulletinBoard.delegate = self
+        
+        stopButton.isEnabled = false
+        playSlider.isEnabled = false
+        playerHeight.constant = 0
         
     }
     
@@ -119,7 +135,7 @@ class MeetingDetailsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadMeetings), name: Notification.Name("reloadMeetings"), object: nil)
         
         configureStatus()
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+        self.statusTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             self.configureStatus()
         })
     }
@@ -149,7 +165,7 @@ class MeetingDetailsViewController: UIViewController {
         }
         
         if date > meeting!.endDate! {
-            timer?.invalidate()
+            statusTimer?.invalidate()
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
@@ -158,14 +174,6 @@ class MeetingDetailsViewController: UIViewController {
     
     @objc func editTapped(sender: UIButton) {
         performSegue(withIdentifier: "goToEdit", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToEdit" {
-            let vc = segue.destination as! MRCreateMeetingViewController
-            vc.edit = true
-            vc.myMeeting = meeting!
-        }
     }
     
     @IBAction func recordMeetingTapped(_ sender: UIButton) {
@@ -202,7 +210,7 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 recordingTableView.reloadData()
                 recordingTableHeight.constant = CGFloat(recordings.count * 50)
             }))
-
+            
             present(confirmAlert, animated: true) {
                 if !result {
                     Alert.showAlert(on: self, notSaved: MyStrings.recording)
@@ -259,10 +267,10 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
             let recording = recordings[indexPath.row]
             
             prepare_to_play(fileName: recording.fileName!)
-            let duration = Float(audioPlayer.duration)
-            let hr = Int((duration / 60) / 60)
-            let min = Int(duration / 60)
-            let sec = Int(duration.truncatingRemainder(dividingBy: 60))
+            let hr: Int
+            let min: Int
+            let sec: Int
+            (hr, min, sec) = calculateDuration(audioPlayer.duration)
             var totalTimeString: String
             if hr == 0 {
                 totalTimeString = String(format: "%02d:%02d", min, sec)
@@ -277,9 +285,151 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let recording = recordings[indexPath.row]
+        let hr: Int
+        let min: Int
+        let sec: Int
+        playerStopped()
+        prepare_to_play(fileName: recording.fileName!)
+        (hr, min, sec) = calculateDuration(audioPlayer.duration)
+        var totalTimeString: String
+        totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+        playTotalTime.text = totalTimeString
+        playerHeight.constant = 100
+        
+        var cell: RecordingsTableViewCell
+        let indexPaths = tableView.indexPathsForVisibleRows
+        for i in indexPaths! {
+            cell = tableView.cellForRow(at: i) as! RecordingsTableViewCell
+            cell.titleLabel.textColor = .black
+            cell.durationLabel.textColor = .black
+        }
+        
+        cell = tableView.cellForRow(at: indexPath) as! RecordingsTableViewCell
+        cell.titleLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+        cell.durationLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+        
+        playSlider.value = 0
+
+        playSlider.isEnabled = true
+        playSlider.maximumValue = Float(audioPlayer.duration)
+        
+        recordButton.isEnabled = false
+        stopButton.isEnabled = true
+        playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        audioPlayer.play()
+        isPlaying = true
+        isPlaybackPaused = false
+        playerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [self] _ in
+            if audioPlayer.isPlaying {
+                let hr: Int
+                let min: Int
+                let sec: Int
+                (hr, min, sec) = calculateDuration(audioPlayer.currentTime)
+                var totalTimeString: String
+                totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+                playCurrentTime.text = totalTimeString
+                playSlider.value = Float(audioPlayer.currentTime)
+            }
+        })
+    }
+    
 }
 
-//MARK: - Reload Tables
+//MARK: - AVAudioPlayerDelegate
+extension MeetingDetailsViewController: AVAudioPlayerDelegate {
+    
+    func prepare_to_play(fileName: String) {
+        let filePath = logic.getDocumentsDirectory().appendingPathComponent(fileName)
+        if FileManager.default.fileExists(atPath: filePath.path) {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: filePath)
+                audioPlayer.delegate = self
+                audioPlayer.prepareToPlay()
+            } catch {
+                Alert.showAlert(on: self, title: MyStrings.error, subtitle: MyStrings.tryAgain)            }
+        } else {
+            Alert.showAlert(on: self, title: MyStrings.fileNotFound, subtitle: MyStrings.tryAgain)
+        }
+    }
+    
+    @IBAction func playTapped(_ sender: UIButton) {
+        if !isPlaying {
+            recordButton.isEnabled = false
+            stopButton.isEnabled = true
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            audioPlayer.play()
+            isPlaying = true
+            isPlaybackPaused = false
+            playerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [self] _ in
+                if audioPlayer.isPlaying {
+                    let hr: Int
+                    let min: Int
+                    let sec: Int
+                    (hr, min, sec) = calculateDuration(audioPlayer.currentTime)
+                    var totalTimeString: String
+                    totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+                    playCurrentTime.text = totalTimeString
+                    playSlider.value = Float(audioPlayer.currentTime)
+                }
+            })
+        } else {
+            if !isPlaybackPaused {
+                audioPlayer.pause()
+                playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                isPlaybackPaused = true
+            } else {
+                playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                audioPlayer.play()
+                isPlaybackPaused = false
+            }
+        }
+    }
+    
+    @IBAction func audioScrub(_ sender: UISlider) {
+        audioPlayer.pause()
+        audioPlayer.currentTime = TimeInterval(playSlider.value)
+        if isPlaying && !isPlaybackPaused {
+            audioPlayer.play()
+        }
+        let hr = Int((audioPlayer.currentTime / 60) / 60)
+        let min = Int(audioPlayer.currentTime / 60)
+        let sec = Int(audioPlayer.currentTime.truncatingRemainder(dividingBy: 60))
+        let totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+        playCurrentTime.text = totalTimeString
+    }
+    
+    @IBAction func stopPressed(_ sender: UIButton) {
+        audioPlayerDidFinishPlaying(audioPlayer, successfully: true)
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        playerStopped()
+        recordButton.isEnabled = true
+        playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        isPlaying = false
+        isPlaybackPaused = false
+        stopButton.isEnabled = false
+        playSlider.value = 0
+    }
+    
+    func playerStopped() {
+        if replay {
+            audioPlayer.stop()
+            audioPlayer.currentTime = 0
+            playerTimer.invalidate()
+            playCurrentTime.text = "00:00:00"
+        } else {
+            replay = true
+        }
+    }
+    
+}
+
+//MARK: - Other
 extension MeetingDetailsViewController {
     
     @objc func reloadMeetings() {
@@ -294,21 +444,22 @@ extension MeetingDetailsViewController {
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
     }
     
-}
-
-//MARK: - AVAudioPlayerDelegate
-extension MeetingDetailsViewController: AVAudioPlayerDelegate {
+    func calculateDuration(_ duration: TimeInterval) -> (Int, Int, Int) {
+        let duration = Float(duration)
+        let hr = Int((duration / 60) / 60)
+        let min = Int(duration / 60)
+        let sec = Int(duration.truncatingRemainder(dividingBy: 60))
+        return (hr, min, sec)
+    }
     
-    func prepare_to_play(fileName: String) {
-        let filePath = logic.getDocumentsDirectory().appendingPathComponent(fileName)
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: filePath)
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-        } catch {
-            print("Error")
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToEdit" {
+            let vc = segue.destination as! MRCreateMeetingViewController
+            vc.edit = true
+            vc.myMeeting = meeting!
         }
     }
     
 }
+
+
