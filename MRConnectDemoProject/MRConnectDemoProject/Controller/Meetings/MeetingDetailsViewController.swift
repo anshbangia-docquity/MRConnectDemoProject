@@ -24,6 +24,10 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var hostLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var recordingTableView: UITableView!
+    @IBOutlet weak var recordingTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var recordingsLabel: UILabel!
+    @IBOutlet weak var recordingsView: UIView!
     
     
     let user = CurrentUser()
@@ -35,6 +39,7 @@ class MeetingDetailsViewController: UIViewController {
     var selectedMedicines: [Medicine] = []
     var timer: Timer?
     let bulletinBoard = BulletinBoard()
+    var recordings: [Recording] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +58,20 @@ class MeetingDetailsViewController: UIViewController {
         medicineTableView.reloadData()
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
         
+        recordings = logic.getRecordings(of: meeting!.id)
+        recordingsView.isHidden = false
+        recordingTableView.delegate = self
+        recordingTableView.dataSource = self
+        if recordings.count != 0 {
+            recordingTableView.reloadData()
+            recordingTableHeight.constant = recordingTableView.contentSize.height
+        } else {
+            recordingsView.isHidden = true
+        }
+        
         doctorsLabel.text = MyStrings.doctors
         medicinesLabel.text = MyStrings.medicines
+        recordingsLabel.text = MyStrings.recordings
         
         recordButton.isHidden = true
         recordButton.setTitle("  " + MyStrings.recordMeeting, for: .normal)
@@ -97,7 +114,7 @@ class MeetingDetailsViewController: UIViewController {
             hostLabel.isHidden = false
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadMeetings), name: Notification.Name("reloadMeetings"), object: nil)
         
         configureStatus()
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
@@ -131,24 +148,14 @@ class MeetingDetailsViewController: UIViewController {
         
         if date > meeting!.endDate! {
             timer?.invalidate()
+            statusLabel.textColor = .lightGray
+            statusLabel.text = MyStrings.meetingOver
         }
         
     }
     
     @objc func editTapped(sender: UIButton) {
         performSegue(withIdentifier: "goToEdit", sender: self)
-    }
-    
-    @objc func handler() {
-        doctorSet = meeting!.doctors!
-        selectedDoctors = logic.getUsers(with: doctorSet)
-        medicineSet = meeting!.medicines!
-        selectedMedicines = logic.getMedicines(with: medicineSet)
-        
-        doctorTableView.reloadData()
-        doctorTableViewHeight.constant = doctorTableView.contentSize.height
-        medicineTableView.reloadData()
-        medicineTableViewHeight.constant = medicineTableView.contentSize.height
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -186,8 +193,12 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 selection.2!.deleteRecording()
             }))
             
-            confirmAlert.addAction(UIAlertAction(title: MyStrings.yes, style: .default, handler: { (action: UIAlertAction!) in
-                result = self.logic.saveRecording(fileName: fileName, meeting: self.meeting!.id)
+            confirmAlert.addAction(UIAlertAction(title: MyStrings.yes, style: .default, handler: { [self] (action: UIAlertAction!) in
+                recordingsView.isHidden = false
+                result = logic.saveRecording(fileName: fileName, meeting: meeting!.id)
+                recordings = logic.getRecordings(of: meeting!.id)
+                recordingTableView.reloadData()
+                recordingTableHeight.constant = recordingTableView.contentSize.height
             }))
 
             present(confirmAlert, animated: true) {
@@ -212,24 +223,60 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == doctorTableView {
             return selectedDoctors.count
-        } else {
+        } else if tableView == medicineTableView {
             return selectedMedicines.count
+        } else {
+            return recordings.count
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        45
+        if tableView == recordingTableView {
+            return 50
+        } else {
+            return 45
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.id) as! DetailsTableViewCell
-        if tableView == doctorTableView {
-            cell.config(title: "Dr. " + selectedDoctors[indexPath.row].name!)
+        var cell = UITableViewCell()
+        
+        if tableView == doctorTableView || tableView == medicineTableView {
+            let myCell = tableView.dequeueReusableCell(withIdentifier: DetailsTableViewCell.id) as! DetailsTableViewCell
+            if tableView == doctorTableView {
+                myCell.config(title: "Dr. " + selectedDoctors[indexPath.row].name!)
+            } else {
+                myCell.config(title: selectedMedicines[indexPath.row].name!)
+            }
+            
+            cell = myCell
         } else {
-            cell.config(title: selectedMedicines[indexPath.row].name!)
+            let myCell = tableView.dequeueReusableCell(withIdentifier: RecordingsTableViewCell.id, for: indexPath) as! RecordingsTableViewCell
+            
+            let recTitle = "Recording \(indexPath.row + 1)"
+            myCell.configure(title: recTitle)
+            
+            cell = myCell
         }
         
         return cell
+    }
+    
+}
+
+//MARK: - Reload Tables
+extension MeetingDetailsViewController {
+    
+    @objc func reloadMeetings() {
+        doctorSet = meeting!.doctors!
+        selectedDoctors = logic.getUsers(with: doctorSet)
+        medicineSet = meeting!.medicines!
+        selectedMedicines = logic.getMedicines(with: medicineSet)
+        
+        doctorTableView.reloadData()
+        doctorTableViewHeight.constant = doctorTableView.contentSize.height
+        medicineTableView.reloadData()
+        medicineTableViewHeight.constant = medicineTableView.contentSize.height
     }
     
 }

@@ -109,13 +109,7 @@ import AVFoundation
         ])
         stopButton.isEnabled = false
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteRecording), name: Notification.Name("deleteRecording"), object: nil)
-        
-        //self.dismissalHandler = nil
-        
         return [view]
-        
-      
     }
     
     public override func onDismiss() {
@@ -126,6 +120,7 @@ import AVFoundation
             audioRecorder = nil
         }
     }
+    
 
 }
 

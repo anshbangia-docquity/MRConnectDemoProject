@@ -124,4 +124,6 @@
 "|#X#| was not saved." = "ABC n'a pas été enregistré.";
 "An error occurred while saving |#X#|." = "Une erreur s'est produite lors de l'enregistrement de |#X#|.";
 "There was an error in |#X#|." = "Il y avait une erreur dans |#X#|.";
+"Meeting over" = "Réunion terminée";
+"Recordings" = "Enregistrements";
 

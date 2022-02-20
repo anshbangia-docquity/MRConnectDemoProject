@@ -335,6 +335,22 @@ extension CoreDataHandler {
 //MARK: - Recording
 extension CoreDataHandler {
     
+    func fetchRecordings(of meeting: Int16) -> [Recording] {
+        var result: [Recording] = []
+        do {
+            let request = Recording.fetchRequest() as NSFetchRequest<Recording>
+            let pred = NSPredicate(format: "meeting == %d", meeting)
+            request.predicate = pred
+            let sort = NSSortDescriptor(key: "fileName", ascending: true)
+            request.sortDescriptors = [sort]
+            
+            result = try PersistentStorage.shared.context.fetch(request)
+        } catch {}
+        
+        return result
+    }
+    
+    //MARK: - Create Recording
     func saveRecording(fileName: String, meeting: Int16) -> Bool {
         let rec = Recording(context: context)
         

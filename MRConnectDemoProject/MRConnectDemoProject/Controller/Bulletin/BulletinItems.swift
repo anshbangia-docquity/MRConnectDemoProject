@@ -99,7 +99,7 @@ struct BulletinItems {
     func makeRecordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, meeting: Int16) -> RecordItem {
         let item = RecordItem(title: MyStrings.recordMeeting)
         item.meeting = meeting
-        item.isDismissable = true
+        item.isDismissable = false
         item.requiresCloseButton = false
         item.saveRecording = { success, fileName, audioRecorder in
             delegate?.doneTapped(board, selection: (success, fileName, audioRecorder), type: .RecordItem)

@@ -226,6 +226,11 @@ extension Logic {
 //MARK: - Recording
 extension Logic {
     
+    func getRecordings(of meeting: Int16) -> [Recording] {
+        return coreDataHandler.fetchRecordings(of: meeting)
+    }
+    
+    //MARK: - Create Recording
     func saveRecording(fileName: String, meeting: Int16) -> Bool {
         return coreDataHandler.saveRecording(fileName: fileName, meeting: meeting)
     }

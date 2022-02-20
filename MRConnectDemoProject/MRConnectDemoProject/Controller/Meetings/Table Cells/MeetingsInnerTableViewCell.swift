@@ -119,6 +119,8 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         
         if date > meeting!.endDate! {
             timer?.invalidate()
+            statusLabel.textColor = .lightGray
+            statusLabel.text = MyStrings.meetingOver
         }
         
     }
