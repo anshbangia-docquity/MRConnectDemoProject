@@ -241,6 +241,7 @@
                                                                                     </constraints>
                                                                                 </tableViewCellContentView>
                                                                                 <connections>
+                                                                                    <outlet property="durationLabel" destination="mPZ-ap-bit" id="0bY-5D-pIm"/>
                                                                                     <outlet property="titleLabel" destination="8TZ-0Y-FcY" id="9ak-GM-JhU"/>
                                                                                 </connections>
                                                                             </tableViewCell>

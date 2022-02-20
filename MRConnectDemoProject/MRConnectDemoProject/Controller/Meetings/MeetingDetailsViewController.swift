@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import AVFAudio
+import AVFoundation
 
 class MeetingDetailsViewController: UIViewController {
     
@@ -41,6 +41,8 @@ class MeetingDetailsViewController: UIViewController {
     let bulletinBoard = BulletinBoard()
     var recordings: [Recording] = []
     
+    var audioPlayer: AVAudioPlayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +66,7 @@ class MeetingDetailsViewController: UIViewController {
         recordingTableView.dataSource = self
         if recordings.count != 0 {
             recordingTableView.reloadData()
-            recordingTableHeight.constant = recordingTableView.contentSize.height
+            recordingTableHeight.constant = CGFloat(recordings.count * 50)
         } else {
             recordingsView.isHidden = true
         }
@@ -198,7 +200,7 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 result = logic.saveRecording(fileName: fileName, meeting: meeting!.id)
                 recordings = logic.getRecordings(of: meeting!.id)
                 recordingTableView.reloadData()
-                recordingTableHeight.constant = recordingTableView.contentSize.height
+                recordingTableHeight.constant = CGFloat(recordings.count * 50)
             }))
 
             present(confirmAlert, animated: true) {
@@ -254,7 +256,20 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
             let myCell = tableView.dequeueReusableCell(withIdentifier: RecordingsTableViewCell.id, for: indexPath) as! RecordingsTableViewCell
             
             let recTitle = "Recording \(indexPath.row + 1)"
-            myCell.configure(title: recTitle)
+            let recording = recordings[indexPath.row]
+            
+            prepare_to_play(fileName: recording.fileName!)
+            let duration = Float(audioPlayer.duration)
+            let hr = Int((duration / 60) / 60)
+            let min = Int(duration / 60)
+            let sec = Int(duration.truncatingRemainder(dividingBy: 60))
+            var totalTimeString: String
+            if hr == 0 {
+                totalTimeString = String(format: "%02d:%02d", min, sec)
+            } else {
+                totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+            }
+            myCell.configure(title: recTitle, duration: totalTimeString)
             
             cell = myCell
         }
@@ -277,6 +292,23 @@ extension MeetingDetailsViewController {
         doctorTableViewHeight.constant = doctorTableView.contentSize.height
         medicineTableView.reloadData()
         medicineTableViewHeight.constant = medicineTableView.contentSize.height
+    }
+    
+}
+
+//MARK: - AVAudioPlayerDelegate
+extension MeetingDetailsViewController: AVAudioPlayerDelegate {
+    
+    func prepare_to_play(fileName: String) {
+        let filePath = logic.getDocumentsDirectory().appendingPathComponent(fileName)
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: filePath)
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+        } catch {
+            print("Error")
+        }
     }
     
 }
