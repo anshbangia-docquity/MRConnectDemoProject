@@ -34,7 +34,7 @@
                                     <constraint firstItem="qL4-hg-TTj" firstAttribute="centerX" secondItem="4mQ-hS-Iip" secondAttribute="centerX" id="gDy-5C-4CK"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Of4-40-tZK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Of4-40-tZK">
                                 <rect key="frame" x="20" y="165" width="374" height="648"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
@@ -98,7 +98,6 @@
                                                         <constraint firstItem="jI6-4f-p2K" firstAttribute="leading" secondItem="6wy-hO-3xb" secondAttribute="trailing" constant="20" id="0YT-kd-ZQn"/>
                                                         <constraint firstItem="6wy-hO-3xb" firstAttribute="leading" secondItem="k4P-ke-WGU" secondAttribute="leading" constant="10" id="1ZA-9H-PJr"/>
                                                         <constraint firstItem="W2P-4t-L8H" firstAttribute="leading" secondItem="jI6-4f-p2K" secondAttribute="leading" id="8vK-hC-cbP"/>
-                                                        <constraint firstAttribute="height" constant="70" id="Blb-1W-Kcs"/>
                                                         <constraint firstItem="W2P-4t-L8H" firstAttribute="top" secondItem="jI6-4f-p2K" secondAttribute="bottom" constant="5" id="CbN-9z-TvF"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZfU-80-59W" secondAttribute="trailing" constant="2" id="X2T-bf-rAd"/>
                                                         <constraint firstItem="ZfU-80-59W" firstAttribute="leading" secondItem="fv7-cf-5oD" secondAttribute="leading" id="ZcA-4j-B70"/>
@@ -145,7 +144,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
                                         <connections>
-                                            <action selector="searchButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="w4g-0D-oLh"/>
+                                            <action selector="searchButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KCG-1c-ZZD"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CmI-f8-KnM">
@@ -197,7 +196,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="noDocs" destination="cQK-vw-fMr" id="C0T-vS-9Qm"/>
-                        <outlet property="searchField" destination="CmI-f8-KnM" id="bQU-f4-ERN"/>
+                        <outlet property="searchField" destination="CmI-f8-KnM" id="F6W-tK-c1Z"/>
                         <outlet property="tableView" destination="Of4-40-tZK" id="oC2-fq-syU"/>
                         <outlet property="titleLabel" destination="qL4-hg-TTj" id="JHm-1r-MTR"/>
                         <segue destination="P0J-Zb-UE1" kind="show" identifier="goToDetails" id="nZn-kN-xuX"/>
@@ -215,8 +214,8 @@
                         <imageReference key="image" image="stethoscope" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ThI-pG-Ph5">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ThI-pG-Ph5">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>

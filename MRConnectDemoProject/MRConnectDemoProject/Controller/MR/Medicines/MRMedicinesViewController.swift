@@ -26,6 +26,7 @@ class MRMedicinesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchField.delegate = self
+        tableView.allowsSelection = false
 
         titleLabel.text = MyStrings.medicines
         searchField.placeholder = MyStrings.search

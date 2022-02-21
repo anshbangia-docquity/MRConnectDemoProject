@@ -34,7 +34,7 @@
                                     <constraint firstItem="Fie-5i-aoU" firstAttribute="centerX" secondItem="i7T-Y9-2jQ" secondAttribute="centerX" id="iN6-yD-QFS"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gWw-2o-Uq1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gWw-2o-Uq1">
                                 <rect key="frame" x="20" y="165" width="374" height="648"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
@@ -80,7 +80,6 @@
                                                         <constraint firstItem="sDU-Xw-ieD" firstAttribute="leading" secondItem="lea-oD-xKG" secondAttribute="leading" id="4a4-EF-EPA"/>
                                                         <constraint firstItem="lea-oD-xKG" firstAttribute="leading" secondItem="b3v-f3-n0z" secondAttribute="trailing" constant="20" id="50t-2j-ekC"/>
                                                         <constraint firstItem="lea-oD-xKG" firstAttribute="top" secondItem="b3v-f3-n0z" secondAttribute="top" id="Nx9-Zw-QXP"/>
-                                                        <constraint firstAttribute="height" constant="70" id="fyg-kE-zro"/>
                                                         <constraint firstItem="0Do-j7-sri" firstAttribute="centerY" secondItem="lea-oD-xKG" secondAttribute="centerY" id="iFm-YJ-kY5"/>
                                                         <constraint firstItem="b3v-f3-n0z" firstAttribute="leading" secondItem="C4s-3h-c0y" secondAttribute="leading" constant="10" id="ldr-rJ-1ju"/>
                                                         <constraint firstItem="0Do-j7-sri" firstAttribute="leading" secondItem="lea-oD-xKG" secondAttribute="trailing" constant="5" id="wCV-nD-yu1"/>
