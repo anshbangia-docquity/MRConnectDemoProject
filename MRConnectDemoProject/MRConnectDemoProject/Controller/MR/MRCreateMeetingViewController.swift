@@ -159,6 +159,10 @@ class MRCreateMeetingViewController: UIViewController {
         
         let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
         let endDate = logic.combineDateTime(date: datePicker.date, time: endTimePicker.date)
+        if Date() > startDate {
+            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
+            return
+        }
         
         if edit {
             let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
