@@ -101,8 +101,8 @@ struct BulletinItems {
         item.meeting = meeting
         item.isDismissable = false
         item.requiresCloseButton = false
-        item.saveRecording = { success, fileName, audioRecorder in
-            delegate?.doneTapped(board, selection: (success, fileName, audioRecorder), type: .RecordItem)
+        item.saveRecording = { result, fileName, audioRecorder in
+            delegate?.doneTapped(board, selection: (result, fileName, audioRecorder), type: .RecordItem)
         }
         
         return item

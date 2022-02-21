@@ -192,8 +192,8 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
     
     func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         bulletinBoard.boardManager?.dismissBulletin()
-        let selection = selection as! (Bool, String?, AVAudioRecorder?)
-        if selection.0 {
+        let selection = selection as! (RecordResult, String?, AVAudioRecorder?)
+        if selection.0 == .success {
             let fileName = selection.1!
             var result = true
             
@@ -216,7 +216,7 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                     Alert.showAlert(on: self, notSaved: MyStrings.recording)
                 }
             }
-        } else {
+        } else if selection.0 == .fail {
             Alert.showAlert(on: self, error: MyStrings.recording)
         }
     }

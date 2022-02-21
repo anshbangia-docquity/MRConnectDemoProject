@@ -9,6 +9,12 @@ import UIKit
 import BLTNBoard
 import AVFoundation
 
+enum RecordResult {
+    case success
+    case fail
+    case cancel
+}
+
 @objc public class RecordItem: BLTNPageItem {
     
     public var timeLabel: UILabel!
@@ -16,6 +22,7 @@ import AVFoundation
     public var animateView1: UIView!
     public var animateView2: UIView!
     public var stopButton: UIButton!
+    public var cancelButton: UIButton!
     
     var audioRecorder: AVAudioRecorder!
     var timer: Timer!
@@ -25,7 +32,7 @@ import AVFoundation
     var recordingFileName: String?
     var logic = Logic()
     var meeting: Int16 = -1
-    @objc public var saveRecording: ((Bool, String?, AVAudioRecorder?) -> Void)? = nil
+    var saveRecording: ((RecordResult, String?, AVAudioRecorder?) -> Void)? = nil
     
     var anim1constraint: NSLayoutConstraint!
     var anim2constraint: NSLayoutConstraint!
@@ -109,18 +116,22 @@ import AVFoundation
         ])
         stopButton.isEnabled = false
         
+        cancelButton = UIButton(frame: view.frame)
+        view.addSubview(cancelButton)
+        cancelButton.configuration = .plain()
+        cancelButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        cancelButton.tintColor = .darkGray
+        cancelButton.addTarget(self, action: #selector(cancelPressed), for: .touchUpInside)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: timeLabel.topAnchor, constant: 0),
+            cancelButton.widthAnchor.constraint(equalToConstant: 20),
+            cancelButton.heightAnchor.constraint(equalToConstant: 20),
+            cancelButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0)
+        ])
+        
         return [view]
     }
-    
-    public override func onDismiss() {
-        if isRecording {
-            audioRecorder.stop()
-            timer.invalidate()
-            audioRecorder.deleteRecording()
-            audioRecorder = nil
-        }
-    }
-    
 
 }
 
@@ -158,8 +169,6 @@ extension RecordItem {
     }
     
     @objc func recordPressed() {
-        //super.isDismissable = false
-        
         if isRecording == false {
             setup_recorder()
             audioRecorder.record()
@@ -167,6 +176,7 @@ extension RecordItem {
             timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true, block: {_ in self.updateAudioTimer()})
             recordButton.setImage(UIImage(systemName: "pause"), for: .normal)
             stopButton.isEnabled = true
+            cancelButton.isEnabled = false
             isRecording = true
             isRecordingPaused = false
             
@@ -188,7 +198,12 @@ extension RecordItem {
     @objc func stopPressed() {
         stopRecording(success: true)
         
-        saveRecording?(true, recordingFileName, audioRecorder)
+        saveRecording?(.success, recordingFileName, audioRecorder)
+        audioRecorder = nil
+    }
+    
+    @objc func cancelPressed() {
+        saveRecording?(.cancel, recordingFileName, audioRecorder)
         audioRecorder = nil
     }
     
@@ -209,7 +224,7 @@ extension RecordItem {
             
             resetAnimation()
         } else {
-            saveRecording?(false, nil, nil)
+            saveRecording?(.fail, nil, nil)
         }
     }
 }

@@ -10,7 +10,7 @@ import BLTNBoard
 
 struct Alert {
     
-    static func showAlert(title: String, subtitle: String) -> UIAlertController {
+    private static func showAlert(title: String, subtitle: String) -> UIAlertController {
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         let submitButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
         alert.addAction(submitButton)
