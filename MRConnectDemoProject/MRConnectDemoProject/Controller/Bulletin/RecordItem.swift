@@ -151,7 +151,7 @@ extension RecordItem {
     func setup_recorder() {
         let session = AVAudioSession.sharedInstance()
         do {
-            try session.setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
             try session.setActive(true, options: .notifyOthersOnDeactivation)
             let settings = [
                 AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
