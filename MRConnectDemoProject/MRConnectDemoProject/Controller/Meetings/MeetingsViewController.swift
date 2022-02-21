@@ -12,6 +12,7 @@ class MeetingsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var meetingTableView: UITableView!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var noMeetings: UILabel!
     
     var logic = Logic()
     var meetingDates: [String: [Meeting]] = [:]
@@ -41,6 +42,7 @@ class MeetingsViewController: UIViewController {
         } else {
             meetings = logic.fetchMeetings(for: user.email)
         }
+        updateNoMeetings(meetings)
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()
@@ -60,6 +62,7 @@ class MeetingsViewController: UIViewController {
         } else {
             meetings = logic.fetchMeetings(for: user.email)
         }
+        updateNoMeetings(meetings)
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()
@@ -108,6 +111,20 @@ extension MeetingsViewController {
         if segue.identifier == "goToDetails" {
             let vc = segue.destination as! MeetingDetailsViewController
             vc.meeting = tappedMeeting
+        }
+    }
+    
+}
+
+//MARK: - Other
+extension MeetingsViewController {
+    
+    func updateNoMeetings(_ meetings: [Meeting]) {
+        if meetings.count == 0 {
+            noMeetings.isHidden = false
+            noMeetings.text = MyStrings.noMeetings
+        } else {
+            noMeetings.isHidden = true
         }
     }
     

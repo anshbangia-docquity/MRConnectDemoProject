@@ -143,5 +143,8 @@ struct MyStrings {
     static let recordings = "Recordings".localize()
     static let error = "Error".localize()
     static let fileNotFound = "File not found".localize()
+    static let noMeds = "No Medicines".localize()
+    static let noDocs = "No Doctors".localize()
+    static let noMeetings = "No Meetings".localize()
     
 }
