@@ -52,6 +52,8 @@ class MeetingDetailsViewController: UIViewController {
     var playerTimer: Timer!
     var replay = false
     var playerOn = false
+    var durationPlayer: AVAudioPlayer!
+    var selectedRow = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -268,11 +270,11 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
             let recTitle = "Recording \(indexPath.row + 1)"
             let recording = recordings[indexPath.row]
             
-            prepare_to_play(fileName: recording.fileName!)
+            prepare_duration_player(fileName: recording.fileName!)
             let hr: Int
             let min: Int
             let sec: Int
-            (hr, min, sec) = calculateDuration(audioPlayer.duration)
+            (hr, min, sec) = calculateDuration(durationPlayer.duration)
             var totalTimeString: String
             if hr == 0 {
                 totalTimeString = String(format: "%02d:%02d", min, sec)
@@ -281,6 +283,14 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
             }
             myCell.configure(title: recTitle, duration: totalTimeString)
             
+            myCell.titleLabel.textColor = .black
+            myCell.durationLabel.textColor = .black
+            if indexPath.row == selectedRow {
+                myCell.titleLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+                myCell.durationLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
+            }
+            
+            
             cell = myCell
         }
         
@@ -288,6 +298,7 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         
         let recording = recordings[indexPath.row]
@@ -302,7 +313,7 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
         playTotalTime.text = totalTimeString
         
         if !playerOn {
-            UIView.animate(withDuration: 0.5) { [self] in
+            UIView.animate(withDuration: 0.25) { [self] in
                 playerHeight.constant = 100
                 view.layoutIfNeeded()
             }
@@ -360,6 +371,20 @@ extension MeetingDetailsViewController: AVAudioPlayerDelegate {
                 audioPlayer = try AVAudioPlayer(contentsOf: filePath)
                 audioPlayer.delegate = self
                 audioPlayer.prepareToPlay()
+            } catch {
+                Alert.showAlert(on: self, title: MyStrings.error, subtitle: MyStrings.tryAgain)            }
+        } else {
+            Alert.showAlert(on: self, title: MyStrings.fileNotFound, subtitle: MyStrings.tryAgain)
+        }
+    }
+    
+    func prepare_duration_player(fileName: String) {
+        let filePath = logic.getDocumentsDirectory().appendingPathComponent(fileName)
+        if FileManager.default.fileExists(atPath: filePath.path) {
+            do {
+                durationPlayer = try AVAudioPlayer(contentsOf: filePath)
+                durationPlayer.delegate = self
+                durationPlayer.prepareToPlay()
             } catch {
                 Alert.showAlert(on: self, title: MyStrings.error, subtitle: MyStrings.tryAgain)            }
         } else {
