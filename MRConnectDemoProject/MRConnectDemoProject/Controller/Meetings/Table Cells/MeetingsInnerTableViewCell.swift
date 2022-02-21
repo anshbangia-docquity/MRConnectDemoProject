@@ -20,6 +20,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var img3: UIImageView!
     @IBOutlet weak var moreView: UIView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var recsLabel: UILabel!
     
     var meeting: Meeting?
     var logic = Logic()
@@ -92,6 +93,9 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             self.configureStatus()
         })
         //}
+        
+        updateRecordingCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
     }
     
     func configureStatus() {
@@ -123,6 +127,21 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             statusLabel.text = MyStrings.meetingOver
         }
         
+        if date >= meeting!.startDate! {
+            recsLabel.isHidden = false
+        } else {
+            recsLabel.isHidden = true
+        }
+        
+    }
+    
+    @objc func updateRecordingCount() {
+        let recsCount = logic.getRecordings(of: meeting!.id).count
+        if recsCount == 1 {
+            recsLabel.text = "1 " + MyStrings.recording.lowercased()
+        } else {
+            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
+        }
     }
     
 }

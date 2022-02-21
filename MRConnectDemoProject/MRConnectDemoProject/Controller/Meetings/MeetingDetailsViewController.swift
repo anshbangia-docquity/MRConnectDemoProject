@@ -210,7 +210,7 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 recordingTableView.reloadData()
                 recordingTableHeight.constant = CGFloat(recordings.count * 50)
                 
-                
+                NotificationCenter.default.post(name: Notification.Name("recordingAdded"), object: nil)
             }))
             
             present(confirmAlert, animated: true) {

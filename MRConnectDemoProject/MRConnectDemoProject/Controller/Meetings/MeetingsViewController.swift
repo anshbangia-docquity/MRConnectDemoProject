@@ -22,6 +22,7 @@ class MeetingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        meetingTableView.allowsMultipleSelection = true
         
         meetingTableView.delegate = self
         meetingTableView.dataSource = self
@@ -87,12 +88,18 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
         h *= 115
         h += 25 + 75
         
-        let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell
-        guard let cell = cell else {
-            return 25 + 75
-        }
+//        let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell
+//        guard let cell = cell else {
+//            return 25 + 75
+//        }
+//
+//        if cell.isExpanded {
+//            return CGFloat(h)
+//        } else {
+//            return 25 + 75
+//        }
         
-        if cell.isExpanded {
+        if let selectedRows = tableView.indexPathsForSelectedRows, selectedRows.contains(indexPath) {
             return CGFloat(h)
         } else {
             return 25 + 75
@@ -103,28 +110,40 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: MeetingsOuterTableViewCell.id, for: indexPath) as! MeetingsOuterTableViewCell
         
         let meetings = meetingDates[dates[indexPath.row]]!
-        cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting) {
-            if !cell.isExpanded {
-                cell.arrow.image = UIImage(systemName: "chevron.down")
-                
-                cell.isExpanded = true
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            } else {
-                cell.arrow.image = UIImage(systemName: "chevron.right")
-                
-                cell.isExpanded = false
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            }
-        }
+        cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting)
+//        {
+//            if !cell.isExpanded {
+//                cell.arrow.image = UIImage(systemName: "chevron.down")
+//                
+//                cell.isExpanded = true
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+//            } else {
+//                cell.arrow.image = UIImage(systemName: "chevron.right")
+//                
+//                cell.isExpanded = false
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+//            }
+//        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        print("HELLOOOO")
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        let cell = tableView.cellForRow(at: indexPath) as! MeetingsOuterTableViewCell
+        cell.arrow.image = UIImage(systemName: "chevron.down")
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        let cell = tableView.cellForRow(at: indexPath) as! MeetingsOuterTableViewCell
+        cell.arrow.image = UIImage(systemName: "chevron.right")
     }
     
     func openMeeting(_ meeting: Meeting) {

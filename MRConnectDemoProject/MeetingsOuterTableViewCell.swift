@@ -24,11 +24,11 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     var logic = Logic()
     var tappedMeeting: Meeting?
     var openMeeting: ((_ meeting: Meeting) -> Void)?
-    var isExpanded = false
+    //var isExpanded = false
     
-    var expandMeetings: (() -> Void)?
+    //var expandMeetings: (() -> Void)?
     
-    func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void, expandFunc: @escaping () -> Void) {
+    func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void) {
         
         meetingTable.layer.cornerRadius = 15
         meetingTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -79,12 +79,18 @@ class MeetingsOuterTableViewCell: UITableViewCell {
             meetingNum.text = "\(meetings.count) " + MyStrings.meetings.lowercased()
         }
         
-        expandMeetings = expandFunc
+        //expandMeetings = expandFunc
+        
+        //isExpanded = false
+        arrow.image = UIImage(systemName: "chevron.right")
     }
     
-    @IBAction func expandButtonTapped(_ sender: UIButton) {
-        expandMeetings!()
-    }
+//    @IBAction func expandButtonTapped(_ sender: UIButton) {
+//        //expandMeetings!()
+//    }
+    
+   
+    
     
 }
 
