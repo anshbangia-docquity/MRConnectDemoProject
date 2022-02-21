@@ -34,6 +34,7 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var playTotalTime: UILabel!
     @IBOutlet weak var playSlider: UISlider!
     @IBOutlet weak var playerHeight: NSLayoutConstraint!
+    @IBOutlet weak var recordButtonAndPlayer: NSLayoutConstraint!
     
     let user = CurrentUser()
     var meeting: Meeting?
@@ -97,6 +98,7 @@ class MeetingDetailsViewController: UIViewController {
         stopButton.isEnabled = false
         playSlider.isEnabled = false
         playerHeight.constant = 0
+        recordButtonAndPlayer.constant = 30
         
     }
     
@@ -314,13 +316,13 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
         
         if !playerOn {
             UIView.animate(withDuration: 0.25) { [self] in
-                playerHeight.constant = 100
+                playerHeight.constant = 120
+                recordButtonAndPlayer.constant = 20
                 view.layoutIfNeeded()
             }
         } else {
             playerOn = true
         }
-        playerHeight.constant = 100
         
         var cell: RecordingsTableViewCell
         let indexPaths = tableView.indexPathsForVisibleRows

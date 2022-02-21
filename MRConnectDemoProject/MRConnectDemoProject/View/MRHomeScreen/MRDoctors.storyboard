@@ -231,7 +231,7 @@
         <!--Doctor Details View Controller-->
         <scene sceneID="XFm-n4-1Xu">
             <objects>
-                <viewController id="P0J-Zb-UE1" customClass="MRDoctorDetailsViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="P0J-Zb-UE1" customClass="MRDoctorDetailsViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HWu-Yb-uOJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

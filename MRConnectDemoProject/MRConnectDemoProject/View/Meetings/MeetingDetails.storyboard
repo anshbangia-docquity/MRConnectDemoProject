@@ -12,7 +12,7 @@
         <!--Meeting Details View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="MeetingDetailsViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="Y6W-OH-hqX" customClass="MeetingDetailsViewController" customModule="MRConnectDemoProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +88,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGB-qB-BoT">
-                                <rect key="frame" x="0.0" y="100" width="414" height="662"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="676"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Y5-Iv-jF8" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1096.5"/>
@@ -448,7 +448,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlL-At-qn2" userLabel="Player">
-                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="776" width="414" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJp-v8-fTx">
                                         <rect key="frame" x="10" y="10" width="71" height="20.5"/>
@@ -508,7 +508,7 @@
                                     <constraint firstItem="wQC-YK-fFW" firstAttribute="centerY" secondItem="GSH-KW-VND" secondAttribute="centerY" id="94L-id-Vsd"/>
                                     <constraint firstAttribute="trailing" secondItem="y7B-dX-BLi" secondAttribute="trailing" constant="10" id="DPw-ro-EJM"/>
                                     <constraint firstItem="UVH-8R-C0N" firstAttribute="top" secondItem="aJp-v8-fTx" secondAttribute="bottom" constant="5" id="Gri-HU-5L8"/>
-                                    <constraint firstAttribute="height" constant="100" id="P6A-vh-PZf"/>
+                                    <constraint firstAttribute="height" constant="120" id="P6A-vh-PZf"/>
                                     <constraint firstItem="UVH-8R-C0N" firstAttribute="centerX" secondItem="nlL-At-qn2" secondAttribute="centerX" id="SLP-FC-rdK"/>
                                     <constraint firstItem="aJp-v8-fTx" firstAttribute="leading" secondItem="nlL-At-qn2" secondAttribute="leading" constant="10" id="Z7d-gr-br2"/>
                                     <constraint firstItem="y7B-dX-BLi" firstAttribute="top" secondItem="nlL-At-qn2" secondAttribute="top" constant="10" id="a3E-YD-dNT"/>
@@ -519,7 +519,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48G-U4-sd4">
-                                <rect key="frame" x="256" y="702" width="138" height="40"/>
+                                <rect key="frame" x="261" y="706" width="138" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ugc-QQ-Mtw"/>
                                 </constraints>
@@ -545,8 +545,8 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="CGB-qB-BoT" secondAttribute="trailing" id="DHI-jk-7ZB"/>
                             <constraint firstItem="nlL-At-qn2" firstAttribute="top" secondItem="CGB-qB-BoT" secondAttribute="bottom" id="E8k-vk-8E1"/>
-                            <constraint firstItem="nlL-At-qn2" firstAttribute="top" secondItem="48G-U4-sd4" secondAttribute="bottom" constant="20" id="N4p-VG-N2l"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="48G-U4-sd4" secondAttribute="trailing" constant="20" id="QDU-AL-ZoD"/>
+                            <constraint firstItem="nlL-At-qn2" firstAttribute="top" secondItem="48G-U4-sd4" secondAttribute="bottom" constant="30" id="N4p-VG-N2l"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="48G-U4-sd4" secondAttribute="trailing" constant="15" id="QDU-AL-ZoD"/>
                             <constraint firstAttribute="trailing" secondItem="vfy-WT-0y5" secondAttribute="trailing" id="crH-ZP-lSW"/>
                             <constraint firstItem="CGB-qB-BoT" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="lCo-yw-bPS"/>
                             <constraint firstItem="vfy-WT-0y5" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="na9-SG-iLv"/>
@@ -557,7 +557,7 @@
                             <constraint firstItem="ulX-or-ptJ" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="usc-Tk-vYK"/>
                             <constraint firstItem="ulX-or-ptJ" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="xlh-aj-MyI"/>
                             <constraint firstItem="vfy-WT-0y5" firstAttribute="top" secondItem="ulX-or-ptJ" secondAttribute="bottom" id="xq6-7M-VIy"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="nlL-At-qn2" secondAttribute="top" constant="100" id="yDX-Ul-BkT"/>
+                            <constraint firstAttribute="bottom" secondItem="nlL-At-qn2" secondAttribute="top" constant="120" id="yDX-Ul-BkT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -578,6 +578,7 @@
                         <outlet property="playTotalTime" destination="y7B-dX-BLi" id="ZNy-2c-8q1"/>
                         <outlet property="playerHeight" destination="yDX-Ul-BkT" id="5co-0i-ubn"/>
                         <outlet property="recordButton" destination="48G-U4-sd4" id="faQ-ng-kde"/>
+                        <outlet property="recordButtonAndPlayer" destination="N4p-VG-N2l" id="K59-pq-7Nn"/>
                         <outlet property="recordingTableHeight" destination="7LT-CO-XUQ" id="igJ-AF-zK6"/>
                         <outlet property="recordingTableView" destination="QxS-O4-LnY" id="mLY-n5-lGL"/>
                         <outlet property="recordingsLabel" destination="Y01-yA-edf" id="wSY-2r-TKP"/>

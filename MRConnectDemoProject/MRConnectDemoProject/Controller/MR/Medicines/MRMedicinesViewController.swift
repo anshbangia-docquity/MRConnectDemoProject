@@ -20,6 +20,7 @@ class MRMedicinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         medicines = logic.getMedicines()
         updateNoMeds()
         
