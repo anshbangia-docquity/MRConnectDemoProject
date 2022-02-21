@@ -209,6 +209,8 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 recordings = logic.getRecordings(of: meeting!.id)
                 recordingTableView.reloadData()
                 recordingTableHeight.constant = CGFloat(recordings.count * 50)
+                
+                
             }))
             
             present(confirmAlert, animated: true) {

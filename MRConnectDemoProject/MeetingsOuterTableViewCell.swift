@@ -17,13 +17,18 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     @IBOutlet weak var dateTimeView: UIView!
     @IBOutlet weak var meetingTable: UITableView!
     @IBOutlet weak var meetingTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var meetingNum: UILabel!
+    @IBOutlet weak var arrow: UIImageView!
     
     var meetings: [Meeting] = []
     var logic = Logic()
     var tappedMeeting: Meeting?
     var openMeeting: ((_ meeting: Meeting) -> Void)?
+    var isExpanded = false
     
-    func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void) {
+    var expandMeetings: (() -> Void)?
+    
+    func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void, expandFunc: @escaping () -> Void) {
         
         meetingTable.layer.cornerRadius = 15
         meetingTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -48,22 +53,37 @@ class MeetingsOuterTableViewCell: UITableViewCell {
             dateLabel.textColor = .black
             monthLabel.textColor = .black
             dayLabel.textColor = .black
+            meetingNum.textColor = .darkGray
         } else {
             dateTimeView.backgroundColor = .white
             dateLabel.textColor = .black
             monthLabel.textColor = .black
             dayLabel.textColor = .black
+            meetingNum.textColor = .gray
         }
         
         meetingTable.delegate = self
         meetingTable.dataSource = self
         
         meetingTable.reloadData()
+        meetingTableHeight.constant = 0
         meetingTableHeight.constant = CGFloat((meetings.count * 115))
         
 //        let _ = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { _ in
 //            NotificationCenter.default.post(name: Notification.Name("oneSecond"), object: nil)
 //        }
+        
+        if meetings.count == 1 {
+            meetingNum.text = "\(meetings.count) " + MyStrings.meeting.lowercased()
+        } else {
+            meetingNum.text = "\(meetings.count) " + MyStrings.meetings.lowercased()
+        }
+        
+        expandMeetings = expandFunc
+    }
+    
+    @IBAction func expandButtonTapped(_ sender: UIButton) {
+        expandMeetings!()
     }
     
 }

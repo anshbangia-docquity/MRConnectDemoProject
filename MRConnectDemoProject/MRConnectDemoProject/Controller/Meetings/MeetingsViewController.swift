@@ -82,19 +82,49 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var h = meetingDates[dates[indexPath.row]]!.count
+        let meetings = meetingDates[dates[indexPath.row]]!
+        var h = meetings.count
         h *= 115
-        h += 25 + 55
-        return CGFloat(h)
+        h += 25 + 75
+        
+        let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell
+        guard let cell = cell else {
+            return 25 + 75
+        }
+        
+        if cell.isExpanded {
+            return CGFloat(h)
+        } else {
+            return 25 + 75
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MeetingsOuterTableViewCell.id, for: indexPath) as! MeetingsOuterTableViewCell
         
         let meetings = meetingDates[dates[indexPath.row]]!
-        cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting)
+        cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting) {
+            if !cell.isExpanded {
+                cell.arrow.image = UIImage(systemName: "chevron.down")
+                
+                cell.isExpanded = true
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            } else {
+                cell.arrow.image = UIImage(systemName: "chevron.right")
+                
+                cell.isExpanded = false
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+        }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print("HELLOOOO")
     }
     
     func openMeeting(_ meeting: Meeting) {
