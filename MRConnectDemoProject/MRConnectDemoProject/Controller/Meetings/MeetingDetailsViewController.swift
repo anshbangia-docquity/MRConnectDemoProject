@@ -35,7 +35,6 @@ class MeetingDetailsViewController: UIViewController {
     @IBOutlet weak var playSlider: UISlider!
     @IBOutlet weak var playerHeight: NSLayoutConstraint!
     
-    
     let user = CurrentUser()
     var meeting: Meeting?
     var logic = Logic()
@@ -52,6 +51,7 @@ class MeetingDetailsViewController: UIViewController {
     var isPlaybackPaused = false
     var playerTimer: Timer!
     var replay = false
+    var playerOn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -298,6 +298,15 @@ extension MeetingDetailsViewController: UITableViewDelegate, UITableViewDataSour
         var totalTimeString: String
         totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
         playTotalTime.text = totalTimeString
+        
+        if !playerOn {
+            UIView.animate(withDuration: 0.5) { [self] in
+                playerHeight.constant = 100
+                view.layoutIfNeeded()
+            }
+        } else {
+            playerOn = true
+        }
         playerHeight.constant = 100
         
         var cell: RecordingsTableViewCell
