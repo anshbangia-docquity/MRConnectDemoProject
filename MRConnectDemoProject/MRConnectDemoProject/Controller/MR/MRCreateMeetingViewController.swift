@@ -328,18 +328,22 @@ extension MRCreateMeetingViewController {
     
     func reloadDoctorTable() {
         doctorTableView.reloadData()
-        doctorTableViewHeight.constant = doctorTableView.contentSize.height
-        if doctorTableViewHeight.constant > 175 {
-            doctorTableViewHeight.constant = 175
+        let count = CGFloat(doctors.count)
+        if count >= 0 && count <= 2 {
+            doctorTableViewHeight.constant = count * 90
+            return
         }
+        doctorTableViewHeight.constant = (2 * 90) + 45
     }
     
     func reloadMedicineTable() {
         medicineTableView.reloadData()
-        medicineTableViewHeight.constant = medicineTableView.contentSize.height
-        if medicineTableViewHeight.constant > 150 {
-            medicineTableViewHeight.constant = 150
+        let count = CGFloat(medicines.count)
+        if count >= 0 && count <= 2 {
+            medicineTableViewHeight.constant = count * 50
+            return
         }
+        medicineTableViewHeight.constant = (2 * 50) + 25
     }
     
     func reloadDoctorCollection() {
