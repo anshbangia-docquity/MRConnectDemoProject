@@ -56,6 +56,18 @@ class MeetingDetailsViewController: UIViewController {
     var durationPlayer: AVAudioPlayer!
     var selectedRow = -1
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("pleaseee")
+        statusTimer?.invalidate()
+        statusTimer = nil
+        
+        playerStopped()
+        playerTimer = nil
+        audioPlayer = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -172,6 +184,7 @@ class MeetingDetailsViewController: UIViewController {
             statusTimer?.invalidate()
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
+            recordButton.isHidden = true
         }
         
     }

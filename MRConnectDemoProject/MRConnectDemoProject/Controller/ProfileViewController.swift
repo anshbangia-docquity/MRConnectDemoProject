@@ -36,6 +36,10 @@ class ProfileViewController: UIViewController {
     let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
+    deinit {
+        print("uhhhh")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)

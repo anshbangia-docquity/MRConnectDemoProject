@@ -28,6 +28,18 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     var selectedDoctors: [User] = []
     var timer: Timer?
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    deinit {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     func configure(myMeeting: Meeting) {
         meeting = myMeeting
         titleLabel.text = meeting?.title
@@ -123,6 +135,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         
         if date > meeting!.endDate! {
             timer?.invalidate()
+            timer = nil
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
