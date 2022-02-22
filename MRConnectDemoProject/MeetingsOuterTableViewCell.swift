@@ -31,9 +31,9 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void) {
         
         meetingTable.layer.cornerRadius = 15
-        meetingTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        meetingTable.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         dateTimeView.layer.cornerRadius = 15
-        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         meetings = myMeetings
         openMeeting = handler
         logic.dateFormatter.dateFormat = "MMM d, yyyy"

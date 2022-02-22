@@ -99,11 +99,13 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
 //            return 25 + 75
 //        }
         
+        //guard let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell else { return 25 + 75 }
         if let selectedRows = tableView.indexPathsForSelectedRows, selectedRows.contains(indexPath) {
             return CGFloat(h)
         } else {
             return 25 + 75
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
