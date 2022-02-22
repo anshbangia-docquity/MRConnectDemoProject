@@ -42,7 +42,8 @@ class BulletinBoard {
         case .CheckPassword:
             item = bulletinItem.makeCheckPasswordItem(delegate, board: self)
         case .RecordItem:
-            item = bulletinItem.makeRecordItem(delegate, board: self, meeting: info as! Int16)
+            let info = info as! (Int16, Date)
+            item = bulletinItem.makeRecordItem(delegate, board: self, meetingId: info.0, endDate: info.1)
         default:
             break
         }

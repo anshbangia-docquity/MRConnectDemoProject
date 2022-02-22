@@ -199,7 +199,7 @@ class MeetingDetailsViewController: UIViewController {
             return
         }
         
-        bulletinBoard.define(of: .RecordItem, additional: meeting!.id)
+        bulletinBoard.define(of: .RecordItem, additional: (meeting!.id, meeting!.endDate!))
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
 }

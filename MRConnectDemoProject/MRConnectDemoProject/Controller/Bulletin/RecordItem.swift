@@ -31,7 +31,8 @@ enum RecordResult {
     var isRecordingPaused = false
     var recordingFileName: String?
     var logic = Logic()
-    var meeting: Int16 = -1
+    var meetingId: Int16 = -1
+    var endDate: Date!
     var saveRecording: ((RecordResult, String?, AVAudioRecorder?) -> Void)? = nil
     
     var anim1constraint: NSLayoutConstraint!
@@ -141,7 +142,7 @@ extension RecordItem {
     func getNewFileUrl() -> URL {
         logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
         let dateStr = logic.dateFormatter.string(from: Date())
-        let filename = "meeting_\(meeting)_recording_" + dateStr + ".m4a"
+        let filename = "meeting_\(meetingId)_recording_" + dateStr + ".m4a"
         let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
         recordingFileName = filename
         print(filePath)
@@ -281,6 +282,10 @@ extension RecordItem {
             
             animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
             animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
+            
+            if endDate < Date() {
+                stopPressed()
+            }
         }
     }
     
