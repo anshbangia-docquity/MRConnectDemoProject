@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 struct Logic {
     
@@ -222,6 +223,20 @@ extension Logic {
     
 }
 
+//MARK: - Recording
+extension Logic {
+    
+    func getRecordings(of meeting: Int16) -> [Recording] {
+        return coreDataHandler.fetchRecordings(of: meeting)
+    }
+    
+    //MARK: - Create Recording
+    func saveRecording(fileName: String, meeting: Int16) -> Bool {
+        return coreDataHandler.saveRecording(fileName: fileName, meeting: meeting)
+    }
+    
+}
+
 //MARK: - Other
 extension Logic {
     
@@ -235,6 +250,45 @@ extension Logic {
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
         let date = dateFormatter.date(from: dateTimeStr)!
         return date
+    }
+    
+    func checkRecordPermission() -> Bool {
+        var res = false
+        
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSession.RecordPermission.granted:
+            return true
+        case AVAudioSession.RecordPermission.denied:
+            return false
+        case AVAudioSession.RecordPermission.undetermined: AVAudioSession.sharedInstance().requestRecordPermission { allowed in
+            if allowed {
+                res = true
+            } else {
+                res = false
+            }
+        }
+        default:
+            break
+        }
+        return res
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getAudioTime(time: TimeInterval) -> (Int, Int, Int) {
+        var time = time
+        let hr = Int(time / 3600)
+        time = time.truncatingRemainder(dividingBy: 3600)
+        let min = Int(time / 60)
+        time = time.truncatingRemainder(dividingBy: 60)
+        let sec = Int(time)
+        
+        return (hr, min, sec)
+        
     }
     
 }

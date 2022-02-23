@@ -10,7 +10,7 @@ import BLTNBoard
 
 struct Alert {
     
-    static func showAlert(title: String, subtitle: String) -> UIAlertController {
+    private static func showAlert(title: String, subtitle: String) -> UIAlertController {
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         let submitButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
         alert.addAction(submitButton)
@@ -35,6 +35,14 @@ struct Alert {
     
     static func showAlert(on viewController: UIViewController, notUpdated: String) {
         viewController.present(Alert.showAlert(title: MyStrings.notUpdatedTitle.replacingOccurrences(of: "|#X#|", with: notUpdated), subtitle: MyStrings.notUpdatedSubtitle.replacingOccurrences(of: "|#X#|", with: notUpdated)), animated: true, completion: nil)
+    }
+    
+    static func showAlert(on viewController: UIViewController, notSaved: String) {
+        viewController.present(Alert.showAlert(title: MyStrings.notSavedTitle.replacingOccurrences(of: "|#X#|", with: notSaved), subtitle: MyStrings.notSavedSubtitle.replacingOccurrences(of: "|#X#|", with: notSaved)), animated: true, completion: nil)
+    }
+    
+    static func showAlert(on viewController: UIViewController, error: String) {
+        viewController.present(Alert.showAlert(title: MyStrings.errorIn.replacingOccurrences(of: "|#X#|", with: error), subtitle: MyStrings.tryAgain), animated: true, completion: nil)
     }
 
 }

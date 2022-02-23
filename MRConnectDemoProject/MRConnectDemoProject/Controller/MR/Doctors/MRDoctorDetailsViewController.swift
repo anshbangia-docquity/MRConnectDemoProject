@@ -31,36 +31,37 @@ class MRDoctorDetailsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.profileImage.image = UIImage(data: img)
             }
-            
-            nameLabel.text = "Dr. \(doctor!.name!)"
-            specLabel.text = Specialities.specialities[doctor!.speciality]
-            emailLabel.text = doctor!.email
-            contactLabel.text = doctor!.contact
-            officeLabel.text = MyStrings.office
-            qualiLabel.text = MyStrings.quali
-            expLabel.text = MyStrings.exp
-            
-            if doctor!.office!.isEmpty {
-                officeTextView.text = MyStrings.notSpecified
-                officeTextView.textColor = .systemGray3
-            } else {
-                officeTextView.text = doctor!.office
-            }
-            
-            if doctor!.quali!.isEmpty {
-                qualiTextView.text = MyStrings.notSpecified
-                qualiTextView.textColor = .systemGray3
-            } else {
-                qualiTextView.text = doctor!.quali
-            }
-            
-            if doctor!.exp!.isEmpty {
-                expTextView.text = MyStrings.notSpecified
-                expTextView.textColor = .systemGray3
-            } else {
-                expTextView.text = doctor!.exp
-            }
+        }
+        
+        nameLabel.text = "Dr. \(doctor!.name!)"
+        specLabel.text = Specialities.specialities[doctor!.speciality]
+        emailLabel.text = doctor!.email
+        contactLabel.text = doctor!.contact
+        officeLabel.text = MyStrings.office
+        qualiLabel.text = MyStrings.quali
+        expLabel.text = MyStrings.exp
+        
+        if doctor!.office!.isEmpty {
+            officeTextView.text = MyStrings.notSpecified
+            officeTextView.textColor = .systemGray3
+        } else {
+            officeTextView.text = doctor!.office
+        }
+        
+        if doctor!.quali!.isEmpty {
+            qualiTextView.text = MyStrings.notSpecified
+            qualiTextView.textColor = .systemGray3
+        } else {
+            qualiTextView.text = doctor!.quali
+        }
+        
+        if doctor!.exp!.isEmpty {
+            expTextView.text = MyStrings.notSpecified
+            expTextView.textColor = .systemGray3
+        } else {
+            expTextView.text = doctor!.exp
         }
     }
-    
 }
+
+

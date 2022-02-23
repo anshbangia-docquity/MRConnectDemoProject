@@ -17,18 +17,23 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     @IBOutlet weak var dateTimeView: UIView!
     @IBOutlet weak var meetingTable: UITableView!
     @IBOutlet weak var meetingTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var meetingNum: UILabel!
+    @IBOutlet weak var arrow: UIImageView!
     
     var meetings: [Meeting] = []
     var logic = Logic()
     var tappedMeeting: Meeting?
     var openMeeting: ((_ meeting: Meeting) -> Void)?
+    //var isExpanded = false
+    
+    //var expandMeetings: (() -> Void)?
     
     func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void) {
         
         meetingTable.layer.cornerRadius = 15
-        meetingTable.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        meetingTable.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         dateTimeView.layer.cornerRadius = 15
-        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         meetings = myMeetings
         openMeeting = handler
         logic.dateFormatter.dateFormat = "MMM d, yyyy"
@@ -38,6 +43,7 @@ class MeetingsOuterTableViewCell: UITableViewCell {
         dateLabel.text = logic.dateFormatter.string(from: date)
         logic.dateFormatter.dateFormat = "MMM"
         monthLabel.text = logic.dateFormatter.string(from: date)
+ 
         logic.dateFormatter.dateFormat = "EEEE"
         dayLabel.text = logic.dateFormatter.string(from: date)
         if dayLabel.text! == logic.dateFormatter.string(from: Date())
@@ -47,19 +53,44 @@ class MeetingsOuterTableViewCell: UITableViewCell {
             dateLabel.textColor = .black
             monthLabel.textColor = .black
             dayLabel.textColor = .black
+            meetingNum.textColor = .darkGray
         } else {
             dateTimeView.backgroundColor = .white
             dateLabel.textColor = .black
             monthLabel.textColor = .black
             dayLabel.textColor = .black
+            meetingNum.textColor = .gray
         }
         
         meetingTable.delegate = self
         meetingTable.dataSource = self
         
         meetingTable.reloadData()
+        meetingTableHeight.constant = 0
         meetingTableHeight.constant = CGFloat((meetings.count * 115))
+        
+//        let _ = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { _ in
+//            NotificationCenter.default.post(name: Notification.Name("oneSecond"), object: nil)
+//        }
+        
+        if meetings.count == 1 {
+            meetingNum.text = "\(meetings.count) " + MyStrings.meeting.lowercased()
+        } else {
+            meetingNum.text = "\(meetings.count) " + MyStrings.meetings.lowercased()
+        }
+        
+        //expandMeetings = expandFunc
+        
+        //isExpanded = false
+        arrow.image = UIImage(systemName: "chevron.right")
     }
+    
+//    @IBAction func expandButtonTapped(_ sender: UIButton) {
+//        //expandMeetings!()
+//    }
+    
+   
+    
     
 }
 
@@ -83,8 +114,18 @@ extension MeetingsOuterTableViewCell: UITableViewDelegate, UITableViewDataSource
         
         cell.configure(myMeeting: meetings[indexPath.row])
         
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.oneSecond(cell:)), name: Notification.Name("oneSecond"), object: nil)
+        
+//        NotificationCenter.default.addObserver(forName: Notification.Name("oneSecond"), object: nil, queue: nil) { _ in
+//            cell.configureStatus()
+//        }
+        
         return cell
     }
+    
+//    @objc func oneSecond(cell: MeetingsInnerTableViewCell) {
+//        cell.configureStatus()
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

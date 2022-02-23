@@ -12,6 +12,7 @@ class MeetingsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var meetingTableView: UITableView!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var noMeetings: UILabel!
     
     var logic = Logic()
     var meetingDates: [String: [Meeting]] = [:]
@@ -21,6 +22,7 @@ class MeetingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        meetingTableView.allowsMultipleSelection = true
         
         meetingTableView.delegate = self
         meetingTableView.dataSource = self
@@ -41,6 +43,7 @@ class MeetingsViewController: UIViewController {
         } else {
             meetings = logic.fetchMeetings(for: user.email)
         }
+        updateNoMeetings(meetings)
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()
@@ -60,6 +63,7 @@ class MeetingsViewController: UIViewController {
         } else {
             meetings = logic.fetchMeetings(for: user.email)
         }
+        updateNoMeetings(meetings)
         (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
         DispatchQueue.main.async {
             self.meetingTableView.reloadData()
@@ -79,10 +83,29 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var h = meetingDates[dates[indexPath.row]]!.count
+        let meetings = meetingDates[dates[indexPath.row]]!
+        var h = meetings.count
         h *= 115
-        h += 25 + 55
-        return CGFloat(h)
+        h += 25 + 75
+        
+//        let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell
+//        guard let cell = cell else {
+//            return 25 + 75
+//        }
+//
+//        if cell.isExpanded {
+//            return CGFloat(h)
+//        } else {
+//            return 25 + 75
+//        }
+        
+        //guard let cell = tableView.cellForRow(at: indexPath) as? MeetingsOuterTableViewCell else { return 25 + 75 }
+        if let selectedRows = tableView.indexPathsForSelectedRows, selectedRows.contains(indexPath) {
+            return CGFloat(h)
+        } else {
+            return 25 + 75
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,8 +113,39 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let meetings = meetingDates[dates[indexPath.row]]!
         cell.configure(myMeetings: meetings, dateStr: dates[indexPath.row], handler: openMeeting)
+//        {
+//            if !cell.isExpanded {
+//                cell.arrow.image = UIImage(systemName: "chevron.down")
+//                
+//                cell.isExpanded = true
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+//            } else {
+//                cell.arrow.image = UIImage(systemName: "chevron.right")
+//                
+//                cell.isExpanded = false
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+//            }
+//        }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        let cell = tableView.cellForRow(at: indexPath) as! MeetingsOuterTableViewCell
+        cell.arrow.image = UIImage(systemName: "chevron.down")
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        let cell = tableView.cellForRow(at: indexPath) as! MeetingsOuterTableViewCell
+        cell.arrow.image = UIImage(systemName: "chevron.right")
     }
     
     func openMeeting(_ meeting: Meeting) {
@@ -108,6 +162,20 @@ extension MeetingsViewController {
         if segue.identifier == "goToDetails" {
             let vc = segue.destination as! MeetingDetailsViewController
             vc.meeting = tappedMeeting
+        }
+    }
+    
+}
+
+//MARK: - Other
+extension MeetingsViewController {
+    
+    func updateNoMeetings(_ meetings: [Meeting]) {
+        if meetings.count == 0 {
+            noMeetings.isHidden = false
+            noMeetings.text = MyStrings.noMeetings
+        } else {
+            noMeetings.isHidden = true
         }
     }
     

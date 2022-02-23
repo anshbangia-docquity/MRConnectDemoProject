@@ -12,6 +12,7 @@ class MRDoctorsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var noDocs: UILabel!
     
     let logic = Logic()
     var doctors: [User] = []
@@ -21,6 +22,7 @@ class MRDoctorsViewController: UIViewController {
         super.viewDidLoad()
         
         doctors = logic.getDoctors()
+        updateNoDocs()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -102,11 +104,27 @@ extension MRDoctorsViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchField.text == "" {
             doctors = logic.getDoctors()
+            updateNoDocs()
         } else {
             doctors = logic.getDoctors(contains: searchField.text!)
+            updateNoDocs()
         }
 
         tableView.reloadData()
+    }
+    
+}
+
+//MARK: - Other
+extension MRDoctorsViewController {
+    
+    func updateNoDocs() {
+        if doctors.count == 0 {
+            noDocs.isHidden = false
+            noDocs.text = MyStrings.noDocs
+        } else {
+            noDocs.isHidden = true
+        }
     }
     
 }

@@ -14,15 +14,12 @@ import Firebase
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let context = PersistentStorage.shared.context
-    let userDefault = UserDefaultManager.shared.defaults
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done".localize()
         
-        FirebaseApp.configure()
+        //FirebaseApp.configure()
         
         return true
     }

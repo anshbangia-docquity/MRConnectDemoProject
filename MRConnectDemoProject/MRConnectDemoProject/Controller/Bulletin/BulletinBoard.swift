@@ -15,6 +15,7 @@ enum BulletinTypes {
     case ChangeName
     case CheckPassword
     case ChangePassword
+    case RecordItem
     
 }
 
@@ -27,19 +28,22 @@ class BulletinBoard {
     var boardManager: BLTNItemManager?
     var delegate: BulletinBoardDelegate?
 
-    func define(of type: BulletinTypes) {
+    func define(of type: BulletinTypes, additional info: Any? = nil) {
         let bulletinItem = BulletinItems()
         
         var item: BLTNPageItem?
         switch type {
         case .SpeckPicker:
-            item = bulletinItem.makeSpeckPickerItem(delegate!, board: self)
+            item = bulletinItem.makeSpeckPickerItem(delegate, board: self)
         case .ChangeNumber:
-            item = bulletinItem.makeChangeNumber(delegate!, board: self)
+            item = bulletinItem.makeChangeNumber(delegate, board: self)
         case .ChangeName:
-            item = bulletinItem.makeChangeNameItem(delegate!, board: self)
+            item = bulletinItem.makeChangeNameItem(delegate, board: self)
         case .CheckPassword:
-            item = bulletinItem.makeCheckPasswordItem(delegate!, board: self)
+            item = bulletinItem.makeCheckPasswordItem(delegate, board: self)
+        case .RecordItem:
+            let info = info as! (Int16, Date)
+            item = bulletinItem.makeRecordItem(delegate, board: self, meetingId: info.0, endDate: info.1)
         default:
             break
         }
@@ -49,3 +53,5 @@ class BulletinBoard {
     }
 
 }
+
+

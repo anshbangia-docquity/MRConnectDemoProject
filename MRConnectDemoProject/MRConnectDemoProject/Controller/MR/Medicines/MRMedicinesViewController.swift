@@ -12,6 +12,7 @@ class MRMedicinesViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var noMeds: UILabel!
     
     let logic = Logic()
     var medicines: [Medicine] = []
@@ -19,11 +20,14 @@ class MRMedicinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         medicines = logic.getMedicines()
+        updateNoMeds()
         
         tableView.delegate = self
         tableView.dataSource = self
         searchField.delegate = self
+        tableView.allowsSelection = false
 
         titleLabel.text = MyStrings.medicines
         searchField.placeholder = MyStrings.search
@@ -42,6 +46,7 @@ class MRMedicinesViewController: UIViewController {
     
     @objc func medAdded() {
         medicines = logic.getMedicines()
+        updateNoMeds()
         tableView.reloadData()
     }
     
@@ -96,11 +101,27 @@ extension MRMedicinesViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchField.text == "" {
             medicines = logic.getMedicines()
+            updateNoMeds()
         } else {
             medicines = logic.getMedicines(contains: textField.text!)
+            updateNoMeds()
         }
 
         tableView.reloadData()
+    }
+    
+}
+
+//MARK: - Other
+extension MRMedicinesViewController {
+    
+    func updateNoMeds() {
+        if medicines.count == 0 {
+            noMeds.isHidden = false
+            noMeds.text = MyStrings.noMeds
+        } else {
+            noMeds.isHidden = true
+        }
     }
     
 }

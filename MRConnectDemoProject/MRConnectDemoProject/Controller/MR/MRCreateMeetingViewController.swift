@@ -159,6 +159,10 @@ class MRCreateMeetingViewController: UIViewController {
         
         let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
         let endDate = logic.combineDateTime(date: datePicker.date, time: endTimePicker.date)
+        if Date() > startDate {
+            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
+            return
+        }
         
         if edit {
             let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
@@ -324,18 +328,22 @@ extension MRCreateMeetingViewController {
     
     func reloadDoctorTable() {
         doctorTableView.reloadData()
-        doctorTableViewHeight.constant = doctorTableView.contentSize.height
-        if doctorTableViewHeight.constant > 175 {
-            doctorTableViewHeight.constant = 175
+        let count = CGFloat(doctors.count)
+        if count >= 0 && count <= 2 {
+            doctorTableViewHeight.constant = count * 90
+            return
         }
+        doctorTableViewHeight.constant = (2 * 90) + 45
     }
     
     func reloadMedicineTable() {
         medicineTableView.reloadData()
-        medicineTableViewHeight.constant = medicineTableView.contentSize.height
-        if medicineTableViewHeight.constant > 150 {
-            medicineTableViewHeight.constant = 150
+        let count = CGFloat(medicines.count)
+        if count >= 0 && count <= 2 {
+            medicineTableViewHeight.constant = count * 50
+            return
         }
+        medicineTableViewHeight.constant = (2 * 50) + 25
     }
     
     func reloadDoctorCollection() {
