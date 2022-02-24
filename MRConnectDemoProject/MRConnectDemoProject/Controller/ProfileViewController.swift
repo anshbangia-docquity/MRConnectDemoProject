@@ -7,6 +7,8 @@
 
 import UIKit
 import BLTNBoard
+import FirebaseAuth
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
     
@@ -36,12 +38,82 @@ class ProfileViewController: UIViewController {
     let bulletinBoard = BulletinBoard()
     let logic = Logic()
     
-    deinit {
-        print("uhhhh")
-    }
+    let database = Firestore.firestore()
+    var userCollecRef: CollectionReference!
+    var userDocRef: DocumentReference!
+    let auth = FirebaseAuth.Auth.auth()
+    
+    //var userDict: [String: Any] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userCollecRef = database.collection("Users")
+        userDocRef = userCollecRef.document(auth.currentUser!.uid)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userDocRef.getDocument {[weak self] snapshot, error in
+            guard error == nil, let data = snapshot?.data() else { return }
+            let userDict = data
+            
+            
+            //nameLabel.text = user?.name
+            self?.nameLabel.text = userDict["name"] as? String
+            //emailLabel.text = user?.email
+            self?.emailLabel.text = userDict["email"] as? String
+            //contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
+            self?.contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: userDict["contact"] as! String)
+            
+            //if user?.type == .Doctor {
+            if userDict["type"] as! Int == Int(UserType.Doctor.rawValue) {
+                self?.officeView.isHidden = false
+                self?.qualiView.isHidden = false
+                self?.expView.isHidden = false
+    
+                self?.officeLabel.text = MyStrings.office
+                self?.qualiLabel.text = MyStrings.quali
+                self?.expLabel.text = MyStrings.exp
+                
+                let office = userDict["office"] as? String
+                //if user!.office.isEmpty {
+                if office == nil || (office != nil && office!.isEmpty) {
+                    self?.officeTextView.text = MyStrings.addOffice
+                    self?.officeTextView.textColor = .systemGray3
+                } else {
+                    //officeTextView.text = user?.office
+                    self?.officeTextView.text = userDict["office"] as? String
+                    self?.officeTextView.textColor = .black
+                }
+    
+                let quali = userDict["quali"] as? String
+                //if user!.quali.isEmpty {
+                if quali == nil || (quali != nil && quali!.isEmpty) {
+                    self?.qualiTextView.text = MyStrings.addQuali
+                    self?.qualiTextView.textColor = .systemGray3
+                } else {
+                    //qualiTextView.text = user?.quali
+                    self?.qualiTextView.text = userDict["quali"] as? String
+                    self?.qualiTextView.textColor = .black
+                }
+    
+                let exp = userDict["exp"] as? String
+                //if user!.exp.isEmpty {
+                if exp == nil || (exp != nil && exp!.isEmpty) {
+                    self?.expTextView.text = MyStrings.addExp
+                    self?.expTextView.textColor = .systemGray3
+                } else {
+                    //expTextView.text = user?.exp
+                    self?.expTextView.text = userDict["exp"] as? String
+                    self?.expTextView.textColor = .black
+                }
+            } else {
+                self?.officeView.isHidden = true
+                self?.qualiView.isHidden = true
+                self?.expView.isHidden = true
+            }
+        }
+        
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         
         titleLabel.text = MyStrings.profile
@@ -59,9 +131,7 @@ class ProfileViewController: UIViewController {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         
-        nameLabel.text = user?.name
-        emailLabel.text = user?.email
-        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
+        
         
         bulletinBoard.delegate = self
         
@@ -73,43 +143,7 @@ class ProfileViewController: UIViewController {
         officeTextView.delegate = self
         qualiTextView.delegate = self
         expTextView.delegate = self
-        if user?.type == .Doctor {
-            officeView.isHidden = false
-            qualiView.isHidden = false
-            expView.isHidden = false
-            
-            officeLabel.text = MyStrings.office
-            qualiLabel.text = MyStrings.quali
-            expLabel.text = MyStrings.exp
-            
-            if user!.office.isEmpty {
-                officeTextView.text = MyStrings.addOffice
-                officeTextView.textColor = .systemGray3
-            } else {
-                officeTextView.text = user?.office
-                officeTextView.textColor = .black
-            }
-            
-            if user!.quali.isEmpty {
-                qualiTextView.text = MyStrings.addQuali
-                qualiTextView.textColor = .systemGray3
-            } else {
-                qualiTextView.text = user?.quali
-                qualiTextView.textColor = .black
-            }
-            
-            if user!.exp.isEmpty {
-                expTextView.text = MyStrings.addExp
-                expTextView.textColor = .systemGray3
-            } else {
-                expTextView.text = user?.exp
-                expTextView.textColor = .black
-            }
-        } else {
-            officeView.isHidden = true
-            qualiView.isHidden = true
-            expView.isHidden = true
-        }
+
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
@@ -127,14 +161,16 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func changePassTapped(_ sender: UIButton) {
-        bulletinBoard.define(of: .CheckPassword)
+        bulletinBoard.define(of: .CheckPassword, additional: emailLabel.text!)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
         logic.logOut()
+        try? auth.signOut()
         
         user = nil
+        //userDict = [:]
         self.presentingViewController?.dismiss(animated: true, completion:nil)
     }
     
@@ -187,12 +223,21 @@ extension ProfileViewController: UITextViewDelegate {
         case officeTextView:
             let _ = logic.updateOffice(email: user!.email, office: entry)
             userDefault.setValue(entry, forKey: "userOffice")
+            userDocRef.setData([
+                "office": entry
+            ], merge: true)
         case qualiTextView:
             let _ = logic.updateQuali(email: user!.email, quali: entry)
             userDefault.setValue(entry, forKey: "userQuali")
+            userDocRef.setData([
+                "quali": entry
+            ], merge: true)
         default:
             let _ = logic.updateExp(email: user!.email, exp: entry)
             userDefault.setValue(entry, forKey: "userExp")
+            userDocRef.setData([
+                "exp": entry
+            ], merge: true)
         }
     }
     
@@ -218,6 +263,9 @@ extension ProfileViewController: BulletinBoardDelegate {
     
     func nameChanged(newName: String) {
         let result = logic.updateName(email: user!.email, newName: newName)
+        userDocRef.setData([
+            "name": newName
+        ], merge: true)
         if result == false {
             Alert.showAlert(on: self, notUpdated: MyStrings.name)
             return
@@ -228,6 +276,9 @@ extension ProfileViewController: BulletinBoardDelegate {
     
     func numberChanged(newNum: String) {
         let result = logic.updateNumber(email: user!.email, newNum: newNum)
+        userDocRef.setData([
+            "contact": newNum
+        ], merge: true)
         if result == false {
             Alert.showAlert(on: self, notUpdated: MyStrings.contact)
             return
@@ -244,6 +295,10 @@ extension ProfileViewController: BulletinBoardDelegate {
         
         confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
             result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
+            self.userDocRef.setData([
+                "password": newPass
+            ], merge: true)
+            self.auth.currentUser?.updatePassword(to: newPass, completion: nil)
             pass = newPass
         }))
 

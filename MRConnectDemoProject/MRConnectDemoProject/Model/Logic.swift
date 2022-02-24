@@ -102,7 +102,7 @@ extension Logic {
         userDefault.removeObject(forKey: "userQuali")
         userDefault.removeObject(forKey: "userExp")
 
-        userDefault.setValue(true, forKey: "authenticate")
+        //userDefault.setValue(true, forKey: "authenticate")
     }
     
     //MARK: - Update

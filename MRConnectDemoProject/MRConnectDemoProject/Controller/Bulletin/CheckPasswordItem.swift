@@ -7,11 +7,13 @@
 
 import UIKit
 import BLTNBoard
+import FirebaseAuth
 
 @objc public class CheckPasswordItem: BLTNPageItem {
 
     public lazy var passField = UITextField()
-    @objc public var textInputHandler: ((CheckPasswordItem) -> Void)? = nil
+    //@objc public var textInputHandler: ((CheckPasswordItem) -> Void)? = nil
+    var email: String?
         
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         passField.placeholder = MyStrings.password
@@ -29,8 +31,19 @@ import BLTNBoard
     }
     
     override public func actionButtonTapped(sender: UIButton) {
-        passField.endEditing(true)
-        super.actionButtonTapped(sender: sender)
+        //if (textField.text ?? "") != CurrentUser().password {
+        
+        let credentials = EmailAuthProvider.credential(withEmail: email!, password: passField.text ?? "")
+        FirebaseAuth.Auth.auth().currentUser?.reauthenticate(with: credentials, completion: { result, error in
+            guard error == nil else {
+                self.descriptionLabel!.textColor = .red
+                self.descriptionLabel!.text = MyStrings.invalidPassword
+                self.passField.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+                return
+            }
+            
+            super.actionButtonTapped(sender: sender)
+        })
     }
     
     override public func tearDown() {
@@ -45,21 +58,6 @@ extension CheckPasswordItem: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return true
-    }
-    
-    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if (textField.text ?? "") != CurrentUser().password {
-            descriptionLabel!.textColor = .red
-            descriptionLabel!.text = MyStrings.invalidPassword
-            textField.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-            return false
-        } else {
-            return true
-        }
-    }
-    
-    public func textFieldDidEndEditing(_ textField: UITextField) {
-        textInputHandler?(self)
     }
     
 }

@@ -40,7 +40,8 @@ class BulletinBoard {
         case .ChangeName:
             item = bulletinItem.makeChangeNameItem(delegate, board: self)
         case .CheckPassword:
-            item = bulletinItem.makeCheckPasswordItem(delegate, board: self)
+            let info = info as! String
+            item = bulletinItem.makeCheckPasswordItem(delegate, board: self, email: info)
         case .RecordItem:
             let info = info as! (Int16, Date)
             item = bulletinItem.makeRecordItem(delegate, board: self, meetingId: info.0, endDate: info.1)

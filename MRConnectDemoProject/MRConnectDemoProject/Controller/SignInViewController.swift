@@ -141,6 +141,8 @@ class SignUpViewController: UIViewController {
             //Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
             print("Core Data SignUp Failed")
             //return
+        } else {
+            let _ = logic.logIn(email: emailField.text!, password: passField.text!)
         }
         
         Auth.auth().createUser(withEmail: emailField.text!, password: passField.text!) { result, error in

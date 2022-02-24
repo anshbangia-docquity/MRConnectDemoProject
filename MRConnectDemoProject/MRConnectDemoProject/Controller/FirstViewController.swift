@@ -18,34 +18,53 @@ class FirstViewController: UIViewController {
     
     let logic = Logic()
     
-    var handle: AuthStateDidChangeListenerHandle?
+    //var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        try? auth.signOut()
+   //     try? auth.signOut()
         usersCollectionRef = database.collection("Users")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        handle = auth.addStateDidChangeListener { _, user in
-//            guard let self = self else { return }
-            if user == nil {
-                self.performSegue(withIdentifier: "goToLoginSignup", sender: self)
-            } else {
-//                print("login done")
-//                return
-                guard let user = user else { return }
-                self.userDocRef = self.usersCollectionRef.document(user.uid)
-                
-                var type: UserType?
-                self.userDocRef.getDocument { snapshot, error in
-                    guard error == nil, let userData = snapshot?.data() else { return }
-                    guard let userType = userData["type"] as? Int16 else { return }
-                    type = UserType(rawValue: userType)
-                }
-                
+//        handle = auth.addStateDidChangeListener { _, user in
+////            guard let self = self else { return }
+//            if user == nil {
+//                self.performSegue(withIdentifier: "goToLoginSignup", sender: self)
+//            } else {
+////                print("login done")
+////                return
+//                guard let user = user else { return }
+//                self.userDocRef = self.usersCollectionRef.document(user.uid)
+//
+//                var type: UserType?
+//                self.userDocRef.getDocument { snapshot, error in
+//                    guard error == nil, let userData = snapshot?.data() else { return }
+//                    guard let userType = userData["type"] as? Int16 else { return }
+//                    type = UserType(rawValue: userType)
+//                }
+//
+//                if let type = type {
+//                    if type == .MRUser {
+//                        self.performSegue(withIdentifier: "logInMR", sender: self)
+//                    } else {
+//                        self.performSegue(withIdentifier: "logInDoctor", sender: self)
+//                    }
+//                }
+//            }
+//        }
+        if auth.currentUser == nil {
+            self.performSegue(withIdentifier: "goToLoginSignup", sender: self)
+        } else {
+            guard let user = auth.currentUser else { return }
+            self.userDocRef = self.usersCollectionRef.document(user.uid)
+
+            self.userDocRef.getDocument { snapshot, error in
+                guard error == nil, let userData = snapshot?.data() else { return }
+                guard let userType = userData["type"] as? Int16 else { return }
+                let type = UserType(rawValue: userType)
                 if let type = type {
                     if type == .MRUser {
                         self.performSegue(withIdentifier: "logInMR", sender: self)
@@ -58,8 +77,9 @@ class FirstViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        guard let handle = handle else { return }
-        auth.removeStateDidChangeListener(handle)
+        super.viewDidDisappear(animated)
+//        guard let handle = handle else { return }
+//        auth.removeStateDidChangeListener(handle)
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
