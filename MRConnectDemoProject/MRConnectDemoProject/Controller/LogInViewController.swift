@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LogInViewController: UIViewController {
 
@@ -14,8 +15,9 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
-    let userDefault = UserDefaultManager.shared.defaults
+    //let userDefault = UserDefaultManager.shared.defaults
     var logic = Logic()
+    let auth = FirebaseAuth.Auth.auth()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +47,14 @@ class LogInViewController: UIViewController {
             return
         }
         
-        let result = logic.logIn(email: emailField.text!, password: passwordField.text!)
-        if result == false {
-            Alert.showAlert(on: self, title: MyStrings.invalidEmailOrPass, subtitle: MyStrings.checkCredentials)
-            return
+        auth.signIn(withEmail: emailField.text!, password: passwordField.text!) { result, error in
+            guard error == nil else {
+                Alert.showAlert(on: self, title: MyStrings.invalidEmailOrPass, subtitle: MyStrings.checkCredentials)
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
         }
-        
-        userDefault.setValue(false, forKey: "authenticate")
-        
-        dismiss(animated: true, completion: nil)
     }
     
 }
