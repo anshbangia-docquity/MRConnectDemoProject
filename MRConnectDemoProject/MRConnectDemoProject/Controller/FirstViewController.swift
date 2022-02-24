@@ -6,50 +6,50 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseFirestore
 
 class FirstViewController: UIViewController {
     
-    let userDefault = UserDefaultManager.shared.defaults
+    let auth = FirebaseAuth.Auth.auth()
+    let database = Firestore.firestore()
+    var usersCollectionRef: CollectionReference!
+    var userDocRef: DocumentReference!
     
-//    let database = Firestore.firestore()
+    let logic = Logic()
     
-//    func saveData(text: String) {
-//        let docRef = database.document("docquity/example")
-//        docRef.setData(["text": text])
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let docRef = database.document("docquity/example")
-//        docRef.addSnapshotListener { snapshot, error in
-//            guard let data = snapshot?.data(), error == nil else { return }
-//
-//            print(data)
-//        }
-        
-
-        
-        if let authenticate = userDefault.value(forKey: "authenticate") as? Bool {
-            if authenticate {
-                performSegue(withIdentifier: "goToLoginSignup", sender: self)
-            } else {
-                if CurrentUser().type == .MRUser {
-                    performSegue(withIdentifier: "logInMR", sender: self)
-                } else {
-                    performSegue(withIdentifier: "logInDoctor", sender: self)
-                }
-            }
-        } else {
-            performSegue(withIdentifier: "goToLoginSignup", sender: self)
-        }
+        usersCollectionRef = database.collection("Users")
     }
     
-//    func xyz() {
-//        let text = "ansh"
-//        saveData(text: text)
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if auth.currentUser == nil {
+            performSegue(withIdentifier: "goToLoginSignup", sender: self)
+            return
+        }
+        
+        guard let user = auth.currentUser else { return }
+        userDocRef = usersCollectionRef.document(user.uid)
+        
+        var type: UserType?
+        userDocRef.getDocument { snapshot, error in
+            guard error == nil, let userData = snapshot?.data() else { return }
+            guard let userType = userData["type"] as? Int16 else { return }
+            type = UserType(rawValue: userType)
+        }
+        
+        if let type = type {
+            if type == .MRUser {
+                performSegue(withIdentifier: "logInMR", sender: self)
+            } else {
+                performSegue(withIdentifier: "logInDoctor", sender: self)
+            }
+        }
+    }
 
 }
 
