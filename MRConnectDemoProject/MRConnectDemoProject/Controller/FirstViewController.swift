@@ -22,7 +22,7 @@ class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //try? auth.signOut()
+//        try? auth.signOut()
         usersCollectionRef = database.collection("Users")
     }
     
@@ -30,10 +30,12 @@ class FirstViewController: UIViewController {
         super.viewWillAppear(animated)
         
         handle = auth.addStateDidChangeListener { _, user in
-            //guard let self = self else { return }
+//            guard let self = self else { return }
             if user == nil {
                 self.performSegue(withIdentifier: "goToLoginSignup", sender: self)
             } else {
+//                print("login done")
+//                return
                 guard let user = user else { return }
                 self.userDocRef = self.usersCollectionRef.document(user.uid)
                 

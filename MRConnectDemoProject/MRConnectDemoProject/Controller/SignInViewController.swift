@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class SignUpViewController: UIViewController {
 
@@ -27,10 +29,14 @@ class SignUpViewController: UIViewController {
     var type = UserType.MRUser
     var selectedSpec: Int16 = -1
     
+    let database = Firestore.firestore()
+    var userCollecRef: CollectionReference!
+    
     lazy var specPicker = BulletinBoard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userCollecRef = database.collection("Users")
         
         specPicker.delegate = self
         specPicker.define(of: .SpeckPicker)
@@ -132,14 +138,39 @@ class SignUpViewController: UIViewController {
             result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: selectedSpec)
         }
         if result == false {
-            Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
-            return
+            //Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
+            print("Core Data SignUp Failed")
+            //return
         }
         
-        let _ = logic.logIn(email: emailField.text!, password: passField.text!)
-        userDefault.setValue(false, forKey: "authenticate")
-        
-        dismiss(animated: true, completion: nil)
+        Auth.auth().createUser(withEmail: emailField.text!, password: passField.text!) { result, error in
+            if error != nil {
+                Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
+            }
+            
+            guard let result = result else { return }
+            let userDocRef = self.userCollecRef.document(result.user.uid)
+            userDocRef.setData([
+                "name": self.nameField.text!,
+                "contact": self.contactField.text!,
+                "email": self.emailField.text!,
+                "password": self.passField.text!,
+                "type": Int(self.type.rawValue)
+            ])
+            
+            if self.type == .MRUser {
+                userDocRef.setData([
+                    "license": self.numberField.text!
+                ], merge: true)
+            } else {
+                userDocRef.setData([
+                    "mrnumber": self.numberField.text!,
+                    "speciality": Int(self.selectedSpec),
+                ], merge: true)
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
