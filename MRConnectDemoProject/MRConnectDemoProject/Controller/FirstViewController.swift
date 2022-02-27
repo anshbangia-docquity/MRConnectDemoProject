@@ -16,7 +16,7 @@ class FirstViewController: UIViewController {
     var usersCollectionRef: CollectionReference!
     var userDocRef: DocumentReference!
     
-    let logic = Logic()
+    //let logic = Logic()
     
     //var handle: AuthStateDidChangeListenerHandle?
     

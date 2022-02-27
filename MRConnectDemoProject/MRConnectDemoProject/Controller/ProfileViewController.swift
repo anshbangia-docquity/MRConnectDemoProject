@@ -32,11 +32,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var qualiTextView: UITextView!
     @IBOutlet weak var expTextView: UITextView!
     
-    let userDefault = UserDefaultManager.shared.defaults
-    var user: CurrentUser? = CurrentUser()
+    //let userDefault = UserDefaultManager.shared.defaults
+    //var user: CurrentUser? = CurrentUser()
     let imagePicker = UIImagePickerController()
     let bulletinBoard = BulletinBoard()
-    let logic = Logic()
+    //let logic = Logic()
     
     let database = Firestore.firestore()
     var userCollecRef: CollectionReference!
@@ -118,14 +118,14 @@ class ProfileViewController: UIViewController {
         
         titleLabel.text = MyStrings.profile
         
-        if let img = user?.profileImage {
-            profileImageView.image = img
-            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            addImageButton.setTitle(MyStrings.edit, for: .normal)
-        } else {
-            addImageButton.setImage(UIImage(systemName: "plus"), for: .normal)
-            addImageButton.setTitle(MyStrings.add, for: .normal)
-        }
+//        if let img = user?.profileImage {
+//            profileImageView.image = img
+//            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+//            addImageButton.setTitle(MyStrings.edit, for: .normal)
+//        } else {
+//            addImageButton.setImage(UIImage(systemName: "plus"), for: .normal)
+//            addImageButton.setTitle(MyStrings.add, for: .normal)
+//        }
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -147,7 +147,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
-        present(imagePicker, animated: true)
+        //present(imagePicker, animated: true)
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
@@ -166,10 +166,10 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
-        logic.logOut()
+        //logic.logOut()
         try? auth.signOut()
         
-        user = nil
+        //user = nil
         //userDict = [:]
         self.presentingViewController?.dismiss(animated: true, completion:nil)
     }
@@ -180,17 +180,17 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let result = logic.saveProfileImage(email: user!.email, img: img)
-            if result == false {
-                Alert.showAlert(on: self, title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
-                return
-            }
-            profileImageView.image = img
-            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            addImageButton.setTitle(MyStrings.edit, for: .normal)
-        }
-        dismiss(animated: true, completion: nil)
+//        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            let result = logic.saveProfileImage(email: user!.email, img: img)
+//            if result == false {
+//                Alert.showAlert(on: self, title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
+//                return
+//            }
+//            profileImageView.image = img
+//            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+//            addImageButton.setTitle(MyStrings.edit, for: .normal)
+//        }
+//        dismiss(animated: true, completion: nil)
     }
     
 }
@@ -221,20 +221,20 @@ extension ProfileViewController: UITextViewDelegate {
         
         switch textView {
         case officeTextView:
-            let _ = logic.updateOffice(email: user!.email, office: entry)
-            userDefault.setValue(entry, forKey: "userOffice")
+            //let _ = logic.updateOffice(email: user!.email, office: entry)
+            //userDefault.setValue(entry, forKey: "userOffice")
             userDocRef.setData([
                 "office": entry
             ], merge: true)
         case qualiTextView:
-            let _ = logic.updateQuali(email: user!.email, quali: entry)
-            userDefault.setValue(entry, forKey: "userQuali")
+            //let _ = logic.updateQuali(email: user!.email, quali: entry)
+            //userDefault.setValue(entry, forKey: "userQuali")
             userDocRef.setData([
                 "quali": entry
             ], merge: true)
         default:
-            let _ = logic.updateExp(email: user!.email, exp: entry)
-            userDefault.setValue(entry, forKey: "userExp")
+            //let _ = logic.updateExp(email: user!.email, exp: entry)
+            //userDefault.setValue(entry, forKey: "userExp")
             userDocRef.setData([
                 "exp": entry
             ], merge: true)
@@ -262,51 +262,51 @@ extension ProfileViewController: BulletinBoardDelegate {
     }
     
     func nameChanged(newName: String) {
-        let result = logic.updateName(email: user!.email, newName: newName)
+        //let result = logic.updateName(email: user!.email, newName: newName)
         userDocRef.setData([
             "name": newName
         ], merge: true)
-        if result == false {
-            Alert.showAlert(on: self, notUpdated: MyStrings.name)
-            return
-        }
-        userDefault.setValue(newName, forKey: "userName")
-        nameLabel.text = user?.name
+//        if result == false {
+//            Alert.showAlert(on: self, notUpdated: MyStrings.name)
+//            return
+//        }
+        //userDefault.setValue(newName, forKey: "userName")
+        nameLabel.text = newName
     }
     
     func numberChanged(newNum: String) {
-        let result = logic.updateNumber(email: user!.email, newNum: newNum)
+        //let result = logic.updateNumber(email: user!.email, newNum: newNum)
         userDocRef.setData([
             "contact": newNum
         ], merge: true)
-        if result == false {
-            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
-            return
-        }
-        userDefault.setValue(newNum, forKey: "userContact")
-        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
+//        if result == false {
+//            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
+//            return
+//        }
+        //userDefault.setValue(newNum, forKey: "userContact")
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: newNum)
     }
     
     func passwordChanged(newPass: String) {
         var result = true
-        var pass = user?.password
+        //var pass = user?.password
         
         let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
         
         confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
-            result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
+            //result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
             self.userDocRef.setData([
                 "password": newPass
             ], merge: true)
             self.auth.currentUser?.updatePassword(to: newPass, completion: nil)
-            pass = newPass
+            //pass = newPass
         }))
 
         confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
 
         present(confirmAlert, animated: true) {
             if result {
-                self.userDefault.setValue(pass, forKey: "userPassword")
+                //self.userDefault.setValue(pass, forKey: "userPassword")
             } else {
                 Alert.showAlert(on: self, notUpdated: MyStrings.password)
             }

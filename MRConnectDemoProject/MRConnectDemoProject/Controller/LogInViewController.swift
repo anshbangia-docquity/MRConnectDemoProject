@@ -47,10 +47,10 @@ class LogInViewController: UIViewController {
             return
         }
         
-        let result = logic.logIn(email: emailField.text!, password: passwordField.text!)
-        if !result {
-            print("CoreData Log In Failed")
-        }
+//        let result = logic.logIn(email: emailField.text!, password: passwordField.text!)
+//        if !result {
+//            print("CoreData Log In Failed")
+//        }
         
         auth.signIn(withEmail: emailField.text!, password: passwordField.text!) { result, error in
             guard error == nil else {

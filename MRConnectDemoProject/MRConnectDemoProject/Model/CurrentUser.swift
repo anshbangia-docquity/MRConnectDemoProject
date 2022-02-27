@@ -17,7 +17,8 @@ class CurrentUser {
         return userDefault.value(forKey: "userContact") as! String
     }
     var email: String {
-        return userDefault.value(forKey: "userEmail") as! String
+        //return userDefault.value(forKey: "userEmail") as! String
+        return "example@abc.com"
     }
     var license: String {
         return userDefault.value(forKey: "userLicense") as! String
@@ -35,8 +36,8 @@ class CurrentUser {
         return userDefault.value(forKey: "userSpeciality") as! Int16
     }
     var type: UserType {
-        let num = userDefault.value(forKey: "userType") as! Int16
-        return UserType(rawValue: num)!
+        //let num = userDefault.value(forKey: "userType") as! Int16
+        return UserType(rawValue: 0)!
     }
     var profileImage: UIImage? {
         let img = coreDataHandler.fetchProfileImage(self.email)

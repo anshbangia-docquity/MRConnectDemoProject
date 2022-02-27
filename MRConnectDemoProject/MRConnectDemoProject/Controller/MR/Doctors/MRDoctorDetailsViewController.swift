@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class MRDoctorDetailsViewController: UIViewController {
     
@@ -21,45 +22,46 @@ class MRDoctorDetailsViewController: UIViewController {
     @IBOutlet weak var expLabel: UILabel!
     @IBOutlet weak var expTextView: UITextView!
     
-    var doctor: User?
+    //var doctor: User?
+    var doctorDoc: QueryDocumentSnapshot!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         profileImage.image = UIImage(systemName: "person.circle")
-        if let img = doctor!.profileImage {
-            DispatchQueue.main.async {
-                self.profileImage.image = UIImage(data: img)
-            }
-        }
+//        if let img = doctor!.profileImage {
+//            DispatchQueue.main.async {
+//                self.profileImage.image = UIImage(data: img)
+//            }
+//        }
         
-        nameLabel.text = "Dr. \(doctor!.name!)"
-        specLabel.text = Specialities.specialities[doctor!.speciality]
-        emailLabel.text = doctor!.email
-        contactLabel.text = doctor!.contact
+        nameLabel.text = "Dr. \(doctorDoc["name"] as! String)"
+        specLabel.text = Specialities.specialities[doctorDoc["speciality"] as! Int16]
+        emailLabel.text = doctorDoc["email"] as? String
+        contactLabel.text = doctorDoc["contact"] as? String
         officeLabel.text = MyStrings.office
         qualiLabel.text = MyStrings.quali
         expLabel.text = MyStrings.exp
         
-        if doctor!.office!.isEmpty {
+        if (doctorDoc["office"] as! String).isEmpty {
             officeTextView.text = MyStrings.notSpecified
             officeTextView.textColor = .systemGray3
         } else {
-            officeTextView.text = doctor!.office
+            officeTextView.text = doctorDoc["office"] as? String
         }
         
-        if doctor!.quali!.isEmpty {
+        if (doctorDoc["quali"] as! String).isEmpty {
             qualiTextView.text = MyStrings.notSpecified
             qualiTextView.textColor = .systemGray3
         } else {
-            qualiTextView.text = doctor!.quali
+            qualiTextView.text = doctorDoc["quali"] as? String
         }
         
-        if doctor!.exp!.isEmpty {
+        if (doctorDoc["exp"] as! String).isEmpty {
             expTextView.text = MyStrings.notSpecified
             expTextView.textColor = .systemGray3
         } else {
-            expTextView.text = doctor!.exp
+            expTextView.text = doctorDoc["exp"] as? String
         }
     }
 }

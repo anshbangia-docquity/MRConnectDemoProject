@@ -131,19 +131,19 @@ class SignUpViewController: UIViewController {
             return
         }
     
-        var result: Bool
-        if type == .MRUser {
-            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
-        } else {
-            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: selectedSpec)
-        }
-        if result == false {
-            //Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
-            print("Core Data SignUp Failed")
-            //return
-        } else {
-            let _ = logic.logIn(email: emailField.text!, password: passField.text!)
-        }
+        //var result: Bool
+//        if type == .MRUser {
+//            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, license: numberField.text!)
+//        } else {
+//            result = logic.signUp(name: nameField.text!, contact: contactField.text!, email: emailField.text!, password: passField.text!, type: type, mrnumber: numberField.text!, speciality: selectedSpec)
+//        }
+//        if result == false {
+//            //Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
+//            print("Core Data SignUp Failed")
+//            //return
+//        } else {
+//            let _ = logic.logIn(email: emailField.text!, password: passField.text!)
+//        }
         
         Auth.auth().createUser(withEmail: emailField.text!, password: passField.text!) { result, error in
             if error != nil {
@@ -168,6 +168,9 @@ class SignUpViewController: UIViewController {
                 userDocRef.setData([
                     "mrnumber": self.numberField.text!,
                     "speciality": Int(self.selectedSpec),
+                    "office": "",
+                    "quali": "",
+                    "exp": ""
                 ], merge: true)
             }
             
