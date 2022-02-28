@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class MRCreateMeetingViewController: UIViewController {
     
@@ -36,18 +38,35 @@ class MRCreateMeetingViewController: UIViewController {
     @IBOutlet weak var selectMedicinesLabel: UILabel!
 
     var logic = Logic()
-    var doctors: [User] = []
-    var medicines: [Medicine] = []
-    var selectedDoctors: [User] = []
-    var selectedMedicines: [Medicine] = []
-    var doctorSet = Set<String>()
-    var medicineSet = Set<Int16>()
+    var doctors: [QueryDocumentSnapshot] = []
+    var medicines: [QueryDocumentSnapshot] = []
+    var selectedDoctors: [QueryDocumentSnapshot] = []
+    var selectedMedicines: [QueryDocumentSnapshot] = []
+    //var doctorSet = Set<String>()
+    //var medicineSet = Set<Int16>()
     
     var edit = false
-    var myMeeting: Meeting?
+    var myMeeting: [String: Any]?
+    
+    let auth = FirebaseAuth.Auth.auth()
+    let database = Firestore.firestore()
+    var userCollecRef: Query!
+    var medCollecRef: Query!
+    var meetingCollecRef: CollectionReference!
+    var meetingDocRef: DocumentReference!
+    var medIds: [String] = []
+    var docIds: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userCollecRef = database.collection("Users").whereField("type", isEqualTo: 1)
+        medCollecRef = database.collection("Medicines")
+        meetingCollecRef = database.collection("Meetings")
+        if edit {
+            meetingDocRef = meetingCollecRef.document(myMeeting!["id"] as! String)
+        } else {
+            meetingDocRef = meetingCollecRef.document()
+        }
         
         cancelButton.setTitle(MyStrings.cancel, for: .normal)
         
@@ -65,7 +84,7 @@ class MRCreateMeetingViewController: UIViewController {
         doctorCollection.dataSource = self
         doctorSearchField.placeholder = MyStrings.search
         doctorSearchField.delegate = self
-        doctors = logic.getDoctors()
+        //doctors = logic.getDoctors()
         doctorTableView.delegate = self
         doctorTableView.dataSource = self
         
@@ -74,7 +93,7 @@ class MRCreateMeetingViewController: UIViewController {
         medicineCollection.dataSource = self
         medicineSearchField.placeholder = MyStrings.search
         medicineSearchField.delegate = self
-        medicines = logic.getMedicines()
+        //medicines = logic.getMedicines()
         medicineTableView.delegate = self
         medicineTableView.dataSource = self
         
@@ -82,24 +101,24 @@ class MRCreateMeetingViewController: UIViewController {
             titleLabel.text = MyStrings.editMeeting
             createButton.setTitle(MyStrings.done.uppercased(), for: .normal)
             
-            titleField.text = myMeeting!.title
-            descTextView.text = myMeeting!.desc
-            if descTextView.text.isEmpty {
+            titleField.text = myMeeting!["title"] as? String
+            descTextView.text = myMeeting!["desc"] as? String
+            if descTextView.text == "" {
                 descTextView.text = MyStrings.meetingDescription
                 descTextView.textColor = UIColor.lightGray
             } else {
                 descTextView.textColor = .black
             }
             
-            datePicker.date = myMeeting!.startDate!
-            startTimePicker.date = myMeeting!.startDate!
-            endTimePicker.date = myMeeting!.endDate!
+            datePicker.date = myMeeting!["startDate"] as! Date
+            startTimePicker.date = myMeeting!["startDate"] as! Date
+            endTimePicker.date = myMeeting!["endtDate"] as! Date
             
-            doctorSet = myMeeting!.doctors!
-            selectedDoctors = logic.getUsers(with: doctorSet)
+//            doctorSet = myMeeting!.doctors!
+//            selectedDoctors = logic.getUsers(with: doctorSet)
             
-            medicineSet = myMeeting!.medicines!
-            selectedMedicines = logic.getMedicines(with: medicineSet)
+//            medicineSet = myMeeting!.medicines!
+//            selectedMedicines = logic.getMedicines(with: medicineSet)
         } else {
             titleLabel.text = MyStrings.createMeeting
             createButton.setTitle(MyStrings.create.uppercased(), for: .normal)
@@ -111,12 +130,34 @@ class MRCreateMeetingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        reloadDoctorTable()
-        reloadMedicineTable()
-        
-        reloadDoctorCollection()
-        reloadMedicineCollection()
+        userCollecRef.getDocuments { snapshot, error in
+            guard error == nil else { return }
+            let docs = snapshot?.documents ?? []
+            self.doctors = docs
+            let doctors = self.myMeeting!["doctors"] as! [String]
+            for doc in docs {
+                if doctors.contains(doc.documentID) {
+                    self.selectedDoctors.append(doc)
+                    self.docIds.append(doc.documentID)
+                }
+            }
+            self.reloadDoctorTable()
+            self.reloadDoctorCollection()
+        }
+        medCollecRef.getDocuments { snapshot, error in
+            guard error == nil else { return }
+            let docs = snapshot?.documents ?? []
+            self.medicines = docs
+            let meds = self.myMeeting!["medicines"] as! [String]
+            for doc in docs {
+                if meds.contains(doc.documentID) {
+                    self.selectedMedicines.append(doc)
+                    self.medIds.append(doc.documentID)
+                }
+            }
+            self.reloadMedicineTable()
+            self.reloadMedicineCollection()
+        }
     }
     
     @IBAction func cancelTapped(_ sender: UIButton) {
@@ -152,9 +193,9 @@ class MRCreateMeetingViewController: UIViewController {
             return
         }
         
-        var descText: String? = descTextView.text
+        var descText: String = descTextView.text
         if descText == MyStrings.meetingDescription {
-            descText = nil
+            descText = ""
         }
         
         let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
@@ -164,24 +205,40 @@ class MRCreateMeetingViewController: UIViewController {
             return
         }
         
-        if edit {
-            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
-            
-            if result == false {
-                Alert.showAlert(on: self, notUpdated: MyStrings.meeting)
-                return
-            }
-        } else {
-            let result = logic.createMeeting(title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
-            
-            if result == false {
-                Alert.showAlert(on: self, notCreated: MyStrings.meeting)
-                return
-            }
+//        if edit {
+//            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
+//
+//            if result == false {
+//                Alert.showAlert(on: self, notUpdated: MyStrings.meeting)
+//                return
+//            }
+//        } else {
+//            let result = logic.createMeeting(title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
+//
+//            if result == false {
+//                Alert.showAlert(on: self, notCreated: MyStrings.meeting)
+//                return
+//            }
+//        }
+        
+        let creator = auth.currentUser!.uid
+        
+        meetingDocRef.setData([
+            "title": titleField.text!,
+            "startDate": startDate,
+            "medicines": medIds,
+            "id": meetingDocRef.documentID,
+            "endDate": endDate,
+            "doctors": docIds,
+            "desc": descText,
+            "creator": creator
+        ]) { error in
+            guard error == nil else { return }
+            self.dismiss(animated: true, completion: nil)
         }
         
-        NotificationCenter.default.post(name: Notification.Name("reloadMeetings"), object: nil)
-        dismiss(animated: true, completion: nil)
+        //NotificationCenter.default.post(name: Notification.Name("reloadMeetings"), object: nil)
+        
     }
     
 }
@@ -215,19 +272,19 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
         if tableView == doctorTableView {
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
             
-            let doctor = doctors[indexPath.row]
-            myCell.configure(name: doctor.name!, spec: doctor.speciality)
+            let doctor = doctors[indexPath.row].data()
+            myCell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int16)
             
-            if let img = doctor.profileImage {
-                myCell.configImg(imgData: img)
-            }
+//            if let img = doctor.profileImage {
+//                myCell.configImg(imgData: img)
+//            }
             
             cell = myCell
         } else {
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
             
-            let medicine = medicines[indexPath.row]
-            myCell.configure(med: medicine.name!, company: medicine.company!)
+            let medicine = medicines[indexPath.row].data()
+            myCell.configure(med: medicine["name"] as! String, company: medicine["company"] as! String)
             
             cell = myCell
         }
@@ -239,20 +296,18 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: true)
         
         if tableView == doctorTableView {
-            if doctorSet.contains(doctors[indexPath.row].email!) {
+            if selectedDoctors.contains(doctors[indexPath.row]) {
                 return
             }
             
-            doctorSet.insert(doctors[indexPath.row].email!)
             selectedDoctors.insert(doctors[indexPath.row], at: 0)
             
             reloadDoctorCollection()
         } else {
-            if medicineSet.contains(medicines[indexPath.row].id) {
+            if selectedMedicines.contains(medicines[indexPath.row]) {
                 return
             }
             
-            medicineSet.insert(medicines[indexPath.row].id)
             selectedMedicines.insert(medicines[indexPath.row], at: 0)
             
             reloadMedicineCollection()
@@ -281,25 +336,24 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
         
         if collectionView == doctorCollection {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRDoctorsCollectionViewCell.id, for: indexPath) as? MRDoctorsCollectionViewCell {
-                let doctor = selectedDoctors[indexPath.item]
-                myCell.configure(index: indexPath.item) { [self] index in
-                    doctorSet.remove(selectedDoctors[index].email!)
-                    selectedDoctors.remove(at: index)
-                    reloadDoctorCollection()
+                //let doctor = selectedDoctors[indexPath.item]
+                myCell.configure() {
+                    //selectedDoctors
+                    self.selectedDoctors.remove(at: indexPath.row)
+                    self.reloadDoctorCollection()
                 }
                 
-                if let img = doctor.profileImage {
-                    myCell.configImg(imgData: img)
-                }
+//                if let img = doctor.profileImage {
+//                    myCell.configImg(imgData: img)
+//                }
                 
                 cell = myCell
             }
         } else {
             if let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: MRMedicinesCollectionViewCell.id, for: indexPath) as? MRMedicinesCollectionViewCell {
-                let medicine = selectedMedicines[indexPath.item]
-                myCell.configure(medName: medicine.name!, index: indexPath.item) { [self] index in
-                    medicineSet.remove(selectedMedicines[index].id)
-                    selectedMedicines.remove(at: index)
+                let medicine = selectedMedicines[indexPath.item].data()
+                myCell.configure(medName: medicine["name"] as! String) { [self] in
+                    selectedMedicines.remove(at: indexPath.row)
                     reloadMedicineCollection()
                 }
                 
@@ -313,7 +367,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == medicineCollection {
             let label = UILabel(frame: CGRect.zero)
-            label.text = selectedMedicines[indexPath.item].name
+            label.text = selectedMedicines[indexPath.item].data()["name"] as? String
             label.sizeToFit()
             let width = label.frame.width + 42
             return CGSize(width: width, height: 30)
@@ -397,25 +451,25 @@ extension MRCreateMeetingViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField == doctorSearchField {
-            if doctorSearchField.text == "" {
-                doctors = logic.getDoctors()
-            } else {
-                doctors = logic.getDoctors(contains: doctorSearchField.text!)
-            }
-
-            reloadDoctorTable()
-        }
-        
-        if textField == medicineSearchField {
-            if medicineSearchField.text == "" {
-                medicines = logic.getMedicines()
-            } else {
-                medicines = logic.getMedicines(contains: medicineSearchField.text!)
-            }
-
-            reloadMedicineTable()
-        }
+//        if textField == doctorSearchField {
+//            if doctorSearchField.text == "" {
+//                doctors = logic.getDoctors()
+//            } else {
+//                doctors = logic.getDoctors(contains: doctorSearchField.text!)
+//            }
+//
+//            reloadDoctorTable()
+//        }
+//        
+//        if textField == medicineSearchField {
+//            if medicineSearchField.text == "" {
+//                medicines = logic.getMedicines()
+//            } else {
+//                medicines = logic.getMedicines(contains: medicineSearchField.text!)
+//            }
+//
+//            reloadMedicineTable()
+//        }
     }
 
     

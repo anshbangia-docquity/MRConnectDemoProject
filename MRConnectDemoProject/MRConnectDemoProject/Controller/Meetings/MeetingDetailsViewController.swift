@@ -68,7 +68,7 @@ class MeetingDetailsViewController: UIViewController {
         statusTimer?.invalidate()
         statusTimer = nil
         
-        playerStopped()
+        //playerStopped()
         playerTimer = nil
         audioPlayer = nil
     }

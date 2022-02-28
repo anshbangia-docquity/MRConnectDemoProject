@@ -11,18 +11,16 @@ class MRMedicinesCollectionViewCell: UICollectionViewCell {
     
     static let id = "medicinesCollectionCell"
     
-    var removeMed: ((Int) -> Void)?
-    var index: Int?
+    var removeMed: (() -> Void)?
     
     @IBOutlet weak var medicineName: UILabel!
     
     @IBAction func removeTapped(_ sender: UIButton) {
-        removeMed?(index!)
+        removeMed?()
     }
     
-    func configure(medName: String, index: Int, removeMed: @escaping (Int) -> Void) {
+    func configure(medName: String, removeMed: @escaping () -> Void) {
         self.medicineName.text = medName
-        self.index = index
         self.removeMed = removeMed
     }
     

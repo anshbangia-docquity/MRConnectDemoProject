@@ -11,18 +11,16 @@ class MRDoctorsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var profileImage: UIImageView!
     
-    var removeDoctor: ((Int) -> Void)?
-    var index: Int?
+    var removeDoctor: (() -> Void)?
     
     static let id = "doctorsCollectionCell"
     
     @IBAction func removeTapped(_ sender: UIButton) {
-        removeDoctor?(index!)
+        removeDoctor?()
     }
     
-    func configure(index: Int, removeDoctor: @escaping (Int) -> Void ) {
+    func configure(removeDoctor: @escaping () -> Void ) {
         profileImage.image = UIImage(systemName: "person.circle")
-        self.index = index
         self.removeDoctor = removeDoctor
     }
     
