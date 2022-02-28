@@ -15,7 +15,7 @@ class MRDoctorsViewController: UIViewController {
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var noDocs: UILabel!
     
-    let logic = Logic()
+    //let logic = Logic()
     //var doctors: [User] = []
     var tappedDoctor: QueryDocumentSnapshot?
     
@@ -41,7 +41,6 @@ class MRDoctorsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("Hello There - Obi Wan")
         super.viewWillAppear(animated)
         
         getDocuments()

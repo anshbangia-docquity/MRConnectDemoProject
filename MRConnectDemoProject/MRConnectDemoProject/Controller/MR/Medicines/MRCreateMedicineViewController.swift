@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class MRCreateMedicineViewController: UIViewController {
 
@@ -20,10 +22,16 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     var form: Int16 = 0
-    let logic = Logic()
+    //let logic = Logic()
+    
+    let database = Firestore.firestore()
+    var medCollecRef: CollectionReference!
+    var medCount: Int!
+    let auth = FirebaseAuth.Auth.auth()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        medCollecRef = database.collection("Medicines")
         
         titleLabel.text = MyStrings.createMed
         nameField.placeholder = MyStrings.medName
@@ -66,12 +74,24 @@ class MRCreateMedicineViewController: UIViewController {
             return
         }
         
-        let result = logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: compositionField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
+//        let result = logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: compositionField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
+//
+//        if result == false {
+//            Alert.showAlert(on: self, notCreated: MyStrings.medicine)
+//            return
+//        }
         
-        if result == false {
-            Alert.showAlert(on: self, notCreated: MyStrings.medicine)
-            return
-        }
+        let creator = auth.currentUser?.uid
+        let medDocRef = medCollecRef.document("med\(medCount + 1)")
+        medDocRef.setData([
+            "name": nameField.text!,
+            "company": companyField.text!,
+            "composition": compositionField.text!,
+            "price": Float(priceField.text!) ?? 0.0,
+            "form": Int(form),
+            "id": "med\(medCount + 1)",
+            "creator": creator!
+        ])
         
         NotificationCenter.default.post(name: Notification.Name("medAdded"), object: nil)
         dismiss(animated: true, completion: nil)

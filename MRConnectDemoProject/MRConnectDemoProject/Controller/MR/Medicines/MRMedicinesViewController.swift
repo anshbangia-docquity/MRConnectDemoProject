@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class MRMedicinesViewController: UIViewController {
 
@@ -14,15 +15,20 @@ class MRMedicinesViewController: UIViewController {
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var noMeds: UILabel!
     
-    let logic = Logic()
-    var medicines: [Medicine] = []
+    //let logic = Logic()
+    //var medicines: [Medicine] = []
+    
+    let database = Firestore.firestore()
+    var medCollecRef: Query!
+    var medDocuments: [QueryDocumentSnapshot] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        medCollecRef = database.collection("Medicines").order(by: "company").order(by: "name")
         
         
-        medicines = logic.getMedicines()
-        updateNoMeds()
+        //medicines = logic.getMedicines()
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -35,6 +41,25 @@ class MRMedicinesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(medAdded), name: Notification.Name("medAdded"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("yoooo api call")
+        getDocuments()
+    }
+    
+    func getDocuments() {
+        medCollecRef.getDocuments { snapshot, error in
+            guard error == nil else { return }
+            self.medDocuments = snapshot?.documents ?? []
+            self.tableView.reloadData()
+            self.updateNoMeds()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     @IBAction func searchPressed(_ sender: UIButton) {
         searchField.endEditing(true)
     }
@@ -44,10 +69,15 @@ class MRMedicinesViewController: UIViewController {
         performSegue(withIdentifier: "goToCreate", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCreate" {
+            let vc = segue.destination as! MRCreateMedicineViewController
+            vc.medCount = medDocuments.count
+        }
+    }
+    
     @objc func medAdded() {
-        medicines = logic.getMedicines()
-        updateNoMeds()
-        tableView.reloadData()
+        //getDocuments()
     }
     
 }
@@ -60,7 +90,8 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return medicines.count
+        //return medicines.count
+        return medDocuments.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -70,8 +101,10 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
-        let medicine = medicines[indexPath.row]
-        cell.configure(med: medicine.name!, company: medicine.company!, type: medicine.form)
+        //let medicine = medicines[indexPath.row]
+        let medDoc = medDocuments[indexPath.row]
+        let med = medDoc.data()
+        cell.configure(med: med["name"] as! String, company: med["company"] as! String, type: med["form"] as! Int16)
         
         cell.layer.maskedCorners = []
         if indexPath.row == 0 {
@@ -79,7 +112,7 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
             cell.layer.cornerRadius = 20
             cell.layer.maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
-        if indexPath.row == medicines.count - 1 {
+        if indexPath.row == medDocuments.count - 1 {
             cell.layer.masksToBounds = true
             cell.layer.cornerRadius = 20
             cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
@@ -99,15 +132,13 @@ extension MRMedicinesViewController: UITextFieldDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchField.text == "" {
-            medicines = logic.getMedicines()
-            updateNoMeds()
-        } else {
-            medicines = logic.getMedicines(contains: textField.text!)
-            updateNoMeds()
-        }
-
-        tableView.reloadData()
+//        if searchField.text == "" {
+//            medCollecRef = database.collection("Medicines").order(by: "company").order(by: "name")
+//        } else {
+//            let search = searchField.text!
+//            medCollecRef = database.collection("Medicines").order(by: "company").order(by: "name").whereField("name", isGreaterThanOrEqualTo: search).whereField("name", isLessThanOrEqualTo: search + "~")
+//        }
+//        getDocuments()
     }
     
 }
@@ -116,7 +147,7 @@ extension MRMedicinesViewController: UITextFieldDelegate {
 extension MRMedicinesViewController {
     
     func updateNoMeds() {
-        if medicines.count == 0 {
+        if medDocuments.count == 0 {
             noMeds.isHidden = false
             noMeds.text = MyStrings.noMeds
         } else {
