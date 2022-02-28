@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class MeetingsViewController: UIViewController {
 
@@ -15,39 +17,73 @@ class MeetingsViewController: UIViewController {
     @IBOutlet weak var noMeetings: UILabel!
     
     var logic = Logic()
-    var meetingDates: [String: [Meeting]] = [:]
+    var meetingDates: [String: [[String: Any]]] = [:]
     var dates: [String] = []
-    var user = CurrentUser()
-    var tappedMeeting: Meeting?
+    //var user = CurrentUser()
+    var tappedMeeting: [String: Any]?
+    
+    let auth = FirebaseAuth.Auth.auth()
+    let database = Firestore.firestore()
+    var meetingCollecRef: Query!
+    var userCollecRef: CollectionReference!
+    var userDocRef: DocumentReference!
+    var meetingDocuments: [QueryDocumentSnapshot] = []
+    
+    func processMeetingDates() {
+        logic.dateFormatter.dateFormat = "MMM d, yyyy"
+        for meetingDoc in meetingDocuments {
+            let meeting = meetingDoc.data()
+            let dateStr = logic.dateFormatter.string(from: meeting["startDate"] as! Date)
+            if meetingDates[dateStr] == nil
+            {
+                meetingDates[dateStr] = []
+                dates.append(dateStr)
+            }
+            meetingDates[dateStr]?.append(meeting)
+        }
+    }
+    
+    func getMeetingDocuments() {
+        meetingCollecRef.getDocuments { snapshot, error in
+            guard error == nil else { return }
+            self.meetingDocuments = snapshot?.documents ?? []
+            self.processMeetingDates()
+            self.updateNoMeetings()
+            self.meetingTableView.reloadData()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        userDocRef.getDocument { snapshot, error in
+            guard error == nil else { return }
+            let user = snapshot!.data()
+            
+            if user!["type"] as! Int16 == UserType.MRUser.rawValue {
+                self.createButton.isHidden = false
+                self.meetingCollecRef = self.meetingCollecRef.whereField("creator", isEqualTo: self.auth.currentUser!.uid)
+            } else {
+                self.createButton.isHidden = true
+                self.meetingCollecRef = self.meetingCollecRef.whereField("doctors", arrayContains: self.auth.currentUser!.uid)
+            }
+            self.getMeetingDocuments()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        meetingTableView.allowsMultipleSelection = true
+        meetingCollecRef = database.collection("Meetings")
+        userCollecRef = database.collection("Users")
+        userDocRef = userCollecRef.document(auth.currentUser!.uid)
         
+        meetingTableView.allowsMultipleSelection = true
         meetingTableView.delegate = self
         meetingTableView.dataSource = self
         
         titleLabel.text = MyStrings.meetings
         
-        if user.type == .MRUser {
-            createButton.isHidden = false
-        } else {
-            createButton.isHidden = true
-        }
-        
         meetingTableView.separatorStyle = .none
-        
-        let meetings: [Meeting]
-        if user.type == .MRUser {
-            meetings = logic.fetchMeetings(of: user.email)
-        } else {
-            meetings = logic.fetchMeetings(for: user.email)
-        }
-        updateNoMeetings(meetings)
-        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
-        DispatchQueue.main.async {
-            self.meetingTableView.reloadData()
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handler), name: Notification.Name("reloadMeetings"), object: nil)
     }
@@ -57,17 +93,17 @@ class MeetingsViewController: UIViewController {
     }
     
     @objc func handler() {
-        let meetings: [Meeting]
-        if user.type == .MRUser {
-            meetings = logic.fetchMeetings(of: user.email)
-        } else {
-            meetings = logic.fetchMeetings(for: user.email)
-        }
-        updateNoMeetings(meetings)
-        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
-        DispatchQueue.main.async {
-            self.meetingTableView.reloadData()
-        }
+//        let meetings: [Meeting]
+//        if user.type == .MRUser {
+//            meetings = logic.fetchMeetings(of: user.email)
+//        } else {
+//            meetings = logic.fetchMeetings(for: user.email)
+//        }
+//        updateNoMeetings(meetings)
+//        (meetingDates, dates) = logic.processMeetingDates(meetings: meetings)
+//        DispatchQueue.main.async {
+//            self.meetingTableView.reloadData()
+//        }
     }
     
 }
@@ -148,7 +184,7 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.arrow.image = UIImage(systemName: "chevron.right")
     }
     
-    func openMeeting(_ meeting: Meeting) {
+    func openMeeting(_ meeting: [String: Any]) {
         tappedMeeting = meeting
         performSegue(withIdentifier: "goToDetails", sender: self)
     }
@@ -170,8 +206,8 @@ extension MeetingsViewController {
 //MARK: - Other
 extension MeetingsViewController {
     
-    func updateNoMeetings(_ meetings: [Meeting]) {
-        if meetings.count == 0 {
+    func updateNoMeetings() {
+        if meetingDocuments.count == 0 {
             noMeetings.isHidden = false
             noMeetings.text = MyStrings.noMeetings
         } else {

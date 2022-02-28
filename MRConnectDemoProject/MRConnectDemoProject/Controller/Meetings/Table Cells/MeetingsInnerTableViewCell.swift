@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class MeetingsInnerTableViewCell: UITableViewCell {
     
@@ -22,11 +23,13 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var recsLabel: UILabel!
     
-    var meeting: Meeting?
+    var meeting: [String: Any]?
     var logic = Logic()
     var doctorCount = 0
-    var selectedDoctors: [User] = []
+    var selectedDoctors: [[String: Any]] = []
     var timer: Timer?
+    let database = Firestore.firestore()
+    var userCollec: CollectionReference!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -40,25 +43,9 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         timer = nil
     }
     
-    func configure(myMeeting: Meeting) {
+    func configure(myMeeting: [String: Any]) {
         meeting = myMeeting
-        titleLabel.text = meeting?.title
-        logic.dateFormatter.dateFormat = "hh:mm a"
-        let startTime = logic.dateFormatter.string(from: meeting!.startDate!)
-        let endTime = logic.dateFormatter.string(from: meeting!.endDate!)
-        timeLabel.text = startTime + " - " + endTime
-        
         moreLabel.isHidden = true
-        selectedDoctors = logic.getUsers(with: meeting!.doctors!)
-        doctorCount = selectedDoctors.count
-        if doctorCount > 2 {
-            moreLabel.isHidden = false
-            moreLabel.textColor = .darkGray
-            moreLabel.text = "+\(doctorCount - 2) more"
-        } else {
-            moreLabel.isHidden = true
-        }
-        
         img1.image = UIImage(systemName: "person.circle")
         img2.image = UIImage(systemName: "person.circle")
         img3.image = UIImage(systemName: "person.circle")
@@ -66,38 +53,62 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         img2.isHidden = true
         img3.isHidden = true
         moreView.isHidden = true
-        
-        if doctorCount >= 1 {
-            img1.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[0].profileImage {
-                    self.img1.image = UIImage(data: data)
+        let doctorArray = meeting!["doctors"] as! [String]
+        userCollec = database.collection("Users")
+        userCollec.getDocuments { snapshot, error in
+            guard error == nil else { return }
+            let docs = (snapshot?.documents)!
+            for doc in docs {
+                if doctorArray.contains(doc.documentID) {
+                    self.selectedDoctors.append(doc.data())
                 }
+            }
+            self.doctorCount = self.selectedDoctors.count
+            if self.doctorCount > 2 {
+                self.moreLabel.isHidden = false
+                self.moreLabel.textColor = .darkGray
+                self.moreLabel.text = "+\(self.doctorCount - 2) more"
+            } else {
+                self.moreLabel.isHidden = true
+            }
+            if self.doctorCount >= 1 {
+                self.img1.isHidden = false
+//                DispatchQueue.main.async {
+//                    if let data = self.selectedDoctors[0].profileImage {
+//                        self.img1.image = UIImage(data: data)
+//                    }
+//                }
+            }
+            
+        if self.doctorCount >= 2 {
+            self.img2.isHidden = false
+//                DispatchQueue.main.async {
+//                    if let data = self.selectedDoctors[1].profileImage {
+//                        self.img2.image = UIImage(data: data)
+//                    }
+//                }
+            }
+            
+            if self.doctorCount >= 3 {
+                self.img3.isHidden = false
+//                DispatchQueue.main.async {
+//                    if let data = self.selectedDoctors[2].profileImage {
+//                        self.img3.image = UIImage(data: data)
+//                    }
+//                }
+            }
+            
+            if self.doctorCount >= 4 {
+                self.moreView.isHidden = false
+                self.moreLabel.text = "+\(self.doctorCount - 3)"
             }
         }
         
-        if doctorCount >= 2 {
-            img2.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[1].profileImage {
-                    self.img2.image = UIImage(data: data)
-                }
-            }
-        }
-        
-        if doctorCount >= 3 {
-            img3.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[2].profileImage {
-                    self.img3.image = UIImage(data: data)
-                }
-            }
-        }
-        
-        if doctorCount >= 4 {
-            moreView.isHidden = false
-            moreLabel.text = "+\(doctorCount - 3)"
-        }
+        titleLabel.text = meeting!["title"] as? String
+        logic.dateFormatter.dateFormat = "hh:mm a"
+        let startTime = logic.dateFormatter.string(from: meeting!["startDate"] as! Date)
+        let endTime = logic.dateFormatter.string(from: meeting!["endDate"] as! Date)
+        timeLabel.text = startTime + " - " + endTime
         
         configureStatus()
         //DispatchQueue.global().async {
@@ -112,7 +123,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     
     func configureStatus() {
         let date = Date()
-        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!.startDate!)
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!["startDate"] as! Date)
         let minutes = diffComponents.minute
         guard var minutes = minutes else {return}
         minutes += 1
@@ -125,7 +136,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             statusLabel.text = ""
         }
         
-        if date >= meeting!.startDate! && date <= meeting!.endDate! {
+        if date >= meeting!["startDate"] as! Date && date <= meeting!["endDate"] as! Date {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
             sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
@@ -133,14 +144,14 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             sideBar.backgroundColor = .white
         }
         
-        if date > meeting!.endDate! {
+        if date > meeting!["endDate"] as! Date {
             timer?.invalidate()
             timer = nil
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
         
-        if date >= meeting!.startDate! {
+        if date >= meeting!["startDate"] as! Date {
             recsLabel.isHidden = false
         } else {
             recsLabel.isHidden = true
@@ -149,12 +160,13 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     }
     
     @objc func updateRecordingCount() {
-        let recsCount = logic.getRecordings(of: meeting!.id).count
-        if recsCount == 1 {
-            recsLabel.text = "1 " + MyStrings.recording.lowercased()
-        } else {
-            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
-        }
+        recsLabel.text = "n recordings"
+//        let recsCount = logic.getRecordings(of: meeting!.id).count
+//        if recsCount == 1 {
+//            recsLabel.text = "1 " + MyStrings.recording.lowercased()
+//        } else {
+//            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
+//        }
     }
     
 }

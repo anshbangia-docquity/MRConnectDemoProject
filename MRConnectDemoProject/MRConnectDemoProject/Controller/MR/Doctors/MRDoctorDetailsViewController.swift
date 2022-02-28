@@ -23,11 +23,10 @@ class MRDoctorDetailsViewController: UIViewController {
     @IBOutlet weak var expTextView: UITextView!
     
     //var doctor: User?
-    var doctorDoc: QueryDocumentSnapshot!
+    var doctorDoc: [String: Any]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         profileImage.image = UIImage(systemName: "person.circle")
 //        if let img = doctor!.profileImage {
 //            DispatchQueue.main.async {

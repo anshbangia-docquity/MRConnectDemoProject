@@ -119,7 +119,7 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetails" {
             let vc = segue.destination as! MRDoctorDetailsViewController
-            vc.doctorDoc = tappedDoctor!
+            vc.doctorDoc = tappedDoctor!.data()
         }
     }
     

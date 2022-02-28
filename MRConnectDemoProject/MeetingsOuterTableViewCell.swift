@@ -20,15 +20,15 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     @IBOutlet weak var meetingNum: UILabel!
     @IBOutlet weak var arrow: UIImageView!
     
-    var meetings: [Meeting] = []
+    var meetings: [[String: Any]] = []
     var logic = Logic()
     var tappedMeeting: Meeting?
-    var openMeeting: ((_ meeting: Meeting) -> Void)?
+    var openMeeting: ((_ meeting: [String: Any]) -> Void)?
     //var isExpanded = false
     
     //var expandMeetings: (() -> Void)?
     
-    func configure(myMeetings: [Meeting], dateStr: String, handler: @escaping (Meeting) -> Void) {
+    func configure(myMeetings: [[String: Any]], dateStr: String, handler: @escaping ([String: Any]) -> Void) {
         
         meetingTable.layer.cornerRadius = 15
         meetingTable.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
