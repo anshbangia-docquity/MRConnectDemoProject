@@ -43,7 +43,6 @@ class MRMedicinesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("yoooo api call")
         getDocuments()
     }
     

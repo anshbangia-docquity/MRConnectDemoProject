@@ -30,10 +30,13 @@ class MeetingsViewController: UIViewController {
     var meetingDocuments: [QueryDocumentSnapshot] = []
     
     func processMeetingDates() {
+        meetingDates = [:]
+        dates = []
         logic.dateFormatter.dateFormat = "MMM d, yyyy"
         for meetingDoc in meetingDocuments {
             let meeting = meetingDoc.data()
-            let dateStr = logic.dateFormatter.string(from: meeting["startDate"] as! Date)
+            let stamp = meeting["startDate"] as! Timestamp
+            let dateStr = logic.dateFormatter.string(from: stamp.dateValue())
             if meetingDates[dateStr] == nil
             {
                 meetingDates[dateStr] = []
@@ -62,10 +65,10 @@ class MeetingsViewController: UIViewController {
             
             if user!["type"] as! Int16 == UserType.MRUser.rawValue {
                 self.createButton.isHidden = false
-                self.meetingCollecRef = self.meetingCollecRef.whereField("creator", isEqualTo: self.auth.currentUser!.uid)
+                self.meetingCollecRef = self.database.collection("Meetings").whereField("creator", isEqualTo: self.auth.currentUser!.uid)
             } else {
                 self.createButton.isHidden = true
-                self.meetingCollecRef = self.meetingCollecRef.whereField("doctors", arrayContains: self.auth.currentUser!.uid)
+                self.meetingCollecRef = self.database.collection("Meetings").whereField("doctors", arrayContains: self.auth.currentUser!.uid)
             }
             self.getMeetingDocuments()
         }
@@ -73,7 +76,7 @@ class MeetingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        meetingCollecRef = database.collection("Meetings")
+        //meetingCollecRef = database.collection("Meetings")
         userCollecRef = database.collection("Users")
         userDocRef = userCollecRef.document(auth.currentUser!.uid)
         

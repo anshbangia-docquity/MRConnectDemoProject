@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class MeetingDetailsViewController: UIViewController {
     
@@ -61,6 +62,9 @@ class MeetingDetailsViewController: UIViewController {
     let database = Firestore.firestore()
     var userCollecRef: CollectionReference!
     var medCollecRef: Query!
+    var meetingCollecRef: CollectionReference!
+    var meetingDocRef: DocumentReference!
+    let auth = FirebaseAuth.Auth.auth()
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -77,6 +81,8 @@ class MeetingDetailsViewController: UIViewController {
         super.viewDidLoad()
         userCollecRef = database.collection("Users")
         medCollecRef = database.collection("Medicines").whereField("id", in: meeting!["medicines"] as! [String])
+        meetingCollecRef = database.collection("Meetings")
+        meetingDocRef = meetingCollecRef.document(meeting!["id"] as! String)
         
         doctorTableView.delegate = self
         doctorTableView.dataSource = self
@@ -116,63 +122,79 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     func getDocuments() {
-        let doctorArray = meeting!["doctors"] as! [String]
-        userCollecRef.getDocuments { snapshot, error in
-            guard error == nil else { return }
-            let docs = (snapshot?.documents)!
-            for doc in docs {
-                if doctorArray.contains(doc.documentID) {
-                    self.selectedDoctors.append(doc)
-                }
-                if self.meeting!["creator"] as! String == doc.documentID {
-                    let user = doc.data()
-                    self.hostLabel.text = MyStrings.host + ": " + (user["name"] as! String)
-                    if user["type"] as! Int16 == UserType.MRUser.rawValue {
-                        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
+        selectedDoctors = []
 
-                        self.hostLabel.isHidden = true
-                    } else {
-                        self.hostLabel.isHidden = false
-                    }
-                }
-            }
-            self.doctorTableView.reloadData()
-            self.doctorTableViewHeight.constant = self.doctorTableView.contentSize.height
-        }
         medCollecRef.getDocuments { snapshot, error in
             guard error == nil else { return }
             self.selectedMedicines = snapshot?.documents ?? []
             self.medicineTableView.reloadData()
             self.medicineTableViewHeight.constant = self.medicineTableView.contentSize.height
         }
+        
+        meetingDocRef.getDocument { snapshot, error in
+            guard error == nil else { return }
+            self.meeting = snapshot?.data()
+            let startStamp = self.meeting!["startDate"] as! Timestamp
+            let endStamp = self.meeting!["endDate"] as! Timestamp
+            
+            self.logic.dateFormatter.dateFormat = "d"
+            self.dayLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
+            
+            self.logic.dateFormatter.dateFormat = "MMM"
+            self.monthLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
+            
+            self.meetingTitle.text = self.meeting!["title"] as? String
+            
+            self.logic.dateFormatter.dateFormat = "hh:mm a"
+            let startDate = self.logic.dateFormatter.string(from: startStamp.dateValue())
+            let endDate = self.logic.dateFormatter.string(from: endStamp.dateValue())
+            self.timeLabel.text = startDate + " - " + endDate
+            
+            if self.meeting!["desc"] == nil {
+                self.descTextView.text = MyStrings.noDescription
+                self.descTextView.textColor = .systemGray3
+            } else {
+                self.descTextView.text = self.meeting!["desc"] as? String
+                self.descTextView.textColor = .black
+            }
+            
+            let doctorArray = self.meeting!["doctors"] as! [String]
+            self.userCollecRef.getDocuments { snapshot, error in
+                guard error == nil else { return }
+                let docs = (snapshot?.documents)!
+                for doc in docs {
+                    if doctorArray.contains(doc.documentID) {
+                        self.selectedDoctors.append(doc)
+                    }
+                    if self.meeting!["creator"] as! String == doc.documentID {
+                        let user = doc.data()
+                        self.hostLabel.text = MyStrings.host + ": " + (user["name"] as! String)
+                    }
+                    if self.auth.currentUser?.uid == doc.documentID {
+                        let user = doc.data()
+                        if user["type"] as! Int16 == UserType.MRUser.rawValue {
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
+
+                            self.hostLabel.isHidden = true
+                        } else {
+                            self.hostLabel.isHidden = false
+                        }
+                    }
+                }
+                self.doctorTableView.reloadData()
+                self.doctorTableViewHeight.constant = self.doctorTableView.contentSize.height
+            }
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getDocuments()
-        
-        logic.dateFormatter.dateFormat = "d"
-        dayLabel.text = logic.dateFormatter.string(from: meeting!["startDate"] as! Date)
-        
-        logic.dateFormatter.dateFormat = "MMM"
-        monthLabel.text = logic.dateFormatter.string(from: meeting!["startDate"] as! Date)
-        
-        meetingTitle.text = meeting!["title"] as? String
-        
+
         //hostLabel.text = MyStrings.host + ": " + logic.getUser(with: meeting!.creator!).name!
         
-        logic.dateFormatter.dateFormat = "hh:mm a"
-        let startDate = logic.dateFormatter.string(from: meeting!["startDate"] as! Date)
-        let endDate = logic.dateFormatter.string(from: meeting!["endDate"] as! Date)
-        timeLabel.text = startDate + " - " + endDate
-        
-        if meeting!["desc"] == nil {
-            descTextView.text = MyStrings.noDescription
-            descTextView.textColor = .systemGray3
-        } else {
-            descTextView.text = meeting!["desc"] as? String
-            descTextView.textColor = .black
-        }
+
         
 //        if user.type == .MRUser {
 //            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
@@ -191,8 +213,10 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     func configureStatus() {
+        let startStamp = meeting!["startDate"] as! Timestamp
+        let endStamp = meeting!["endDate"] as! Timestamp
         let date = Date()
-        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!["startDate"] as! Date)
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: startStamp.dateValue())
         let minutes = diffComponents.minute
         guard var minutes = minutes else {return}
         minutes += 1
@@ -205,7 +229,7 @@ class MeetingDetailsViewController: UIViewController {
             statusLabel.text = ""
         }
         
-        if date >= meeting!["startDate"] as! Date && date <= meeting!["endDate"] as! Date {
+        if date >= startStamp.dateValue() && date <= endStamp.dateValue() {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
             
@@ -214,7 +238,7 @@ class MeetingDetailsViewController: UIViewController {
 //            }
         }
         
-        if date > meeting!["endDate"] as! Date {
+        if date > endStamp.dateValue() {
             statusTimer?.invalidate()
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver

@@ -44,6 +44,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     }
     
     func configure(myMeeting: [String: Any]) {
+        selectedDoctors = []
         meeting = myMeeting
         moreLabel.isHidden = true
         img1.image = UIImage(systemName: "person.circle")
@@ -106,8 +107,10 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         
         titleLabel.text = meeting!["title"] as? String
         logic.dateFormatter.dateFormat = "hh:mm a"
-        let startTime = logic.dateFormatter.string(from: meeting!["startDate"] as! Date)
-        let endTime = logic.dateFormatter.string(from: meeting!["endDate"] as! Date)
+        var stamp = meeting!["startDate"] as! Timestamp
+        let startTime = logic.dateFormatter.string(from: stamp.dateValue())
+        stamp = meeting!["endDate"] as! Timestamp
+        let endTime = logic.dateFormatter.string(from: stamp.dateValue())
         timeLabel.text = startTime + " - " + endTime
         
         configureStatus()
@@ -123,7 +126,9 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     
     func configureStatus() {
         let date = Date()
-        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!["startDate"] as! Date)
+        let startStamp = meeting!["startDate"] as! Timestamp
+        let endStamp = meeting!["endDate"] as! Timestamp
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: startStamp.dateValue())
         let minutes = diffComponents.minute
         guard var minutes = minutes else {return}
         minutes += 1
@@ -136,7 +141,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             statusLabel.text = ""
         }
         
-        if date >= meeting!["startDate"] as! Date && date <= meeting!["endDate"] as! Date {
+        if date >= startStamp.dateValue() && date <= endStamp.dateValue() {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
             sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
@@ -144,14 +149,14 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             sideBar.backgroundColor = .white
         }
         
-        if date > meeting!["endDate"] as! Date {
+        if date > endStamp.dateValue() {
             timer?.invalidate()
             timer = nil
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
         
-        if date >= meeting!["startDate"] as! Date {
+        if date >= startStamp.dateValue() {
             recsLabel.isHidden = false
         } else {
             recsLabel.isHidden = true

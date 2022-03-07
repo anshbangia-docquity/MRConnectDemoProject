@@ -110,9 +110,11 @@ class MRCreateMeetingViewController: UIViewController {
                 descTextView.textColor = .black
             }
             
-            datePicker.date = myMeeting!["startDate"] as! Date
-            startTimePicker.date = myMeeting!["startDate"] as! Date
-            endTimePicker.date = myMeeting!["endtDate"] as! Date
+            let startStamp = myMeeting!["startDate"] as! Timestamp
+            let endDate = myMeeting!["endDate"] as! Timestamp
+            datePicker.date = startStamp.dateValue()
+            startTimePicker.date = startStamp.dateValue()
+            endTimePicker.date = endDate.dateValue()
             
 //            doctorSet = myMeeting!.doctors!
 //            selectedDoctors = logic.getUsers(with: doctorSet)
@@ -134,11 +136,13 @@ class MRCreateMeetingViewController: UIViewController {
             guard error == nil else { return }
             let docs = snapshot?.documents ?? []
             self.doctors = docs
-            let doctors = self.myMeeting!["doctors"] as! [String]
-            for doc in docs {
-                if doctors.contains(doc.documentID) {
-                    self.selectedDoctors.append(doc)
-                    self.docIds.append(doc.documentID)
+            if self.edit {
+                let doctors = self.myMeeting!["doctors"] as! [String]
+                for doc in docs {
+                    if doctors.contains(doc.documentID) {
+                        self.selectedDoctors.append(doc)
+                        self.docIds.append(doc.documentID)
+                    }
                 }
             }
             self.reloadDoctorTable()
@@ -148,11 +152,13 @@ class MRCreateMeetingViewController: UIViewController {
             guard error == nil else { return }
             let docs = snapshot?.documents ?? []
             self.medicines = docs
-            let meds = self.myMeeting!["medicines"] as! [String]
-            for doc in docs {
-                if meds.contains(doc.documentID) {
-                    self.selectedMedicines.append(doc)
-                    self.medIds.append(doc.documentID)
+            if self.edit {
+                let meds = self.myMeeting!["medicines"] as! [String]
+                for doc in docs {
+                    if meds.contains(doc.documentID) {
+                        self.selectedMedicines.append(doc)
+                        self.medIds.append(doc.documentID)
+                    }
                 }
             }
             self.reloadMedicineTable()
@@ -300,7 +306,9 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
                 return
             }
             
-            selectedDoctors.insert(doctors[indexPath.row], at: 0)
+            let doctor = doctors[indexPath.row]
+            selectedDoctors.insert(doctor, at: 0)
+            docIds.insert(doctor.documentID, at: 0)
             
             reloadDoctorCollection()
         } else {
@@ -308,7 +316,9 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
                 return
             }
             
-            selectedMedicines.insert(medicines[indexPath.row], at: 0)
+            let medicine = medicines[indexPath.row]
+            selectedMedicines.insert(medicine, at: 0)
+            medIds.insert(medicine.documentID, at: 0)
             
             reloadMedicineCollection()
         }
@@ -340,6 +350,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
                 myCell.configure() {
                     //selectedDoctors
                     self.selectedDoctors.remove(at: indexPath.row)
+                    self.docIds.remove(at: indexPath.row)
                     self.reloadDoctorCollection()
                 }
                 
@@ -354,6 +365,7 @@ extension MRCreateMeetingViewController: UICollectionViewDelegate, UICollectionV
                 let medicine = selectedMedicines[indexPath.item].data()
                 myCell.configure(medName: medicine["name"] as! String) { [self] in
                     selectedMedicines.remove(at: indexPath.row)
+                    self.medIds.remove(at: indexPath.row)
                     reloadMedicineCollection()
                 }
                 
