@@ -9,6 +9,7 @@ import UIKit
 import BLTNBoard
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class ProfileViewController: UIViewController {
     
@@ -42,6 +43,7 @@ class ProfileViewController: UIViewController {
     var userCollecRef: CollectionReference!
     var userDocRef: DocumentReference!
     let auth = FirebaseAuth.Auth.auth()
+    let storage = FirebaseStorage.Storage.storage()
     
     //var userDict: [String: Any] = [:]
     
@@ -112,11 +114,42 @@ class ProfileViewController: UIViewController {
                 self?.qualiView.isHidden = true
                 self?.expView.isHidden = true
             }
+            
+            if userDict["profileImageUrl"] as! String == "" {
+                print("add")
+                self?.addImageButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                self?.addImageButton.setTitle(MyStrings.add, for: .normal)
+            } else {
+                print("edit")
+                self?.addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+                self?.addImageButton.setTitle(MyStrings.edit, for: .normal)
+                let imgUrlStr = userDict["profileImageUrl"] as! String
+//                let storageRef = self?.storage.reference(forURL: imgUrlStr)
+//                storageRef?.getData(maxSize: 50 * 1024 * 1024, completion: { data, error in
+//                    guard error == nil, let data = data else {
+//                        print(error)
+//                        return }
+//                    self?.profileImageView.image = UIImage(data: data)
+//                })
+                guard let url = URL(string: imgUrlStr) else { return }
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: url) {
+                        if let img = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self?.profileImageView.image = img
+                            }
+                        }
+                    }
+                }
+
+            }
         }
         
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         
         titleLabel.text = MyStrings.profile
+        
+
         
 //        if let img = user?.profileImage {
 //            profileImageView.image = img
@@ -147,7 +180,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func addImagePressed(_ sender: Any) {
-        //present(imagePicker, animated: true)
+        present(imagePicker, animated: true)
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
@@ -180,17 +213,26 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            let result = logic.saveProfileImage(email: user!.email, img: img)
-//            if result == false {
-//                Alert.showAlert(on: self, title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
-//                return
-//            }
-//            profileImageView.image = img
-//            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-//            addImageButton.setTitle(MyStrings.edit, for: .normal)
-//        }
-//        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageView.image = img
+            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            addImageButton.setTitle(MyStrings.edit, for: .normal)
+            if let imgData = img.pngData() {
+                let ref = storage.reference().child("images/\(auth.currentUser!.uid).png")
+                ref.putData(imgData, metadata: nil) { _, error in
+                    guard error == nil else { return }
+                    ref.downloadURL { url, error in
+                        guard error == nil, let url = url else { return }
+                        self.userDocRef.setData([
+                            "profileImageUrl": url.absoluteString
+                        ], merge: true)
+                    }
+
+                }
+            }
+        }
+        
     }
     
 }
@@ -288,7 +330,7 @@ extension ProfileViewController: BulletinBoardDelegate {
     }
     
     func passwordChanged(newPass: String) {
-        var result = true
+        let result = true
         //var pass = user?.password
         
         let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)

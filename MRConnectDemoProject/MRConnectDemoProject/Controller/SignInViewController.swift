@@ -157,7 +157,8 @@ class SignUpViewController: UIViewController {
                 "contact": self.contactField.text!,
                 "email": self.emailField.text!,
                 "password": self.passField.text!,
-                "type": Int(self.type.rawValue)
+                "type": Int(self.type.rawValue),
+                "profileImageUrl": ""
             ])
             
             if self.type == .MRUser {
