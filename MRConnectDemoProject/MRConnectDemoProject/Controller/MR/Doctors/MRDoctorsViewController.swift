@@ -104,9 +104,15 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
         }
         
-//        if let img = doctor.profileImage {
-//            cell.configImg(imgData: img)
-//        }
+        if doctor["profileImageUrl"] as! String != "" {
+            let imgUrlStr = doctor["profileImageUrl"] as! String
+            let url = (URL(string: imgUrlStr))!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    cell.configImg(imgData: data)
+                }
+            }
+        }
         
         return cell
     }

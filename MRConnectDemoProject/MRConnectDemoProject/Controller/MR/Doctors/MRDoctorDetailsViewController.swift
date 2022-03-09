@@ -28,11 +28,19 @@ class MRDoctorDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImage.image = UIImage(systemName: "person.circle")
-//        if let img = doctor!.profileImage {
-//            DispatchQueue.main.async {
-//                self.profileImage.image = UIImage(data: img)
-//            }
-//        }
+        if doctorDoc["profileImageUrl"] as! String != "" {
+            let imgUrlStr = doctorDoc["profileImageUrl"] as! String
+            let url = (URL(string: imgUrlStr))!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    if let img = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.profileImage.image = img
+                        }
+                    }
+                }
+            }
+        }
         
         nameLabel.text = "Dr. \(doctorDoc["name"] as! String)"
         specLabel.text = Specialities.specialities[doctorDoc["speciality"] as! Int16]

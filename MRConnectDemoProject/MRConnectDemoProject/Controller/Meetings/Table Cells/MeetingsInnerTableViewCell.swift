@@ -74,29 +74,53 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             }
             if self.doctorCount >= 1 {
                 self.img1.isHidden = false
-//                DispatchQueue.main.async {
-//                    if let data = self.selectedDoctors[0].profileImage {
-//                        self.img1.image = UIImage(data: data)
-//                    }
-//                }
+                if self.selectedDoctors[0]["profileImageUrl"] as! String != "" {
+                    let imgUrlStr = self.selectedDoctors[0]["profileImageUrl"] as! String
+                    let url = (URL(string: imgUrlStr))!
+                    DispatchQueue.global().async {
+                        if let data = try? Data(contentsOf: url) {
+                            if let img = UIImage(data: data) {
+                                DispatchQueue.main.async {
+                                    self.img1.image = img
+                                }
+                            }
+                        }
+                    }
+                }
             }
             
         if self.doctorCount >= 2 {
             self.img2.isHidden = false
-//                DispatchQueue.main.async {
-//                    if let data = self.selectedDoctors[1].profileImage {
-//                        self.img2.image = UIImage(data: data)
-//                    }
-//                }
+            if self.selectedDoctors[1]["profileImageUrl"] as! String != "" {
+                let imgUrlStr = self.selectedDoctors[1]["profileImageUrl"] as! String
+                let url = (URL(string: imgUrlStr))!
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: url) {
+                        if let img = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self.img2.image = img
+                            }
+                        }
+                    }
+                }
+            }
             }
             
             if self.doctorCount >= 3 {
                 self.img3.isHidden = false
-//                DispatchQueue.main.async {
-//                    if let data = self.selectedDoctors[2].profileImage {
-//                        self.img3.image = UIImage(data: data)
-//                    }
-//                }
+                if self.selectedDoctors[2]["profileImageUrl"] as! String != "" {
+                    let imgUrlStr = self.selectedDoctors[2]["profileImageUrl"] as! String
+                    let url = (URL(string: imgUrlStr))!
+                    DispatchQueue.global().async {
+                        if let data = try? Data(contentsOf: url) {
+                            if let img = UIImage(data: data) {
+                                DispatchQueue.main.async {
+                                    self.img2.image = img
+                                }
+                            }
+                        }
+                    }
+                }
             }
             
             if self.doctorCount >= 4 {

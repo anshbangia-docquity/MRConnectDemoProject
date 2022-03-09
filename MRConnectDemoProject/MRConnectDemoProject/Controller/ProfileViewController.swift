@@ -116,11 +116,9 @@ class ProfileViewController: UIViewController {
             }
             
             if userDict["profileImageUrl"] as! String == "" {
-                print("add")
                 self?.addImageButton.setImage(UIImage(systemName: "plus"), for: .normal)
                 self?.addImageButton.setTitle(MyStrings.add, for: .normal)
             } else {
-                print("edit")
                 self?.addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
                 self?.addImageButton.setTitle(MyStrings.edit, for: .normal)
                 let imgUrlStr = userDict["profileImageUrl"] as! String
