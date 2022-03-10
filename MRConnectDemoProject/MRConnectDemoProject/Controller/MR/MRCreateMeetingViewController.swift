@@ -228,7 +228,7 @@ class MRCreateMeetingViewController: UIViewController {
 //        }
         
         let creator = auth.currentUser!.uid
-        
+        let recordingArray: [String] = []
         meetingDocRef.setData([
             "title": titleField.text!,
             "startDate": startDate,
@@ -237,7 +237,8 @@ class MRCreateMeetingViewController: UIViewController {
             "endDate": endDate,
             "doctors": docIds,
             "desc": descText,
-            "creator": creator
+            "creator": creator,
+            "recordings": recordingArray
         ]) { error in
             guard error == nil else { return }
             self.dismiss(animated: true, completion: nil)
@@ -281,9 +282,15 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let doctor = doctors[indexPath.row].data()
             myCell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int16)
             
-//            if let img = doctor.profileImage {
-//                myCell.configImg(imgData: img)
-//            }
+            if doctor["profileImageUrl"] as! String != "" {
+                let imgUrlStr = doctor["profileImageUrl"] as! String
+                let url = (URL(string: imgUrlStr))!
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: url) {
+                        myCell.configImg(imgData: data)
+                    }
+                }
+            }
             
             cell = myCell
         } else {

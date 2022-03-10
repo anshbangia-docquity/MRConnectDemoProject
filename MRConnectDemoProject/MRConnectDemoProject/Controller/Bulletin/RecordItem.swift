@@ -30,10 +30,11 @@ enum RecordResult {
     var isRecording = false
     var isRecordingPaused = false
     var recordingFileName: String?
+    var recordingUrl: URL?
     var logic = Logic()
-    var meetingId: Int16 = -1
+    var meetingId = ""
     var endDate: Date!
-    var saveRecording: ((RecordResult, String?, AVAudioRecorder?) -> Void)? = nil
+    var saveRecording: ((RecordResult, URL?, String?, AVAudioRecorder?) -> Void)? = nil
     
     var anim1constraint: NSLayoutConstraint!
     var anim2constraint: NSLayoutConstraint!
@@ -142,10 +143,11 @@ extension RecordItem {
     func getNewFileUrl() -> URL {
         logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
         let dateStr = logic.dateFormatter.string(from: Date())
-        let filename = "meeting_\(meetingId)_recording_" + dateStr + ".m4a"
+        let filename = "\(meetingId)_" + dateStr + ".m4a"
         let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
         recordingFileName = filename
         print(filePath)
+        recordingUrl = filePath
         return filePath
     }
     
@@ -199,12 +201,13 @@ extension RecordItem {
     @objc func stopPressed() {
         stopRecording(success: true)
         
-        saveRecording?(.success, recordingFileName, audioRecorder)
+        //saveRecording?(.success, recordingFileName, audioRecorder)
+        saveRecording?(.success, recordingUrl, recordingFileName, audioRecorder)
         audioRecorder = nil
     }
     
     @objc func cancelPressed() {
-        saveRecording?(.cancel, recordingFileName, audioRecorder)
+        saveRecording?(.cancel, nil, nil, nil)
         audioRecorder = nil
     }
     
@@ -225,7 +228,7 @@ extension RecordItem {
             
             resetAnimation()
         } else {
-            saveRecording?(.fail, nil, nil)
+            saveRecording?(.fail, nil, nil, nil)
         }
     }
 }

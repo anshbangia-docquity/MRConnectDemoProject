@@ -226,7 +226,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                             "profileImageUrl": url.absoluteString
                         ], merge: true)
                     }
-
                 }
             }
         }

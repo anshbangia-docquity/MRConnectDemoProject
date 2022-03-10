@@ -145,7 +145,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         //}
         
         updateRecordingCount()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
     }
     
     func configureStatus() {
@@ -189,13 +189,12 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     }
     
     @objc func updateRecordingCount() {
-        recsLabel.text = "n recordings"
-//        let recsCount = logic.getRecordings(of: meeting!.id).count
-//        if recsCount == 1 {
-//            recsLabel.text = "1 " + MyStrings.recording.lowercased()
-//        } else {
-//            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
-//        }
+        let recsCount = (meeting!["recordings"] as! [String]).count
+        if recsCount == 1 {
+            recsLabel.text = "1 " + MyStrings.recording.lowercased()
+        } else {
+            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
+        }
     }
     
 }
