@@ -71,6 +71,8 @@
 		01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */; };
 		01AD579A27A18B2800EB47DF /* MRMedicines.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579927A18B2800EB47DF /* MRMedicines.storyboard */; };
 		01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */; };
+		01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507027DE0238008FB0C0 /* AuthHandler.swift */; };
+		01D0507327DE03B0008FB0C0 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507227DE03B0008FB0C0 /* Segues.swift */; };
 		1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891533827AA332F00A9495D /* CoreDataHandler.swift */; };
 		F1B7B7D280F8B2797D177767 /* Pods_MRConnectDemoProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80425F822A79620A41A0AB2E /* Pods_MRConnectDemoProject.framework */; };
 /* End PBXBuildFile section */
@@ -144,6 +146,8 @@
 		01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesViewController.swift; sourceTree = "<group>"; };
 		01AD579927A18B2800EB47DF /* MRMedicines.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMedicines.storyboard; sourceTree = SOURCE_ROOT; };
 		01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
+		01D0507027DE0238008FB0C0 /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
+		01D0507227DE03B0008FB0C0 /* Segues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		1891533827AA332F00A9495D /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		36D29A85DAC3BF90EC98F67A /* Pods-MRConnectDemoProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.release.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.release.xcconfig"; sourceTree = "<group>"; };
 		60B7C343C5253291B87664AD /* Pods-MRConnectDemoProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRConnectDemoProject.debug.xcconfig"; path = "Target Support Files/Pods-MRConnectDemoProject/Pods-MRConnectDemoProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,8 +204,9 @@
 		0110A8AC279E981B0023AD4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				01A1E12727B377CB0094E374 /* CoreData Model */,
 				1891533727AA331800A9495D /* CoreData */,
+				01A1E12727B377CB0094E374 /* CoreData Model */,
+				01D0506F27DE006F008FB0C0 /* Firebase */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
 				0110A8B1279E988D0023AD4C /* UserType.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
@@ -209,6 +214,7 @@
 				013A844327AA7A56002AC97C /* Specialities.swift */,
 				013A844527AA7BDC002AC97C /* MedicineForms.swift */,
 				013A844727AA803B002AC97C /* CurrentUser.swift */,
+				01D0507227DE03B0008FB0C0 /* Segues.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,6 +384,14 @@
 				011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */,
 			);
 			path = Doctor;
+			sourceTree = "<group>";
+		};
+		01D0506F27DE006F008FB0C0 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				01D0507027DE0238008FB0C0 /* AuthHandler.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		0F83BBA7B3960D28754D1CE1 /* Frameworks */ = {
@@ -566,6 +580,8 @@
 				01A1E14927B41AD70094E374 /* MRMedicinesCollectionViewCell.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
 				0125585F27BB92FE00C3957A /* Medicine+CoreDataProperties.swift in Sources */,
+				01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */,
+				01D0507327DE03B0008FB0C0 /* Segues.swift in Sources */,
 				013A844427AA7A56002AC97C /* Specialities.swift in Sources */,
 				0161858F27B651EF006C636E /* MeetingsInnerTableViewCell.swift in Sources */,
 				0125585C27BB92FE00C3957A /* User+CoreDataClass.swift in Sources */,
