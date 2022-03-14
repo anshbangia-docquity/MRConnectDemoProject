@@ -146,5 +146,8 @@ struct MyStrings {
     static let noMeds = "No Medicines".localize()
     static let noDocs = "No Doctors".localize()
     static let noMeetings = "No Meetings".localize()
+    static let loggingIn = "Logging In".localize()
+    static let networkError = "Network Error".localize()
+    static let errorOccured = "An error occured".localize()
     
 }

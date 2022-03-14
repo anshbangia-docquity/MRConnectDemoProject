@@ -105,12 +105,10 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="qsx-Bj-wak"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="emailField" destination="3UF-mK-2rJ" id="V0P-6e-OGU"/>
+                        <outlet property="emailField" destination="3UF-mK-2rJ" id="HnI-Sa-ETR"/>
                         <outlet property="loginButton" destination="3kK-aZ-zhp" id="OY3-Mj-tTm"/>
                         <outlet property="passwordField" destination="dAY-d6-q4p" id="lWX-Zw-gOg"/>
                         <outlet property="signupButton" destination="xld-zb-U38" id="Ava-aM-6oy"/>
-                        <segue destination="d6V-79-XmR" kind="presentation" identifier="logInMR" id="8Km-Ki-fch"/>
-                        <segue destination="YS6-tr-myk" kind="presentation" identifier="logInDoctor" id="Tdu-fN-Rhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mF-F7-ZBN" sceneMemberID="firstResponder"/>
@@ -298,22 +296,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7t2-uI-A9d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1904.3478260869567" y="66.964285714285708"/>
-        </scene>
-        <!--DoctorHomeScreen-->
-        <scene sceneID="3OH-Tq-Y0f">
-            <objects>
-                <viewControllerPlaceholder storyboardName="DoctorHomeScreen" id="YS6-tr-myk" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xiu-7D-LaI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1433" y="649"/>
-        </scene>
-        <!--MRHomeScreen-->
-        <scene sceneID="D8g-g6-7iq">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MRHomeScreen" id="d6V-79-XmR" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gen-kc-58P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="382" y="649"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Xg-RA-5LM">

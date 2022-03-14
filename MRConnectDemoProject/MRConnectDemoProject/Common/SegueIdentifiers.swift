@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Segues {
+struct SegueIdentifiers {
     
     static let goToLoginSignup = "goToLoginSignup"
     static let loginMR = "loginMR"
