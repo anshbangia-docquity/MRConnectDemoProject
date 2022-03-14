@@ -19,6 +19,8 @@ class FirstViewController: UIViewController {
 //                DispatchQueue.main.async {
 //                    self?.performSegue(withIdentifier: segueIdentifier, sender: self!)
 //                }
+//            } else {
+//                print(segueIdentifier)
 //            }
             DispatchQueue.main.async {
                 self?.performSegue(withIdentifier: segueIdentifier, sender: self!)

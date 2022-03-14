@@ -27,4 +27,34 @@ struct FirestoreHandler {
         }
     }
     
+    func saveUser(userId: String, signupRequest: SignupRequest, completion: @escaping () -> Void) {
+        let userDocumentRef = userCollectionRef.document(userId)
+        
+        userDocumentRef.setData([
+            "userId": userId,
+            "userType": signupRequest.type,
+            "userImageLink": "",
+            "userPassword": signupRequest.password!,
+            "userName": signupRequest.name!,
+            "userEmail": signupRequest.email!,
+            "userContact": signupRequest.contact!
+        ])
+        
+        if signupRequest.type == UserType.Doctor.rawValue {
+            userDocumentRef.setData([
+                "userSpeciality": signupRequest.speciality,
+                "userQuali": "",
+                "userOffice": "",
+                "userMRNumber": signupRequest.mrnumber!,
+                "userExp": ""
+            ], merge: true)
+        } else {
+            userDocumentRef.setData([
+                "userLicenseNumber": signupRequest.license!
+            ], merge: true)
+        }
+        
+        completion()
+    }
+    
 }

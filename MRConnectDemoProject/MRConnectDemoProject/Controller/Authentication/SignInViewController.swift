@@ -117,42 +117,6 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
-        
-        
-//        Auth.auth().createUser(withEmail: emailField.text!, password: passField.text!) { result, error in
-//            if error != nil {
-//                Alert.showAlert(on: self, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
-//            }
-//
-//            guard let result = result else { return }
-//            let userDocRef = self.userCollecRef.document(result.user.uid)
-//            userDocRef.setData([
-//                "name": self.nameField.text!,
-//                "contact": self.contactField.text!,
-//                "email": self.emailField.text!,
-//                "password": self.passField.text!,
-//                "type": Int(self.type.rawValue),
-//                "profileImageUrl": ""
-//            ])
-//
-//            if self.type == .MRUser {
-//                userDocRef.setData([
-//                    "license": self.numberField.text!
-//                ], merge: true)
-//            } else {
-//                userDocRef.setData([
-//                    "mrnumber": self.numberField.text!,
-//                    "speciality": Int(self.selectedSpec),
-//                    "office": "",
-//                    "quali": "",
-//                    "exp": ""
-//                ], merge: true)
-//            }
-            
- //           self.dismiss(animated: true, completion: nil)
- //       }
-        
-        
     }
     
 }

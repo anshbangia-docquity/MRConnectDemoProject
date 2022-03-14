@@ -41,25 +41,25 @@ struct AuthHandler {
         }
     }
     
-    func signupUser(signupRequest: SignupRequest, completion: @escaping (_ error: ErrorType?) -> Void) {
-        auth.createUser(withEmail: signupRequest.email!, password: signupRequest.password!) { _, error in
+    func signupUser(signupRequest: SignupRequest, completion: @escaping (_ result: AuthDataResult?, _ error: ErrorType?) -> Void) {
+        auth.createUser(withEmail: signupRequest.email!, password: signupRequest.password!) { result, error in
             if error != nil {
                 if let errCode = AuthErrorCode(rawValue: error!._code) {
                     switch errCode {
                     case .networkError:
-                        completion(.networkError)
+                        completion(nil, .networkError)
                     case .invalidEmail:
-                        completion(.invalidEmail)
+                        completion(nil, .invalidEmail)
                     case .weakPassword:
-                        completion(.weakPassword)
+                        completion(nil, .weakPassword)
                     case .emailAlreadyInUse:
-                        completion(.emailAlreadyInUse)
+                        completion(nil, .emailAlreadyInUse)
                     default:
-                        completion(.defaultError)
+                        completion(nil, .defaultError)
                     }
                 }
             } else {
-                completion(nil)
+                completion(result, nil)
             }
         }
     }
