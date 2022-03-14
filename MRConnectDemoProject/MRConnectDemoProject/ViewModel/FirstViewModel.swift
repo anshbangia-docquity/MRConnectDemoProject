@@ -17,7 +17,6 @@ struct FirstViewModel {
             
         } else {
             if let _ = UserDefaultManager().readData(for: "userId") {
-                print("saved tha")
                 let user = CurrentUser()
                 
                 if user.type == .MRUser {
@@ -27,7 +26,6 @@ struct FirstViewModel {
                 }
             } else {
                 let firestore = FirestoreHandler()
-                print("save krenge")
                 firestore.getUser(userId: authHandler.currentUser!.uid) { userDict in
                     UserDefaultManager().saveUser(userDict)
                     

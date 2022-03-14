@@ -280,7 +280,7 @@ extension MRCreateMeetingViewController: UITableViewDataSource, UITableViewDeleg
             let myCell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
             
             let doctor = doctors[indexPath.row].data()
-            myCell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int16)
+            myCell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int)
             
             if doctor["profileImageUrl"] as! String != "" {
                 let imgUrlStr = doctor["profileImageUrl"] as! String

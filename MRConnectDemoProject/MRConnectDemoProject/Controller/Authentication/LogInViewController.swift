@@ -17,10 +17,6 @@ class LogInViewController: UIViewController {
     
     let loginViewModel = LoginViewModel()
     
-    var activityIndicator: UIActivityIndicatorView?
-    var activityLabel: UILabel?
-    let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         allUI = [emailField, passwordField, loginButton, signupButton]
@@ -36,19 +32,13 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func logInTapped(_ sender: Any) {
-        allUI.forEach { ui in
-            ui.isEnabled = false
-        }
-        activityIndicator(MyStrings.loggingIn)
+        ActivityIndicator.shared.start(on: view, label: MyStrings.loggingIn)
         
         let request = LoginRequest(email: emailField.text, password: passwordField.text)
         
         loginViewModel.loginUser(loginRequest: request) { [weak self] result in
             DispatchQueue.main.async {
-                self?.effectView.removeFromSuperview()
-                self?.allUI.forEach({ ui in
-                    ui.isEnabled = true
-                })
+                ActivityIndicator.shared.stop()
             }
             
             if !result.success {
@@ -87,33 +77,6 @@ class LogInViewController: UIViewController {
     
 }
 
-//MARK: - Activity Indicator
-extension LogInViewController {
-    
-    func activityIndicator(_ title: String) {
-        activityLabel?.removeFromSuperview()
-        activityIndicator?.removeFromSuperview()
-        
-        activityLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 160, height: 46))
-        activityLabel!.text = title
-        activityLabel!.font = .systemFont(ofSize: 17, weight: .medium)
-        activityLabel!.textColor = UIColor(white: 0.1, alpha: 0.7)
-        
-        effectView.frame = CGRect(x: view.frame.midX - activityLabel!.frame.width/2, y: view.frame.midY - activityLabel!.frame.height/2 , width: 160, height: 46)
-        effectView.layer.cornerRadius = 15
-        effectView.layer.masksToBounds = true
-        
-        activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator?.color = .black
-        activityIndicator!.frame = CGRect(x: 0, y: 0, width: 46, height: 46)
-        activityIndicator!.startAnimating()
-        
-        effectView.contentView.addSubview(activityIndicator!)
-        effectView.contentView.addSubview(activityLabel!)
-        view.addSubview(effectView)
-    }
-    
-}
 
 
 

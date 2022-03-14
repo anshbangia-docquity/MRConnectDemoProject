@@ -89,7 +89,7 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         let doctorDoc = doctorDocuments[indexPath.row]
         let doctor = doctorDoc.data()
 //        cell.configure(name: doctor.name!, spec: doctor.speciality, email: doctor.email!, contact: doctor.contact!, office: doctor.office!)
-        cell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int16, email: doctor["email"] as! String, contact: doctor["contact"] as! String, office: doctor["office"] as! String)
+        cell.configure(name: doctor["name"] as! String, spec: doctor["speciality"] as! Int, email: doctor["email"] as! String, contact: doctor["contact"] as! String, office: doctor["office"] as! String)
 
         
         cell.layer.maskedCorners = []

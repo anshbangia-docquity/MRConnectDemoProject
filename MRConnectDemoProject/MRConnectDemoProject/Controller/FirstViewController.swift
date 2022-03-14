@@ -15,12 +15,14 @@ class FirstViewController: UIViewController {
         super.viewDidAppear(animated)
         
         firstViewModel.decideSegue {[weak self] segueIdentifier in
-            if segueIdentifier == SegueIdentifiers.goToLoginSignup {
-                DispatchQueue.main.async {
-                    self?.performSegue(withIdentifier: segueIdentifier, sender: self!)
-                }
+//            if segueIdentifier == SegueIdentifiers.goToLoginSignup {
+//                DispatchQueue.main.async {
+//                    self?.performSegue(withIdentifier: segueIdentifier, sender: self!)
+//                }
+//            }
+            DispatchQueue.main.async {
+                self?.performSegue(withIdentifier: segueIdentifier, sender: self!)
             }
-            print(segueIdentifier)
         }
     }
     

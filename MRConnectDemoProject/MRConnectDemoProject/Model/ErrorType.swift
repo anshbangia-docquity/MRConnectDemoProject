@@ -16,5 +16,12 @@ enum ErrorType {
     case invalidEmail
     case invalidPassword
     case defaultError
+    case emptyNameField
+    case emptyContactField
+    case emptyNumberField
+    case emptySpecialityField
+    case confirmPasswordNotMatch
+    case weakPassword
+    case emailAlreadyInUse
 
 }

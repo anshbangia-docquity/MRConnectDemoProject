@@ -18,7 +18,7 @@ class MRDoctorsTableViewCell: UITableViewCell {
     
     static let id = "doctorsTableCell"
     
-    func configure(name: String, spec: Int16) {
+    func configure(name: String, spec: Int) {
         nameLabel.text = "Dr. \(name)"
         specLabel.text = Specialities.specialities[spec]
         profileImage.image = UIImage(systemName: "person.circle")
@@ -30,7 +30,7 @@ class MRDoctorsTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(name: String, spec: Int16, email: String, contact: String, office: String) {
+    func configure(name: String, spec: Int, email: String, contact: String, office: String) {
         nameLabel.text = "Dr. \(name)"
         specLabel.text = Specialities.specialities[spec]
         emailLabel.text = email

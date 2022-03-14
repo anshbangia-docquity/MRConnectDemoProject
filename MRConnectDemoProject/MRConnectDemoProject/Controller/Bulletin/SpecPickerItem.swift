@@ -11,7 +11,7 @@ import BLTNBoard
 @objc public class SpecPickerItem: BLTNPageItem {
 
     public lazy var picker = UIPickerView()
-    var spec: Int16 = Specialities.specialities.keys.first!
+    var spec: Int = Specialities.specialities.keys.first!
     
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         picker.delegate = self

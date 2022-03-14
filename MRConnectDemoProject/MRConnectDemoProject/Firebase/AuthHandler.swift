@@ -18,25 +18,48 @@ struct AuthHandler {
         return auth.currentUser
     }
     
-    func loginUser(loginRequest: LoginRequest, completion: @escaping (_ result: AuthDataResult?, _ error: ErrorType?) -> Void) {
-        auth.signIn(withEmail: loginRequest.email!, password: loginRequest.password!) { result, error in
+    func loginUser(loginRequest: LoginRequest, completion: @escaping (_ error: ErrorType?) -> Void) {
+        auth.signIn(withEmail: loginRequest.email!, password: loginRequest.password!) { _, error in
             if error != nil {
                 if let errCode = AuthErrorCode(rawValue: error!._code) {
                     switch errCode {
                     case .networkError:
-                        completion(result, .networkError)
+                        completion(.networkError)
                     case .userNotFound:
-                        completion(result, .userNotFound)
+                        completion(.userNotFound)
                     case .invalidEmail:
-                        completion(result, .invalidEmail)
+                        completion(.invalidEmail)
                     case .wrongPassword:
-                        completion(result, .invalidPassword)
+                        completion(.invalidPassword)
                     default:
-                        completion(result, .defaultError)
+                        completion(.defaultError)
                     }
                 }
             } else {
-                completion(result, nil)
+                completion(nil)
+            }
+        }
+    }
+    
+    func signupUser(signupRequest: SignupRequest, completion: @escaping (_ error: ErrorType?) -> Void) {
+        auth.createUser(withEmail: signupRequest.email!, password: signupRequest.password!) { _, error in
+            if error != nil {
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case .networkError:
+                        completion(.networkError)
+                    case .invalidEmail:
+                        completion(.invalidEmail)
+                    case .weakPassword:
+                        completion(.weakPassword)
+                    case .emailAlreadyInUse:
+                        completion(.emailAlreadyInUse)
+                    default:
+                        completion(.defaultError)
+                    }
+                }
+            } else {
+                completion(nil)
             }
         }
     }

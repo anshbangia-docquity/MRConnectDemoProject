@@ -58,6 +58,10 @@
 		018CAA7E27AE777500FF04D6 /* ChangeNumberItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7D27AE777500FF04D6 /* ChangeNumberItem.swift */; };
 		018CAA8027AE943C00FF04D6 /* CheckPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */; };
 		01906B1B27DF256200BA8EDF /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B1A27DF256200BA8EDF /* FirstViewModel.swift */; };
+		01906B1E27DF3B0700BA8EDF /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B1D27DF3B0700BA8EDF /* SignupViewModel.swift */; };
+		01906B2027DF3B7100BA8EDF /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */; };
+		01906B2227DF3CE100BA8EDF /* SignupValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2127DF3CE100BA8EDF /* SignupValidation.swift */; };
+		01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */; };
 		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
 		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01A1E13C27B3D73E0094E374 /* Meetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A1E13B27B3D73E0094E374 /* Meetings.storyboard */; };
@@ -140,6 +144,10 @@
 		018CAA7D27AE777500FF04D6 /* ChangeNumberItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNumberItem.swift; sourceTree = "<group>"; };
 		018CAA7F27AE943C00FF04D6 /* CheckPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPasswordItem.swift; sourceTree = "<group>"; };
 		01906B1A27DF256200BA8EDF /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
+		01906B1D27DF3B0700BA8EDF /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
+		01906B2127DF3CE100BA8EDF /* SignupValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupValidation.swift; sourceTree = "<group>"; };
+		01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01A1E13B27B3D73E0094E374 /* Meetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Meetings.storyboard; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 				013A844527AA7BDC002AC97C /* MedicineForms.swift */,
 				013A844727AA803B002AC97C /* CurrentUser.swift */,
 				01D0507B27DE4F5B008FB0C0 /* LoginRequest.swift */,
+				01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */,
 				01D0508127DE52D4008FB0C0 /* ErrorType.swift */,
 			);
 			path = Model;
@@ -254,7 +263,6 @@
 			children = (
 				013A843D27AA4DC1002AC97C /* FirstViewController.swift */,
 				01906B1927DEE5B100BA8EDF /* Authentication */,
-				0110A8E3279ED6110023AD4C /* SignInViewController.swift */,
 				01A1E14127B3EB9D0094E374 /* Meetings */,
 				0117681427B4C23700E89110 /* ProfileViewController.swift */,
 				01AD578827A1167600EB47DF /* MR */,
@@ -323,6 +331,16 @@
 			isa = PBXGroup;
 			children = (
 				0110A8B3279E998A0023AD4C /* LogInViewController.swift */,
+				0110A8E3279ED6110023AD4C /* SignInViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		01906B1C27DF3AF600BA8EDF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				01D0507F27DE51A7008FB0C0 /* LoginViewModel.swift */,
+				01906B1D27DF3B0700BA8EDF /* SignupViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -424,6 +442,7 @@
 			children = (
 				01D0507727DE4C2B008FB0C0 /* LoginValidation.swift */,
 				01D0507927DE4CD5008FB0C0 /* ValidationResult.swift */,
+				01906B2127DF3CE100BA8EDF /* SignupValidation.swift */,
 			);
 			path = FormValidation;
 			sourceTree = "<group>";
@@ -434,6 +453,7 @@
 				011C9C6227A80C9500B02D02 /* MyStrings.swift */,
 				01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
+				01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -441,8 +461,8 @@
 		01D0507E27DE512A008FB0C0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				01D0507F27DE51A7008FB0C0 /* LoginViewModel.swift */,
 				01906B1A27DF256200BA8EDF /* FirstViewModel.swift */,
+				01906B1C27DF3AF600BA8EDF /* Authentication */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -621,6 +641,7 @@
 				01172A4527BC06EF00366FB8 /* MRDoctorDetailsViewController.swift in Sources */,
 				013A844827AA803B002AC97C /* CurrentUser.swift in Sources */,
 				01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */,
+				01906B2227DF3CE100BA8EDF /* SignupValidation.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
 				01D0507C27DE4F5B008FB0C0 /* LoginRequest.swift in Sources */,
 				01A1E13527B385580094E374 /* Gradient.swift in Sources */,
@@ -628,12 +649,14 @@
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
+				01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */,
 				0117682227B52DB700E89110 /* DetailsTableViewCell.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
 				018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */,
 				013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */,
 				01906B1B27DF256200BA8EDF /* FirstViewModel.swift in Sources */,
 				0153A7E627B0EF98000B98A6 /* MRCreateMeetingViewController.swift in Sources */,
+				01906B2027DF3B7100BA8EDF /* SignupRequest.swift in Sources */,
 				0125585E27BB92FE00C3957A /* Medicine+CoreDataClass.swift in Sources */,
 				01A1E14927B41AD70094E374 /* MRMedicinesCollectionViewCell.swift in Sources */,
 				0110A88D279E97100023AD4C /* AppDelegate.swift in Sources */,
@@ -645,6 +668,7 @@
 				0161858F27B651EF006C636E /* MeetingsInnerTableViewCell.swift in Sources */,
 				0125585C27BB92FE00C3957A /* User+CoreDataClass.swift in Sources */,
 				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
+				01906B1E27DF3B0700BA8EDF /* SignupViewModel.swift in Sources */,
 				0125585527BB731100C3957A /* ChangePasswordItem copy.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,

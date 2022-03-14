@@ -14,7 +14,7 @@ struct LoginViewModel {
         
         if validationResult.success {
             let authHandler = AuthHandler.shared
-            authHandler.loginUser(loginRequest: loginRequest) { _, error in
+            authHandler.loginUser(loginRequest: loginRequest) { error in
                 completion(ValidationResult(success: error == nil, error: error))
             }
         } else {

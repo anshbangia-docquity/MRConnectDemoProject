@@ -43,7 +43,7 @@ class MRDoctorDetailsViewController: UIViewController {
         }
         
         nameLabel.text = "Dr. \(doctorDoc["name"] as! String)"
-        specLabel.text = Specialities.specialities[doctorDoc["speciality"] as! Int16]
+        specLabel.text = Specialities.specialities[doctorDoc["speciality"] as! Int]
         emailLabel.text = doctorDoc["email"] as? String
         contactLabel.text = doctorDoc["contact"] as? String
         officeLabel.text = MyStrings.office
