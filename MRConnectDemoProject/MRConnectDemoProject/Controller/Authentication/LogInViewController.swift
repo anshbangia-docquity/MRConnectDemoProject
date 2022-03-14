@@ -60,6 +60,10 @@ class LogInViewController: UIViewController {
                     DispatchQueue.main.async {
                         Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
                     }
+                } else if result.error == .userNotFound {
+                    DispatchQueue.main.async {
+                        Alert.showAlert(on: self!, title: MyStrings.invalidEmail, subtitle: MyStrings.tryAgain)
+                    }
                 } else if result.error == .invalidEmail {
                     DispatchQueue.main.async {
                         Alert.showAlert(on: self!, title: MyStrings.invalidEmail, subtitle: MyStrings.tryAgain)

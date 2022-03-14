@@ -21,7 +21,7 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     @IBOutlet weak var arrow: UIImageView!
     
     var meetings: [[String: Any]] = []
-    var logic = Logic()
+    //var logic = Logic()
     var tappedMeeting: Meeting?
     var openMeeting: ((_ meeting: [String: Any]) -> Void)?
     //var isExpanded = false
@@ -29,60 +29,60 @@ class MeetingsOuterTableViewCell: UITableViewCell {
     //var expandMeetings: (() -> Void)?
     
     func configure(myMeetings: [[String: Any]], dateStr: String, handler: @escaping ([String: Any]) -> Void) {
-        
-        meetingTable.layer.cornerRadius = 15
-        meetingTable.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        dateTimeView.layer.cornerRadius = 15
-        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        meetings = myMeetings
-        openMeeting = handler
-        logic.dateFormatter.dateFormat = "MMM d, yyyy"
-        let date = logic.dateFormatter.date(from: dateStr)!
-        
-        logic.dateFormatter.dateFormat = "dd"
-        dateLabel.text = logic.dateFormatter.string(from: date)
-        logic.dateFormatter.dateFormat = "MMM"
-        monthLabel.text = logic.dateFormatter.string(from: date)
- 
-        logic.dateFormatter.dateFormat = "EEEE"
-        dayLabel.text = logic.dateFormatter.string(from: date)
-        if dayLabel.text! == logic.dateFormatter.string(from: Date())
-        {
-            dayLabel.text = MyStrings.today
-            dateTimeView.backgroundColor = UIColor(red: 125/255, green: 200/255, blue: 58/255, alpha: 0.5)
-            dateLabel.textColor = .black
-            monthLabel.textColor = .black
-            dayLabel.textColor = .black
-            meetingNum.textColor = .darkGray
-        } else {
-            dateTimeView.backgroundColor = .white
-            dateLabel.textColor = .black
-            monthLabel.textColor = .black
-            dayLabel.textColor = .black
-            meetingNum.textColor = .gray
-        }
-        
-        meetingTable.delegate = self
-        meetingTable.dataSource = self
-        
-        meetingTable.reloadData()
-        meetingTableHeight.constant = 0
-        meetingTableHeight.constant = CGFloat((meetings.count * 115))
-        
-//        let _ = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { _ in
-//            NotificationCenter.default.post(name: Notification.Name("oneSecond"), object: nil)
+//        
+//        meetingTable.layer.cornerRadius = 15
+//        meetingTable.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+//        dateTimeView.layer.cornerRadius = 15
+//        dateTimeView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        meetings = myMeetings
+//        openMeeting = handler
+//        logic.dateFormatter.dateFormat = "MMM d, yyyy"
+//        let date = logic.dateFormatter.date(from: dateStr)!
+//        
+//        logic.dateFormatter.dateFormat = "dd"
+//        dateLabel.text = logic.dateFormatter.string(from: date)
+//        logic.dateFormatter.dateFormat = "MMM"
+//        monthLabel.text = logic.dateFormatter.string(from: date)
+// 
+//        logic.dateFormatter.dateFormat = "EEEE"
+//        dayLabel.text = logic.dateFormatter.string(from: date)
+//        if dayLabel.text! == logic.dateFormatter.string(from: Date())
+//        {
+//            dayLabel.text = MyStrings.today
+//            dateTimeView.backgroundColor = UIColor(red: 125/255, green: 200/255, blue: 58/255, alpha: 0.5)
+//            dateLabel.textColor = .black
+//            monthLabel.textColor = .black
+//            dayLabel.textColor = .black
+//            meetingNum.textColor = .darkGray
+//        } else {
+//            dateTimeView.backgroundColor = .white
+//            dateLabel.textColor = .black
+//            monthLabel.textColor = .black
+//            dayLabel.textColor = .black
+//            meetingNum.textColor = .gray
 //        }
-        
-        if meetings.count == 1 {
-            meetingNum.text = "\(meetings.count) " + MyStrings.meeting.lowercased()
-        } else {
-            meetingNum.text = "\(meetings.count) " + MyStrings.meetings.lowercased()
-        }
-        
-        //expandMeetings = expandFunc
-        
-        //isExpanded = false
-        arrow.image = UIImage(systemName: "chevron.right")
+//        
+//        meetingTable.delegate = self
+//        meetingTable.dataSource = self
+//        
+//        meetingTable.reloadData()
+//        meetingTableHeight.constant = 0
+//        meetingTableHeight.constant = CGFloat((meetings.count * 115))
+//        
+////        let _ = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { _ in
+////            NotificationCenter.default.post(name: Notification.Name("oneSecond"), object: nil)
+////        }
+//        
+//        if meetings.count == 1 {
+//            meetingNum.text = "\(meetings.count) " + MyStrings.meeting.lowercased()
+//        } else {
+//            meetingNum.text = "\(meetings.count) " + MyStrings.meetings.lowercased()
+//        }
+//        
+//        //expandMeetings = expandFunc
+//        
+//        //isExpanded = false
+//        arrow.image = UIImage(systemName: "chevron.right")
     }
     
 //    @IBAction func expandButtonTapped(_ sender: UIButton) {

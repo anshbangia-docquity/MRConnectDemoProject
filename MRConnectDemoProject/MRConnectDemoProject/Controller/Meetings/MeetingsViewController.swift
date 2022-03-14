@@ -16,7 +16,7 @@ class MeetingsViewController: UIViewController {
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var noMeetings: UILabel!
     
-    var logic = Logic()
+    //var logic = Logic()
     var meetingDates: [String: [[String: Any]]] = [:]
     var dates: [String] = []
     //var user = CurrentUser()
@@ -30,20 +30,20 @@ class MeetingsViewController: UIViewController {
     var meetingDocuments: [QueryDocumentSnapshot] = []
     
     func processMeetingDates() {
-        meetingDates = [:]
-        dates = []
-        logic.dateFormatter.dateFormat = "MMM d, yyyy"
-        for meetingDoc in meetingDocuments {
-            let meeting = meetingDoc.data()
-            let stamp = meeting["startDate"] as! Timestamp
-            let dateStr = logic.dateFormatter.string(from: stamp.dateValue())
-            if meetingDates[dateStr] == nil
-            {
-                meetingDates[dateStr] = []
-                dates.append(dateStr)
-            }
-            meetingDates[dateStr]?.append(meeting)
-        }
+//        meetingDates = [:]
+//        dates = []
+//        logic.dateFormatter.dateFormat = "MMM d, yyyy"
+//        for meetingDoc in meetingDocuments {
+//            let meeting = meetingDoc.data()
+//            let stamp = meeting["startDate"] as! Timestamp
+//            let dateStr = logic.dateFormatter.string(from: stamp.dateValue())
+//            if meetingDates[dateStr] == nil
+//            {
+//                meetingDates[dateStr] = []
+//                dates.append(dateStr)
+//            }
+//            meetingDates[dateStr]?.append(meeting)
+//        }
     }
     
     func getMeetingDocuments() {

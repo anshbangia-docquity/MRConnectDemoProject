@@ -24,7 +24,7 @@ extension User {
     @NSManaged public var password: String?
     @NSManaged public var profileImage: Data?
     @NSManaged public var speciality: Int16
-    @NSManaged public var type: UserType
+    //@NSManaged public var type: UserType
     @NSManaged public var office: String?
     @NSManaged public var quali: String?
     @NSManaged public var exp: String?

@@ -16,14 +16,5 @@ enum ErrorType {
     case invalidEmail
     case invalidPassword
     case defaultError
-    
-    func getErrorMessage() {
-        switch self {
-        case .userNotFound:
-            <#code#>
-        default:
-            <#code#>
-        }
-    }
-    
+
 }

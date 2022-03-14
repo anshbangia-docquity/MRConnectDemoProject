@@ -9,21 +9,18 @@ import UIKit
 
 class FirstViewController: UIViewController {
     
-    let authHandler = AuthHandler.shared
+    let firstViewModel = FirstViewModel()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if authHandler.currentUser == nil {
-            performSegue(withIdentifier: SegueIdentifiers.goToLoginSignup, sender: self)
-        } else {
-//            let user = CurrentUser()
-//            if user.type == .MRUser {
-//                performSegue(withIdentifier: SegueIdentifiers.loginMR, sender: self)
-//            } else {
-//                performSegue(withIdentifier: SegueIdentifiers.loginDoctor, sender: self)
-//            }
-            print("success :)")
+        firstViewModel.decideSegue {[weak self] segueIdentifier in
+            if segueIdentifier == SegueIdentifiers.goToLoginSignup {
+                DispatchQueue.main.async {
+                    self?.performSegue(withIdentifier: segueIdentifier, sender: self!)
+                }
+            }
+            print(segueIdentifier)
         }
     }
     

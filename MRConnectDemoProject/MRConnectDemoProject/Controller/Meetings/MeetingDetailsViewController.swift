@@ -41,7 +41,7 @@ class MeetingDetailsViewController: UIViewController {
     
     //let user = CurrentUser()
     var meeting: [String: Any]?
-    var logic = Logic()
+    //var logic = Logic()
     //var doctorSet = Set<String>()
     var selectedDoctors: [QueryDocumentSnapshot] = []
     //var medicineSet = Set<Int16>()
@@ -144,76 +144,76 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     func getDocuments() {
-        selectedDoctors = []
-
-        medCollecRef.getDocuments { snapshot, error in
-            guard error == nil else { return }
-            self.selectedMedicines = snapshot?.documents ?? []
-            self.medicineTableView.reloadData()
-            self.medicineTableViewHeight.constant = self.medicineTableView.contentSize.height
-        }
-            
-        meetingDocRef.getDocument { snapshot, error in
-            guard error == nil else { return }
-            self.meeting = snapshot?.data()
-            let startStamp = self.meeting!["startDate"] as! Timestamp
-            let endStamp = self.meeting!["endDate"] as! Timestamp
-            
-            self.logic.dateFormatter.dateFormat = "d"
-            self.dayLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
-            
-            self.logic.dateFormatter.dateFormat = "MMM"
-            self.monthLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
-            
-            self.meetingTitle.text = self.meeting!["title"] as? String
-            
-            self.logic.dateFormatter.dateFormat = "hh:mm a"
-            let startDate = self.logic.dateFormatter.string(from: startStamp.dateValue())
-            let endDate = self.logic.dateFormatter.string(from: endStamp.dateValue())
-            self.timeLabel.text = startDate + " - " + endDate
-            
-            if self.meeting!["desc"] == nil {
-                self.descTextView.text = MyStrings.noDescription
-                self.descTextView.textColor = .systemGray3
-            } else {
-                self.descTextView.text = self.meeting!["desc"] as? String
-                self.descTextView.textColor = .black
-            }
-            
-            let doctorArray = self.meeting!["doctors"] as! [String]
-            self.userCollecRef.getDocuments { snapshot, error in
-                guard error == nil else { return }
-                let docs = (snapshot?.documents)!
-                for doc in docs {
-                    if doctorArray.contains(doc.documentID) {
-                        self.selectedDoctors.append(doc)
-                    }
-                    if self.meeting!["creator"] as! String == doc.documentID {
-                        let user = doc.data()
-                        self.hostLabel.text = MyStrings.host + ": " + (user["name"] as! String)
-                    }
-                    if self.auth.currentUser?.uid == doc.documentID {
-                        let user = doc.data()
-                        if user["type"] as! Int16 == UserType.MRUser.rawValue {
-                            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
-                            
-                            let startStamp = self.meeting!["startDate"] as! Timestamp
-                            let endStamp = self.meeting!["endDate"] as! Timestamp
-                            if Date() >= startStamp.dateValue() && Date() <= endStamp.dateValue() {
-                                self.recordButton.isHidden = false
-                            }
-                            
-                            self.hostLabel.isHidden = true
-                        } else {
-                            self.hostLabel.isHidden = false
-                        }
-                    }
-                }
-                self.doctorTableView.reloadData()
-                self.doctorTableViewHeight.constant = self.doctorTableView.contentSize.height
-            }
-            
-        }
+//        selectedDoctors = []
+//
+//        medCollecRef.getDocuments { snapshot, error in
+//            guard error == nil else { return }
+//            self.selectedMedicines = snapshot?.documents ?? []
+//            self.medicineTableView.reloadData()
+//            self.medicineTableViewHeight.constant = self.medicineTableView.contentSize.height
+//        }
+//
+//        meetingDocRef.getDocument { snapshot, error in
+//            guard error == nil else { return }
+//            self.meeting = snapshot?.data()
+//            let startStamp = self.meeting!["startDate"] as! Timestamp
+//            let endStamp = self.meeting!["endDate"] as! Timestamp
+//
+//            self.logic.dateFormatter.dateFormat = "d"
+//            self.dayLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
+//
+//            self.logic.dateFormatter.dateFormat = "MMM"
+//            self.monthLabel.text = self.logic.dateFormatter.string(from: startStamp.dateValue())
+//
+//            self.meetingTitle.text = self.meeting!["title"] as? String
+//
+//            self.logic.dateFormatter.dateFormat = "hh:mm a"
+//            let startDate = self.logic.dateFormatter.string(from: startStamp.dateValue())
+//            let endDate = self.logic.dateFormatter.string(from: endStamp.dateValue())
+//            self.timeLabel.text = startDate + " - " + endDate
+//
+//            if self.meeting!["desc"] == nil {
+//                self.descTextView.text = MyStrings.noDescription
+//                self.descTextView.textColor = .systemGray3
+//            } else {
+//                self.descTextView.text = self.meeting!["desc"] as? String
+//                self.descTextView.textColor = .black
+//            }
+//
+//            let doctorArray = self.meeting!["doctors"] as! [String]
+//            self.userCollecRef.getDocuments { snapshot, error in
+//                guard error == nil else { return }
+//                let docs = (snapshot?.documents)!
+//                for doc in docs {
+//                    if doctorArray.contains(doc.documentID) {
+//                        self.selectedDoctors.append(doc)
+//                    }
+//                    if self.meeting!["creator"] as! String == doc.documentID {
+//                        let user = doc.data()
+//                        self.hostLabel.text = MyStrings.host + ": " + (user["name"] as! String)
+//                    }
+//                    if self.auth.currentUser?.uid == doc.documentID {
+//                        let user = doc.data()
+//                        if user["type"] as! Int16 == UserType.MRUser.rawValue {
+//                            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(self.editTapped(sender:)))
+//
+//                            let startStamp = self.meeting!["startDate"] as! Timestamp
+//                            let endStamp = self.meeting!["endDate"] as! Timestamp
+//                            if Date() >= startStamp.dateValue() && Date() <= endStamp.dateValue() {
+//                                self.recordButton.isHidden = false
+//                            }
+//
+//                            self.hostLabel.isHidden = true
+//                        } else {
+//                            self.hostLabel.isHidden = false
+//                        }
+//                    }
+//                }
+//                self.doctorTableView.reloadData()
+//                self.doctorTableViewHeight.constant = self.doctorTableView.contentSize.height
+//            }
+//
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -281,13 +281,13 @@ class MeetingDetailsViewController: UIViewController {
     }
     
     @IBAction func recordMeetingTapped(_ sender: UIButton) {
-        if !logic.checkRecordPermission() {
-            Alert.showAlert(on: self, title: MyStrings.noMic, subtitle: MyStrings.enableMic)
-            return
-        }
-
-        bulletinBoard.define(of: .RecordItem, additional: (meeting!["id"] as! String, (meeting!["endDate"] as! Timestamp).dateValue()))
-        bulletinBoard.boardManager?.showBulletin(above: self)
+//        if !logic.checkRecordPermission() {
+//            Alert.showAlert(on: self, title: MyStrings.noMic, subtitle: MyStrings.enableMic)
+//            return
+//        }
+//
+//        bulletinBoard.define(of: .RecordItem, additional: (meeting!["id"] as! String, (meeting!["endDate"] as! Timestamp).dateValue()))
+//        bulletinBoard.boardManager?.showBulletin(above: self)
     }
 }
 

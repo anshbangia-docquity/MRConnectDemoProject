@@ -24,8 +24,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var userTypeLabel: UILabel!
     @IBOutlet weak var signupButton: UIButton!
         
-    let userDefault = UserDefaultManager.shared.defaults
-    var logic = Logic()
+    //let userDefault = UserDefaultManager.shared.defaults
+    //var logic = Logic()
     var type = UserType.MRUser
     var selectedSpec: Int16 = -1
     

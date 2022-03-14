@@ -31,7 +31,7 @@ enum RecordResult {
     var isRecordingPaused = false
     var recordingFileName: String?
     var recordingUrl: URL?
-    var logic = Logic()
+    //var logic = Logic()
     var meetingId = ""
     var endDate: Date!
     var saveRecording: ((RecordResult, URL?, String?, AVAudioRecorder?) -> Void)? = nil
@@ -140,35 +140,35 @@ enum RecordResult {
 //MARK: - Audio Recorder
 extension RecordItem {
     
-    func getNewFileUrl() -> URL {
-        logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
-        let dateStr = logic.dateFormatter.string(from: Date())
-        let filename = "\(meetingId)_" + dateStr + ".m4a"
-        let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
-        recordingFileName = filename
-        print(filePath)
-        recordingUrl = filePath
-        return filePath
+    func getNewFileUrl() -> Void {
+//        logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+//        let dateStr = logic.dateFormatter.string(from: Date())
+//        let filename = "\(meetingId)_" + dateStr + ".m4a"
+//        let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
+//        recordingFileName = filename
+//        print(filePath)
+//        recordingUrl = filePath
+//        return filePath
     }
     
     func setup_recorder() {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 44100,
-                AVNumberOfChannelsKey: 2,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
-            audioRecorder = try AVAudioRecorder(url: getNewFileUrl(), settings: settings)
-            audioRecorder.delegate = self
-            audioRecorder.isMeteringEnabled = true
-            audioRecorder.prepareToRecord()
-        } catch let error {
-            print("ERROR: \(error)")
-        }
+//        let session = AVAudioSession.sharedInstance()
+//        do {
+//            try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+//            try session.setActive(true, options: .notifyOthersOnDeactivation)
+//            let settings = [
+//                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//                AVSampleRateKey: 44100,
+//                AVNumberOfChannelsKey: 2,
+//                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+//            ]
+//            audioRecorder = try AVAudioRecorder(url: getNewFileUrl(), settings: settings)
+//            audioRecorder.delegate = self
+//            audioRecorder.isMeteringEnabled = true
+//            audioRecorder.prepareToRecord()
+//        } catch let error {
+//            print("ERROR: \(error)")
+//        }
     }
     
     @objc func recordPressed() {
@@ -248,48 +248,48 @@ extension RecordItem: AVAudioRecorderDelegate {
 extension RecordItem {
     
     func updateAudioTimer() {
-        if audioRecorder.isRecording {
-            var hr: Int
-            var min: Int
-            var sec: Int
-            (hr, min, sec) = logic.getAudioTime(time: audioRecorder.currentTime)
-            let timeStr = String(format: "%02d:%02d:%02d", hr, min, sec)
-            timeLabel.text = timeStr
-            
-            audioRecorder.updateMeters()
-            let power = audioRecorder.averagePower(forChannel: 0)
-            
-            let oldMax: Float = -10
-            let oldMin: Float = -35
-            let oldRange = oldMax - oldMin
-            let newMax: Float = 93.75
-            let newMin: Float = 0
-            let newRange = newMax - newMin
-            let newValue: Float
-            if power > oldMin {
-                newValue = (((power - oldMin) * newRange) / oldRange) + newMin
-            } else {
-                newValue = 0
-            }
-            
-            NSLayoutConstraint.deactivate([
-                anim1constraint,
-                anim2constraint
-            ])
-            anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue))
-            anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue * 2))
-            NSLayoutConstraint.activate([
-                anim1constraint,
-                anim2constraint
-            ])
-            
-            animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
-            animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
-            
-            if endDate < Date() {
-                stopPressed()
-            }
-        }
+//        if audioRecorder.isRecording {
+//            var hr: Int
+//            var min: Int
+//            var sec: Int
+//            (hr, min, sec) = logic.getAudioTime(time: audioRecorder.currentTime)
+//            let timeStr = String(format: "%02d:%02d:%02d", hr, min, sec)
+//            timeLabel.text = timeStr
+//            
+//            audioRecorder.updateMeters()
+//            let power = audioRecorder.averagePower(forChannel: 0)
+//            
+//            let oldMax: Float = -10
+//            let oldMin: Float = -35
+//            let oldRange = oldMax - oldMin
+//            let newMax: Float = 93.75
+//            let newMin: Float = 0
+//            let newRange = newMax - newMin
+//            let newValue: Float
+//            if power > oldMin {
+//                newValue = (((power - oldMin) * newRange) / oldRange) + newMin
+//            } else {
+//                newValue = 0
+//            }
+//            
+//            NSLayoutConstraint.deactivate([
+//                anim1constraint,
+//                anim2constraint
+//            ])
+//            anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue))
+//            anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue * 2))
+//            NSLayoutConstraint.activate([
+//                anim1constraint,
+//                anim2constraint
+//            ])
+//            
+//            animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
+//            animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
+//            
+//            if endDate < Date() {
+//                stopPressed()
+//            }
+//        }
     }
     
     func resetAnimation() {

@@ -24,7 +24,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var recsLabel: UILabel!
     
     var meeting: [String: Any]?
-    var logic = Logic()
+    //var logic = Logic()
     var doctorCount = 0
     var selectedDoctors: [[String: Any]] = []
     var timer: Timer?
@@ -44,108 +44,108 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     }
     
     func configure(myMeeting: [String: Any]) {
-        selectedDoctors = []
-        meeting = myMeeting
-        moreLabel.isHidden = true
-        img1.image = UIImage(systemName: "person.circle")
-        img2.image = UIImage(systemName: "person.circle")
-        img3.image = UIImage(systemName: "person.circle")
-        img1.isHidden = true
-        img2.isHidden = true
-        img3.isHidden = true
-        moreView.isHidden = true
-        let doctorArray = meeting!["doctors"] as! [String]
-        userCollec = database.collection("Users")
-        userCollec.getDocuments { snapshot, error in
-            guard error == nil else { return }
-            let docs = (snapshot?.documents)!
-            for doc in docs {
-                if doctorArray.contains(doc.documentID) {
-                    self.selectedDoctors.append(doc.data())
-                }
-            }
-            self.doctorCount = self.selectedDoctors.count
-            if self.doctorCount > 2 {
-                self.moreLabel.isHidden = false
-                self.moreLabel.textColor = .darkGray
-                self.moreLabel.text = "+\(self.doctorCount - 2) more"
-            } else {
-                self.moreLabel.isHidden = true
-            }
-            if self.doctorCount >= 1 {
-                self.img1.isHidden = false
-                if self.selectedDoctors[0]["profileImageUrl"] as! String != "" {
-                    let imgUrlStr = self.selectedDoctors[0]["profileImageUrl"] as! String
-                    let url = (URL(string: imgUrlStr))!
-                    DispatchQueue.global().async {
-                        if let data = try? Data(contentsOf: url) {
-                            if let img = UIImage(data: data) {
-                                DispatchQueue.main.async {
-                                    self.img1.image = img
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-        if self.doctorCount >= 2 {
-            self.img2.isHidden = false
-            if self.selectedDoctors[1]["profileImageUrl"] as! String != "" {
-                let imgUrlStr = self.selectedDoctors[1]["profileImageUrl"] as! String
-                let url = (URL(string: imgUrlStr))!
-                DispatchQueue.global().async {
-                    if let data = try? Data(contentsOf: url) {
-                        if let img = UIImage(data: data) {
-                            DispatchQueue.main.async {
-                                self.img2.image = img
-                            }
-                        }
-                    }
-                }
-            }
-            }
-            
-            if self.doctorCount >= 3 {
-                self.img3.isHidden = false
-                if self.selectedDoctors[2]["profileImageUrl"] as! String != "" {
-                    let imgUrlStr = self.selectedDoctors[2]["profileImageUrl"] as! String
-                    let url = (URL(string: imgUrlStr))!
-                    DispatchQueue.global().async {
-                        if let data = try? Data(contentsOf: url) {
-                            if let img = UIImage(data: data) {
-                                DispatchQueue.main.async {
-                                    self.img2.image = img
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if self.doctorCount >= 4 {
-                self.moreView.isHidden = false
-                self.moreLabel.text = "+\(self.doctorCount - 3)"
-            }
-        }
-        
-        titleLabel.text = meeting!["title"] as? String
-        logic.dateFormatter.dateFormat = "hh:mm a"
-        var stamp = meeting!["startDate"] as! Timestamp
-        let startTime = logic.dateFormatter.string(from: stamp.dateValue())
-        stamp = meeting!["endDate"] as! Timestamp
-        let endTime = logic.dateFormatter.string(from: stamp.dateValue())
-        timeLabel.text = startTime + " - " + endTime
-        
-        configureStatus()
-        //DispatchQueue.global().async {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            self.configureStatus()
-        })
-        //}
-        
-        updateRecordingCount()
-        //NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
+//        selectedDoctors = []
+//        meeting = myMeeting
+//        moreLabel.isHidden = true
+//        img1.image = UIImage(systemName: "person.circle")
+//        img2.image = UIImage(systemName: "person.circle")
+//        img3.image = UIImage(systemName: "person.circle")
+//        img1.isHidden = true
+//        img2.isHidden = true
+//        img3.isHidden = true
+//        moreView.isHidden = true
+//        let doctorArray = meeting!["doctors"] as! [String]
+//        userCollec = database.collection("Users")
+//        userCollec.getDocuments { snapshot, error in
+//            guard error == nil else { return }
+//            let docs = (snapshot?.documents)!
+//            for doc in docs {
+//                if doctorArray.contains(doc.documentID) {
+//                    self.selectedDoctors.append(doc.data())
+//                }
+//            }
+//            self.doctorCount = self.selectedDoctors.count
+//            if self.doctorCount > 2 {
+//                self.moreLabel.isHidden = false
+//                self.moreLabel.textColor = .darkGray
+//                self.moreLabel.text = "+\(self.doctorCount - 2) more"
+//            } else {
+//                self.moreLabel.isHidden = true
+//            }
+//            if self.doctorCount >= 1 {
+//                self.img1.isHidden = false
+//                if self.selectedDoctors[0]["profileImageUrl"] as! String != "" {
+//                    let imgUrlStr = self.selectedDoctors[0]["profileImageUrl"] as! String
+//                    let url = (URL(string: imgUrlStr))!
+//                    DispatchQueue.global().async {
+//                        if let data = try? Data(contentsOf: url) {
+//                            if let img = UIImage(data: data) {
+//                                DispatchQueue.main.async {
+//                                    self.img1.image = img
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            
+//        if self.doctorCount >= 2 {
+//            self.img2.isHidden = false
+//            if self.selectedDoctors[1]["profileImageUrl"] as! String != "" {
+//                let imgUrlStr = self.selectedDoctors[1]["profileImageUrl"] as! String
+//                let url = (URL(string: imgUrlStr))!
+//                DispatchQueue.global().async {
+//                    if let data = try? Data(contentsOf: url) {
+//                        if let img = UIImage(data: data) {
+//                            DispatchQueue.main.async {
+//                                self.img2.image = img
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            }
+//            
+//            if self.doctorCount >= 3 {
+//                self.img3.isHidden = false
+//                if self.selectedDoctors[2]["profileImageUrl"] as! String != "" {
+//                    let imgUrlStr = self.selectedDoctors[2]["profileImageUrl"] as! String
+//                    let url = (URL(string: imgUrlStr))!
+//                    DispatchQueue.global().async {
+//                        if let data = try? Data(contentsOf: url) {
+//                            if let img = UIImage(data: data) {
+//                                DispatchQueue.main.async {
+//                                    self.img2.image = img
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            
+//            if self.doctorCount >= 4 {
+//                self.moreView.isHidden = false
+//                self.moreLabel.text = "+\(self.doctorCount - 3)"
+//            }
+//        }
+//        
+//        titleLabel.text = meeting!["title"] as? String
+//        logic.dateFormatter.dateFormat = "hh:mm a"
+//        var stamp = meeting!["startDate"] as! Timestamp
+//        let startTime = logic.dateFormatter.string(from: stamp.dateValue())
+//        stamp = meeting!["endDate"] as! Timestamp
+//        let endTime = logic.dateFormatter.string(from: stamp.dateValue())
+//        timeLabel.text = startTime + " - " + endTime
+//        
+//        configureStatus()
+//        //DispatchQueue.global().async {
+//        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+//            self.configureStatus()
+//        })
+//        //}
+//        
+//        updateRecordingCount()
+//        //NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
     }
     
     func configureStatus() {

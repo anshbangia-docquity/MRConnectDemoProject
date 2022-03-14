@@ -37,7 +37,7 @@ class MRCreateMeetingViewController: UIViewController {
     @IBOutlet weak var medicineCollectionHeight: NSLayoutConstraint!
     @IBOutlet weak var selectMedicinesLabel: UILabel!
 
-    var logic = Logic()
+    //var logic = Logic()
     var doctors: [QueryDocumentSnapshot] = []
     var medicines: [QueryDocumentSnapshot] = []
     var selectedDoctors: [QueryDocumentSnapshot] = []
@@ -179,37 +179,37 @@ class MRCreateMeetingViewController: UIViewController {
     }
     
     @IBAction func createTapped(_ sender: UIButton) {
-        if titleField.text == nil || titleField.text!.isEmpty {
-            Alert.showAlert(on: self, emptyField: MyStrings.meetingTitle)
-            return
-        }
+//        if titleField.text == nil || titleField.text!.isEmpty {
+//            Alert.showAlert(on: self, emptyField: MyStrings.meetingTitle)
+//            return
+//        }
+//        
+//        if endTimePicker.date <= startTimePicker.date {
+//            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
+//            return
+//        }
+//        
+//        if selectedDoctors.count == 0 {
+//            Alert.showAlert(on: self, noSelection: MyStrings.doctor)
+//            return
+//        }
+//        
+//        if selectedMedicines.count == 0 {
+//            Alert.showAlert(on: self, noSelection: MyStrings.medicine)
+//            return
+//        }
+//        
+//        var descText: String = descTextView.text
+//        if descText == MyStrings.meetingDescription {
+//            descText = ""
+//        }
+//        
+//        let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
+//        let endDate = logic.combineDateTime(date: datePicker.date, time: endTimePicker.date)
+//        if Date() > startDate {
+//            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
+//            return
         
-        if endTimePicker.date <= startTimePicker.date {
-            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
-            return
-        }
-        
-        if selectedDoctors.count == 0 {
-            Alert.showAlert(on: self, noSelection: MyStrings.doctor)
-            return
-        }
-        
-        if selectedMedicines.count == 0 {
-            Alert.showAlert(on: self, noSelection: MyStrings.medicine)
-            return
-        }
-        
-        var descText: String = descTextView.text
-        if descText == MyStrings.meetingDescription {
-            descText = ""
-        }
-        
-        let startDate = logic.combineDateTime(date: datePicker.date, time: startTimePicker.date)
-        let endDate = logic.combineDateTime(date: datePicker.date, time: endTimePicker.date)
-        if Date() > startDate {
-            Alert.showAlert(on: self, title: MyStrings.invalidTime, subtitle: MyStrings.againApptTime)
-            return
-        }
         
 //        if edit {
 //            let result = logic.editMeeting(meeting: myMeeting!, title: titleField.text!, desc: descText, startDate: startDate, endDate: endDate, doctors: doctorSet, medicines: medicineSet)
@@ -226,25 +226,25 @@ class MRCreateMeetingViewController: UIViewController {
 //                return
 //            }
 //        }
-        
-        let creator = auth.currentUser!.uid
-        let recordingArray: [String] = []
-        meetingDocRef.setData([
-            "title": titleField.text!,
-            "startDate": startDate,
-            "medicines": medIds,
-            "id": meetingDocRef.documentID,
-            "endDate": endDate,
-            "doctors": docIds,
-            "desc": descText,
-            "creator": creator,
-            "recordings": recordingArray
-        ]) { error in
-            guard error == nil else { return }
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        //NotificationCenter.default.post(name: Notification.Name("reloadMeetings"), object: nil)
+//
+//        let creator = auth.currentUser!.uid
+//        let recordingArray: [String] = []
+//        meetingDocRef.setData([
+//            "title": titleField.text!,
+//            "startDate": startDate,
+//            "medicines": medIds,
+//            "id": meetingDocRef.documentID,
+//            "endDate": endDate,
+//            "doctors": docIds,
+//            "desc": descText,
+//            "creator": creator,
+//            "recordings": recordingArray
+//        ]) { error in
+//            guard error == nil else { return }
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//
+//        //NotificationCenter.default.post(name: Notification.Name("reloadMeetings"), object: nil)
         
     }
     
