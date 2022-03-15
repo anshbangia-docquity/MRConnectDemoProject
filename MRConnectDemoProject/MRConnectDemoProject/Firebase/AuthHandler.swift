@@ -14,7 +14,6 @@ struct AuthHandler {
     let auth = FirebaseAuth.Auth.auth()
     
     var currentUser: FirebaseAuth.User? {
-//        try? auth.signOut()
         return auth.currentUser
     }
     
@@ -61,6 +60,15 @@ struct AuthHandler {
             } else {
                 completion(result, nil)
             }
+        }
+    }
+    
+    func logOut() -> Bool {
+        do {
+            try auth.signOut()
+            return true
+        } catch {
+            return false
         }
     }
     

@@ -150,5 +150,6 @@ struct MyStrings {
     static let networkError = "Network Error".localize()
     static let errorOccured = "An error occured".localize()
     static let signingUp = "Signing Up".localize()
+    static let loading = "Loading".localize()
     
 }

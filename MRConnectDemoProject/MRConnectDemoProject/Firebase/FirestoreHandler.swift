@@ -38,23 +38,31 @@ struct FirestoreHandler {
             "userName": signupRequest.name!,
             "userEmail": signupRequest.email!,
             "userContact": signupRequest.contact!
-        ])
-        
-        if signupRequest.type == UserType.Doctor.rawValue {
-            userDocumentRef.setData([
-                "userSpeciality": signupRequest.speciality,
-                "userQuali": "",
-                "userOffice": "",
-                "userMRNumber": signupRequest.mrnumber!,
-                "userExp": ""
-            ], merge: true)
-        } else {
-            userDocumentRef.setData([
-                "userLicenseNumber": signupRequest.license!
-            ], merge: true)
+        ]) { error in
+            if error == nil {
+                if signupRequest.type == UserType.Doctor.rawValue {
+                    userDocumentRef.setData([
+                        "userSpeciality": signupRequest.speciality,
+                        "userQuali": "",
+                        "userOffice": "",
+                        "userMRNumber": signupRequest.mrnumber!,
+                        "userExp": ""
+                    ], merge: true) { error2 in
+                        if error2 == nil {
+                            completion()
+                        }
+                    }
+                } else {
+                    userDocumentRef.setData([
+                        "userLicenseNumber": signupRequest.license!
+                    ], merge: true) { error3 in
+                        if error3 == nil {
+                            completion()
+                        }
+                    }
+                }
+            }
         }
-        
-        completion()
     }
     
 }

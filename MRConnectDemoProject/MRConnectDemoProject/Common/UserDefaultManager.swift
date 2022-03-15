@@ -23,5 +23,21 @@ struct UserDefaultManager {
         }
     }
     
+    func reset() {
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.removeObject(forKey: "userType")
+        UserDefaults.standard.removeObject(forKey: "userImageLink")
+        UserDefaults.standard.removeObject(forKey: "userPassword")
+        UserDefaults.standard.removeObject(forKey: "userName")
+        UserDefaults.standard.removeObject(forKey: "userEmail")
+        UserDefaults.standard.removeObject(forKey: "userContact")
+        UserDefaults.standard.removeObject(forKey: "userSpeciality")
+        UserDefaults.standard.removeObject(forKey: "userQuali")
+        UserDefaults.standard.removeObject(forKey: "userOffice")
+        UserDefaults.standard.removeObject(forKey: "userMRNumber")
+        UserDefaults.standard.removeObject(forKey: "userExp")
+        UserDefaults.standard.removeObject(forKey: "userLicenseNumber")
+    }
+    
 }
 

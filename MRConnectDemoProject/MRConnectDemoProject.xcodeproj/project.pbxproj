@@ -62,6 +62,7 @@
 		01906B2027DF3B7100BA8EDF /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */; };
 		01906B2227DF3CE100BA8EDF /* SignupValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2127DF3CE100BA8EDF /* SignupValidation.swift */; };
 		01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */; };
+		01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */; };
 		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
 		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01A1E13C27B3D73E0094E374 /* Meetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A1E13B27B3D73E0094E374 /* Meetings.storyboard */; };
@@ -148,6 +149,7 @@
 		01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
 		01906B2127DF3CE100BA8EDF /* SignupValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupValidation.swift; sourceTree = "<group>"; };
 		01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01A1E13B27B3D73E0094E374 /* Meetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Meetings.storyboard; sourceTree = "<group>"; };
@@ -230,16 +232,16 @@
 		0110A8AC279E981B0023AD4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				013A844727AA803B002AC97C /* CurrentUser.swift */,
+				01D0508127DE52D4008FB0C0 /* ErrorType.swift */,
+				01D0507B27DE4F5B008FB0C0 /* LoginRequest.swift */,
+				01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */,
+				013A844327AA7A56002AC97C /* Specialities.swift */,
+				0110A8B1279E988D0023AD4C /* UserType.swift */,
 				1891533727AA331800A9495D /* CoreData */,
 				01A1E12727B377CB0094E374 /* CoreData Model */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
-				0110A8B1279E988D0023AD4C /* UserType.swift */,
-				013A844327AA7A56002AC97C /* Specialities.swift */,
 				013A844527AA7BDC002AC97C /* MedicineForms.swift */,
-				013A844727AA803B002AC97C /* CurrentUser.swift */,
-				01D0507B27DE4F5B008FB0C0 /* LoginRequest.swift */,
-				01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */,
-				01D0508127DE52D4008FB0C0 /* ErrorType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,10 +252,10 @@
 				0110A892279E97100023AD4C /* Main.storyboard */,
 				013A843F27AA4E13002AC97C /* LoginSignup.storyboard */,
 				0110A89A279E97150023AD4C /* LaunchScreen.storyboard */,
-				0117681B27B4F52300E89110 /* Meetings */,
-				0117681627B4C70C00E89110 /* Profile.storyboard */,
 				01AD578327A101C800EB47DF /* MRHomeScreen */,
 				01AD578B27A11F2C00EB47DF /* DoctorHomeScreen */,
+				0117681B27B4F52300E89110 /* Meetings */,
+				0117681627B4C70C00E89110 /* Profile.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -263,10 +265,10 @@
 			children = (
 				013A843D27AA4DC1002AC97C /* FirstViewController.swift */,
 				01906B1927DEE5B100BA8EDF /* Authentication */,
-				01A1E14127B3EB9D0094E374 /* Meetings */,
-				0117681427B4C23700E89110 /* ProfileViewController.swift */,
 				01AD578827A1167600EB47DF /* MR */,
 				01AD578E27A1206500EB47DF /* Doctor */,
+				0117681427B4C23700E89110 /* ProfileViewController.swift */,
+				01A1E14127B3EB9D0094E374 /* Meetings */,
 				018CAA7627AE618B00FF04D6 /* Bulletin */,
 				01A1E13627B389C60094E374 /* Alert.swift */,
 				01A1E13427B385580094E374 /* Gradient.swift */,
@@ -463,6 +465,7 @@
 			children = (
 				01906B1A27DF256200BA8EDF /* FirstViewModel.swift */,
 				01906B1C27DF3AF600BA8EDF /* Authentication */,
+				01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
 				01906B1E27DF3B0700BA8EDF /* SignupViewModel.swift in Sources */,
 				0125585527BB731100C3957A /* ChangePasswordItem copy.swift in Sources */,
+				01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,

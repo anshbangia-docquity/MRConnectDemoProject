@@ -16,55 +16,41 @@ struct CurrentUser {
         return UserType(rawValue: val)!
     }
     
-}
+    var imageLink: String {
+        let str = userDefaultManager.readData(for: "userImageLink") as? String
+        return str ?? ""
+    }
     
-//
-//    let userDefault = UserDefaultManager.shared.defaults
-//    let coreDataHandler = CoreDataHandler()
-//
-//    var contact: String {
-//        return userDefault.value(forKey: "userContact") as! String
-//    }
-//    var email: String {
-//        //return userDefault.value(forKey: "userEmail") as! String
-//        return "example@abc.com"
-//    }
-//    var license: String {
-//        return userDefault.value(forKey: "userLicense") as! String
-//    }
-//    var mrnumber: String {
-//        return userDefault.value(forKey: "userMRNumber") as! String
-//    }
-//    var name: String {
-//        return userDefault.value(forKey: "userName") as! String
-//    }
-//    var password: String {
-//        return userDefault.value(forKey: "userPassword") as! String
-//    }
-//    var speciality: Int16 {
-//        return userDefault.value(forKey: "userSpeciality") as! Int16
-//    }
-//    var type: UserType {
-//        //let num = userDefault.value(forKey: "userType") as! Int16
-//        return UserType(rawValue: 0)!
-//    }
-//    var profileImage: UIImage? {
-//        let img = coreDataHandler.fetchProfileImage(self.email)
-//        if img == nil {
-//            return nil
-//        }
-//
-//        return UIImage(data: img!)
-//    }
-//    var office: String {
-//        return userDefault.value(forKey: "userOffice") as! String
-//    }
-//    var quali: String {
-//        return userDefault.value(forKey: "userQuali") as! String
-//    }
-//    var exp: String {
-//        return userDefault.value(forKey: "userExp") as! String
-//    }
-//
-//
+    var name: String {
+        let str = userDefaultManager.readData(for: "userName") as? String
+        return str ?? "NA"
+    }
+    
+    var email: String {
+        let str = userDefaultManager.readData(for: "userEmail") as? String
+        return str ?? "NA"
+    }
+    
+    var contact: String {
+        let str = userDefaultManager.readData(for: "userContact") as? String
+        return str ?? "NA"
+    }
+    
+    var office: String {
+        let str = userDefaultManager.readData(for: "userOffice") as? String
+        return str ?? ""
+    }
+    
+    var quali: String {
+        let str = userDefaultManager.readData(for: "userQuali") as? String
+        return str ?? ""
+    }
+    
+    var exp: String {
+        let str = userDefaultManager.readData(for: "userExp") as? String
+        return str ?? ""
+    }
+    
+}
+
 
