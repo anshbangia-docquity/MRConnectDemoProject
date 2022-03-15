@@ -128,10 +128,10 @@ class ProfileViewController: UIViewController {
         //        expTextView.delegate = self
     }
     
-//    @IBAction func changeNameTapped(_ sender: UIButton) {
-//        bulletinBoard.define(of: .ChangeName)
-//        bulletinBoard.boardManager?.showBulletin(above: self)
-//    }
+    @IBAction func changeNameTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .ChangeName)
+        bulletinBoard.boardManager?.showBulletin(above: self)
+    }
     
     @IBAction func changeNumberTapped(_ sender: UIButton) {
         bulletinBoard.define(of: .ChangeNumber)
@@ -176,17 +176,14 @@ extension ProfileViewController: BulletinBoardDelegate {
     
     func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
         bulletinBoard.boardManager?.dismissBulletin()
-        
-        //            switch type {
-        //            case .ChangeName:
-        //                nameChanged(newName: selection as! String)
-        //            }
-        
+
         switch type {
         case .ChangePassword:
             passwordChanged(newPass: selection as! String)
         case .ChangeNumber:
             numberChanged(newNum: selection as! String)
+        case .ChangeName:
+            nameChanged(newName: selection as! String)
         default:
             break
         }
@@ -250,6 +247,35 @@ extension ProfileViewController: BulletinBoardDelegate {
         }
         
     }
+    
+    func nameChanged(newName: String) {
+        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
+        
+        profileViewModel.changeName(to: newName) { [weak self] error in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.stop()
+            }
+            
+            if error != nil {
+                switch error {
+                case .networkError:
+                    DispatchQueue.main.async {
+                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.nameLabel.text = self?.user.name
+                }
+            }
+        }
+        
+    }
+
     
 }
 
@@ -329,26 +355,4 @@ extension ProfileViewController: BulletinBoardDelegate {
 //
 //}
 
-////MARK: - BulletinBoardDelegate
-//extension ProfileViewController: BulletinBoardDelegate {
-//
-//
-//    func nameChanged(newName: String) {
-//        //let result = logic.updateName(email: user!.email, newName: newName)
-//        userDocRef.setData([
-//            "name": newName
-//        ], merge: true)
-////        if result == false {
-////            Alert.showAlert(on: self, notUpdated: MyStrings.name)
-////            return
-////        }
-//        //userDefault.setValue(newName, forKey: "userName")
-//        nameLabel.text = newName
-//    }
-//
-
-//
-
-//
-//}
 
