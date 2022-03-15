@@ -51,6 +51,11 @@ struct CurrentUser {
         return str ?? ""
     }
     
+    var password: String {
+        let str = userDefaultManager.readData(for: "userPassword") as? String
+        return str ?? ""
+    }
+    
 }
 
 

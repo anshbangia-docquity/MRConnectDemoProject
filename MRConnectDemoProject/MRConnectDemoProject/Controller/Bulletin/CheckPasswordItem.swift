@@ -7,13 +7,11 @@
 
 import UIKit
 import BLTNBoard
-import FirebaseAuth
 
 @objc public class CheckPasswordItem: BLTNPageItem {
 
     public lazy var passField = UITextField()
-    //@objc public var textInputHandler: ((CheckPasswordItem) -> Void)? = nil
-    var email: String?
+    var password: String?
         
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         passField.placeholder = MyStrings.password
@@ -31,19 +29,14 @@ import FirebaseAuth
     }
     
     override public func actionButtonTapped(sender: UIButton) {
-        //if (textField.text ?? "") != CurrentUser().password {
+        if passField.text != password {
+            self.descriptionLabel!.textColor = .red
+            self.descriptionLabel!.text = MyStrings.invalidPassword
+            self.passField.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+            return
+        }
         
-        let credentials = EmailAuthProvider.credential(withEmail: email!, password: passField.text ?? "")
-        FirebaseAuth.Auth.auth().currentUser?.reauthenticate(with: credentials, completion: { result, error in
-            guard error == nil else {
-                self.descriptionLabel!.textColor = .red
-                self.descriptionLabel!.text = MyStrings.invalidPassword
-                self.passField.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-                return
-            }
-            
-            super.actionButtonTapped(sender: sender)
-        })
+        super.actionButtonTapped(sender: sender)
     }
     
     override public func tearDown() {

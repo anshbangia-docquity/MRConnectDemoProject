@@ -40,6 +40,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+        bulletinBoard.delegate = self
         
         titleLabel.text = MyStrings.profile
         
@@ -108,24 +109,28 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//
-//
-//        imagePicker.delegate = self
-//        imagePicker.allowsEditing = false
-//        imagePicker.sourceType = .photoLibrary
-//
-//
-//
-//        bulletinBoard.delegate = self
-//
-//
-//
-//
-//
-//
-//        officeTextView.delegate = self
-//        qualiTextView.delegate = self
-//        expTextView.delegate = self
+        //
+        //
+        //        imagePicker.delegate = self
+        //        imagePicker.allowsEditing = false
+        //        imagePicker.sourceType = .photoLibrary
+        //
+        //
+        //
+        //        //
+        //
+        //
+        //
+        //
+        //
+        //        officeTextView.delegate = self
+        //        qualiTextView.delegate = self
+        //        expTextView.delegate = self
+    }
+    
+    @IBAction func changePassTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .CheckPassword, additional: user.password)
+        bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
@@ -135,11 +140,11 @@ class ProfileViewController: UIViewController {
             Alert.showAlert(on: self, title: MyStrings.errorOccured, subtitle: MyStrings.tryAgain)
         }
     }
-        
-
-        
-
-
+    
+    
+    
+    
+    
     
     
     @IBAction func addImagePressed(_ sender: Any) {
@@ -147,21 +152,76 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
-//        bulletinBoard.define(of: .ChangeName)
-//        bulletinBoard.boardManager?.showBulletin(above: self)
+        //        bulletinBoard.define(of: .ChangeName)
+        //        bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
     @IBAction func changeNumberTapped(_ sender: UIButton) {
-//        bulletinBoard.define(of: .ChangeNumber)
-//        bulletinBoard.boardManager?.showBulletin(above: self)
+        //        bulletinBoard.define(of: .ChangeNumber)
+        //        bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
-    @IBAction func changePassTapped(_ sender: UIButton) {
-//        bulletinBoard.define(of: .CheckPassword, additional: emailLabel.text!)
-//        bulletinBoard.boardManager?.showBulletin(above: self)
-    }
     
+    
+    
+    
+}
 
+//MARK: - BulletinBoardDelegate
+extension ProfileViewController: BulletinBoardDelegate {
+    
+    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
+        bulletinBoard.boardManager?.dismissBulletin()
+        
+        //            switch type {
+        //            case .ChangeName:
+        //                nameChanged(newName: selection as! String)
+        //            case .ChangePassword:
+        //                passwordChanged(newPass: selection as! String)
+        //            case .ChangeNumber:
+        //                numberChanged(newNum: selection as! String)
+        //            default:
+        //                break
+        //            }
+        
+        switch type {
+        case .ChangePassword:
+            passwordChanged(newPass: selection as! String)
+        default:
+            break
+        }
+    }
+    
+    func passwordChanged(newPass: String) {
+        let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
+        
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: {[weak self] _ in
+            ActivityIndicator.shared.start(on: self!.view, label: MyStrings.processing)
+            
+            self?.profileViewModel.changePassword(to: newPass) { error in
+                DispatchQueue.main.async {
+                    ActivityIndicator.shared.stop()
+                }
+                
+                if error != nil {
+                    switch error {
+                    case .networkError:
+                        DispatchQueue.main.async {
+                            Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
+                        }
+                    }
+                }
+            }
+        }))
+        
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
+        
+        present(confirmAlert, animated: true)
+    }
     
 }
 
@@ -244,20 +304,6 @@ class ProfileViewController: UIViewController {
 ////MARK: - BulletinBoardDelegate
 //extension ProfileViewController: BulletinBoardDelegate {
 //
-//    func doneTapped(_ bulletinBoard: BulletinBoard, selection: Any, type: BulletinTypes) {
-//        bulletinBoard.boardManager?.dismissBulletin()
-//
-//        switch type {
-//        case .ChangeName:
-//            nameChanged(newName: selection as! String)
-//        case .ChangePassword:
-//            passwordChanged(newPass: selection as! String)
-//        case .ChangeNumber:
-//            numberChanged(newNum: selection as! String)
-//        default:
-//            break
-//        }
-//    }
 //
 //    func nameChanged(newName: String) {
 //        //let result = logic.updateName(email: user!.email, newName: newName)
@@ -285,31 +331,7 @@ class ProfileViewController: UIViewController {
 //        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: newNum)
 //    }
 //
-//    func passwordChanged(newPass: String) {
-//        let result = true
-//        //var pass = user?.password
-//
-//        let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
-//
-//        confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
-//            //result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
-//            self.userDocRef.setData([
-//                "password": newPass
-//            ], merge: true)
-//            self.auth.currentUser?.updatePassword(to: newPass, completion: nil)
-//            //pass = newPass
-//        }))
-//
-//        confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
-//
-//        present(confirmAlert, animated: true) {
-//            if result {
-//                //self.userDefault.setValue(pass, forKey: "userPassword")
-//            } else {
-//                Alert.showAlert(on: self, notUpdated: MyStrings.password)
-//            }
-//        }
-//    }
+
 //
 //}
 

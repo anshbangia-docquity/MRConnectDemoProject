@@ -61,7 +61,7 @@ struct BulletinItems {
         return item
     }
     
-    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, email: String) -> CheckPasswordItem {
+    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, password: String) -> CheckPasswordItem {
         let item = CheckPasswordItem(title: MyStrings.changePassword)
         item.actionButtonTitle = MyStrings.proceed
         item.descriptionText = MyStrings.enterOldPass
@@ -70,13 +70,8 @@ struct BulletinItems {
         item.appearance.titleFontSize = 25
         item.requiresCloseButton = false
         item.appearance.actionButtonFontSize = 20
-
-//        item.textInputHandler = { item in
-//            let changePasswordItem = self.makeChangePasswordItem(delegate, board: board)
-//            item.manager?.push(item: changePasswordItem)
-//        }
         
-        item.email = email
+        item.password = password
         item.actionHandler = { _ in
             item.manager?.displayNextItem()
         }

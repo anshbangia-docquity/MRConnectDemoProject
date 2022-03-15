@@ -27,7 +27,7 @@ struct FirestoreHandler {
         }
     }
     
-    func saveUser(userId: String, signupRequest: SignupRequest, completion: @escaping () -> Void) {
+    func saveUser(userId: String, signupRequest: SignupRequest, completion: @escaping (_ error: ErrorType?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
         
         userDocumentRef.setData([
@@ -49,7 +49,9 @@ struct FirestoreHandler {
                         "userExp": ""
                     ], merge: true) { error2 in
                         if error2 == nil {
-                            completion()
+                            completion(nil)
+                        } else {
+                            completion(.defaultError)
                         }
                     }
                 } else {
@@ -57,10 +59,28 @@ struct FirestoreHandler {
                         "userLicenseNumber": signupRequest.license!
                     ], merge: true) { error3 in
                         if error3 == nil {
-                            completion()
+                            completion(nil)
+                        } else {
+                            completion(.defaultError)
                         }
                     }
                 }
+            } else {
+                completion(.defaultError)
+            }
+        }
+    }
+    
+    func updatePassword(userId: String, newPass: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let userDocumentRef = userCollectionRef.document(userId)
+        
+        userDocumentRef.setData([
+            "userPassword": newPass
+        ], merge: true) { error in
+            if error == nil {
+                completion(nil)
+            } else {
+                completion(.defaultError)
             }
         }
     }

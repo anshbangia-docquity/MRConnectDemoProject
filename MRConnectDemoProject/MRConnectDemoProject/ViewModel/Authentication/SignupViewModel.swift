@@ -18,8 +18,12 @@ struct SignupViewModel {
             authHandler.signupUser(signupRequest: signupRequest) { result, error in
                 if error == nil {
                     let firestore = FirestoreHandler()
-                    firestore.saveUser(userId: result!.user.uid, signupRequest: signupRequest) {
-                        completion(ValidationResult(success: true, error: nil))
+                    firestore.saveUser(userId: result!.user.uid, signupRequest: signupRequest) { error in
+                        if error != nil {
+                            completion(ValidationResult(success: false, error: .defaultError))
+                        } else {
+                            completion(ValidationResult(success: true, error: nil))
+                        }
                     }
                 } else {
                     completion(ValidationResult(success: false, error: error))

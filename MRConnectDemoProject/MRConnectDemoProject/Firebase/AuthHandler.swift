@@ -63,6 +63,33 @@ struct AuthHandler {
         }
     }
     
+    func changePassword(to newPass: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        currentUser?.updatePassword(to: newPass, completion: { error in
+            if error != nil {
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case .networkError:
+                        completion(.networkError)
+                    case .requiresRecentLogin:
+                        let user = CurrentUser()
+                        let credential = EmailAuthProvider.credential(withEmail: user.email, password: user.password)
+                        currentUser?.reauthenticate(with: credential, completion: { _, error in
+                            if error != nil {
+                                completion(.defaultError)
+                            } else {
+                                completion(nil)
+                            }
+                        })
+                    default:
+                        completion(.defaultError)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        })
+    }
+    
     func logOut() -> Bool {
         do {
             try auth.signOut()
