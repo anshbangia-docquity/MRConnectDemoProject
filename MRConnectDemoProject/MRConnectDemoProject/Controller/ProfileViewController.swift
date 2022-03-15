@@ -128,6 +128,16 @@ class ProfileViewController: UIViewController {
         //        expTextView.delegate = self
     }
     
+//    @IBAction func changeNameTapped(_ sender: UIButton) {
+//        bulletinBoard.define(of: .ChangeName)
+//        bulletinBoard.boardManager?.showBulletin(above: self)
+//    }
+    
+    @IBAction func changeNumberTapped(_ sender: UIButton) {
+        bulletinBoard.define(of: .ChangeNumber)
+        bulletinBoard.boardManager?.showBulletin(above: self)
+    }
+    
     @IBAction func changePassTapped(_ sender: UIButton) {
         bulletinBoard.define(of: .CheckPassword, additional: user.password)
         bulletinBoard.boardManager?.showBulletin(above: self)
@@ -151,15 +161,9 @@ class ProfileViewController: UIViewController {
         //present(imagePicker, animated: true)
     }
     
-    @IBAction func changeNameTapped(_ sender: UIButton) {
-        //        bulletinBoard.define(of: .ChangeName)
-        //        bulletinBoard.boardManager?.showBulletin(above: self)
-    }
     
-    @IBAction func changeNumberTapped(_ sender: UIButton) {
-        //        bulletinBoard.define(of: .ChangeNumber)
-        //        bulletinBoard.boardManager?.showBulletin(above: self)
-    }
+    
+
     
     
     
@@ -176,17 +180,13 @@ extension ProfileViewController: BulletinBoardDelegate {
         //            switch type {
         //            case .ChangeName:
         //                nameChanged(newName: selection as! String)
-        //            case .ChangePassword:
-        //                passwordChanged(newPass: selection as! String)
-        //            case .ChangeNumber:
-        //                numberChanged(newNum: selection as! String)
-        //            default:
-        //                break
         //            }
         
         switch type {
         case .ChangePassword:
             passwordChanged(newPass: selection as! String)
+        case .ChangeNumber:
+            numberChanged(newNum: selection as! String)
         default:
             break
         }
@@ -221,6 +221,34 @@ extension ProfileViewController: BulletinBoardDelegate {
         confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
         
         present(confirmAlert, animated: true)
+    }
+    
+    func numberChanged(newNum: String) {
+        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
+        
+        profileViewModel.changeNumber(to: newNum) { [weak self] error in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.stop()
+            }
+            
+            if error != nil {
+                switch error {
+                case .networkError:
+                    DispatchQueue.main.async {
+                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: self!.user.contact)
+                }
+            }
+        }
+        
     }
     
 }
@@ -318,18 +346,7 @@ extension ProfileViewController: BulletinBoardDelegate {
 //        nameLabel.text = newName
 //    }
 //
-//    func numberChanged(newNum: String) {
-//        //let result = logic.updateNumber(email: user!.email, newNum: newNum)
-//        userDocRef.setData([
-//            "contact": newNum
-//        ], merge: true)
-////        if result == false {
-////            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
-////            return
-////        }
-//        //userDefault.setValue(newNum, forKey: "userContact")
-//        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: newNum)
-//    }
+
 //
 
 //

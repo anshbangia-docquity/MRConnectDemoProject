@@ -27,12 +27,17 @@ struct FirstViewModel {
             } else {
                 let firestore = FirestoreHandler()
                 firestore.getUser(userId: authHandler.currentUser!.uid) { userDict in
-                    UserDefaultManager().saveUser(userDict)
-                    
-                    if userDict["userType"] as! Int == UserType.MRUser.rawValue {
-                        completion(SegueIdentifiers.loginMR)
+                    if let userDict = userDict {
+                        UserDefaultManager().saveUser(userDict)
+                        
+                        if userDict["userType"] as! Int == UserType.MRUser.rawValue {
+                            completion(SegueIdentifiers.loginMR)
+                        } else {
+                            completion(SegueIdentifiers.loginDoctor)
+                        }
                     } else {
-                        completion(SegueIdentifiers.loginDoctor)
+                        let _ = authHandler.logOut()
+                        completion(SegueIdentifiers.goToLoginSignup)
                     }
                 }
             }

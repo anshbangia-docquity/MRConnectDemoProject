@@ -15,14 +15,12 @@ struct FirestoreHandler {
         database.collection("Users")
     }
     
-    func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]) -> Void) {
+    func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
         
         userDocumentRef.getDocument { snapshot, error in
             if error == nil {
-                if let dict = snapshot?.data() {
-                    completion(dict)
-                }
+                completion(snapshot?.data())
             }
         }
     }
@@ -71,11 +69,11 @@ struct FirestoreHandler {
         }
     }
     
-    func updatePassword(userId: String, newPass: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+    func updateInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
         
         userDocumentRef.setData([
-            "userPassword": newPass
+            key: newVal
         ], merge: true) { error in
             if error == nil {
                 completion(nil)
@@ -84,5 +82,6 @@ struct FirestoreHandler {
             }
         }
     }
+    
     
 }

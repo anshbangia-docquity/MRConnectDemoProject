@@ -19,26 +19,43 @@ struct ProfileViewModel {
         completion(data)
     }
     
+    func changeInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let firestore = FirestoreHandler()
+        
+        firestore.updateInfo(userId: userId, key: key, newVal: newVal) { error in
+            if error != nil {
+                completion(.defaultError)
+            } else {
+                UserDefaultManager().saveData(for: key, value: newVal)
+                completion(nil)
+            }
+        }
+
+    }
+    
     func changePassword(to newPass: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
         authHandler.changePassword(to: newPass) { error in
             if error == nil {
-                let firestore = FirestoreHandler()
-                
-                firestore.updatePassword(userId: authHandler.currentUser!.uid, newPass: newPass) { error in
-                    if error != nil {
-                        completion(.defaultError)
-                    } else {
-                        UserDefaultManager().saveData(for: "userPassword", value: newPass)
-                        completion(nil)
-                    }
+                changeInfo(userId: authHandler.currentUser!.uid, key: "userPassword", newVal: newPass) { error in
+                    completion(error)
                 }
             } else {
                 completion(error)
             }
         }
     }
+    
+    func changeNumber(to newNum: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let authHandler = AuthHandler.shared
+        
+        changeInfo(userId: authHandler.currentUser!.uid, key: "userContact", newVal: newNum) { error in
+            completion(error)
+        }
+
+    }
+
     
     func logOut() -> Bool {
         let authHandler = AuthHandler.shared
