@@ -6,17 +6,40 @@
 //
 
 import Foundation
+import UIKit
 
 struct ProfileViewModel {
     
-    func getProfileImage(urlStr: String, completion: @escaping (_ imgData: Data) -> Void) {
+    func getProfileImage(urlStr: String, completion: @escaping (_ imgData: Data?) -> Void) {
         let url = URL(string: urlStr)
-        guard let url = url else { return }
+        guard let url = url else {
+            completion(nil)
+            return
+        }
         
         let data = try? Data(contentsOf: url)
-        guard let data = data else { return }
+        guard let data = data else {
+            completion(nil)
+            return
+        }
         
         completion(data)
+    }
+    
+    func saveProfileImage(img: UIImage, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let authHandler = AuthHandler.shared
+        
+        if let imgData = img.pngData() {
+            let storage = StorageHandler()
+            
+            storage.uploadImage(userId: authHandler.currentUser!.uid, imgData: imgData) { url in
+                let urlStr = url.absoluteString
+                changeInfo(userId: authHandler.currentUser!.uid, key: "userImageLink", newVal: urlStr) { error in
+                    completion(error)
+                }
+            }
+        }
+
     }
     
     func changeInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {

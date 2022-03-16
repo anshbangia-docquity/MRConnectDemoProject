@@ -11,9 +11,9 @@ import FirebaseAuth
 
 struct FirestoreHandler {
     
-    let database = Firestore.firestore()
+    let firestore = Firestore.firestore()
     var userCollectionRef: CollectionReference {
-        database.collection("Users")
+        firestore.collection("Users")
     }
     
     func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]?) -> Void) {

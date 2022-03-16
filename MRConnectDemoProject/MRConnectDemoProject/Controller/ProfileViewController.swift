@@ -44,6 +44,9 @@ class ProfileViewController: UIViewController {
         officeTextView.delegate = self
         qualiTextView.delegate = self
         expTextView.delegate = self
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
         
         titleLabel.text = MyStrings.profile
         
@@ -51,9 +54,10 @@ class ProfileViewController: UIViewController {
             ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
             
             profileViewModel.getProfileImage(urlStr: user.imageLink) { [weak self] imgData in
-                self?.profileImageView.image = UIImage(data: imgData)
-                
                 ActivityIndicator.shared.stop()
+                
+                guard let imgData = imgData else { return }
+                self?.profileImageView.image = UIImage(data: imgData)
             }
             
             addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
@@ -110,25 +114,6 @@ class ProfileViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //
-        //
-        //        imagePicker.delegate = self
-        //        imagePicker.allowsEditing = false
-        //        imagePicker.sourceType = .photoLibrary
-        //
-        //
-        //
-        //        //
-        //
-        //
-        //
-        //
-        //
-        
-    }
-    
     @IBAction func changeNameTapped(_ sender: UIButton) {
         bulletinBoard.define(of: .ChangeName)
         bulletinBoard.boardManager?.showBulletin(above: self)
@@ -151,24 +136,10 @@ class ProfileViewController: UIViewController {
             Alert.showAlert(on: self, title: MyStrings.errorOccured, subtitle: MyStrings.tryAgain)
         }
     }
-    
-    
-    
-    
-    
-    
-    
+
     @IBAction func addImagePressed(_ sender: Any) {
-        //present(imagePicker, animated: true)
+        present(imagePicker, animated: true)
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 
@@ -378,33 +349,31 @@ extension ProfileViewController: UITextViewDelegate {
     }
 }
 
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-////MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-//extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        dismiss(animated: true, completion: nil)
-//        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            profileImageView.image = img
-//            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-//            addImageButton.setTitle(MyStrings.edit, for: .normal)
-//            if let imgData = img.pngData() {
-//                let ref = storage.reference().child("images/\(auth.currentUser!.uid).png")
-//                ref.putData(imgData, metadata: nil) { _, error in
-//                    guard error == nil else { return }
-//                    ref.downloadURL { url, error in
-//                        guard error == nil, let url = url else { return }
-//                        self.userDocRef.setData([
-//                            "profileImageUrl": url.absoluteString
-//                        ], merge: true)
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
-//
-//}
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
+    
+        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            addImageButton.setTitle(MyStrings.edit, for: .normal)
+            
+            profileViewModel.saveProfileImage(img: img) {[weak self] error in
+                DispatchQueue.main.async {
+                    self?.profileViewModel.getProfileImage(urlStr: self!.user.imageLink, completion: { [weak self] imgData in
+                        ActivityIndicator.shared.stop()
+                        
+                        guard let imgData = imgData else { return }
+                        self?.profileImageView.image = UIImage(data: imgData)
+                    })
+                }
+            }
+        }
+    }
+    
+}
 
 
 

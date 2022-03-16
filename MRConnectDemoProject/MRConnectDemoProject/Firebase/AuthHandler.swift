@@ -10,8 +10,8 @@ import FirebaseAuth
 
 struct AuthHandler {
     static let shared = AuthHandler()
-    
-    let auth = FirebaseAuth.Auth.auth()
+
+    let auth = Auth.auth()
     
     var currentUser: FirebaseAuth.User? {
         return auth.currentUser

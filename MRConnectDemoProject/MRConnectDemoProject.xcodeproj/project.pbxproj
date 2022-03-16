@@ -76,6 +76,7 @@
 		01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */; };
 		01AD579827A18AE700EB47DF /* MRMedicinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */; };
 		01AD579A27A18B2800EB47DF /* MRMedicines.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01AD579927A18B2800EB47DF /* MRMedicines.storyboard */; };
+		01B32D0427E1EE31000961EB /* StorageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B32D0327E1EE31000961EB /* StorageHandler.swift */; };
 		01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */; };
 		01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507027DE0238008FB0C0 /* AuthHandler.swift */; };
 		01D0507327DE03B0008FB0C0 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */; };
@@ -163,6 +164,7 @@
 		01AD579527A1267C00EB47DF /* MRDoctorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsViewController.swift; sourceTree = "<group>"; };
 		01AD579727A18AE700EB47DF /* MRMedicinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesViewController.swift; sourceTree = "<group>"; };
 		01AD579927A18B2800EB47DF /* MRMedicines.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRMedicines.storyboard; sourceTree = SOURCE_ROOT; };
+		01B32D0327E1EE31000961EB /* StorageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageHandler.swift; sourceTree = "<group>"; };
 		01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		01D0507027DE0238008FB0C0 /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
 		01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			children = (
 				01D0507027DE0238008FB0C0 /* AuthHandler.swift */,
 				01D0507427DE42E4008FB0C0 /* FirestoreHandler.swift */,
+				01B32D0327E1EE31000961EB /* StorageHandler.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				0125585D27BB92FE00C3957A /* User+CoreDataProperties.swift in Sources */,
 				0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */,
 				0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */,
+				01B32D0427E1EE31000961EB /* StorageHandler.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangeNumberItem.swift in Sources */,
 				0169F36027BFAE0E0023C3FE /* Recording+CoreDataProperties.swift in Sources */,
 			);
