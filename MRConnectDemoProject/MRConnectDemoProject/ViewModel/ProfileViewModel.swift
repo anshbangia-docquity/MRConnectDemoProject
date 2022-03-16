@@ -24,7 +24,7 @@ struct ProfileViewModel {
         
         firestore.updateInfo(userId: userId, key: key, newVal: newVal) { error in
             if error != nil {
-                completion(.defaultError)
+                completion(error)
             } else {
                 UserDefaultManager().saveData(for: key, value: newVal)
                 completion(nil)
@@ -53,7 +53,6 @@ struct ProfileViewModel {
         changeInfo(userId: authHandler.currentUser!.uid, key: "userContact", newVal: newNum) { error in
             completion(error)
         }
-
     }
     
     func changeName(to newName: String, completion: @escaping (_ error: ErrorType?) -> Void) {
@@ -62,7 +61,30 @@ struct ProfileViewModel {
         changeInfo(userId: authHandler.currentUser!.uid, key: "userName", newVal: newName) { error in
             completion(error)
         }
-
+    }
+    
+    func changeExp(to newExp: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let authHandler = AuthHandler.shared
+        
+        changeInfo(userId: authHandler.currentUser!.uid, key: "userExp", newVal: newExp) { error in
+            completion(error)
+        }
+    }
+    
+    func changeQuali(to newQuali: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let authHandler = AuthHandler.shared
+        
+        changeInfo(userId: authHandler.currentUser!.uid, key: "userQuali", newVal: newQuali) { error in
+            completion(error)
+        }
+    }
+    
+    func changeOffice(to newOffice: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+        let authHandler = AuthHandler.shared
+        
+        changeInfo(userId: authHandler.currentUser!.uid, key: "userOffice", newVal: newOffice) { error in
+            completion(error)
+        }
     }
 
     

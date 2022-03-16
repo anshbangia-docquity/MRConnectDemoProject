@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 struct FirestoreHandler {
     
@@ -71,17 +72,17 @@ struct FirestoreHandler {
     
     func updateInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
-        
         userDocumentRef.setData([
             key: newVal
-        ], merge: true) { error in
-            if error == nil {
-                completion(nil)
-            } else {
-                completion(.defaultError)
-            }
-        }
+        ], merge: true)
+//        { error in
+//            if error == nil {
+//                completion(nil)
+//            } else {
+//                completion(.defaultError)
+//            }
+//        }
+        completion(nil)
     }
-    
     
 }
