@@ -23,5 +23,12 @@ enum ErrorType {
     case confirmPasswordNotMatch
     case weakPassword
     case emailAlreadyInUse
+    
+    func getAlertMessage() -> (title: String, subTitle: String) {
+      switch self {
+      default:
+          return (MyStrings.errorOccured, MyStrings.tryAgain)
+      }
+    }
 
 }
