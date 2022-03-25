@@ -16,6 +16,7 @@ class LogInViewController: UIViewController {
     var allUI: [UIControl] = []
     
     let loginViewModel = LoginViewModel()
+    let alertManager = AlertManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,36 +40,9 @@ class LogInViewController: UIViewController {
         loginViewModel.loginUser(loginRequest: request) { [weak self] result in
             DispatchQueue.main.async {
                 ActivityIndicator.shared.stop()
-            }
-            
-            if !result.success {
-                if result.error == .emptyEmailField {
-                    Alert.showAlert(on: self!, emptyField: MyStrings.email)
-                } else if result.error == .emptyPasswordField {
-                    Alert.showAlert(on: self!, emptyField: MyStrings.password)
-                } else if result.error == .networkError {
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                    }
-                } else if result.error == .userNotFound {
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.invalidEmail, subtitle: MyStrings.tryAgain)
-                    }
-                } else if result.error == .invalidEmail {
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.invalidEmail, subtitle: MyStrings.tryAgain)
-                    }
-                } else if result.error == .invalidPassword {
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.invalidPassword, subtitle: MyStrings.tryAgain)
-                    }
+                if !result.success {
+                    self?.alertManager.showAlert(on: self!, text: result.error!.getAlertMessage())
                 } else {
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
