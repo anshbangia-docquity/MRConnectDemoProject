@@ -73,19 +73,11 @@ struct FirestoreHandler {
         }
     }
     
-    func updateInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+    func updateInfo(userId: String, key: String, newVal: String) {
         let userDocumentRef = userCollectionRef.document(userId)
         userDocumentRef.setData([
             key: newVal
         ], merge: true)
-//        { error in
-//            if error == nil {
-//                completion(nil)
-//            } else {
-//                completion(.defaultError)
-//            }
-//        }
-        completion(nil)
     }
     
     func getDoctors(completion: @escaping (_ doctorDocuments: [QueryDocumentSnapshot]) -> Void) {

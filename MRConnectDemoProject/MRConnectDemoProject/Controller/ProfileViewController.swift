@@ -34,8 +34,7 @@ class ProfileViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     let bulletinBoard = BulletinBoard()
     let profileViewModel = ProfileViewModel()
-    
-    //let storage = FirebaseStorage.Storage.storage()
+    let alertManager = AlertManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,18 +169,8 @@ extension ProfileViewController: BulletinBoardDelegate {
             self?.profileViewModel.changePassword(to: newPass) { error in
                 DispatchQueue.main.async {
                     ActivityIndicator.shared.stop()
-                }
-                
-                if error != nil {
-                    switch error {
-                    case .networkError:
-                        DispatchQueue.main.async {
-                            Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                        }
-                    default:
-                        DispatchQueue.main.async {
-                            Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                        }
+                    if let error = error {
+                        self?.alertManager.showAlert(on: self!, text: error.getAlertMessage())
                     }
                 }
             }

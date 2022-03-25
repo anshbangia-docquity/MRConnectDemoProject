@@ -32,28 +32,21 @@ struct ProfileViewModel {
         if let imgData = img.pngData() {
             let storage = StorageHandler()
             
-            storage.uploadImage(userId: authHandler.currentUser!.uid, imgData: imgData) { url in
-                let urlStr = url.absoluteString
-                changeInfo(userId: authHandler.currentUser!.uid, key: "userImageLink", newVal: urlStr) { error in
-                    completion(error)
-                }
-            }
+//            storage.uploadImage(userId: authHandler.currentUser!.uid, imgData: imgData) { url in
+//                let urlStr = url.absoluteString
+//                changeInfo(userId: authHandler.currentUser!.uid, key: "userImageLink", newVal: urlStr) { error in
+//                    completion(error)
+//                }
+//            }
         }
 
     }
     
-    func changeInfo(userId: String, key: String, newVal: String, completion: @escaping (_ error: ErrorType?) -> Void) {
+    func changeInfo(userId: String, key: String, newVal: String) {
         let firestore = FirestoreHandler()
         
-        firestore.updateInfo(userId: userId, key: key, newVal: newVal) { error in
-            if error != nil {
-                completion(error)
-            } else {
-                UserDefaultManager().saveData(for: key, value: newVal)
-                completion(nil)
-            }
-        }
-
+        firestore.updateInfo(userId: userId, key: key, newVal: newVal)
+        UserDefaultManager().saveData(for: key, value: newVal)
     }
     
     func changePassword(to newPass: String, completion: @escaping (_ error: ErrorType?) -> Void) {
@@ -61,53 +54,50 @@ struct ProfileViewModel {
         
         authHandler.changePassword(to: newPass) { error in
             if error == nil {
-                changeInfo(userId: authHandler.currentUser!.uid, key: "userPassword", newVal: newPass) { error in
-                    completion(error)
-                }
-            } else {
-                completion(error)
+                changeInfo(userId: authHandler.currentUser!.uid, key: "userPassword", newVal: newPass)
             }
+            completion(error)
         }
     }
     
     func changeNumber(to newNum: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
-        changeInfo(userId: authHandler.currentUser!.uid, key: "userContact", newVal: newNum) { error in
-            completion(error)
-        }
+//        changeInfo(userId: authHandler.currentUser!.uid, key: "userContact", newVal: newNum) { error in
+//            completion(error)
+//        }
     }
     
     func changeName(to newName: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
-        changeInfo(userId: authHandler.currentUser!.uid, key: "userName", newVal: newName) { error in
-            completion(error)
-        }
+//        changeInfo(userId: authHandler.currentUser!.uid, key: "userName", newVal: newName) { error in
+//            completion(error)
+//        }
     }
     
     func changeExp(to newExp: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
-        changeInfo(userId: authHandler.currentUser!.uid, key: "userExp", newVal: newExp) { error in
-            completion(error)
-        }
+//        changeInfo(userId: authHandler.currentUser!.uid, key: "userExp", newVal: newExp) { error in
+//            completion(error)
+//        }
     }
     
     func changeQuali(to newQuali: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
-        changeInfo(userId: authHandler.currentUser!.uid, key: "userQuali", newVal: newQuali) { error in
-            completion(error)
-        }
+//        changeInfo(userId: authHandler.currentUser!.uid, key: "userQuali", newVal: newQuali) { error in
+//            completion(error)
+//        }
     }
     
     func changeOffice(to newOffice: String, completion: @escaping (_ error: ErrorType?) -> Void) {
         let authHandler = AuthHandler.shared
         
-        changeInfo(userId: authHandler.currentUser!.uid, key: "userOffice", newVal: newOffice) { error in
-            completion(error)
-        }
+//        changeInfo(userId: authHandler.currentUser!.uid, key: "userOffice", newVal: newOffice) { error in
+//            completion(error)
+//        }
     }
 
     
