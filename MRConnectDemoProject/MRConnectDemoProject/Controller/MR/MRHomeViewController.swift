@@ -18,7 +18,8 @@ class MRHomeViewController: UITabBarController {
 //        items[2].title = MyStrings.medicines
 //        items[3].title = MyStrings.profile
         
-        items[0].title = MyStrings.profile
+        items[0].title = MyStrings.doctors
+        items[1].title = MyStrings.profile
     }
 
 }

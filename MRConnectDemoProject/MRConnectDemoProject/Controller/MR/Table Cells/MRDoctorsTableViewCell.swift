@@ -30,16 +30,16 @@ class MRDoctorsTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(name: String, spec: Int, email: String, contact: String, office: String) {
-        nameLabel.text = "Dr. \(name)"
-        specLabel.text = Specialities.specialities[spec]
-        emailLabel.text = email
-        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: contact)
-        var myOffice = MyStrings.notSpecified
-        if !office.isEmpty {
-            myOffice = office
+    func configure(_ doctor: Doctor) {
+        nameLabel.text = "Dr. \(doctor.name)"
+        specLabel.text = Specialities.specialities[doctor.speciality] ?? "NA"
+        emailLabel.text = doctor.email
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: doctor.contact)
+        var office = MyStrings.notSpecified
+        if !doctor.office.isEmpty {
+            office = doctor.office
         }
-        officeLabel.text = MyStrings.office + ": " + myOffice
+        officeLabel.text = MyStrings.office + ": " + office
         profileImage.image = UIImage(systemName: "person.circle")
     }
 

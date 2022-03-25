@@ -63,6 +63,8 @@
 		01906B2227DF3CE100BA8EDF /* SignupValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2127DF3CE100BA8EDF /* SignupValidation.swift */; };
 		01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */; };
 		01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */; };
+		019A244127EDAB3E00FE6D5B /* MRDoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */; };
+		019A244327EDAC1A00FE6D5B /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A244227EDAC1A00FE6D5B /* Doctor.swift */; };
 		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
 		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01A1E13C27B3D73E0094E374 /* Meetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A1E13B27B3D73E0094E374 /* Meetings.storyboard */; };
@@ -151,6 +153,8 @@
 		01906B2127DF3CE100BA8EDF /* SignupValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupValidation.swift; sourceTree = "<group>"; };
 		01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsViewModel.swift; sourceTree = "<group>"; };
+		019A244227EDAC1A00FE6D5B /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01A1E13B27B3D73E0094E374 /* Meetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Meetings.storyboard; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				01906B1F27DF3B7100BA8EDF /* SignupRequest.swift */,
 				013A844327AA7A56002AC97C /* Specialities.swift */,
 				0110A8B1279E988D0023AD4C /* UserType.swift */,
+				019A244227EDAC1A00FE6D5B /* Doctor.swift */,
 				1891533727AA331800A9495D /* CoreData */,
 				01A1E12727B377CB0094E374 /* CoreData Model */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
@@ -349,6 +354,14 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		019A243F27EDAB2800FE6D5B /* MR */ = {
+			isa = PBXGroup;
+			children = (
+				019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */,
+			);
+			path = MR;
+			sourceTree = "<group>";
+		};
 		01A1E12727B377CB0094E374 /* CoreData Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,8 +409,8 @@
 			isa = PBXGroup;
 			children = (
 				01AD578427A101E200EB47DF /* MRHomeScreen.storyboard */,
-				01A1E14227B413820094E374 /* MRCreateMeeting.storyboard */,
 				01AD579327A1251A00EB47DF /* MRDoctors.storyboard */,
+				01A1E14227B413820094E374 /* MRCreateMeeting.storyboard */,
 				01AD579927A18B2800EB47DF /* MRMedicines.storyboard */,
 			);
 			path = MRHomeScreen;
@@ -407,9 +420,9 @@
 			isa = PBXGroup;
 			children = (
 				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
+				0125586227BC05A300C3957A /* Doctors */,
 				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
 				01A1E14527B417990094E374 /* Collection Cells */,
-				0125586227BC05A300C3957A /* Doctors */,
 				0117681827B4CF6100E89110 /* Medicines */,
 				01A1E14427B414590094E374 /* Table Cells */,
 			);
@@ -468,6 +481,7 @@
 			children = (
 				01906B1A27DF256200BA8EDF /* FirstViewModel.swift */,
 				01906B1C27DF3AF600BA8EDF /* Authentication */,
+				019A243F27EDAB2800FE6D5B /* MR */,
 				01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
@@ -649,6 +663,7 @@
 				01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */,
 				01906B2227DF3CE100BA8EDF /* SignupValidation.swift in Sources */,
 				1891533927AA332F00A9495D /* CoreDataHandler.swift in Sources */,
+				019A244327EDAC1A00FE6D5B /* Doctor.swift in Sources */,
 				01D0507C27DE4F5B008FB0C0 /* LoginRequest.swift in Sources */,
 				01A1E13527B385580094E374 /* Gradient.swift in Sources */,
 				0125586127BB92FE00C3957A /* Meeting+CoreDataProperties.swift in Sources */,
@@ -658,6 +673,7 @@
 				01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */,
 				0117682227B52DB700E89110 /* DetailsTableViewCell.swift in Sources */,
 				0110A8B4279E998A0023AD4C /* LogInViewController.swift in Sources */,
+				019A244127EDAB3E00FE6D5B /* MRDoctorsViewModel.swift in Sources */,
 				018CAA7C27AE6D7700FF04D6 /* ChangeNameItem.swift in Sources */,
 				013A844627AA7BDC002AC97C /* MedicineForms.swift in Sources */,
 				01906B1B27DF256200BA8EDF /* FirstViewModel.swift in Sources */,

@@ -20,8 +20,8 @@ struct FirestoreHandler {
         let userDocumentRef = userCollectionRef.document(userId)
         
         userDocumentRef.getDocument { snapshot, error in
-            if error == nil {
-                completion(snapshot?.data())
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.data())
             }
         }
     }
@@ -83,6 +83,16 @@ struct FirestoreHandler {
 //            }
 //        }
         completion(nil)
+    }
+    
+    func getDoctors(completion: @escaping (_ doctorDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let userCollecRef = self.userCollectionRef.whereField("userType", isEqualTo: 1).order(by: "userName")
+        
+        userCollecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
     }
     
 }
