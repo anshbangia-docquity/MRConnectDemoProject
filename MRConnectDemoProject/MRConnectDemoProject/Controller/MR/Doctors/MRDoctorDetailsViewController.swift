@@ -40,7 +40,7 @@ class MRDoctorDetailsViewController: UIViewController {
         }
         
         nameLabel.text = "Dr. \(doctor.name)"
-        specLabel.text = Specialities.specialities[doctor.speciality]
+        specLabel.text = Specialities.specialities[doctor.speciality] ?? "NA"
         emailLabel.text = doctor.email
         contactLabel.text = doctor.contact
         

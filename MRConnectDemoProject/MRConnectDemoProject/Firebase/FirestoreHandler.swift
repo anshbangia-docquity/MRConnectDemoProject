@@ -15,6 +15,9 @@ struct FirestoreHandler {
     var userCollectionRef: CollectionReference {
         firestore.collection("Users")
     }
+    var medCollectionRef: CollectionReference {
+        firestore.collection("Medicines")
+    }
     
     func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
@@ -89,6 +92,16 @@ struct FirestoreHandler {
         let userCollecRef = self.userCollectionRef.whereField("userType", isEqualTo: 1).order(by: "userName")
         
         userCollecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
+    }
+    
+    func getMedicines(completion: @escaping (_ medDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let medCollecRef = self.medCollectionRef.order(by: "company").order(by: "name")
+        
+        medCollecRef.getDocuments { snapshot, error in
             if error == nil, let snapshot = snapshot {
                 completion(snapshot.documents)
             }

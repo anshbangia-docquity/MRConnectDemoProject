@@ -40,9 +40,9 @@ class MRCreateMedicineViewController: UIViewController {
         priceField.placeholder = MyStrings.price
         formLabel.text = MyStrings.form
         
-        for i in 0...3 {
-            formSelector.setTitle(MedicineForms.forms[Int16(i)], forSegmentAt: i)
-        }
+//        for i in 0...3 {
+//            formSelector.setTitle(MedicineForms.forms[Int16(i)], forSegmentAt: i)
+//        }
         
         createButton.setTitle(MyStrings.create, for: .normal)
         cancelButton.setTitle(MyStrings.cancel, for: .normal)

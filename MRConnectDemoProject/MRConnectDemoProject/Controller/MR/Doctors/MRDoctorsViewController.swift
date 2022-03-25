@@ -30,7 +30,7 @@ class MRDoctorsViewController: UIViewController {
         navigationItem.searchController?.searchResultsUpdater = self
         
         title = MyStrings.doctors
-        navigationItem.searchController?.searchBar.placeholder = MyStrings.search
+        navigationItem.searchController?.searchBar.placeholder = MyStrings.email
         noDocs.text = ""
         
         ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
@@ -137,48 +137,4 @@ extension MRDoctorsViewController {
     
 }
 
-////MARK: - UITextFieldDelegate
-//extension MRDoctorsViewController: UITextFieldDelegate {
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.endEditing(true)
-//        return true
-//    }
-//
-//    func textFieldDidChangeSelection(_ textField: UITextField) {
-////        if searchField.text == "" {
-////            doctors = logic.getDoctors()
-////            updateNoDocs()
-////        } else {
-////            doctors = logic.getDoctors(contains: searchField.text!)
-////            updateNoDocs()
-////        }
-////
-////        tableView.reloadData()
-//
-//        if searchField.text == "" {
-//            print("Hello")
-//            userCollecRef = database.collection("Users").whereField("type", isEqualTo: 1).order(by: "name")
-//        } else {
-//            let search = searchField.text!
-//            userCollecRef = database.collection("Users").whereField("type", isEqualTo: 1).order(by: "name").start(at: [search]).end(at: [search + "~"])
-//        }
-//        getDocuments()
-//    }
-//
-//}
-
-////MARK: - Other
-//extension MRDoctorsViewController {
-//
-//    func updateNoDocs() {
-//        if doctorDocuments.count == 0 {
-//            noDocs.isHidden = false
-//            noDocs.text = MyStrings.noDocs
-//        } else {
-//            noDocs.isHidden = true
-//        }
-//    }
-//
-//}
 
