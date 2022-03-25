@@ -65,6 +65,7 @@
 		01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */; };
 		019A244127EDAB3E00FE6D5B /* MRDoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */; };
 		019A244327EDAC1A00FE6D5B /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A244227EDAC1A00FE6D5B /* Doctor.swift */; };
+		019A244527EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A244427EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift */; };
 		01A1E13527B385580094E374 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13427B385580094E374 /* Gradient.swift */; };
 		01A1E13727B389C60094E374 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1E13627B389C60094E374 /* Alert.swift */; };
 		01A1E13C27B3D73E0094E374 /* Meetings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A1E13B27B3D73E0094E374 /* Meetings.storyboard */; };
@@ -155,6 +156,7 @@
 		01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsViewModel.swift; sourceTree = "<group>"; };
 		019A244227EDAC1A00FE6D5B /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
+		019A244427EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		01A1E13427B385580094E374 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		01A1E13627B389C60094E374 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = MRConnectDemoProject/Controller/Alert.swift; sourceTree = SOURCE_ROOT; };
 		01A1E13B27B3D73E0094E374 /* Meetings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Meetings.storyboard; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */,
+				019A244427EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift */,
 			);
 			path = MR;
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 				01906B1E27DF3B0700BA8EDF /* SignupViewModel.swift in Sources */,
 				0125585527BB731100C3957A /* ChangePasswordItem copy.swift in Sources */,
 				01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */,
+				019A244527EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift in Sources */,
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,

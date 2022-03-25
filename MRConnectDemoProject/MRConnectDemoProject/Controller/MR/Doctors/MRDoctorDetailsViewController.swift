@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class MRDoctorDetailsViewController: UIViewController {
     
@@ -22,55 +21,43 @@ class MRDoctorDetailsViewController: UIViewController {
     @IBOutlet weak var expLabel: UILabel!
     @IBOutlet weak var expTextView: UITextView!
     
-    //var doctor: User?
-    var doctorDoc: [String: Any]!
+    var doctor: Doctor!
+    let mrDoctorDetailsViewModel = MRDoctorDetailsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         profileImage.image = UIImage(systemName: "person.circle")
-        if doctorDoc["profileImageUrl"] as! String != "" {
-            let imgUrlStr = doctorDoc["profileImageUrl"] as! String
-            let url = (URL(string: imgUrlStr))!
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    if let img = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self.profileImage.image = img
-                        }
-                    }
-                }
+        if !doctor.imageLink.isEmpty {
+            ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+            
+            mrDoctorDetailsViewModel.getProfileImage(urlStr: doctor.imageLink) { [weak self] imgData in
+                ActivityIndicator.shared.stop()
+                
+                guard let imgData = imgData else { return }
+                self?.profileImage.image = UIImage(data: imgData)
             }
         }
         
-        nameLabel.text = "Dr. \(doctorDoc["name"] as! String)"
-        specLabel.text = Specialities.specialities[doctorDoc["speciality"] as! Int]
-        emailLabel.text = doctorDoc["email"] as? String
-        contactLabel.text = doctorDoc["contact"] as? String
+        nameLabel.text = "Dr. \(doctor.name)"
+        specLabel.text = Specialities.specialities[doctor.speciality]
+        emailLabel.text = doctor.email
+        contactLabel.text = doctor.contact
+        
         officeLabel.text = MyStrings.office
         qualiLabel.text = MyStrings.quali
         expLabel.text = MyStrings.exp
-        
-        if (doctorDoc["office"] as! String).isEmpty {
-            officeTextView.text = MyStrings.notSpecified
-            officeTextView.textColor = .systemGray3
-        } else {
-            officeTextView.text = doctorDoc["office"] as? String
-        }
-        
-        if (doctorDoc["quali"] as! String).isEmpty {
-            qualiTextView.text = MyStrings.notSpecified
-            qualiTextView.textColor = .systemGray3
-        } else {
-            qualiTextView.text = doctorDoc["quali"] as? String
-        }
-        
-        if (doctorDoc["exp"] as! String).isEmpty {
-            expTextView.text = MyStrings.notSpecified
-            expTextView.textColor = .systemGray3
-        } else {
-            expTextView.text = doctorDoc["exp"] as? String
+        let textViews: [(UITextView, String)] = [(officeTextView, doctor.office), (qualiTextView, doctor.quali), (expTextView, doctor.exp)]
+        textViews.forEach { tuple in
+            if tuple.1.isEmpty {
+                tuple.0.text = MyStrings.notSpecified
+                tuple.0.textColor = .systemGray3
+            } else {
+                tuple.0.text = tuple.1
+            }
         }
     }
+    
 }
 
 

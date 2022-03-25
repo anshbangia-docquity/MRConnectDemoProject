@@ -19,7 +19,7 @@ class MRDoctorsViewController: UIViewController {
     var doctors: [Doctor] = []
     var copyDoctors: [Doctor] = []
     
-    //var tappedDoctor: QueryDocumentSnapshot?
+    var tappedDoctor: Doctor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,17 +90,17 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        tappedDoctor = doctorDocuments[indexPath.row]
-    //        performSegue(withIdentifier: "goToDetails", sender: self)
-    //    }
-    //    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "goToDetails" {
-    //            let vc = segue.destination as! MRDoctorDetailsViewController
-    //            vc.doctorDoc = tappedDoctor!.data()
-    //        }
-    //    }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tappedDoctor = doctors[indexPath.row]
+            performSegue(withIdentifier: SegueIdentifiers.goToDetails, sender: self)
+        }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == SegueIdentifiers.goToDetails {
+                let vc = segue.destination as! MRDoctorDetailsViewController
+                vc.doctor = tappedDoctor
+            }
+        }
     
 }
 

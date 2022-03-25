@@ -12,5 +12,6 @@ struct SegueIdentifiers {
     static let goToLoginSignup = "goToLoginSignup"
     static let loginMR = "loginMR"
     static let loginDoctor = "loginDoctor"
+    static let goToDetails = "goToDetails"
     
 }
