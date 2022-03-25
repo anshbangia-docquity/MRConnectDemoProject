@@ -18,13 +18,17 @@ struct SignupValidation {
             return ValidationResult(success: false, error: .emptyContactField)
         }
         
-        if signupRequest.license!.isEmpty && signupRequest.mrnumber!.isEmpty {
-            return ValidationResult(success: false, error: .emptyNumberField)
-        }
-        
         if signupRequest.type == UserType.Doctor.rawValue {
+            if signupRequest.mrnumber!.isEmpty {
+                return ValidationResult(success: false, error: .emptyMRNumberField)
+            }
+            
             if signupRequest.speciality == -1 {
                 return ValidationResult(success: false, error: .emptySpecialityField)
+            }
+        } else {
+            if signupRequest.license!.isEmpty {
+                return ValidationResult(success: false, error: .emptyLicenseField)
             }
         }
         

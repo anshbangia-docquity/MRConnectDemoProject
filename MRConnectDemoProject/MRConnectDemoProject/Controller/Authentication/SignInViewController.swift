@@ -24,6 +24,7 @@ class SignUpViewController: UIViewController {
     var allUI: [UIControl] = []
         
     let signupViewModel = SignupViewModel()
+    let alertManager = AlertManager()
     var type = UserType.MRUser
     var selectedSpec = -1
     
@@ -80,39 +81,9 @@ class SignUpViewController: UIViewController {
         signupViewModel.signupUser(signupRequest: request) { [weak self] result in
             DispatchQueue.main.async {
                 ActivityIndicator.shared.stop()
-            }
-            
-            if !result.success {
-                DispatchQueue.main.async {
-                    switch result.error {
-                    case .emptyNameField:
-                        Alert.showAlert(on: self!, emptyField: MyStrings.name)
-                    case .emptyContactField:
-                        Alert.showAlert(on: self!, emptyField: MyStrings.contact)
-                    case .emptyNumberField:
-                        Alert.showAlert(on: self!, emptyField: self!.numberField.placeholder!)
-                    case .emptySpecialityField:
-                        Alert.showAlert(on: self!, emptyField: MyStrings.specialization)
-                    case .emptyEmailField:
-                        Alert.showAlert(on: self!, emptyField: MyStrings.email)
-                    case .emptyPasswordField:
-                        Alert.showAlert(on: self!, emptyField: MyStrings.password)
-                    case .confirmPasswordNotMatch:
-                        Alert.showAlert(on: self!, title: MyStrings.confirmPassNotMatch, subtitle: MyStrings.reenterConfirmPass)
-                    case .networkError:
-                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                    case .invalidEmail:
-                        Alert.showAlert(on: self!, title: MyStrings.invalidEmail, subtitle: MyStrings.tryAgain)
-                    case .weakPassword:
-                        Alert.showAlert(on: self!, title: MyStrings.passNeeds6Char, subtitle: MyStrings.enter6Char)
-                    case .emailAlreadyInUse:
-                        Alert.showAlert(on: self!, title: MyStrings.signupUnsuccess, subtitle: MyStrings.tryDiffEmail)
-                    default:
-                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
+                if !result.success {
+                    self?.alertManager.showAlert(on: self!, text: result.error!.getAlertMessage())
+                } else {
                     self?.dismiss(animated: true, completion: nil)
                 }
             }

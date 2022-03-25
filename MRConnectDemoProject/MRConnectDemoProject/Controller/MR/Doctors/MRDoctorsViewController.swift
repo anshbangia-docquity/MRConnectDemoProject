@@ -29,7 +29,6 @@ class MRDoctorsViewController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.searchController?.searchResultsUpdater = self
         
-        //titleLabel.text = MyStrings.doctors
         title = MyStrings.doctors
         navigationItem.searchController?.searchBar.placeholder = MyStrings.search
         noDocs.text = ""
@@ -41,14 +40,7 @@ class MRDoctorsViewController: UIViewController {
                 self?.doctors = doctors
                 self?.copyDoctors = doctors
                 
-                if doctors.count == 0 {
-                    self?.noDocs.isHidden = false
-                    self?.noDocs.text = MyStrings.noDocs
-                } else {
-                    self?.noDocs.isHidden = true
-                }
-                
-                self?.tableView.reloadData()
+                self?.reloadTable()
             }
         }
     }
@@ -75,7 +67,7 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         
         let doctor = doctors[indexPath.row]
         cell.configure(doctor)
-
+        
         cell.layer.maskedCorners = []
         if indexPath.row == 0 {
             cell.layer.masksToBounds = true
@@ -98,21 +90,21 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tappedDoctor = doctorDocuments[indexPath.row]
-//        performSegue(withIdentifier: "goToDetails", sender: self)
-//    }
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "goToDetails" {
-//            let vc = segue.destination as! MRDoctorDetailsViewController
-//            vc.doctorDoc = tappedDoctor!.data()
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        tappedDoctor = doctorDocuments[indexPath.row]
+    //        performSegue(withIdentifier: "goToDetails", sender: self)
+    //    }
+    //    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "goToDetails" {
+    //            let vc = segue.destination as! MRDoctorDetailsViewController
+    //            vc.doctorDoc = tappedDoctor!.data()
+    //        }
+    //    }
     
 }
 
-//MARK: UISearchResultsUpdating
+//MARK: - UISearchResultsUpdating
 extension MRDoctorsViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -124,13 +116,22 @@ extension MRDoctorsViewController: UISearchResultsUpdating {
             })
         }
         
+        reloadTable()
+    }
+    
+}
+
+//MARK: - Reload Table
+extension MRDoctorsViewController {
+    
+    func reloadTable() {
         if doctors.count == 0 {
             noDocs.isHidden = false
             noDocs.text = MyStrings.noDocs
         } else {
             noDocs.isHidden = true
         }
-
+        
         tableView.reloadData()
     }
     
