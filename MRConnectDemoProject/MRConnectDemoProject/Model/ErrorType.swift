@@ -24,6 +24,10 @@ enum ErrorType: String {
     case confirmPasswordNotMatch
     case weakPassword
     case emailAlreadyInUse
+    case emptyCompanyField
+    case emptyCompositionField
+    case emptyPriceField
+    case invalidPrice
     
     private func emptyField() -> String {
         switch self {
@@ -41,6 +45,12 @@ enum ErrorType: String {
             return MyStrings.mrNumber
         case .emptySpecialityField:
             return MyStrings.specialization
+        case .emptyCompanyField:
+            return MyStrings.company
+        case .emptyCompositionField:
+            return MyStrings.composition
+        case .emptyPriceField:
+            return MyStrings.price
         default:
             return ""
         }
@@ -48,7 +58,7 @@ enum ErrorType: String {
     
     func getAlertMessage() -> (title: String, subTitle: String) {
       switch self {
-      case .emptyEmailField, .emptyPasswordField, .emptyNameField, .emptyContactField, .emptyLicenseField, .emptyMRNumberField, .emptySpecialityField:
+      case .emptyEmailField, .emptyPasswordField, .emptyNameField, .emptyContactField, .emptyLicenseField, .emptyMRNumberField, .emptySpecialityField, .emptyCompanyField, .emptyCompositionField, .emptyPriceField:
           return (MyStrings.emptyFieldAlertTitle.replacingOccurrences(of: "|#X#|", with: emptyField()), MyStrings.emptyFieldAlertSubtitle.replacingOccurrences(of: "|#X#|", with: emptyField()))
       case .networkError:
           return (MyStrings.networkError, MyStrings.tryAgain)
@@ -62,6 +72,8 @@ enum ErrorType: String {
           return (MyStrings.passNeeds6Char, MyStrings.enter6Char)
       case .emailAlreadyInUse:
           return (MyStrings.signupUnsuccess, MyStrings.tryDiffEmail)
+      case .invalidPrice:
+          return (MyStrings.invalidPrice, MyStrings.tryAgain)
       default:
           return (MyStrings.errorOccured, MyStrings.tryAgain)
       }

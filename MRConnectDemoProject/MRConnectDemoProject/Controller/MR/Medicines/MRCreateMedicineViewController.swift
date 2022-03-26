@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseAuth
 
 class MRCreateMedicineViewController: UIViewController {
 
@@ -21,17 +19,13 @@ class MRCreateMedicineViewController: UIViewController {
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var form: Int16 = 0
-    //let logic = Logic()
-    
-    let database = Firestore.firestore()
-    var medCollecRef: CollectionReference!
-    var medCount: Int!
-    let auth = FirebaseAuth.Auth.auth()
+    var form = 0
+    let user = CurrentUser()
+    let mrCreateMedicineViewModel = MRCreateMedicineViewModel()
+    let alertManager = AlertManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        medCollecRef = database.collection("Medicines")
         
         titleLabel.text = MyStrings.createMed
         nameField.placeholder = MyStrings.medName
@@ -40,9 +34,9 @@ class MRCreateMedicineViewController: UIViewController {
         priceField.placeholder = MyStrings.price
         formLabel.text = MyStrings.form
         
-//        for i in 0...3 {
-//            formSelector.setTitle(MedicineForms.forms[Int16(i)], forSegmentAt: i)
-//        }
+        for i in 0...3 {
+            formSelector.setTitle(MedicineForm(rawValue: i)!.getStr(), forSegmentAt: i)
+        }
         
         createButton.setTitle(MyStrings.create, for: .normal)
         cancelButton.setTitle(MyStrings.cancel, for: .normal)
@@ -53,48 +47,24 @@ class MRCreateMedicineViewController: UIViewController {
     }
     
     @IBAction func formTapped(_ sender: UISegmentedControl) {
-        form = Int16(sender.selectedSegmentIndex)
+        form = sender.selectedSegmentIndex
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
-        if nameField.text!.isEmpty {
-            Alert.showAlert(on: self, emptyField: nameField.placeholder!)
-            return
-        }
-        if companyField.text!.isEmpty {
-            Alert.showAlert(on: self, emptyField: companyField.placeholder!)
-            return
-        }
-        if compositionField.text!.isEmpty {
-            Alert.showAlert(on: self, emptyField: compositionField.placeholder!)
-            return
-        }
-        if priceField.text!.isEmpty {
-            Alert.showAlert(on: self, emptyField: priceField.placeholder!)
-            return
-        }
+        //ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
+        let createMedRequest = CreateMedicineRequest(name: nameField.text, company: companyField.text, composition: compositionField.text, price: priceField.text, type: form, creator: user.email
+        )
         
-//        let result = logic.createMedicine(name: nameField.text!, company: companyField.text!, composition: compositionField.text!, price: Float(priceField.text!) ?? 0.0, form: form)
-//
-//        if result == false {
-//            Alert.showAlert(on: self, notCreated: MyStrings.medicine)
-//            return
-//        }
-        
-        let creator = auth.currentUser?.uid
-        let medDocRef = medCollecRef.document("med\(medCount + 1)")
-        medDocRef.setData([
-            "name": nameField.text!,
-            "company": companyField.text!,
-            "composition": compositionField.text!,
-            "price": Float(priceField.text!) ?? 0.0,
-            "form": Int(form),
-            "id": "med\(medCount + 1)",
-            "creator": creator!
-        ])
-        
-        NotificationCenter.default.post(name: Notification.Name("medAdded"), object: nil)
-        dismiss(animated: true, completion: nil)
+        mrCreateMedicineViewModel.createMedicine(createMedRequest: createMedRequest) { [weak self] error in
+            if let error = error {
+                self?.alertManager.showAlert(on: self!, text: error.getAlertMessage())
+            } else {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("medAdded"), object: nil)
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
 }

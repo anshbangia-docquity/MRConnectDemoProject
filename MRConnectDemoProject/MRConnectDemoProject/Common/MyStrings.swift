@@ -152,5 +152,6 @@ struct MyStrings {
     static let signingUp = "Signing Up".localize()
     static let loading = "Loading".localize()
     static let processing = "Processing".localize()
+    static let invalidPrice = "Invalid Price".localize()
     
 }

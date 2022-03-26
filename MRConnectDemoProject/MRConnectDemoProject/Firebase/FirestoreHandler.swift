@@ -100,4 +100,18 @@ struct FirestoreHandler {
         }
     }
     
+    func saveMedicine(createMedRequest: CreateMedicineRequest) {
+        let medDocumentRef = medCollectionRef.document()
+        
+        medDocumentRef.setData([
+            "id": medDocumentRef.documentID,
+            "name": createMedRequest.name!,
+            "company": createMedRequest.company!,
+            "compostion": createMedRequest.composition!,
+            "price": Float(createMedRequest.price!)!,
+            "type": createMedRequest.type,
+            "creator": createMedRequest.creator
+        ])
+    }
+    
 }

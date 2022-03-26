@@ -30,7 +30,7 @@ class MRDoctorsViewController: UIViewController {
         navigationItem.searchController?.searchResultsUpdater = self
         
         title = MyStrings.doctors
-        navigationItem.searchController?.searchBar.placeholder = MyStrings.email
+        navigationItem.searchController?.searchBar.placeholder = MyStrings.search
         noDocs.text = ""
         
         ActivityIndicator.shared.start(on: view, label: MyStrings.loading)

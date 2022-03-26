@@ -8,6 +8,7 @@
 import Foundation
 
 enum MedicineForm: Int {
+    
     case capsule
     case tablet
     case syrup
@@ -25,4 +26,5 @@ enum MedicineForm: Int {
             return MyStrings.injection
         }
     }
+    
 }

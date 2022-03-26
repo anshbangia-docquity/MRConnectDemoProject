@@ -98,30 +98,30 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
 extension MRMedicinesViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-//        let searchStr = searchController.searchBar.text ?? ""
-//        medicines = copyMedicines
-//        if !searchStr.isEmpty {
-//            var set = Set<String>()
-//            let meds1 = medicines.filter({ medicine in
-//                if medicine.company.lowercased().contains(searchStr.lowercased()) {
-//                    set.insert(medicine.id)
-//                    return true
-//                } else {
-//                    return false
-//                }
-//            })
-//            let meds2 = medicines.filter({ medicine in
-//                return medicine.name.lowercased().contains(searchStr.lowercased())
-//            })
-//            medicines = meds1
-//            meds2.forEach { med in
-//                if !set.contains(med.id) {
-//                    medicines.append(med)
-//                }
-//            }
-//        }
-//        
-//        reloadTable()
+        let searchStr = searchController.searchBar.text ?? ""
+        medicines = copyMedicines
+        if !searchStr.isEmpty {
+            var set = Set<String>()
+            let meds1 = medicines.filter({ medicine in
+                if medicine.company.lowercased().contains(searchStr.lowercased()) {
+                    set.insert(medicine.id)
+                    return true
+                } else {
+                    return false
+                }
+            })
+            let meds2 = medicines.filter({ medicine in
+                return medicine.name.lowercased().contains(searchStr.lowercased())
+            })
+            medicines = meds1
+            meds2.forEach { med in
+                if !set.contains(med.id) {
+                    medicines.append(med)
+                }
+            }
+        }
+        
+        reloadTable()
     }
     
 }
