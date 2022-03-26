@@ -13,14 +13,10 @@ class MRHomeViewController: UITabBarController {
         super.viewWillAppear(animated)
 
         guard let items = tabBar.items else { return }
-//        items[0].title = MyStrings.meetings
-//        items[1].title = MyStrings.doctors
-//        items[2].title = MyStrings.medicines
-//        items[3].title = MyStrings.profile
-        
-        items[0].title = MyStrings.doctors
-        items[1].title = MyStrings.medicines
-        items[2].title = MyStrings.profile
+        items[0].title = MyStrings.meetings
+        items[1].title = MyStrings.doctors
+        items[2].title = MyStrings.medicines
+        items[3].title = MyStrings.profile
     }
 
 }

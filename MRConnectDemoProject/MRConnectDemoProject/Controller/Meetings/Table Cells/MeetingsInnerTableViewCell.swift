@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class MeetingsInnerTableViewCell: UITableViewCell {
     
@@ -21,140 +20,92 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var img3: UIImageView!
     @IBOutlet weak var moreView: UIView!
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var recsLabel: UILabel!
+    @IBOutlet weak var recordingsLabel: UILabel!
     
-    var meeting: [String: Any]?
-    //var logic = Logic()
-    var doctorCount = 0
-    var selectedDoctors: [[String: Any]] = []
-    var timer: Timer?
-    let database = Firestore.firestore()
-    var userCollec: CollectionReference!
+    var meeting: Meeting!
+    let dateFormatter = MyDateFormatter.shared.dateFormatter
+    let meetingsViewModel = MeetingsViewModel()
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    //var timer: Timer?
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        timer?.invalidate()
+//        timer = nil
+//    }
+    
+//    deinit {
+//        timer?.invalidate()
+//        timer = nil
+//    }
+    
+    func configure(myMeeting: Meeting) {
+        meeting = myMeeting
+        moreLabel.isHidden = true
+        img1.image = UIImage(systemName: "person.circle")
+        img2.image = UIImage(systemName: "person.circle")
+        img3.image = UIImage(systemName: "person.circle")
+        img1.isHidden = true
+        img2.isHidden = true
+        img3.isHidden = true
+        moreView.isHidden = true
         
-        timer?.invalidate()
-        timer = nil
+        titleLabel.text = meeting.title
+        
+        dateFormatter.dateFormat = "hh:mm a"
+        timeLabel.text = dateFormatter.string(from: meeting.startDate) + " - " + dateFormatter.string(from: meeting.endDate)
+        
+        updateRecordingsCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingsCount), name: Notification.Name("recordingAdded"), object: nil)
+
+        configureStatus()
+        //timer
+        
+        meetingsViewModel.getDoctors(userIds: meeting.doctors) { [weak self] doctors in
+            DispatchQueue.main.async {
+                if doctors.count >= 1 {
+                    self?.img1.isHidden = false
+                }
+                
+                if doctors.count >= 2 {
+                    self?.img2.isHidden = false
+                }
+                
+                if doctors.count >= 3 {
+                    self?.img3.isHidden = false
+                }
+                
+                if doctors.count >= 4 {
+                    self?.moreView.isHidden = false
+                    self?.moreLabel.text = "+\(doctors.count - 3)"
+                }
+            }
+        }
     }
-    
-    deinit {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    func configure(myMeeting: [String: Any]) {
-//        selectedDoctors = []
-//        meeting = myMeeting
-//        moreLabel.isHidden = true
-//        img1.image = UIImage(systemName: "person.circle")
-//        img2.image = UIImage(systemName: "person.circle")
-//        img3.image = UIImage(systemName: "person.circle")
-//        img1.isHidden = true
-//        img2.isHidden = true
-//        img3.isHidden = true
-//        moreView.isHidden = true
-//        let doctorArray = meeting!["doctors"] as! [String]
-//        userCollec = database.collection("Users")
-//        userCollec.getDocuments { snapshot, error in
-//            guard error == nil else { return }
-//            let docs = (snapshot?.documents)!
-//            for doc in docs {
-//                if doctorArray.contains(doc.documentID) {
-//                    self.selectedDoctors.append(doc.data())
-//                }
-//            }
-//            self.doctorCount = self.selectedDoctors.count
-//            if self.doctorCount > 2 {
-//                self.moreLabel.isHidden = false
-//                self.moreLabel.textColor = .darkGray
-//                self.moreLabel.text = "+\(self.doctorCount - 2) more"
-//            } else {
-//                self.moreLabel.isHidden = true
-//            }
-//            if self.doctorCount >= 1 {
-//                self.img1.isHidden = false
-//                if self.selectedDoctors[0]["profileImageUrl"] as! String != "" {
-//                    let imgUrlStr = self.selectedDoctors[0]["profileImageUrl"] as! String
-//                    let url = (URL(string: imgUrlStr))!
-//                    DispatchQueue.global().async {
-//                        if let data = try? Data(contentsOf: url) {
-//                            if let img = UIImage(data: data) {
-//                                DispatchQueue.main.async {
-//                                    self.img1.image = img
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            
-//        if self.doctorCount >= 2 {
-//            self.img2.isHidden = false
-//            if self.selectedDoctors[1]["profileImageUrl"] as! String != "" {
-//                let imgUrlStr = self.selectedDoctors[1]["profileImageUrl"] as! String
-//                let url = (URL(string: imgUrlStr))!
-//                DispatchQueue.global().async {
-//                    if let data = try? Data(contentsOf: url) {
-//                        if let img = UIImage(data: data) {
-//                            DispatchQueue.main.async {
-//                                self.img2.image = img
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            }
-//            
-//            if self.doctorCount >= 3 {
-//                self.img3.isHidden = false
-//                if self.selectedDoctors[2]["profileImageUrl"] as! String != "" {
-//                    let imgUrlStr = self.selectedDoctors[2]["profileImageUrl"] as! String
-//                    let url = (URL(string: imgUrlStr))!
-//                    DispatchQueue.global().async {
-//                        if let data = try? Data(contentsOf: url) {
-//                            if let img = UIImage(data: data) {
-//                                DispatchQueue.main.async {
-//                                    self.img2.image = img
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            
-//            if self.doctorCount >= 4 {
-//                self.moreView.isHidden = false
-//                self.moreLabel.text = "+\(self.doctorCount - 3)"
-//            }
-//        }
-//        
-//        titleLabel.text = meeting!["title"] as? String
-//        logic.dateFormatter.dateFormat = "hh:mm a"
-//        var stamp = meeting!["startDate"] as! Timestamp
-//        let startTime = logic.dateFormatter.string(from: stamp.dateValue())
-//        stamp = meeting!["endDate"] as! Timestamp
-//        let endTime = logic.dateFormatter.string(from: stamp.dateValue())
-//        timeLabel.text = startTime + " - " + endTime
-//        
+
 //        configureStatus()
 //        //DispatchQueue.global().async {
 //        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
 //            self.configureStatus()
 //        })
 //        //}
-//        
-//        updateRecordingCount()
-//        //NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
+
+    
+    @objc func updateRecordingsCount() {
+        let count = meeting.recordings.count
+        if count == 1 {
+            recordingsLabel.text = "1 " + MyStrings.recording.lowercased()
+        } else {
+            recordingsLabel.text = "\(count) " + MyStrings.recordings.lowercased()
+        }
     }
     
     func configureStatus() {
         let date = Date()
-        let startStamp = meeting!["startDate"] as! Timestamp
-        let endStamp = meeting!["endDate"] as! Timestamp
-        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: startStamp.dateValue())
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting.startDate)
         let minutes = diffComponents.minute
-        guard var minutes = minutes else {return}
+        guard var minutes = minutes else { return }
         minutes += 1
         statusLabel.textColor = .red
         if minutes <= 10 && minutes > 1 {
@@ -165,36 +116,27 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             statusLabel.text = ""
         }
         
-        if date >= startStamp.dateValue() && date <= endStamp.dateValue() {
+        if date >= meeting.startDate && date <= meeting.endDate {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
             sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
         } else {
-            sideBar.backgroundColor = .white
+            sideBar.backgroundColor = .clear
         }
         
-        if date > endStamp.dateValue() {
-            timer?.invalidate()
-            timer = nil
+        if date > meeting.endDate {
+            //timer?.invalidate()
+            //timer = nil
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
         
-        if date >= startStamp.dateValue() {
-            recsLabel.isHidden = false
+        if date >= meeting.startDate {
+            recordingsLabel.isHidden = false
         } else {
-            recsLabel.isHidden = true
+            recordingsLabel.isHidden = true
         }
         
-    }
-    
-    @objc func updateRecordingCount() {
-        let recsCount = (meeting!["recordings"] as! [String]).count
-        if recsCount == 1 {
-            recsLabel.text = "1 " + MyStrings.recording.lowercased()
-        } else {
-            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
-        }
     }
     
 }

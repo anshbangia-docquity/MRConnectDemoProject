@@ -18,6 +18,9 @@ struct FirestoreHandler {
     var medCollectionRef: CollectionReference {
         firestore.collection("Medicines")
     }
+    var meetingCollectionRef: CollectionReference {
+        firestore.collection("Meetings")
+    }
     
     func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
@@ -90,6 +93,16 @@ struct FirestoreHandler {
         }
     }
     
+    func getDoctors(userIds: [String], completion: @escaping (_ doctorDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let userCollecRef = self.userCollectionRef.whereField("userId", in: userIds)
+        
+        userCollecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
+    }
+    
     func getMedicines(completion: @escaping (_ medDocuments: [QueryDocumentSnapshot]) -> Void) {
         let medCollecRef = self.medCollectionRef.order(by: "company").order(by: "name")
         
@@ -113,5 +126,30 @@ struct FirestoreHandler {
             "creator": createMedRequest.creator
         ])
     }
+    
+    func getMeetings(_ collecRef: Query, completion: @escaping (_ meetingDocuments: [QueryDocumentSnapshot]) -> Void) {
+        collecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
+    }
+    
+    func getMeetings(of mr: String, completion: @escaping (_ meetingDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let meetingCollecRef = self.meetingCollectionRef.whereField("creator", isEqualTo: mr).order(by: "startDate")
+        
+        getMeetings(meetingCollecRef) { meetingDocuments in
+            completion(meetingDocuments)
+        }
+    }
+    
+    func getMeetings(for doctor: String, completion: @escaping (_ meetingDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let meetingCollecRef = self.meetingCollectionRef.whereField("doctors", arrayContains: doctor).order(by: "startDate")
+        
+        getMeetings(meetingCollecRef) { meetingDocuments in
+            completion(meetingDocuments)
+        }
+    }
+    
     
 }

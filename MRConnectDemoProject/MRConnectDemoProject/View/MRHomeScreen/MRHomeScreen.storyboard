@@ -57,9 +57,10 @@
                         <color key="selectedImageTintColor" red="0.48907084239999998" green="0.72406735499999997" blue="0.2269556073" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rcd-uj-uMR" kind="relationship" relationship="viewControllers" id="65L-tm-DSQ"/>
-                        <segue destination="d5W-XK-7l2" kind="relationship" relationship="viewControllers" id="Dkp-7y-8XG"/>
-                        <segue destination="E3e-e0-KM4" kind="relationship" relationship="viewControllers" id="tQJ-fN-UBE"/>
+                        <segue destination="gwe-8M-21u" kind="relationship" relationship="viewControllers" id="qct-Cb-nSb"/>
+                        <segue destination="rcd-uj-uMR" kind="relationship" relationship="viewControllers" id="8Nu-k2-cwR"/>
+                        <segue destination="d5W-XK-7l2" kind="relationship" relationship="viewControllers" id="Bsr-IX-ivm"/>
+                        <segue destination="E3e-e0-KM4" kind="relationship" relationship="viewControllers" id="ChK-h7-cC3"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3a-k2-vH9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

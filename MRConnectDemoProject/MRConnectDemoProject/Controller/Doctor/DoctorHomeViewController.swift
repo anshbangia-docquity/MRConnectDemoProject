@@ -13,8 +13,8 @@ class DoctorHomeViewController: UITabBarController {
         super.viewWillAppear(animated)
 
         guard let items = tabBar.items else { return }
-        //items[0].title = MyStrings.meetings
-        items[0].title = MyStrings.profile
+        items[0].title = MyStrings.meetings
+        items[1].title = MyStrings.profile
     }
     
 }

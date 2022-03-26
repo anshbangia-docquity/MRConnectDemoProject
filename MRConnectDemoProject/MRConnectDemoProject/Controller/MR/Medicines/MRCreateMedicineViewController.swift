@@ -51,7 +51,6 @@ class MRCreateMedicineViewController: UIViewController {
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
-        //ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
         let createMedRequest = CreateMedicineRequest(name: nameField.text, company: companyField.text, composition: compositionField.text, price: priceField.text, type: form, creator: user.email
         )
         
