@@ -60,12 +60,8 @@ struct ProfileViewModel {
         }
     }
     
-    func changeNumber(to newNum: String, completion: @escaping (_ error: ErrorType?) -> Void) {
-        let authHandler = AuthHandler.shared
-        
-//        changeInfo(userId: authHandler.currentUser!.uid, key: "userContact", newVal: newNum) { error in
-//            completion(error)
-//        }
+    func changeNumber(to newNum: String, userId: String) {
+        changeInfo(userId: userId, key: "userContact", newVal: newNum)
     }
     
     func changeName(to newName: String, completion: @escaping (_ error: ErrorType?) -> Void) {

@@ -83,6 +83,7 @@
 		01CDBBF827EEDE240036956D /* CreateMedicineRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBF727EEDE240036956D /* CreateMedicineRequest.swift */; };
 		01CDBBFA27EEE0010036956D /* MRCreateMedicineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBF927EEE0010036956D /* MRCreateMedicineViewModel.swift */; };
 		01CDBBFC27EEE0480036956D /* CreateMedicineValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBFB27EEE0480036956D /* CreateMedicineValidation.swift */; };
+		01CDBBFE27EF20700036956D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBFD27EF20700036956D /* NetworkMonitor.swift */; };
 		01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */; };
 		01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507027DE0238008FB0C0 /* AuthHandler.swift */; };
 		01D0507327DE03B0008FB0C0 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */; };
@@ -177,6 +178,7 @@
 		01CDBBF727EEDE240036956D /* CreateMedicineRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMedicineRequest.swift; sourceTree = "<group>"; };
 		01CDBBF927EEE0010036956D /* MRCreateMedicineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewModel.swift; sourceTree = "<group>"; };
 		01CDBBFB27EEE0480036956D /* CreateMedicineValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMedicineValidation.swift; sourceTree = "<group>"; };
+		01CDBBFD27EF20700036956D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		01D0507027DE0238008FB0C0 /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
 		01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */,
 				0110A8B9279E9A570023AD4C /* UserDefaultManager.swift */,
 				01906B2327DF58F200BA8EDF /* ActivityIndicator.swift */,
+				01CDBBFD27EF20700036956D /* NetworkMonitor.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				01B32D0427E1EE31000961EB /* StorageHandler.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangeNumberItem.swift in Sources */,
 				0169F36027BFAE0E0023C3FE /* Recording+CoreDataProperties.swift in Sources */,
+				01CDBBFE27EF20700036956D /* NetworkMonitor.swift in Sources */,
 				019A244B27EDF39C00FE6D5B /* MedicineForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -901,7 +905,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.docquity.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = com.docquity.MRConnectDemoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Development-com.docquity.beta";
 				SWIFT_EMIT_LOC_STRINGS = YES;

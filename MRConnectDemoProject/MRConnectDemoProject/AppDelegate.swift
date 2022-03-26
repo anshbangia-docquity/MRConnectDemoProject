@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        NetworkMonitor.shared.startMonitoring()
+        
         return true
     }
 

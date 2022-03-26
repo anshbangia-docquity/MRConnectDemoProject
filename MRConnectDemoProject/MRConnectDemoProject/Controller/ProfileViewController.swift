@@ -182,31 +182,14 @@ extension ProfileViewController: BulletinBoardDelegate {
     }
     
     func numberChanged(newNum: String) {
-        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
-        
-        profileViewModel.changeNumber(to: newNum) { [weak self] error in
-            DispatchQueue.main.async {
-                ActivityIndicator.shared.stop()
-            }
-            
-            if error != nil {
-                switch error {
-                case .networkError:
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                    }
-                default:
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: self!.user.contact)
-                }
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+        } else {
+            profileViewModel.changeNumber(to: newNum, userId: user.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: self!.user.contact)
             }
         }
-        
     }
     
     func nameChanged(newName: String) {
