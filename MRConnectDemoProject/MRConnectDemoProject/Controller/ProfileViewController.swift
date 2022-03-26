@@ -193,28 +193,12 @@ extension ProfileViewController: BulletinBoardDelegate {
     }
     
     func nameChanged(newName: String) {
-        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
-        
-        profileViewModel.changeName(to: newName) { [weak self] error in
-            DispatchQueue.main.async {
-                ActivityIndicator.shared.stop()
-            }
-            
-            if error != nil {
-                switch error {
-                case .networkError:
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                    }
-                default:
-                    DispatchQueue.main.async {
-                        Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.nameLabel.text = self?.user.name
-                }
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+        } else {
+            profileViewModel.changeName(to: newName, userId: user.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.nameLabel.text = self?.user.name
             }
         }
     }
