@@ -617,13 +617,13 @@ extension MeetingDetailsViewController {
         return (hr, min, sec)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToEdit" {
-            let vc = segue.destination as! MRCreateMeetingViewController
-            vc.edit = true
-            vc.myMeeting = meeting!
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "goToEdit" {
+//            let vc = segue.destination as! MRCreateMeetingViewController
+//            vc.edit = true
+//            vc.myMeeting = meeting!
+//        }
+//    }
     
 }
 

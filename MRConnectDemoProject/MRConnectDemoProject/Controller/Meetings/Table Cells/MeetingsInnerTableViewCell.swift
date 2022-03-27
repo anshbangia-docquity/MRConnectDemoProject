@@ -53,6 +53,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         
         titleLabel.text = meeting.title
         
+        
         dateFormatter.dateFormat = "hh:mm a"
         timeLabel.text = dateFormatter.string(from: meeting.startDate) + " - " + dateFormatter.string(from: meeting.endDate)
         
@@ -67,21 +68,23 @@ class MeetingsInnerTableViewCell: UITableViewCell {
                 if doctors.count >= 1 {
                     self?.img1.isHidden = false
                 }
-                
+
                 if doctors.count >= 2 {
                     self?.img2.isHidden = false
                 }
-                
+
                 if doctors.count >= 3 {
                     self?.img3.isHidden = false
                 }
-                
+
                 if doctors.count >= 4 {
                     self?.moreView.isHidden = false
+                    self?.moreLabel.isHidden = false
                     self?.moreLabel.text = "+\(doctors.count - 3)"
                 }
             }
         }
+
     }
 
 //        configureStatus()

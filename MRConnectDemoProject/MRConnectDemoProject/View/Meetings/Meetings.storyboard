@@ -250,7 +250,7 @@
                                                                         <outlet property="img3" destination="HdQ-BZ-3bB" id="feE-I0-rUn"/>
                                                                         <outlet property="moreLabel" destination="Svw-ob-o4f" id="VhH-DG-Hs0"/>
                                                                         <outlet property="moreView" destination="dpA-rW-O6q" id="ciN-AX-lh5"/>
-                                                                        <outlet property="recsLabel" destination="daR-sK-VFd" id="CJI-HB-XZj"/>
+                                                                        <outlet property="recordingsLabel" destination="daR-sK-VFd" id="Ozi-P2-qSY"/>
                                                                         <outlet property="sideBar" destination="PWG-li-Rbz" id="3in-bs-1L8"/>
                                                                         <outlet property="statusLabel" destination="ckI-ew-5Lg" id="uIb-eO-B1w"/>
                                                                         <outlet property="timeLabel" destination="KnD-o1-0xw" id="Gu6-nf-XBs"/>

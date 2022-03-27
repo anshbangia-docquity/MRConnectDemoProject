@@ -17,6 +17,7 @@ struct Doctor {
     let imageLink: String
     let quali: String
     let exp: String
+    let id: String
     
     init(_ dict: [String: Any]) {
         name = (dict["userName"] as? String) ?? "NA"
@@ -27,6 +28,7 @@ struct Doctor {
         imageLink = (dict["userImageLink"] as? String) ?? ""
         quali = (dict["userQuali"] as? String) ?? ""
         exp = (dict["userExp"] as? String) ?? ""
+        id = dict["userId"] as! String
     }
     
 }

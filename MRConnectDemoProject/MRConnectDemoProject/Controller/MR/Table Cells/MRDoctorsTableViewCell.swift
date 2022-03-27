@@ -24,12 +24,6 @@ class MRDoctorsTableViewCell: UITableViewCell {
         profileImage.image = UIImage(systemName: "person.circle")
     }
     
-    func configImg(imgData: Data) {
-        DispatchQueue.main.async {
-            self.profileImage.image = UIImage(data: imgData)
-        }
-    }
-    
     func configure(_ doctor: Doctor) {
         nameLabel.text = "Dr. \(doctor.name)"
         specLabel.text = Specialities.specialities[doctor.speciality] ?? "NA"
@@ -42,5 +36,11 @@ class MRDoctorsTableViewCell: UITableViewCell {
         officeLabel.text = MyStrings.office + ": " + office
         profileImage.image = UIImage(systemName: "person.circle")
     }
+    
+//    func configImg(imgData: Data) {
+//        DispatchQueue.main.async {
+//            self.profileImage.image = UIImage(data: imgData)
+//        }
+//    }
 
 }

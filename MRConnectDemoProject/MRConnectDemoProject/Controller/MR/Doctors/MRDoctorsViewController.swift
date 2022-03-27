@@ -80,12 +80,12 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
         }
         
-        if !doctor.imageLink.isEmpty {
-            mrDoctorsViewModel.getProfileImage(urlStr: doctor.imageLink) { imgData in
-                guard let imgData = imgData else { return }
-                cell.configImg(imgData: imgData)
-            }
-        }
+//        if !doctor.imageLink.isEmpty {
+//            mrDoctorsViewModel.getProfileImage(urlStr: doctor.imageLink) { imgData in
+//                guard let imgData = imgData else { return }
+//                cell.configImg(imgData: imgData)
+//            }
+//        }
         
         return cell
     }

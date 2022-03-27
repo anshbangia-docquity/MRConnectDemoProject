@@ -38,11 +38,11 @@ class MeetingsViewController: UIViewController {
         }
         
         refreshData()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("meetingAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("refreshMeetings"), object: nil)
     }
 
     @IBAction func createTapped(_ sender: UIButton) {
-        //performSegue(withIdentifier: SegueIdentifiers.goToCreate, sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.goToCreate, sender: self)
     }
     
     @objc func refreshData() {

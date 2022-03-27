@@ -94,8 +94,8 @@ struct FirestoreHandler {
     }
     
     func getDoctors(userIds: [String], completion: @escaping (_ doctorDocuments: [QueryDocumentSnapshot]) -> Void) {
-        let userCollecRef = self.userCollectionRef.whereField("userId", in: userIds)
-        
+        let userCollecRef = self.userCollectionRef.whereField("userId", in: userIds).order(by: "userName")
+
         userCollecRef.getDocuments { snapshot, error in
             if error == nil, let snapshot = snapshot {
                 completion(snapshot.documents)
@@ -151,5 +151,24 @@ struct FirestoreHandler {
         }
     }
     
-    
+    func saveMeeting(createMeetingRequest: CreateMeetingRequest, meetingId: String? = nil) {
+        var meetingDocumentRef: DocumentReference
+        if let meetingId = meetingId {
+            meetingDocumentRef = meetingCollectionRef.document(meetingId)
+        } else {
+            meetingDocumentRef = meetingCollectionRef.document()
+        }
+        
+        meetingDocumentRef.setData([
+            "id": meetingDocumentRef.documentID,
+            "title": createMeetingRequest.title!,
+            "desc": createMeetingRequest.desc ?? "",
+            "endDate": createMeetingRequest.endDate,
+            "startDate": createMeetingRequest.startDate,
+            "doctors": createMeetingRequest.doctors,
+            "medicines": createMeetingRequest.medicines,
+            "recordings": createMeetingRequest.recordings,
+            "creator": createMeetingRequest.creator
+        ])
+    }
 }

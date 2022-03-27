@@ -85,6 +85,9 @@
 		01CDBC0027EF2E070036956D /* MeetingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBFF27EF2E070036956D /* MeetingsViewModel.swift */; };
 		01CDBC0227EF2FD30036956D /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0127EF2FD30036956D /* Meeting.swift */; };
 		01CDBC0427EF40D30036956D /* MyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0327EF40D30036956D /* MyDateFormatter.swift */; };
+		01CDBC0627F01F8E0036956D /* CreateMeetingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */; };
+		01CDBC0827F020F80036956D /* MRCreateMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0727F020F80036956D /* MRCreateMeetingViewModel.swift */; };
+		01CDBC0A27F022440036956D /* CreateMeetingValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0927F022440036956D /* CreateMeetingValidation.swift */; };
 		01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */; };
 		01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507027DE0238008FB0C0 /* AuthHandler.swift */; };
 		01D0507327DE03B0008FB0C0 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */; };
@@ -181,6 +184,9 @@
 		01CDBBFF27EF2E070036956D /* MeetingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsViewModel.swift; sourceTree = "<group>"; };
 		01CDBC0127EF2FD30036956D /* Meeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
 		01CDBC0327EF40D30036956D /* MyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDateFormatter.swift; sourceTree = "<group>"; };
+		01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetingRequest.swift; sourceTree = "<group>"; };
+		01CDBC0727F020F80036956D /* MRCreateMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMeetingViewModel.swift; sourceTree = "<group>"; };
+		01CDBC0927F022440036956D /* CreateMeetingValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetingValidation.swift; sourceTree = "<group>"; };
 		01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		01D0507027DE0238008FB0C0 /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
 		01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
@@ -261,6 +267,7 @@
 				019A244A27EDF39C00FE6D5B /* MedicineForm.swift */,
 				01CDBBF727EEDE240036956D /* CreateMedicineRequest.swift */,
 				01CDBC0127EF2FD30036956D /* Meeting.swift */,
+				01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */,
 				1891533727AA331800A9495D /* CoreData */,
 				01A1E12727B377CB0094E374 /* CoreData Model */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
@@ -271,9 +278,9 @@
 		0110A8AD279E98280023AD4C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0110A89A279E97150023AD4C /* LaunchScreen.storyboard */,
 				0110A892279E97100023AD4C /* Main.storyboard */,
 				013A843F27AA4E13002AC97C /* LoginSignup.storyboard */,
-				0110A89A279E97150023AD4C /* LaunchScreen.storyboard */,
 				0117681B27B4F52300E89110 /* Meetings */,
 				01AD578327A101C800EB47DF /* MRHomeScreen */,
 				01AD578B27A11F2C00EB47DF /* DoctorHomeScreen */,
@@ -372,6 +379,7 @@
 		019A243F27EDAB2800FE6D5B /* MR */ = {
 			isa = PBXGroup;
 			children = (
+				01CDBC0727F020F80036956D /* MRCreateMeetingViewModel.swift */,
 				019A244027EDAB3E00FE6D5B /* MRDoctorsViewModel.swift */,
 				019A244427EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift */,
 				019A244627EDE7B900FE6D5B /* MRMedicinesViewModel.swift */,
@@ -436,8 +444,8 @@
 				011C9C6527A847A100B02D02 /* MRHomeViewController.swift */,
 				0125586227BC05A300C3957A /* Doctors */,
 				0117681827B4CF6100E89110 /* Medicines */,
-				01A1E14427B414590094E374 /* Table Cells */,
 				0153A7E527B0EF98000B98A6 /* MRCreateMeetingViewController.swift */,
+				01A1E14427B414590094E374 /* Table Cells */,
 				01A1E14527B417990094E374 /* Collection Cells */,
 			);
 			path = MR;
@@ -476,6 +484,7 @@
 				01D0507927DE4CD5008FB0C0 /* ValidationResult.swift */,
 				01906B2127DF3CE100BA8EDF /* SignupValidation.swift */,
 				01CDBBFB27EEE0480036956D /* CreateMedicineValidation.swift */,
+				01CDBC0927F022440036956D /* CreateMeetingValidation.swift */,
 			);
 			path = FormValidation;
 			sourceTree = "<group>";
@@ -688,6 +697,7 @@
 				01A1E13527B385580094E374 /* Gradient.swift in Sources */,
 				01AD579627A1267C00EB47DF /* MRDoctorsViewController.swift in Sources */,
 				013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */,
+				01CDBC0A27F022440036956D /* CreateMeetingValidation.swift in Sources */,
 				0110A8E4279ED6110023AD4C /* SignInViewController.swift in Sources */,
 				01906B2427DF58F200BA8EDF /* ActivityIndicator.swift in Sources */,
 				0117682227B52DB700E89110 /* DetailsTableViewCell.swift in Sources */,
@@ -724,9 +734,11 @@
 				0110A88F279E97100023AD4C /* SceneDelegate.swift in Sources */,
 				01D0508027DE51A7008FB0C0 /* LoginViewModel.swift in Sources */,
 				01A1E13E27B3DB970094E374 /* MeetingsViewController.swift in Sources */,
+				01CDBC0827F020F80036956D /* MRCreateMeetingViewModel.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
 				0125585D27BB92FE00C3957A /* User+CoreDataProperties.swift in Sources */,
 				0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */,
+				01CDBC0627F01F8E0036956D /* CreateMeetingRequest.swift in Sources */,
 				0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */,
 				01B32D0427E1EE31000961EB /* StorageHandler.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangeNumberItem.swift in Sources */,

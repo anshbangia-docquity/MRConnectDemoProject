@@ -12,9 +12,11 @@ struct Meeting {
     
     let startDate: Date
     let title: String
+    let desc: String
     let endDate: Date
     let doctors: [String]
     let recordings: [String]
+    let id: String
     
     init(_ dict: [String: Any]) {
         var timeStamp = dict["startDate"] as! Timestamp
@@ -25,6 +27,8 @@ struct Meeting {
         title = dict["title"] as! String
         doctors = dict["doctors"] as! [String]
         recordings = dict["recordings"] as! [String]
+        desc = dict["desc"] as! String
+        id = dict["id"] as! String
     }
     
 }

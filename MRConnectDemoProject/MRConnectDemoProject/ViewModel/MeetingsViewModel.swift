@@ -53,13 +53,13 @@ struct MeetingsViewModel {
     func getDoctors(userIds: [String], completion: @escaping (_ doctors: [Doctor]) -> Void) {
         let firestore = FirestoreHandler()
         var doctors: [Doctor] = []
-        
+
         firestore.getDoctors(userIds: userIds) { doctorDocuments in
             for document in doctorDocuments {
                 let dict = document.data()
                 doctors.append(Doctor(dict))
             }
-            
+
             completion(doctors)
         }
     }

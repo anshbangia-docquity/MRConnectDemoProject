@@ -51,8 +51,7 @@ class MRCreateMedicineViewController: UIViewController {
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
-        let createMedRequest = CreateMedicineRequest(name: nameField.text, company: companyField.text, composition: compositionField.text, price: priceField.text, type: form, creator: user.email
-        )
+        let createMedRequest = CreateMedicineRequest(name: nameField.text, company: companyField.text, composition: compositionField.text, price: priceField.text, type: form, creator: user.id)
         
         mrCreateMedicineViewModel.createMedicine(createMedRequest: createMedRequest) { [weak self] error in
             if let error = error {
