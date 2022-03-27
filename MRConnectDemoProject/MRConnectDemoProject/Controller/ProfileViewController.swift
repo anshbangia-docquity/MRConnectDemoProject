@@ -36,8 +36,20 @@ class ProfileViewController: UIViewController {
     let profileViewModel = ProfileViewModel()
     let alertManager = AlertManager()
     
+    var textViewData: [UITextView: [String: String]] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        textViewData[officeTextView] = ["placeholder": MyStrings.addOffice]
+        textViewData[qualiTextView] = ["placeholder": MyStrings.addQuali]
+        textViewData[expTextView] = ["placeholder": MyStrings.addExp]
+        textViewData[officeTextView]!["text"] = user.office
+        textViewData[qualiTextView]!["text"] = user.quali
+        textViewData[expTextView]!["text"] = user.exp
+        textViewData[officeTextView]!["key"] = "userOffice"
+        textViewData[qualiTextView]!["key"] = "userQuali"
+        textViewData[expTextView]!["key"] = "userExp"
+        
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         bulletinBoard.delegate = self
         officeTextView.delegate = self
@@ -77,33 +89,15 @@ class ProfileViewController: UIViewController {
         } else {
             officeView.isHidden = false
             officeLabel.text = MyStrings.office
-            if user.office.isEmpty {
-                officeTextView.text = MyStrings.addOffice
-                officeTextView.textColor = .systemGray3
-            } else {
-                officeTextView.text = user.office
-                officeTextView.textColor = .black
-            }
+            setTextView(type: officeTextView, text: user.office)
             
             qualiView.isHidden = false
             qualiLabel.text = MyStrings.quali
-            if user.quali.isEmpty {
-                qualiTextView.text = MyStrings.addQuali
-                qualiTextView.textColor = .systemGray3
-            } else {
-                qualiTextView.text = user.quali
-                qualiTextView.textColor = .black
-            }
+            setTextView(type: qualiTextView, text: user.quali)
             
             expView.isHidden = false
             expLabel.text = MyStrings.exp
-            if user.exp.isEmpty {
-                expTextView.text = MyStrings.addExp
-                expTextView.textColor = .systemGray3
-            } else {
-                expTextView.text = user.exp
-                expTextView.textColor = .black
-            }
+            setTextView(type: expTextView, text: user.exp)
         }
         
         changeNameButton.setTitle(MyStrings.changeName, for: .normal)
@@ -208,98 +202,33 @@ extension ProfileViewController: BulletinBoardDelegate {
 //MARK: - UITextViewDelegate
 extension ProfileViewController: UITextViewDelegate {
     
+    func setTextView(type: UITextView, text: String? = nil) {
+        if text == nil || text == "" {
+            type.text = textViewData[type]!["placeholder"]
+            type.textColor = .systemGray3
+        } else {
+            type.text = text
+            type.textColor = .black
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .systemGray3 {
-            textView.text = ""
+        if textView.textColor != .black {
+            textView.text = nil
             textView.textColor = .black
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
-        
-        var entry = textView.text ?? ""
-        if entry.isEmpty {
-            switch textView {
-            case officeTextView:
-                officeTextView.text = MyStrings.addOffice
-                officeTextView.textColor = .systemGray3
-            case qualiTextView:
-                qualiTextView.text = MyStrings.addQuali
-                qualiTextView.textColor = .systemGray3
-            default:
-                expTextView.text = MyStrings.addExp
-                expTextView.textColor = .systemGray3
-            }
-
-        }
-        switch textView {
-        case officeTextView:
-            profileViewModel.changeOffice(to: entry) { [weak self] error in
-                DispatchQueue.main.async {
-                    ActivityIndicator.shared.stop()
-                }
-                
-                if error != nil {
-                    entry = self!.user.office
-                    if entry.isEmpty {
-                        entry = MyStrings.addOffice
-                        self?.officeTextView.textColor = .systemGray3
-                    }
-                    DispatchQueue.main.async {
-                        self?.officeTextView.text = entry
-                        switch error {
-                        case .networkError:
-                            Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                        default:
-                            Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                        }
-                    }
-                }
-            }
-        case qualiTextView:
-            profileViewModel.changeQuali(to: entry) { [weak self] error in
-                DispatchQueue.main.async {
-                    ActivityIndicator.shared.stop()
-                }
-                
-                if error != nil {
-                    if entry.isEmpty {
-                        entry = MyStrings.addQuali
-                        self?.qualiTextView.textColor = .systemGray3
-                    }
-                    DispatchQueue.main.async {
-                        self?.qualiTextView.text = entry
-                        switch error {
-                        case .networkError:
-                            Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                        default:
-                            Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                        }
-                    }
-                }
-            }
-        default:
-            profileViewModel.changeExp(to: entry) { [weak self] error in
-                DispatchQueue.main.async {
-                    ActivityIndicator.shared.stop()
-                }
-                
-                if error != nil {
-                    if entry.isEmpty {
-                        entry = MyStrings.addExp
-                        self?.expTextView.textColor = .systemGray3
-                    }
-                    DispatchQueue.main.async {
-                        self?.expTextView.text = entry
-                        switch error {
-                        case .networkError:
-                            Alert.showAlert(on: self!, title: MyStrings.networkError, subtitle: MyStrings.tryAgain)
-                        default:
-                            Alert.showAlert(on: self!, title: MyStrings.errorOccured, subtitle: MyStrings.checkCredentials)
-                        }
-                    }
-                }
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+            
+            setTextView(type: textView, text: textViewData[textView]!["text"])
+        } else {
+            profileViewModel.changeInfo(userId: user.id, key: textViewData[textView]!["key"]!, newVal: textView.text ?? "")
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.setTextView(type: textView, text: textView.text)
             }
         }
     }

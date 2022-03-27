@@ -68,28 +68,16 @@ struct ProfileViewModel {
         changeInfo(userId: userId, key: "userName", newVal: newName)
     }
     
-    func changeExp(to newExp: String, completion: @escaping (_ error: ErrorType?) -> Void) {
-        let authHandler = AuthHandler.shared
-        
-//        changeInfo(userId: authHandler.currentUser!.uid, key: "userExp", newVal: newExp) { error in
-//            completion(error)
-//        }
+    func changeExp(to newExp: String, userId: String) {
+        changeInfo(userId: userId, key: "userExp", newVal: newExp)
     }
     
-    func changeQuali(to newQuali: String, completion: @escaping (_ error: ErrorType?) -> Void) {
-        let authHandler = AuthHandler.shared
-        
-//        changeInfo(userId: authHandler.currentUser!.uid, key: "userQuali", newVal: newQuali) { error in
-//            completion(error)
-//        }
+    func changeQuali(to newQuali: String, userId: String) {
+        changeInfo(userId: userId, key: "userQuali", newVal: newQuali)
     }
     
-    func changeOffice(to newOffice: String, completion: @escaping (_ error: ErrorType?) -> Void) {
-        let authHandler = AuthHandler.shared
-        
-//        changeInfo(userId: authHandler.currentUser!.uid, key: "userOffice", newVal: newOffice) { error in
-//            completion(error)
-//        }
+    func changeOffice(to newOffice: String, userId: String) {
+        changeInfo(userId: userId, key: "userOffice", newVal: newOffice)
     }
 
     
