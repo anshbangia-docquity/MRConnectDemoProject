@@ -474,10 +474,11 @@ extension MeetingDetailsViewController: AVAudioPlayerDelegate {
     }
 
     @IBAction func stopPressed(_ sender: UIButton) {
-        audioPlayerDidFinishPlaying(successfully: true)
+        audioPlayerDidFinishPlaying(audioPlayer!, successfully: true)
     }
-
-    func audioPlayerDidFinishPlaying(successfully flag: Bool) {
+    
+    //delegate function
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playerStopped()
         recordButton.isEnabled = true
         playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
