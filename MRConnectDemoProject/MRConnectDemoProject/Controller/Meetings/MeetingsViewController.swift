@@ -112,14 +112,14 @@ extension MeetingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func openMeeting(_ meeting: Meeting) {
         tappedMeeting = meeting
-        //performSegue(withIdentifier: SegueIdentifiers.goToDetails, sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.goToDetails, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == SegueIdentifiers.goToDetails {
-//            let vc = segue.destination as! MeetingDetailsViewController
-//            //vc.meeting = tappedMeeting
-//        }
+        if segue.identifier == SegueIdentifiers.goToDetails {
+            let vc = segue.destination as! MeetingDetailsViewController
+            vc.meeting = tappedMeeting
+        }
     }
 
 }

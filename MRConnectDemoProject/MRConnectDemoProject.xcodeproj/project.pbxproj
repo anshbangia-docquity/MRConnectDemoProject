@@ -31,8 +31,6 @@
 		011C9C6627A847A100B02D02 /* MRHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6527A847A100B02D02 /* MRHomeViewController.swift */; };
 		011C9C6827A8571800B02D02 /* DoctorHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */; };
 		0125585527BB731100C3957A /* ChangePasswordItem copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125585427BB731100C3957A /* ChangePasswordItem copy.swift */; };
-		0125585C27BB92FE00C3957A /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125585627BB92FE00C3957A /* User+CoreDataClass.swift */; };
-		0125585D27BB92FE00C3957A /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125585727BB92FE00C3957A /* User+CoreDataProperties.swift */; };
 		012EA2CC27BE49CC003F0537 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 012EA2CB27BE49CC003F0537 /* GoogleService-Info.plist */; };
 		012EA2CE27BE7703003F0537 /* RecordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012EA2CD27BE7703003F0537 /* RecordItem.swift */; };
 		013A843E27AA4DC1002AC97C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A843D27AA4DC1002AC97C /* FirstViewController.swift */; };
@@ -44,8 +42,7 @@
 		0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161859027B6658F006C636E /* MeetingsOuterTableViewCell.swift */; };
 		01632CEF27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */; };
 		01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */; };
-		0169F35F27BFAE0E0023C3FE /* Recording+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169F35D27BFAE0E0023C3FE /* Recording+CoreDataClass.swift */; };
-		0169F36027BFAE0E0023C3FE /* Recording+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169F35E27BFAE0E0023C3FE /* Recording+CoreDataProperties.swift */; };
+		0176C91727F171F400759D93 /* SaveRecordingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176C91627F171F400759D93 /* SaveRecordingRequest.swift */; };
 		017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */; };
 		018CAA7827AE61BB00FF04D6 /* BulletinItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */; };
 		018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */; };
@@ -88,6 +85,8 @@
 		01CDBC0627F01F8E0036956D /* CreateMeetingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */; };
 		01CDBC0827F020F80036956D /* MRCreateMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0727F020F80036956D /* MRCreateMeetingViewModel.swift */; };
 		01CDBC0A27F022440036956D /* CreateMeetingValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC0927F022440036956D /* CreateMeetingValidation.swift */; };
+		01CDBC1927F0938C0036956D /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC1827F0938C0036956D /* Recording.swift */; };
+		01CDBC1C27F09C410036956D /* MeetingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBC1B27F09C410036956D /* MeetingDetailsViewModel.swift */; };
 		01CE992527C0A2CD00C07969 /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */; };
 		01D0507127DE0238008FB0C0 /* AuthHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507027DE0238008FB0C0 /* AuthHandler.swift */; };
 		01D0507327DE03B0008FB0C0 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */; };
@@ -130,8 +129,6 @@
 		011C9C6527A847A100B02D02 /* MRHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRHomeViewController.swift; sourceTree = "<group>"; };
 		011C9C6727A8571800B02D02 /* DoctorHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeViewController.swift; sourceTree = "<group>"; };
 		0125585427BB731100C3957A /* ChangePasswordItem copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangePasswordItem copy.swift"; sourceTree = "<group>"; };
-		0125585627BB92FE00C3957A /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		0125585727BB92FE00C3957A /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		012EA2CB27BE49CC003F0537 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		012EA2CD27BE7703003F0537 /* RecordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordItem.swift; sourceTree = "<group>"; };
 		013A843D27AA4DC1002AC97C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -143,8 +140,7 @@
 		0161859027B6658F006C636E /* MeetingsOuterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsOuterTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		01632CEE27A2B7C30035AA73 /* MRDoctorsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRDoctorsTableViewCell.swift; sourceTree = "<group>"; };
 		01632D0227A2E4C40035AA73 /* MRCreateMedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMedicineViewController.swift; sourceTree = "<group>"; };
-		0169F35D27BFAE0E0023C3FE /* Recording+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		0169F35E27BFAE0E0023C3FE /* Recording+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0176C91627F171F400759D93 /* SaveRecordingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRecordingRequest.swift; sourceTree = "<group>"; };
 		017729BA27A69F9000543D89 /* MRMedicinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMedicinesTableViewCell.swift; sourceTree = "<group>"; };
 		018CAA7727AE61BB00FF04D6 /* BulletinItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletinItems.swift; sourceTree = "<group>"; };
 		018CAA7927AE64F400FF04D6 /* SpecPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecPickerItem.swift; sourceTree = "<group>"; };
@@ -187,6 +183,8 @@
 		01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetingRequest.swift; sourceTree = "<group>"; };
 		01CDBC0727F020F80036956D /* MRCreateMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreateMeetingViewModel.swift; sourceTree = "<group>"; };
 		01CDBC0927F022440036956D /* CreateMeetingValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetingValidation.swift; sourceTree = "<group>"; };
+		01CDBC1827F0938C0036956D /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		01CDBC1B27F09C410036956D /* MeetingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDetailsViewModel.swift; sourceTree = "<group>"; };
 		01CE992427C0A2CD00C07969 /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		01D0507027DE0238008FB0C0 /* AuthHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandler.swift; sourceTree = "<group>"; };
 		01D0507227DE03B0008FB0C0 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
@@ -268,9 +266,10 @@
 				01CDBBF727EEDE240036956D /* CreateMedicineRequest.swift */,
 				01CDBC0127EF2FD30036956D /* Meeting.swift */,
 				01CDBC0527F01F8E0036956D /* CreateMeetingRequest.swift */,
+				0176C91627F171F400759D93 /* SaveRecordingRequest.swift */,
 				1891533727AA331800A9495D /* CoreData */,
-				01A1E12727B377CB0094E374 /* CoreData Model */,
 				0110A8AF279E98620023AD4C /* Logic.swift */,
+				01CDBC1827F0938C0036956D /* Recording.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,17 +387,6 @@
 			path = MR;
 			sourceTree = "<group>";
 		};
-		01A1E12727B377CB0094E374 /* CoreData Model */ = {
-			isa = PBXGroup;
-			children = (
-				0169F35D27BFAE0E0023C3FE /* Recording+CoreDataClass.swift */,
-				0169F35E27BFAE0E0023C3FE /* Recording+CoreDataProperties.swift */,
-				0125585627BB92FE00C3957A /* User+CoreDataClass.swift */,
-				0125585727BB92FE00C3957A /* User+CoreDataProperties.swift */,
-			);
-			path = "CoreData Model";
-			sourceTree = "<group>";
-		};
 		01A1E14127B3EB9D0094E374 /* Meetings */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +455,15 @@
 			path = Doctor;
 			sourceTree = "<group>";
 		};
+		01CDBC1A27F09C300036956D /* Meetings */ = {
+			isa = PBXGroup;
+			children = (
+				01CDBBFF27EF2E070036956D /* MeetingsViewModel.swift */,
+				01CDBC1B27F09C410036956D /* MeetingDetailsViewModel.swift */,
+			);
+			path = Meetings;
+			sourceTree = "<group>";
+		};
 		01D0506F27DE006F008FB0C0 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,7 +504,7 @@
 			children = (
 				01906B1A27DF256200BA8EDF /* FirstViewModel.swift */,
 				01906B1C27DF3AF600BA8EDF /* Authentication */,
-				01CDBBFF27EF2E070036956D /* MeetingsViewModel.swift */,
+				01CDBC1A27F09C300036956D /* Meetings */,
 				019A243F27EDAB2800FE6D5B /* MR */,
 				01906B2527E09A8600BA8EDF /* ProfileViewModel.swift */,
 			);
@@ -719,9 +716,10 @@
 				01CDBBFA27EEE0010036956D /* MRCreateMedicineViewModel.swift in Sources */,
 				01D0508227DE52D4008FB0C0 /* ErrorType.swift in Sources */,
 				0161858F27B651EF006C636E /* MeetingsInnerTableViewCell.swift in Sources */,
-				0125585C27BB92FE00C3957A /* User+CoreDataClass.swift in Sources */,
 				01A1E13727B389C60094E374 /* Alert.swift in Sources */,
 				01906B1E27DF3B0700BA8EDF /* SignupViewModel.swift in Sources */,
+				01CDBC1C27F09C410036956D /* MeetingDetailsViewModel.swift in Sources */,
+				0176C91727F171F400759D93 /* SaveRecordingRequest.swift in Sources */,
 				0125585527BB731100C3957A /* ChangePasswordItem copy.swift in Sources */,
 				01906B2627E09A8600BA8EDF /* ProfileViewModel.swift in Sources */,
 				019A244527EDDD1300FE6D5B /* MRDoctorDetailsViewModel.swift in Sources */,
@@ -729,20 +727,18 @@
 				011C9C6327A80C9500B02D02 /* MyStrings.swift in Sources */,
 				0110A897279E97100023AD4C /* MRConnectDemoProject.xcdatamodeld in Sources */,
 				01632D0327A2E4C40035AA73 /* MRCreateMedicineViewController.swift in Sources */,
-				0169F35F27BFAE0E0023C3FE /* Recording+CoreDataClass.swift in Sources */,
 				018CAA7A27AE64F400FF04D6 /* SpecPickerItem.swift in Sources */,
 				0110A88F279E97100023AD4C /* SceneDelegate.swift in Sources */,
 				01D0508027DE51A7008FB0C0 /* LoginViewModel.swift in Sources */,
 				01A1E13E27B3DB970094E374 /* MeetingsViewController.swift in Sources */,
 				01CDBC0827F020F80036956D /* MRCreateMeetingViewModel.swift in Sources */,
+				01CDBC1927F0938C0036956D /* Recording.swift in Sources */,
 				017729BB27A69F9000543D89 /* MRMedicinesTableViewCell.swift in Sources */,
-				0125585D27BB92FE00C3957A /* User+CoreDataProperties.swift in Sources */,
 				0161859127B6658F006C636E /* MeetingsOuterTableViewCell.swift in Sources */,
 				01CDBC0627F01F8E0036956D /* CreateMeetingRequest.swift in Sources */,
 				0117681D27B50AE900E89110 /* MeetingDetailsViewController.swift in Sources */,
 				01B32D0427E1EE31000961EB /* StorageHandler.swift in Sources */,
 				018CAA7E27AE777500FF04D6 /* ChangeNumberItem.swift in Sources */,
-				0169F36027BFAE0E0023C3FE /* Recording+CoreDataProperties.swift in Sources */,
 				01CDBBFE27EF20700036956D /* NetworkMonitor.swift in Sources */,
 				019A244B27EDF39C00FE6D5B /* MedicineForm.swift in Sources */,
 			);

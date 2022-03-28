@@ -17,5 +17,6 @@ struct CreateMeetingRequest {
     var medicines: [String]
     var recordings: [String]
     var creator: String
+    var hostName: String
     
 }

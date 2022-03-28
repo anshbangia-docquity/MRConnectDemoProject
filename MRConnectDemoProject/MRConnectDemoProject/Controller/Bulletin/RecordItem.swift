@@ -26,15 +26,16 @@ enum RecordResult {
     
     var audioRecorder: AVAudioRecorder!
     var timer: Timer!
+    var durationPlayer: AVAudioPlayer!
+    let dateFormatter = MyDateFormatter.shared.dateFormatter
     
     var isRecording = false
     var isRecordingPaused = false
     var recordingFileName: String?
     var recordingUrl: URL?
-    //var logic = Logic()
     var meetingId = ""
     var endDate: Date!
-    var saveRecording: ((RecordResult, URL?, String?, AVAudioRecorder?) -> Void)? = nil
+    var saveRecording: ((RecordResult, URL?, String?, AVAudioRecorder?, Float?) -> Void)? = nil
     
     var anim1constraint: NSLayoutConstraint!
     var anim2constraint: NSLayoutConstraint!
@@ -140,35 +141,45 @@ enum RecordResult {
 //MARK: - Audio Recorder
 extension RecordItem {
     
-    func getNewFileUrl() -> Void {
-//        logic.dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
-//        let dateStr = logic.dateFormatter.string(from: Date())
-//        let filename = "\(meetingId)_" + dateStr + ".m4a"
-//        let filePath = logic.getDocumentsDirectory().appendingPathComponent(filename)
-//        recordingFileName = filename
-//        print(filePath)
-//        recordingUrl = filePath
-//        return filePath
+    func getNewFileUrl() -> URL {
+        dateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        let dateStr = dateFormatter.string(from: Date())
+        let filename = "\(meetingId)_" + dateStr + ".m4a"
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+        recordingFileName = filename
+        print("LOCAL FILE LOCATION: \(filePath)")
+        recordingUrl = filePath
+        return filePath
     }
     
     func setup_recorder() {
-//        let session = AVAudioSession.sharedInstance()
-//        do {
-//            try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-//            try session.setActive(true, options: .notifyOthersOnDeactivation)
-//            let settings = [
-//                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-//                AVSampleRateKey: 44100,
-//                AVNumberOfChannelsKey: 2,
-//                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-//            ]
-//            audioRecorder = try AVAudioRecorder(url: getNewFileUrl(), settings: settings)
-//            audioRecorder.delegate = self
-//            audioRecorder.isMeteringEnabled = true
-//            audioRecorder.prepareToRecord()
-//        } catch let error {
-//            print("ERROR: \(error)")
-//        }
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 2,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            audioRecorder = try AVAudioRecorder(url: getNewFileUrl(), settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.isMeteringEnabled = true
+            audioRecorder.prepareToRecord()
+        } catch {
+            print("ERROR")
+        }
+    }
+    
+    func setup_duration_player() {
+        do {
+            let data = try Data(contentsOf: recordingUrl!)
+            durationPlayer = try AVAudioPlayer(data: data)
+            durationPlayer.prepareToPlay()
+        } catch {
+            print("ERROR")
+        }
     }
     
     @objc func recordPressed() {
@@ -176,7 +187,7 @@ extension RecordItem {
             setup_recorder()
             audioRecorder.record()
             
-            timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true, block: {_ in self.updateAudioTimer()})
+            timer = Timer.scheduledTimer(withTimeInterval: 0.125, repeats: true, block: {[weak self] _ in self?.updateAudioTimer()})
             recordButton.setImage(UIImage(systemName: "pause"), for: .normal)
             stopButton.isEnabled = true
             cancelButton.isEnabled = false
@@ -201,18 +212,15 @@ extension RecordItem {
     @objc func stopPressed() {
         stopRecording(success: true)
         
-        //saveRecording?(.success, recordingFileName, audioRecorder)
-        saveRecording?(.success, recordingUrl, recordingFileName, audioRecorder)
+        setup_duration_player()
+        
+        saveRecording?(.success, recordingUrl, recordingFileName, audioRecorder, Float(durationPlayer.duration))
         audioRecorder = nil
     }
     
     @objc func cancelPressed() {
-        saveRecording?(.cancel, nil, nil, nil)
+        saveRecording?(.cancel, nil, nil, nil, nil)
         audioRecorder = nil
-    }
-    
-    @objc func deleteRecording() {
-        audioRecorder.deleteRecording()
     }
     
     func stopRecording(success : Bool) {
@@ -228,7 +236,7 @@ extension RecordItem {
             
             resetAnimation()
         } else {
-            saveRecording?(.fail, nil, nil, nil)
+            saveRecording?(.fail, nil, nil, nil, nil)
         }
     }
 }
@@ -247,49 +255,62 @@ extension RecordItem: AVAudioRecorderDelegate {
 //MARK: - Other
 extension RecordItem {
     
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func calculateDuration(_ duration: Float) -> (Int, Int, Int) {
+        let hr = Int((duration / 60) / 60)
+        let min = Int(duration / 60)
+        let sec = Int(duration.truncatingRemainder(dividingBy: 60))
+        return (hr, min, sec)
+    }
+    
     func updateAudioTimer() {
-//        if audioRecorder.isRecording {
-//            var hr: Int
-//            var min: Int
-//            var sec: Int
-//            (hr, min, sec) = logic.getAudioTime(time: audioRecorder.currentTime)
-//            let timeStr = String(format: "%02d:%02d:%02d", hr, min, sec)
-//            timeLabel.text = timeStr
-//            
-//            audioRecorder.updateMeters()
-//            let power = audioRecorder.averagePower(forChannel: 0)
-//            
-//            let oldMax: Float = -10
-//            let oldMin: Float = -35
-//            let oldRange = oldMax - oldMin
-//            let newMax: Float = 93.75
-//            let newMin: Float = 0
-//            let newRange = newMax - newMin
-//            let newValue: Float
-//            if power > oldMin {
-//                newValue = (((power - oldMin) * newRange) / oldRange) + newMin
-//            } else {
-//                newValue = 0
-//            }
-//            
-//            NSLayoutConstraint.deactivate([
-//                anim1constraint,
-//                anim2constraint
-//            ])
-//            anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue))
-//            anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue * 2))
-//            NSLayoutConstraint.activate([
-//                anim1constraint,
-//                anim2constraint
-//            ])
-//            
-//            animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
-//            animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
-//            
-//            if endDate < Date() {
-//                stopPressed()
-//            }
-//        }
+        if audioRecorder.isRecording {
+            var hr: Int
+            var min: Int
+            var sec: Int
+            (hr, min, sec) = calculateDuration(Float(audioRecorder.currentTime))
+            let timeStr = String(format: "%02d:%02d:%02d", hr, min, sec)
+            timeLabel.text = timeStr
+            
+            audioRecorder.updateMeters()
+            let power = audioRecorder.averagePower(forChannel: 0)
+            
+            let oldMax: Float = -10
+            let oldMin: Float = -35
+            let oldRange = oldMax - oldMin
+            let newMax: Float = 93.75
+            let newMin: Float = 0
+            let newRange = newMax - newMin
+            let newValue: Float
+            if power > oldMin {
+                newValue = (((power - oldMin) * newRange) / oldRange) + newMin
+            } else {
+                newValue = 0
+            }
+            
+            NSLayoutConstraint.deactivate([
+                anim1constraint,
+                anim2constraint
+            ])
+            anim1constraint = animateView1.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue))
+            anim2constraint = animateView2.widthAnchor.constraint(equalTo: recordButton.widthAnchor, constant: CGFloat(newValue * 2))
+            NSLayoutConstraint.activate([
+                anim1constraint,
+                anim2constraint
+            ])
+            
+            animateView1.layer.cornerRadius = CGFloat(newValue + 55) / 2
+            animateView2.layer.cornerRadius = CGFloat((newValue * 2) + 55) / 2
+            
+            if endDate < Date() {
+                stopPressed()
+            }
+        }
     }
     
     func resetAnimation() {

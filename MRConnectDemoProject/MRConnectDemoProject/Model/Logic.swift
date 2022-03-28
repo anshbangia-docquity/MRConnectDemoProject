@@ -250,7 +250,7 @@
 //    func checkRecordPermission() -> Bool {
 //        var res = false
 //        
-//        switch AVAudioSession.sharedInstance().recordPermission {
+//switch AVAudioSession.sharedInstance().recordPermission {
 //        case AVAudioSession.RecordPermission.granted:
 //            return true
 //        case AVAudioSession.RecordPermission.denied:

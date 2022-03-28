@@ -132,7 +132,7 @@ class MRCreateMeetingViewController: UIViewController {
         let startDate = mrCreateMeetingViewModel.combineDateTime(date: datePicker.date, time: startTimePicker.date)
         let endDate = mrCreateMeetingViewModel.combineDateTime(date: datePicker.date, time: endTimePicker.date)
         
-        let createMeetingRequest = CreateMeetingRequest(title: titleField.text, desc: descText, endDate: endDate, startDate: startDate, doctors: Array(selectedDoctorSet), medicines: Array(selectedMedicineSet), recordings: recordings, creator: user.id)
+        let createMeetingRequest = CreateMeetingRequest(title: titleField.text, desc: descText, endDate: endDate, startDate: startDate, doctors: Array(selectedDoctorSet), medicines: Array(selectedMedicineSet), recordings: recordings, creator: user.id, hostName: user.name)
         
         mrCreateMeetingViewModel.createMeeting(createMeetingRequest: createMeetingRequest, meetingId: myMeeting?.id) { [weak self] error in
             if let error = error {

@@ -21,6 +21,9 @@ struct FirestoreHandler {
     var meetingCollectionRef: CollectionReference {
         firestore.collection("Meetings")
     }
+    var recordingCollectionRef: CollectionReference {
+        firestore.collection("Recordings")
+    }
     
     func getUser(userId: String, completion: @escaping (_ userDict: [String: Any]?) -> Void) {
         let userDocumentRef = userCollectionRef.document(userId)
@@ -113,6 +116,16 @@ struct FirestoreHandler {
         }
     }
     
+    func getMedicines(medIds: [String], completion: @escaping (_ medDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let medCollecRef = self.medCollectionRef.whereField("id", in: medIds).order(by: "name")
+
+        medCollecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
+    }
+    
     func saveMedicine(createMedRequest: CreateMedicineRequest) {
         let medDocumentRef = medCollectionRef.document()
         
@@ -151,6 +164,16 @@ struct FirestoreHandler {
         }
     }
     
+    func getMeeting(meetingId: String, completion: @escaping (_ meetingDoc: DocumentSnapshot) -> Void) {
+        let meetingDocumentRef = meetingCollectionRef.document(meetingId)
+        
+        meetingDocumentRef.getDocument { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot)
+            }
+        }
+    }
+    
     func saveMeeting(createMeetingRequest: CreateMeetingRequest, meetingId: String? = nil) {
         var meetingDocumentRef: DocumentReference
         if let meetingId = meetingId {
@@ -168,7 +191,37 @@ struct FirestoreHandler {
             "doctors": createMeetingRequest.doctors,
             "medicines": createMeetingRequest.medicines,
             "recordings": createMeetingRequest.recordings,
-            "creator": createMeetingRequest.creator
+            "creator": createMeetingRequest.creator,
+            "hostName": createMeetingRequest.hostName
+        ])
+    }
+    
+    func addRecordingToMeeting(meeting: String, recordings: [String]) {
+        let meetingDocumentRef = meetingCollectionRef.document(meeting)
+        meetingDocumentRef.setData([
+            "recordings": recordings
+        ], merge: true)
+    }
+    
+    func getRecordings(meetingId: String, completion: @escaping (_ recordingDocuments: [QueryDocumentSnapshot]) -> Void) {
+        let recordingCollecRef = self.recordingCollectionRef.whereField("meeting", isEqualTo: meetingId).order(by: "fileName")
+        
+        recordingCollecRef.getDocuments { snapshot, error in
+            if error == nil, let snapshot = snapshot {
+                completion(snapshot.documents)
+            }
+        }
+    }
+    
+    func saveRecording(saveRecordingRequest: SaveRecordingRequest) {
+        let recordingDocRef = recordingCollectionRef.document()
+        
+        recordingDocRef.setData([
+            "id": recordingDocRef.documentID,
+            "link": saveRecordingRequest.link!,
+            "meeting": saveRecordingRequest.meeting,
+            "fileName": saveRecordingRequest.fileName,
+            "duration": saveRecordingRequest.duration
         ])
     }
 }

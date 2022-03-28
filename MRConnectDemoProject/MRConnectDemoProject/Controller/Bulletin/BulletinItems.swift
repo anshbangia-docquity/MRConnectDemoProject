@@ -104,8 +104,8 @@ struct BulletinItems {
         item.endDate = endDate
         item.isDismissable = false
         item.requiresCloseButton = false
-        item.saveRecording = { result, recordingUrl, fileName, audioRecorder in
-            delegate?.doneTapped(board, selection: (result, recordingUrl, fileName, audioRecorder), type: .RecordItem)
+        item.saveRecording = { result, recordingUrl, fileName, audioRecorder, duration in
+            delegate?.doneTapped(board, selection: (result, recordingUrl, fileName, audioRecorder, duration), type: .RecordItem)
         }
         
         return item
