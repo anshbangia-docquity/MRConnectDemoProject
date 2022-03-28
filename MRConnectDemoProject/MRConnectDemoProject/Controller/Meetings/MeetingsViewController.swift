@@ -38,23 +38,32 @@ class MeetingsViewController: UIViewController {
         }
         
         refreshData()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("refreshMeetings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dummyRefreshData(_ :)), name: Notification.Name("refreshMeetings"), object: nil)
     }
 
     @IBAction func createTapped(_ sender: UIButton) {
         performSegue(withIdentifier: SegueIdentifiers.goToCreate, sender: self)
     }
     
-    @objc func refreshData() {
-        ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
-        
+    @objc func dummyRefreshData(_ notification: NSNotification) {
+        guard let edit = notification.userInfo?["edit"] as? Bool else { return }
+        refreshData(edit: edit)
+    }
+    
+    func refreshData(edit: Bool = false) {
+        if !edit {
+            ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+        }
         meetingsViewModel.getMeetings(userId: user.id, userType: user.type) { [weak self] meetings in
             (self!.dates, self!.meetings) = self!.meetingsViewModel.processMeetingDates(meetings: meetings)
             DispatchQueue.main.async {
                 self?.reloadTable()
-                ActivityIndicator.shared.stop()
+                if !edit {
+                    ActivityIndicator.shared.stop()
+                }
             }
         }
+
     }
 
 }

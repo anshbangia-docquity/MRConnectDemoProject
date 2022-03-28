@@ -139,7 +139,8 @@ class MRCreateMeetingViewController: UIViewController {
                 self?.alertManager.showAlert(on: self!, text: error.getAlertMessage())
             } else {
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name("refreshMeetings"), object: nil)
+                    let notifData: [String: Bool] = ["edit": self!.edit]
+                    NotificationCenter.default.post(name: Notification.Name("refreshMeetings"), object: nil, userInfo: notifData)
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
