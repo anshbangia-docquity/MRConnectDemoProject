@@ -64,4 +64,14 @@ struct MeetingsViewModel {
         }
     }
     
+    func getMeeting(meetingId: String, completion: @escaping (_ meeting: Meeting) -> Void) {
+        let firestore = FirestoreHandler()
+        
+        firestore.getMeeting(meetingId: meetingId) { meetingDoc in
+            if let dict  = meetingDoc.data() {
+                completion(Meeting(dict))
+            }
+        }
+    }
+    
 }

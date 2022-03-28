@@ -58,7 +58,6 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         timeLabel.text = dateFormatter.string(from: meeting.startDate) + " - " + dateFormatter.string(from: meeting.endDate)
         
         updateRecordingsCount()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingsCount), name: Notification.Name("recordingAdded"), object: nil)
 
         configureStatus()
         //timer
@@ -84,7 +83,22 @@ class MeetingsInnerTableViewCell: UITableViewCell {
                 }
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordings(_ :)), name: Notification.Name("recordingAdded"), object: nil)
 
+    }
+    
+    @objc func updateRecordings(_ notification: NSNotification) {
+        guard let id = notification.userInfo?["meetingId"] as? String else { return }
+        
+        if meeting.id == id {
+            meetingsViewModel.getMeeting(meetingId: meeting.id) { [weak self] meeting in
+                self?.meeting = meeting
+                DispatchQueue.main.async {
+                    self?.updateRecordingsCount()
+                }
+            }
+        }
     }
 
 //        configureStatus()
@@ -95,7 +109,7 @@ class MeetingsInnerTableViewCell: UITableViewCell {
 //        //}
 
     
-    @objc func updateRecordingsCount() {
+    func updateRecordingsCount() {
         let count = meeting.recordings.count
         if count == 1 {
             recordingsLabel.text = "1 " + MyStrings.recording.lowercased()

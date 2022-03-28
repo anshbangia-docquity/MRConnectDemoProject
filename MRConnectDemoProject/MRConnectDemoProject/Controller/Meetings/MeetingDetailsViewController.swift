@@ -386,6 +386,9 @@ extension MeetingDetailsViewController: BulletinBoardDelegate {
                 if let data = try? Data(contentsOf: recordingUrl) {
                     self?.meetingDetailsViewModel.saveRecording(recordingData: data, path: "Recordings/\(fileName)", saveRecordingRequest: saveRecordingRequest, completion: {
                         [weak self] in
+                        let notifData: [String: String] = ["meetingId": self!.meeting.id]
+//                        NotificationCenter.default.post(name: Notification.Name("recordingAdded"), object: nil, userInfo: notifData)
+                        
                         self?.refreshRecordings() { [weak self] in
                             DispatchQueue.main.async {
                                 self?.reloadRecordingTable()
