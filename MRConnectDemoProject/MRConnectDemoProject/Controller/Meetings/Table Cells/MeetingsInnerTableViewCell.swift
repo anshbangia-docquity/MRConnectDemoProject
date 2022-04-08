@@ -20,45 +20,29 @@ class MeetingsInnerTableViewCell: UITableViewCell {
     @IBOutlet weak var img3: UIImageView!
     @IBOutlet weak var moreView: UIView!
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var recsLabel: UILabel!
+    @IBOutlet weak var recordingsLabel: UILabel!
     
-    var meeting: Meeting?
-    var logic = Logic()
-    var doctorCount = 0
-    var selectedDoctors: [User] = []
-    var timer: Timer?
+    var meeting: Meeting!
+    let dateFormatter = MyDateFormatter.shared.dateFormatter
+    let meetingsViewModel = MeetingsViewModel()
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        timer?.invalidate()
-        timer = nil
-    }
+    //var timer: Timer?
     
-    deinit {
-        timer?.invalidate()
-        timer = nil
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        timer?.invalidate()
+//        timer = nil
+//    }
+    
+//    deinit {
+//        timer?.invalidate()
+//        timer = nil
+//    }
     
     func configure(myMeeting: Meeting) {
         meeting = myMeeting
-        titleLabel.text = meeting?.title
-        logic.dateFormatter.dateFormat = "hh:mm a"
-        let startTime = logic.dateFormatter.string(from: meeting!.startDate!)
-        let endTime = logic.dateFormatter.string(from: meeting!.endDate!)
-        timeLabel.text = startTime + " - " + endTime
-        
         moreLabel.isHidden = true
-        selectedDoctors = logic.getUsers(with: meeting!.doctors!)
-        doctorCount = selectedDoctors.count
-        if doctorCount > 2 {
-            moreLabel.isHidden = false
-            moreLabel.textColor = .darkGray
-            moreLabel.text = "+\(doctorCount - 2) more"
-        } else {
-            moreLabel.isHidden = true
-        }
-        
         img1.image = UIImage(systemName: "person.circle")
         img2.image = UIImage(systemName: "person.circle")
         img3.image = UIImage(systemName: "person.circle")
@@ -67,54 +51,78 @@ class MeetingsInnerTableViewCell: UITableViewCell {
         img3.isHidden = true
         moreView.isHidden = true
         
-        if doctorCount >= 1 {
-            img1.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[0].profileImage {
-                    self.img1.image = UIImage(data: data)
-                }
-            }
-        }
+        titleLabel.text = meeting.title
         
-        if doctorCount >= 2 {
-            img2.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[1].profileImage {
-                    self.img2.image = UIImage(data: data)
-                }
-            }
-        }
         
-        if doctorCount >= 3 {
-            img3.isHidden = false
-            DispatchQueue.main.async {
-                if let data = self.selectedDoctors[2].profileImage {
-                    self.img3.image = UIImage(data: data)
-                }
-            }
-        }
+        dateFormatter.dateFormat = "hh:mm a"
+        timeLabel.text = dateFormatter.string(from: meeting.startDate) + " - " + dateFormatter.string(from: meeting.endDate)
         
-        if doctorCount >= 4 {
-            moreView.isHidden = false
-            moreLabel.text = "+\(doctorCount - 3)"
-        }
-        
+        updateRecordingsCount()
+
         configureStatus()
-        //DispatchQueue.global().async {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            self.configureStatus()
-        })
-        //}
+        //timer
         
-        updateRecordingCount()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordingCount), name: Notification.Name("recordingAdded"), object: nil)
+        meetingsViewModel.getDoctors(userIds: meeting.doctors) { [weak self] doctors in
+            DispatchQueue.main.async {
+                if doctors.count >= 1 {
+                    self?.img1.isHidden = false
+                }
+
+                if doctors.count >= 2 {
+                    self?.img2.isHidden = false
+                }
+
+                if doctors.count >= 3 {
+                    self?.img3.isHidden = false
+                }
+
+                if doctors.count >= 4 {
+                    self?.moreView.isHidden = false
+                    self?.moreLabel.isHidden = false
+                    self?.moreLabel.text = "+\(doctors.count - 3)"
+                }
+            }
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateRecordings(_ :)), name: Notification.Name("recordingAdded"), object: nil)
+
+    }
+    
+    @objc func updateRecordings(_ notification: NSNotification) {
+        guard let id = notification.userInfo?["meetingId"] as? String else { return }
+        
+        if meeting.id == id {
+            meetingsViewModel.getMeeting(meetingId: meeting.id) { [weak self] meeting in
+                self?.meeting = meeting
+                DispatchQueue.main.async {
+                    self?.updateRecordingsCount()
+                }
+            }
+        }
+    }
+
+//        configureStatus()
+//        //DispatchQueue.global().async {
+//        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+//            self.configureStatus()
+//        })
+//        //}
+
+    
+    func updateRecordingsCount() {
+        let count = meeting.recordings.count
+        if count == 1 {
+            recordingsLabel.text = "1 " + MyStrings.recording.lowercased()
+        } else {
+            recordingsLabel.text = "\(count) " + MyStrings.recordings.lowercased()
+        }
     }
     
     func configureStatus() {
         let date = Date()
-        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting!.startDate!)
+        let diffComponents = Calendar.current.dateComponents([.minute], from: date, to: meeting.startDate)
         let minutes = diffComponents.minute
-        guard var minutes = minutes else {return}
+        guard var minutes = minutes else { return }
         minutes += 1
         statusLabel.textColor = .red
         if minutes <= 10 && minutes > 1 {
@@ -125,36 +133,27 @@ class MeetingsInnerTableViewCell: UITableViewCell {
             statusLabel.text = ""
         }
         
-        if date >= meeting!.startDate! && date <= meeting!.endDate! {
+        if date >= meeting.startDate && date <= meeting.endDate {
             statusLabel.textColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
             statusLabel.text = MyStrings.inProgress
             sideBar.backgroundColor = UIColor(red: 125/255, green: 185/255, blue: 58/255, alpha: 1)
         } else {
-            sideBar.backgroundColor = .white
+            sideBar.backgroundColor = .clear
         }
         
-        if date > meeting!.endDate! {
-            timer?.invalidate()
-            timer = nil
+        if date > meeting.endDate {
+            //timer?.invalidate()
+            //timer = nil
             statusLabel.textColor = .lightGray
             statusLabel.text = MyStrings.meetingOver
         }
         
-        if date >= meeting!.startDate! {
-            recsLabel.isHidden = false
+        if date >= meeting.startDate {
+            recordingsLabel.isHidden = false
         } else {
-            recsLabel.isHidden = true
+            recordingsLabel.isHidden = true
         }
         
-    }
-    
-    @objc func updateRecordingCount() {
-        let recsCount = logic.getRecordings(of: meeting!.id).count
-        if recsCount == 1 {
-            recsLabel.text = "1 " + MyStrings.recording.lowercased()
-        } else {
-            recsLabel.text = "\(recsCount) " + MyStrings.recordings.lowercased()
-        }
     }
     
 }

@@ -61,7 +61,7 @@ struct BulletinItems {
         return item
     }
     
-    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard) -> CheckPasswordItem {
+    func makeCheckPasswordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, password: String) -> CheckPasswordItem {
         let item = CheckPasswordItem(title: MyStrings.changePassword)
         item.actionButtonTitle = MyStrings.proceed
         item.descriptionText = MyStrings.enterOldPass
@@ -70,11 +70,13 @@ struct BulletinItems {
         item.appearance.titleFontSize = 25
         item.requiresCloseButton = false
         item.appearance.actionButtonFontSize = 20
-
-        item.textInputHandler = { item in
-            let changePasswordItem = self.makeChangePasswordItem(delegate, board: board)
-            item.manager?.push(item: changePasswordItem)
+        
+        item.password = password
+        item.actionHandler = { _ in
+            item.manager?.displayNextItem()
         }
+        
+        item.next = makeChangePasswordItem(delegate, board: board)
         
         return item
     }
@@ -96,14 +98,14 @@ struct BulletinItems {
         return item
     }
     
-    func makeRecordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, meetingId: Int16, endDate: Date) -> RecordItem {
+    func makeRecordItem(_ delegate: BulletinBoardDelegate?, board: BulletinBoard, meetingId: String, endDate: Date) -> RecordItem {
         let item = RecordItem(title: MyStrings.recordMeeting)
         item.meetingId = meetingId
         item.endDate = endDate
         item.isDismissable = false
         item.requiresCloseButton = false
-        item.saveRecording = { result, fileName, audioRecorder in
-            delegate?.doneTapped(board, selection: (result, fileName, audioRecorder), type: .RecordItem)
+        item.saveRecording = { result, recordingUrl, fileName, audioRecorder, duration in
+            delegate?.doneTapped(board, selection: (result, recordingUrl, fileName, audioRecorder, duration), type: .RecordItem)
         }
         
         return item

@@ -9,45 +9,48 @@ import UIKit
 
 class MRMedicinesViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var noMeds: UILabel!
     
-    let logic = Logic()
+    let searchController = UISearchController()
+    
+    let mrMedicinesViewModel = MRMedicinesViewModel()
+    
     var medicines: [Medicine] = []
+    var copyMedicines: [Medicine] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        medicines = logic.getMedicines()
-        updateNoMeds()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        searchField.delegate = self
         tableView.allowsSelection = false
+        navigationItem.searchController = searchController
+        navigationItem.searchController?.searchResultsUpdater = self
 
-        titleLabel.text = MyStrings.medicines
-        searchField.placeholder = MyStrings.search
+        title = MyStrings.medicines
+        navigationItem.searchController?.searchBar.placeholder = MyStrings.search
+        noMeds.text = ""
         
-        NotificationCenter.default.addObserver(self, selector: #selector(medAdded), name: Notification.Name("medAdded"), object: nil)
-    }
-    
-    @IBAction func searchPressed(_ sender: UIButton) {
-        searchField.endEditing(true)
+        refreshData()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: Notification.Name("medAdded"), object: nil)
     }
     
     @IBAction func createPressed(_ sender: UIButton) {
-        searchField.text = ""
-        performSegue(withIdentifier: "goToCreate", sender: self)
+        performSegue(withIdentifier: SegueIdentifiers.goToCreate, sender: self)
     }
     
-    @objc func medAdded() {
-        medicines = logic.getMedicines()
-        updateNoMeds()
-        tableView.reloadData()
+    @objc func refreshData() {
+        ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+        mrMedicinesViewModel.getMedicines { [weak self] medicines in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.stop()
+                self?.medicines = medicines
+                self?.copyMedicines = medicines
+                
+                self?.reloadTable()
+            }
+        }
     }
     
 }
@@ -71,7 +74,7 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: MRMedicinesTableViewCell.id, for: indexPath) as! MRMedicinesTableViewCell
         
         let medicine = medicines[indexPath.row]
-        cell.configure(med: medicine.name!, company: medicine.company!, type: medicine.form)
+        cell.configure(medicine)
         
         cell.layer.maskedCorners = []
         if indexPath.row == 0 {
@@ -90,38 +93,51 @@ extension MRMedicinesViewController: UITableViewDataSource, UITableViewDelegate 
     
 }
 
-//MARK: - UITextFieldDelegate
-extension MRMedicinesViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchField.text == "" {
-            medicines = logic.getMedicines()
-            updateNoMeds()
-        } else {
-            medicines = logic.getMedicines(contains: textField.text!)
-            updateNoMeds()
-        }
 
-        tableView.reloadData()
+//MARK: - UISearchResultsUpdating
+extension MRMedicinesViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchStr = searchController.searchBar.text ?? ""
+        medicines = copyMedicines
+        if !searchStr.isEmpty {
+            var set = Set<String>()
+            let meds1 = medicines.filter({ medicine in
+                if medicine.company.lowercased().contains(searchStr.lowercased()) {
+                    set.insert(medicine.id)
+                    return true
+                } else {
+                    return false
+                }
+            })
+            let meds2 = medicines.filter({ medicine in
+                return medicine.name.lowercased().contains(searchStr.lowercased())
+            })
+            medicines = meds1
+            meds2.forEach { med in
+                if !set.contains(med.id) {
+                    medicines.append(med)
+                }
+            }
+        }
+        
+        reloadTable()
     }
     
 }
 
-//MARK: - Other
+//MARK: - Reload Table
 extension MRMedicinesViewController {
     
-    func updateNoMeds() {
+    func reloadTable() {
         if medicines.count == 0 {
             noMeds.isHidden = false
             noMeds.text = MyStrings.noMeds
         } else {
             noMeds.isHidden = true
         }
+        
+        tableView.reloadData()
     }
     
 }

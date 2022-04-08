@@ -8,33 +8,41 @@
 import UIKit
 
 class MRDoctorsViewController: UIViewController {
-
-    @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var noDocs: UILabel!
     
-    let logic = Logic()
-    var doctors: [User] = []
-    var tappedDoctor: User?
+    let searchController = UISearchController()
+    
+    let mrDoctorsViewModel = MRDoctorsViewModel()
+    
+    var doctors: [Doctor] = []
+    var copyDoctors: [Doctor] = []
+    
+    var tappedDoctor: Doctor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doctors = logic.getDoctors()
-        updateNoDocs()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        searchField.delegate = self
-
-        titleLabel.text = MyStrings.doctors
-        searchField.placeholder = MyStrings.search
+        navigationItem.searchController = searchController
+        navigationItem.searchController?.searchResultsUpdater = self
         
-    }
-    
-    @IBAction func searchButtonTapped(_ sender: UIButton) {
-        searchField.endEditing(true)
+        title = MyStrings.doctors
+        navigationItem.searchController?.searchBar.placeholder = MyStrings.search
+        noDocs.text = ""
+        
+        ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+        mrDoctorsViewModel.getDoctors { [weak self] doctors in
+            DispatchQueue.main.async {
+                ActivityIndicator.shared.stop()
+                self?.doctors = doctors
+                self?.copyDoctors = doctors
+                
+                self?.reloadTable()
+            }
+        }
     }
     
 }
@@ -58,7 +66,7 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: MRDoctorsTableViewCell.id, for: indexPath) as! MRDoctorsTableViewCell
         
         let doctor = doctors[indexPath.row]
-        cell.configure(name: doctor.name!, spec: doctor.speciality, email: doctor.email!, contact: doctor.contact!, office: doctor.office!)
+        cell.configure(doctor)
         
         cell.layer.maskedCorners = []
         if indexPath.row == 0 {
@@ -72,60 +80,61 @@ extension MRDoctorsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layer.maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
         }
         
-        if let img = doctor.profileImage {
-            cell.configImg(imgData: img)
-        }
+//        if !doctor.imageLink.isEmpty {
+//            mrDoctorsViewModel.getProfileImage(urlStr: doctor.imageLink) { imgData in
+//                guard let imgData = imgData else { return }
+//                cell.configImg(imgData: imgData)
+//            }
+//        }
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tappedDoctor = doctors[indexPath.row]
-        performSegue(withIdentifier: "goToDetails", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDetails" {
-            let vc = segue.destination as! MRDoctorDetailsViewController
-            vc.doctor = tappedDoctor
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tappedDoctor = doctors[indexPath.row]
+            performSegue(withIdentifier: SegueIdentifiers.goToDetails, sender: self)
         }
+    
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == SegueIdentifiers.goToDetails {
+                let vc = segue.destination as! MRDoctorDetailsViewController
+                vc.doctor = tappedDoctor
+            }
+        }
+    
+}
+
+//MARK: - UISearchResultsUpdating
+extension MRDoctorsViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchStr = searchController.searchBar.text ?? ""
+        doctors = copyDoctors
+        if !searchStr.isEmpty {
+            doctors = doctors.filter({ doctor in
+                return doctor.name.lowercased().contains(searchStr.lowercased())
+            })
+        }
+        
+        reloadTable()
     }
     
 }
 
-//MARK: - UITextFieldDelegate
-extension MRDoctorsViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchField.text == "" {
-            doctors = logic.getDoctors()
-            updateNoDocs()
-        } else {
-            doctors = logic.getDoctors(contains: searchField.text!)
-            updateNoDocs()
-        }
-
-        tableView.reloadData()
-    }
-    
-}
-
-//MARK: - Other
+//MARK: - Reload Table
 extension MRDoctorsViewController {
     
-    func updateNoDocs() {
+    func reloadTable() {
         if doctors.count == 0 {
             noDocs.isHidden = false
             noDocs.text = MyStrings.noDocs
         } else {
             noDocs.isHidden = true
         }
+        
+        tableView.reloadData()
     }
     
 }
+
 

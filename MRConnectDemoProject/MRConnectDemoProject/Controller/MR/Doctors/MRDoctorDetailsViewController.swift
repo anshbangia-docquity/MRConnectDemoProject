@@ -21,47 +21,43 @@ class MRDoctorDetailsViewController: UIViewController {
     @IBOutlet weak var expLabel: UILabel!
     @IBOutlet weak var expTextView: UITextView!
     
-    var doctor: User?
+    var doctor: Doctor!
+    let mrDoctorDetailsViewModel = MRDoctorDetailsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         profileImage.image = UIImage(systemName: "person.circle")
-        if let img = doctor!.profileImage {
-            DispatchQueue.main.async {
-                self.profileImage.image = UIImage(data: img)
+        if !doctor.imageLink.isEmpty {
+            ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+            
+            mrDoctorDetailsViewModel.getProfileImage(urlStr: doctor.imageLink) { [weak self] imgData in
+                ActivityIndicator.shared.stop()
+                
+                guard let imgData = imgData else { return }
+                self?.profileImage.image = UIImage(data: imgData)
             }
         }
         
-        nameLabel.text = "Dr. \(doctor!.name!)"
-        specLabel.text = Specialities.specialities[doctor!.speciality]
-        emailLabel.text = doctor!.email
-        contactLabel.text = doctor!.contact
+        nameLabel.text = "Dr. \(doctor.name)"
+        specLabel.text = Specialities.specialities[doctor.speciality] ?? "NA"
+        emailLabel.text = doctor.email
+        contactLabel.text = doctor.contact
+        
         officeLabel.text = MyStrings.office
         qualiLabel.text = MyStrings.quali
         expLabel.text = MyStrings.exp
-        
-        if doctor!.office!.isEmpty {
-            officeTextView.text = MyStrings.notSpecified
-            officeTextView.textColor = .systemGray3
-        } else {
-            officeTextView.text = doctor!.office
-        }
-        
-        if doctor!.quali!.isEmpty {
-            qualiTextView.text = MyStrings.notSpecified
-            qualiTextView.textColor = .systemGray3
-        } else {
-            qualiTextView.text = doctor!.quali
-        }
-        
-        if doctor!.exp!.isEmpty {
-            expTextView.text = MyStrings.notSpecified
-            expTextView.textColor = .systemGray3
-        } else {
-            expTextView.text = doctor!.exp
+        let textViews: [(UITextView, String)] = [(officeTextView, doctor.office), (qualiTextView, doctor.quali), (expTextView, doctor.exp)]
+        textViews.forEach { tuple in
+            if tuple.1.isEmpty {
+                tuple.0.text = MyStrings.notSpecified
+                tuple.0.textColor = .systemGray3
+            } else {
+                tuple.0.text = tuple.1
+            }
         }
     }
+    
 }
 
 

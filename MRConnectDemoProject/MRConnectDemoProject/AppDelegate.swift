@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "Done".localize()
         
-        //FirebaseApp.configure()
+        FirebaseApp.configure()
+        
+        NetworkMonitor.shared.startMonitoring()
         
         return true
     }

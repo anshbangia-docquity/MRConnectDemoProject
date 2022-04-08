@@ -30,24 +30,47 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var qualiTextView: UITextView!
     @IBOutlet weak var expTextView: UITextView!
     
-    let userDefault = UserDefaultManager.shared.defaults
-    var user: CurrentUser? = CurrentUser()
+    let user = CurrentUser()
     let imagePicker = UIImagePickerController()
     let bulletinBoard = BulletinBoard()
-    let logic = Logic()
+    let profileViewModel = ProfileViewModel()
+    let alertManager = AlertManager()
     
-    deinit {
-        print("uhhhh")
-    }
+    var textViewData: [UITextView: [String: String]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textViewData[officeTextView] = ["placeholder": MyStrings.addOffice]
+        textViewData[qualiTextView] = ["placeholder": MyStrings.addQuali]
+        textViewData[expTextView] = ["placeholder": MyStrings.addExp]
+        textViewData[officeTextView]!["text"] = user.office
+        textViewData[qualiTextView]!["text"] = user.quali
+        textViewData[expTextView]!["text"] = user.exp
+        textViewData[officeTextView]!["key"] = "userOffice"
+        textViewData[qualiTextView]!["key"] = "userQuali"
+        textViewData[expTextView]!["key"] = "userExp"
+        
         //addImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+        bulletinBoard.delegate = self
+        officeTextView.delegate = self
+        qualiTextView.delegate = self
+        expTextView.delegate = self
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
         
         titleLabel.text = MyStrings.profile
         
-        if let img = user?.profileImage {
-            profileImageView.image = img
+        if !user.imageLink.isEmpty {
+            ActivityIndicator.shared.start(on: view, label: MyStrings.loading)
+            
+            profileViewModel.getProfileImage(urlStr: user.imageLink) { [weak self] imgData in
+                ActivityIndicator.shared.stop()
+                
+                guard let imgData = imgData else { return }
+                self?.profileImageView.image = UIImage(data: imgData)
+            }
+            
             addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             addImageButton.setTitle(MyStrings.edit, for: .normal)
         } else {
@@ -55,65 +78,33 @@ class ProfileViewController: UIViewController {
             addImageButton.setTitle(MyStrings.add, for: .normal)
         }
         
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
+        nameLabel.text = user.name
+        emailLabel.text = user.email
+        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user.contact)
         
-        nameLabel.text = user?.name
-        emailLabel.text = user?.email
-        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
-        
-        bulletinBoard.delegate = self
+        if user.type == .MRUser {
+            officeView.isHidden = true
+            qualiView.isHidden = true
+            expView.isHidden = true
+        } else {
+            officeView.isHidden = false
+            officeLabel.text = MyStrings.office
+            setTextView(type: officeTextView, text: user.office)
+            
+            qualiView.isHidden = false
+            qualiLabel.text = MyStrings.quali
+            setTextView(type: qualiTextView, text: user.quali)
+            
+            expView.isHidden = false
+            expLabel.text = MyStrings.exp
+            setTextView(type: expTextView, text: user.exp)
+        }
         
         changeNameButton.setTitle(MyStrings.changeName, for: .normal)
         changeNumberButton.setTitle(MyStrings.updateContact, for: .normal)
         changePassButton.setTitle(MyStrings.changePassword, for: .normal)
         logOutButton.setTitle(MyStrings.logOut, for: .normal)
         
-        officeTextView.delegate = self
-        qualiTextView.delegate = self
-        expTextView.delegate = self
-        if user?.type == .Doctor {
-            officeView.isHidden = false
-            qualiView.isHidden = false
-            expView.isHidden = false
-            
-            officeLabel.text = MyStrings.office
-            qualiLabel.text = MyStrings.quali
-            expLabel.text = MyStrings.exp
-            
-            if user!.office.isEmpty {
-                officeTextView.text = MyStrings.addOffice
-                officeTextView.textColor = .systemGray3
-            } else {
-                officeTextView.text = user?.office
-                officeTextView.textColor = .black
-            }
-            
-            if user!.quali.isEmpty {
-                qualiTextView.text = MyStrings.addQuali
-                qualiTextView.textColor = .systemGray3
-            } else {
-                qualiTextView.text = user?.quali
-                qualiTextView.textColor = .black
-            }
-            
-            if user!.exp.isEmpty {
-                expTextView.text = MyStrings.addExp
-                expTextView.textColor = .systemGray3
-            } else {
-                expTextView.text = user?.exp
-                expTextView.textColor = .black
-            }
-        } else {
-            officeView.isHidden = true
-            qualiView.isHidden = true
-            expView.isHidden = true
-        }
-    }
-    
-    @IBAction func addImagePressed(_ sender: Any) {
-        present(imagePicker, animated: true)
     }
     
     @IBAction func changeNameTapped(_ sender: UIButton) {
@@ -127,73 +118,20 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func changePassTapped(_ sender: UIButton) {
-        bulletinBoard.define(of: .CheckPassword)
+        bulletinBoard.define(of: .CheckPassword, additional: user.password)
         bulletinBoard.boardManager?.showBulletin(above: self)
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
-        logic.logOut()
-        
-        user = nil
-        self.presentingViewController?.dismiss(animated: true, completion:nil)
+        if profileViewModel.logOut() {
+            presentingViewController?.dismiss(animated: true, completion:nil)
+        } else {
+            Alert.showAlert(on: self, title: MyStrings.errorOccured, subtitle: MyStrings.tryAgain)
+        }
     }
-    
-}
 
-//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let result = logic.saveProfileImage(email: user!.email, img: img)
-            if result == false {
-                Alert.showAlert(on: self, title: MyStrings.imageNotChosen, subtitle: MyStrings.errorImage)
-                return
-            }
-            profileImageView.image = img
-            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            addImageButton.setTitle(MyStrings.edit, for: .normal)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-//MARK: - UITextViewDelegate
-extension ProfileViewController: UITextViewDelegate {
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .systemGray3 {
-            textView.text = ""
-            textView.textColor = .black
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        let entry = textView.text ?? ""
-        if entry.isEmpty {
-            textView.textColor = .systemGray3
-            switch textView {
-            case officeTextView:
-                textView.text = MyStrings.addOffice
-            case qualiTextView:
-                textView.text = MyStrings.addQuali
-            default:
-                textView.text = MyStrings.addExp
-            }
-        }
-        
-        switch textView {
-        case officeTextView:
-            let _ = logic.updateOffice(email: user!.email, office: entry)
-            userDefault.setValue(entry, forKey: "userOffice")
-        case qualiTextView:
-            let _ = logic.updateQuali(email: user!.email, quali: entry)
-            userDefault.setValue(entry, forKey: "userQuali")
-        default:
-            let _ = logic.updateExp(email: user!.email, exp: entry)
-            userDefault.setValue(entry, forKey: "userExp")
-        }
+    @IBAction func addImagePressed(_ sender: Any) {
+        present(imagePicker, animated: true)
     }
     
 }
@@ -205,58 +143,123 @@ extension ProfileViewController: BulletinBoardDelegate {
         bulletinBoard.boardManager?.dismissBulletin()
         
         switch type {
-        case .ChangeName:
-            nameChanged(newName: selection as! String)
         case .ChangePassword:
             passwordChanged(newPass: selection as! String)
         case .ChangeNumber:
             numberChanged(newNum: selection as! String)
+        case .ChangeName:
+            nameChanged(newName: selection as! String)
         default:
             break
         }
     }
     
-    func nameChanged(newName: String) {
-        let result = logic.updateName(email: user!.email, newName: newName)
-        if result == false {
-            Alert.showAlert(on: self, notUpdated: MyStrings.name)
-            return
-        }
-        userDefault.setValue(newName, forKey: "userName")
-        nameLabel.text = user?.name
+    func passwordChanged(newPass: String) {
+        let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
+        
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: {[weak self] _ in
+            ActivityIndicator.shared.start(on: self!.view, label: MyStrings.processing)
+            
+            self?.profileViewModel.changePassword(to: newPass) { error in
+                DispatchQueue.main.async {
+                    ActivityIndicator.shared.stop()
+                    if let error = error {
+                        self?.alertManager.showAlert(on: self!, text: error.getAlertMessage())
+                    }
+                }
+            }
+        }))
+        
+        confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
+        
+        present(confirmAlert, animated: true)
     }
     
     func numberChanged(newNum: String) {
-        let result = logic.updateNumber(email: user!.email, newNum: newNum)
-        if result == false {
-            Alert.showAlert(on: self, notUpdated: MyStrings.contact)
-            return
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+        } else {
+            profileViewModel.changeNumber(to: newNum, userId: user.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: self!.user.contact)
+            }
         }
-        userDefault.setValue(newNum, forKey: "userContact")
-        contactLabel.text = MyStrings.dispContact.replacingOccurrences(of: "|#X#|", with: user!.contact)
     }
     
-    func passwordChanged(newPass: String) {
-        var result = true
-        var pass = user?.password
-        
-        let confirmAlert = UIAlertController(title: MyStrings.changePassword, message: MyStrings.askChangePass, preferredStyle: .alert)
-        
-        confirmAlert.addAction(UIAlertAction(title: MyStrings.confirm, style: .default, handler: { (action: UIAlertAction!) in
-            result = self.logic.updatePassword(email: self.user!.email, newPass: newPass)
-            pass = newPass
-        }))
-
-        confirmAlert.addAction(UIAlertAction(title: MyStrings.cancel, style: .cancel, handler: nil))
-
-        present(confirmAlert, animated: true) {
-            if result {
-                self.userDefault.setValue(pass, forKey: "userPassword")
-            } else {
-                Alert.showAlert(on: self, notUpdated: MyStrings.password)
+    func nameChanged(newName: String) {
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+        } else {
+            profileViewModel.changeName(to: newName, userId: user.id)
+            DispatchQueue.main.async { [weak self] in
+                self?.nameLabel.text = self?.user.name
             }
         }
     }
     
 }
+
+//MARK: - UITextViewDelegate
+extension ProfileViewController: UITextViewDelegate {
+    
+    func setTextView(type: UITextView, text: String? = nil) {
+        if text == nil || text == "" {
+            type.text = textViewData[type]!["placeholder"]
+            type.textColor = .systemGray3
+        } else {
+            type.text = text
+            type.textColor = .black
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor != .black {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if !NetworkMonitor.shared.isConnected {
+            alertManager.showAlert(on: self, text: ErrorType.networkError.getAlertMessage())
+            
+            setTextView(type: textView, text: textViewData[textView]!["text"])
+        } else {
+            profileViewModel.changeInfo(userId: user.id, key: textViewData[textView]!["key"]!, newVal: textView.text ?? "")
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.setTextView(type: textView, text: textView.text)
+            }
+        }
+    }
+}
+
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+        ActivityIndicator.shared.start(on: view, label: MyStrings.processing)
+    
+        if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            addImageButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            addImageButton.setTitle(MyStrings.edit, for: .normal)
+            
+            profileViewModel.saveProfileImage(img: img) {[weak self] error in
+                DispatchQueue.main.async {
+                    self?.profileViewModel.getProfileImage(urlStr: self!.user.imageLink, completion: { [weak self] imgData in
+                        ActivityIndicator.shared.stop()
+                        
+                        guard let imgData = imgData else { return }
+                        self?.profileImageView.image = UIImage(data: imgData)
+                    })
+                }
+            }
+        }
+    }
+    
+}
+
+
+
 

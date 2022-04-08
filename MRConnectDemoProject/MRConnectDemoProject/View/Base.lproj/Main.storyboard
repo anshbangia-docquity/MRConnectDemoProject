@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,24 +15,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stetho" translatesAutoresizingMaskIntoConstraints="NO" id="MYW-Ai-1t6">
-                                <rect key="frame" x="139" y="388" width="150" height="150"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="q5P-To-tvy">
+                                <rect key="frame" x="189" y="438" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="cpC-HZ-3Ab"/>
-                                    <constraint firstAttribute="height" constant="150" id="roA-UH-KNq"/>
+                                    <constraint firstAttribute="height" constant="50" id="NwH-aF-Ijl"/>
+                                    <constraint firstAttribute="width" constant="50" id="nSW-WD-LwY"/>
                                 </constraints>
-                            </imageView>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="p9g-Do-4QT"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MYW-Ai-1t6" firstAttribute="centerX" secondItem="RKF-kp-E1Z" secondAttribute="centerX" id="71m-t4-FOA"/>
-                            <constraint firstItem="MYW-Ai-1t6" firstAttribute="centerY" secondItem="RKF-kp-E1Z" secondAttribute="centerY" id="tnn-Dt-TI5"/>
+                            <constraint firstItem="q5P-To-tvy" firstAttribute="centerX" secondItem="RKF-kp-E1Z" secondAttribute="centerX" id="7OL-Rn-XlF"/>
+                            <constraint firstItem="q5P-To-tvy" firstAttribute="centerY" secondItem="RKF-kp-E1Z" secondAttribute="centerY" id="XoW-Lv-1kq"/>
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="vkP-DD-Kt4" kind="presentation" identifier="logInMR" id="vjK-rY-cGL"/>
-                        <segue destination="p8k-Am-kLE" kind="presentation" identifier="logInDoctor" id="0BL-9S-2QM"/>
+                        <segue destination="vkP-DD-Kt4" kind="presentation" identifier="loginMR" id="vjK-rY-cGL"/>
+                        <segue destination="p8k-Am-kLE" kind="presentation" identifier="loginDoctor" id="0BL-9S-2QM"/>
                         <segue destination="kYW-Ag-4eA" kind="presentation" identifier="goToLoginSignup" id="qxt-2J-QZx"/>
                     </connections>
                 </viewController>
@@ -49,7 +48,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDI-oS-XN2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="-194"/>
+            <point key="canvasLocation" x="1559" y="-111"/>
         </scene>
         <!--MRHomeScreen-->
         <scene sceneID="fyz-QV-Hpp">
@@ -57,7 +56,7 @@
                 <viewControllerPlaceholder storyboardName="MRHomeScreen" id="vkP-DD-Kt4" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XP9-UB-O3F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1616" y="63"/>
+            <point key="canvasLocation" x="1574" y="63"/>
         </scene>
         <!--DoctorHomeScreen-->
         <scene sceneID="fZM-RV-hxc">
@@ -65,13 +64,7 @@
                 <viewControllerPlaceholder storyboardName="DoctorHomeScreen" id="p8k-Am-kLE" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="he4-eD-Vhq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1590" y="235"/>
+            <point key="canvasLocation" x="1589" y="234"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="stetho" width="85.333335876464844" height="85.333335876464844"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

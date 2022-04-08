@@ -7,8 +7,9 @@
 
 import Foundation
 
-@objc
-public enum UserType: Int16 {
+enum UserType: Int {
+    
     case MRUser
     case Doctor
+    
 }
